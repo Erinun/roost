@@ -27,6 +27,7 @@ export default function ManageModuleModal({
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [thumbnailUrl, setThumbnailUrl] = useState('');
+    const [thumbnailUrlInput, setThumbnailUrlInput] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -45,6 +46,7 @@ export default function ManageModuleModal({
                 setDescription('');
                 setThumbnailUrl('');
             }
+            setThumbnailUrlInput('');
             setError(null);
         }
     }, [isOpen, editingModule]);
@@ -68,10 +70,24 @@ export default function ManageModuleModal({
             const result = await uploadImage(file);
             setThumbnailUrl(result.url);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to upload image');
+            setError(err instanceof Error ? err.message : 'Det gick inte att ladda upp bilden');
         } finally {
             setIsUploading(false);
         }
+    };
+
+    const handleUseThumbnailUrl = () => {
+        const value = thumbnailUrlInput.trim();
+        if (!value) return;
+        try {
+            new URL(value);
+        } catch {
+            setError('Ogiltig bild-URL. Ange en fullständig adress, t.ex. https://exempel.se/bild.jpg');
+            return;
+        }
+        setThumbnailUrl(value);
+        setThumbnailUrlInput('');
+        setError(null);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -102,7 +118,7 @@ export default function ManageModuleModal({
             onSuccess();
         } catch (err) {
             console.error('Error saving module:', err);
-            setError(err instanceof Error ? err.message : 'Failed to save module');
+            setError(err instanceof Error ? err.message : 'Det gick inte att spara modulen');
         } finally {
             setIsSubmitting(false);
         }
@@ -122,7 +138,7 @@ export default function ManageModuleModal({
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-surface-200 dark:border-surface-700">
                     <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">
-                        {isEditing ? 'Edit Module' : 'Create Module'}
+                        {isEditing ? 'Redigera modul' : 'Skapa modul'}
                     </h2>
                     <button
                         onClick={onClose}
@@ -137,13 +153,13 @@ export default function ManageModuleModal({
                     {/* Thumbnail */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Thumbnail
+                            Miniatyrbild
                         </label>
                         {thumbnailUrl ? (
                             <div className="relative w-full h-40 rounded-lg overflow-hidden border border-surface-200 dark:border-surface-700">
                                 <img
                                     src={thumbnailUrl}
-                                    alt="Module thumbnail"
+                                    alt="Modulens miniatyrbild"
                                     className="w-full h-full object-cover"
                                 />
                                 <button
@@ -155,23 +171,48 @@ export default function ManageModuleModal({
                                 </button>
                             </div>
                         ) : (
-                            <button
-                                type="button"
-                                onClick={() => fileInputRef.current?.click()}
-                                disabled={isUploading}
-                                className="w-full h-40 rounded-lg border-2 border-dashed border-surface-300 dark:border-surface-600 hover:border-primary-400 dark:hover:border-primary-600 flex flex-col items-center justify-center gap-2 transition-colors"
-                            >
-                                {isUploading ? (
-                                    <Loader2 className="w-6 h-6 text-primary-600 animate-spin" />
-                                ) : (
-                                    <>
-                                        <ImageIcon className="w-8 h-8 text-surface-400" />
-                                        <span className="text-sm text-surface-500 dark:text-surface-400">
-                                            Click to upload thumbnail
-                                        </span>
-                                    </>
-                                )}
-                            </button>
+                            <>
+                                <button
+                                    type="button"
+                                    onClick={() => fileInputRef.current?.click()}
+                                    disabled={isUploading}
+                                    className="w-full h-40 rounded-lg border-2 border-dashed border-surface-300 dark:border-surface-600 hover:border-primary-400 dark:hover:border-primary-600 flex flex-col items-center justify-center gap-2 transition-colors"
+                                >
+                                    {isUploading ? (
+                                        <Loader2 className="w-6 h-6 text-primary-600 animate-spin" />
+                                    ) : (
+                                        <>
+                                            <ImageIcon className="w-8 h-8 text-surface-400" />
+                                            <span className="text-sm text-surface-500 dark:text-surface-400">
+                                                Klicka för att ladda upp miniatyrbild
+                                            </span>
+                                        </>
+                                    )}
+                                </button>
+                                <div className="mt-2 flex gap-2">
+                                    <input
+                                        type="url"
+                                        value={thumbnailUrlInput}
+                                        onChange={(e) => setThumbnailUrlInput(e.target.value)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                handleUseThumbnailUrl();
+                                            }
+                                        }}
+                                        placeholder="…eller klistra in en bild-URL (https://…)"
+                                        className="flex-1 px-3 py-2 text-sm border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={handleUseThumbnailUrl}
+                                        disabled={!thumbnailUrlInput.trim()}
+                                        className="px-3 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-800 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                    >
+                                        Använd
+                                    </button>
+                                </div>
+                            </>
                         )}
                         <input
                             ref={fileInputRef}
@@ -185,13 +226,13 @@ export default function ManageModuleModal({
                     {/* Title */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">
-                            Title <span className="text-red-500">*</span>
+                            Titel <span className="text-red-500">*</span>
                         </label>
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="e.g. Getting Started"
+                            placeholder="T.ex. Kom igång"
                             className="w-full px-3 py-2.5 border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                             required
                         />
@@ -200,12 +241,12 @@ export default function ManageModuleModal({
                     {/* Description */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">
-                            Description
+                            Beskrivning
                         </label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="What will students learn in this module?"
+                            placeholder="Vad kommer deltagarna att lära sig i den här modulen?"
                             rows={3}
                             className="w-full px-3 py-2.5 border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
                         />
@@ -223,7 +264,7 @@ export default function ManageModuleModal({
                             onClick={onClose}
                             className="px-4 py-2 text-sm font-medium text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
                         >
-                            Cancel
+                            Avbryt
                         </button>
                         <button
                             type="submit"
@@ -231,7 +272,7 @@ export default function ManageModuleModal({
                             className="px-4 py-2 text-sm font-medium bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
                         >
                             {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                            {isEditing ? 'Save Changes' : 'Create Module'}
+                            {isEditing ? 'Spara ändringar' : 'Skapa modul'}
                         </button>
                     </div>
                 </form>

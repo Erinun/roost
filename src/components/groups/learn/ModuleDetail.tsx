@@ -8,6 +8,8 @@ import ProgressBar from './ProgressBar';
 interface ModuleDetailProps {
     module: ModuleWithProgress;
     userRole: GroupRole | null;
+    /** Bumpas av föräldern när innehåll lagts till, så listorna laddas om direkt */
+    refreshKey?: number;
     onLessonClick: (recordingId: string) => void;
     onBack: () => void;
     onAddRecording: () => void;
@@ -21,6 +23,7 @@ type TabValue = 'recordings' | 'assets';
 export default function ModuleDetail({
     module,
     userRole,
+    refreshKey = 0,
     onLessonClick,
     onBack,
     onAddRecording,
@@ -38,7 +41,7 @@ export default function ModuleDetail({
 
     useEffect(() => {
         loadContent();
-    }, [module.id]);
+    }, [module.id, refreshKey]);
 
     const loadContent = async () => {
         try {
@@ -66,7 +69,7 @@ export default function ModuleDetail({
     };
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
+        return new Date(dateString).toLocaleDateString('sv-SE', {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -115,14 +118,14 @@ export default function ModuleDetail({
                         <button
                             onClick={onEditModule}
                             className="p-2 text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
-                            title="Edit module"
+                            title="Redigera modul"
                         >
                             <Edit2 className="w-4 h-4" />
                         </button>
                         <button
                             onClick={onDeleteModule}
                             className="p-2 text-surface-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                            title="Delete module"
+                            title="Ta bort modul"
                         >
                             <Trash2 className="w-4 h-4" />
                         </button>
@@ -141,7 +144,7 @@ export default function ModuleDetail({
                     }`}
                 >
                     <Video className="w-4 h-4" />
-                    Recordings ({recordings.length})
+                    Inspelningar ({recordings.length})
                 </button>
                 <button
                     onClick={() => setActiveTab('assets')}
@@ -152,7 +155,7 @@ export default function ModuleDetail({
                     }`}
                 >
                     <FileText className="w-4 h-4" />
-                    Assets ({assets.length})
+                    Material ({assets.length})
                 </button>
 
                 {/* Add buttons */}
@@ -164,7 +167,7 @@ export default function ModuleDetail({
                                 className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                             >
                                 <Plus className="w-3.5 h-3.5" />
-                                Add Recording
+                                Lägg till inspelning
                             </button>
                         )}
                         {activeTab === 'assets' && (
@@ -173,7 +176,7 @@ export default function ModuleDetail({
                                 className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                             >
                                 <Plus className="w-3.5 h-3.5" />
-                                Upload Asset
+                                Ladda upp material
                             </button>
                         )}
                     </div>
@@ -190,7 +193,7 @@ export default function ModuleDetail({
                     <div className="text-center py-12 bg-surface-50 dark:bg-surface-900 rounded-lg border-2 border-dashed border-surface-200 dark:border-surface-700">
                         <Video className="w-10 h-10 mx-auto text-surface-400 dark:text-surface-500 mb-3" />
                         <p className="text-sm text-surface-500 dark:text-surface-400">
-                            No recordings in this module yet
+                            Inga inspelningar i den här modulen ännu
                         </p>
                     </div>
                 ) : (
@@ -252,7 +255,7 @@ export default function ModuleDetail({
                     <div className="text-center py-12 bg-surface-50 dark:bg-surface-900 rounded-lg border-2 border-dashed border-surface-200 dark:border-surface-700">
                         <FileText className="w-10 h-10 mx-auto text-surface-400 dark:text-surface-500 mb-3" />
                         <p className="text-sm text-surface-500 dark:text-surface-400">
-                            No assets in this module yet
+                            Inget material i den här modulen ännu
                         </p>
                     </div>
                 ) : (

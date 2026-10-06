@@ -1,26 +1,11 @@
+import { extractVideoInfo } from '@/lib/videoUrl';
+
 interface VideoEmbedProps {
     url: string;
 }
 
 export default function VideoEmbed({ url }: VideoEmbedProps) {
-    const getEmbedUrl = (url: string) => {
-        // YouTube
-        const ytMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/);
-        if (ytMatch && ytMatch[1]) {
-            const id = ytMatch[1].split('&')[0];
-            return `https://www.youtube.com/embed/${id}`;
-        }
-
-        // Vimeo
-        const vimeoMatch = url.match(/(?:https?:\/\/)?(?:www\.)?vimeo\.com\/(.+)/);
-        if (vimeoMatch && vimeoMatch[1]) {
-            return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
-        }
-
-        return null;
-    };
-
-    const embedUrl = getEmbedUrl(url);
+    const embedUrl = extractVideoInfo(url)?.embedUrl ?? null;
 
     if (!embedUrl) return null;
 
@@ -31,7 +16,7 @@ export default function VideoEmbed({ url }: VideoEmbedProps) {
                 className="absolute inset-0 w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                title="Video embed"
+                title="Inbäddad video"
             />
         </div>
     );

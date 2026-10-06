@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { X, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { createRecording, updateRecording } from '@/services/group';
+import { extractVideoInfo } from '@/lib/videoUrl';
 import VideoEmbed from '@/components/feed/VideoEmbed';
 
 interface Recording {
@@ -49,30 +50,6 @@ export default function AddRecordingModal({
         }
     }, [editingRecording]);
 
-    const extractVideoInfo = (url: string) => {
-        // YouTube
-        const ytMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([a-zA-Z0-9_-]{11})/);
-        if (ytMatch && ytMatch[1]) {
-            return {
-                platform: 'youtube' as const,
-                videoId: ytMatch[1],
-                thumbnailUrl: `https://img.youtube.com/vi/${ytMatch[1]}/maxresdefault.jpg`,
-            };
-        }
-
-        // Vimeo
-        const vimeoMatch = url.match(/(?:https?:\/\/)?(?:www\.)?vimeo\.com\/([0-9]+)/);
-        if (vimeoMatch && vimeoMatch[1]) {
-            return {
-                platform: 'vimeo' as const,
-                videoId: vimeoMatch[1],
-                thumbnailUrl: `https://vumbnail.com/${vimeoMatch[1]}.jpg`,
-            };
-        }
-
-        return null;
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!user) return;
@@ -82,7 +59,7 @@ export default function AddRecordingModal({
         // Validate video URL
         const videoInfo = extractVideoInfo(videoUrl);
         if (!videoInfo) {
-            setError('Invalid video URL. Please enter a valid YouTube or Vimeo URL.');
+            setError('Ogiltig video-URL. Ange en giltig YouTube- eller Vimeo-URL.');
             return;
         }
 
@@ -116,7 +93,7 @@ export default function AddRecordingModal({
             resetForm();
         } catch (err) {
             console.error('Error saving recording:', err);
-            setError(err instanceof Error ? err.message : 'Failed to save recording');
+            setError(err instanceof Error ? err.message : 'Det gick inte att spara inspelningen');
         } finally {
             setIsSubmitting(false);
         }
@@ -147,7 +124,7 @@ export default function AddRecordingModal({
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-surface-100">
                     <h2 className="text-xl font-semibold text-surface-900">
-                        {isEditing ? 'Edit Recording' : 'Add Recording'}
+                        {isEditing ? 'Redigera inspelning' : 'Lägg till inspelning'}
                     </h2>
                     <button
                         onClick={handleClose}
@@ -169,26 +146,26 @@ export default function AddRecordingModal({
                     {/* Video URL */}
                     <div>
                         <label htmlFor="videoUrl" className="block text-sm font-medium text-surface-700 mb-2">
-                            Video URL *
+                            Video-URL *
                         </label>
                         <input
                             type="url"
                             id="videoUrl"
                             value={videoUrl}
                             onChange={(e) => setVideoUrl(e.target.value)}
-                            placeholder="https://youtube.com/watch?v=... or https://vimeo.com/..."
+                            placeholder="https://youtube.com/watch?v=... eller https://vimeo.com/..."
                             className="w-full px-4 py-2.5 border border-surface-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                             required
                         />
                         <p className="mt-1 text-xs text-surface-500">
-                            Supported: YouTube and Vimeo
+                            Stöds: YouTube (vanliga länkar, Shorts, live) och Vimeo
                         </p>
                     </div>
 
                     {/* Video Preview */}
                     {videoUrl && isValidUrl && (
                         <div className="space-y-2">
-                            <label className="block text-sm font-medium text-surface-700">Preview</label>
+                            <label className="block text-sm font-medium text-surface-700">Förhandsvisning</label>
                             <VideoEmbed url={videoUrl} />
                         </div>
                     )}
@@ -196,14 +173,14 @@ export default function AddRecordingModal({
                     {/* Title */}
                     <div>
                         <label htmlFor="title" className="block text-sm font-medium text-surface-700 mb-2">
-                            Title *
+                            Titel *
                         </label>
                         <input
                             type="text"
                             id="title"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="e.g., Introduction to React Hooks"
+                            placeholder="t.ex. Introduktion till React Hooks"
                             className="w-full px-4 py-2.5 border border-surface-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                             required
                             minLength={3}
@@ -214,13 +191,13 @@ export default function AddRecordingModal({
                     {/* Description */}
                     <div>
                         <label htmlFor="description" className="block text-sm font-medium text-surface-700 mb-2">
-                            Description (optional)
+                            Beskrivning (valfritt)
                         </label>
                         <textarea
                             id="description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Describe what this video covers..."
+                            placeholder="Beskriv vad den här videon handlar om..."
                             rows={4}
                             className="w-full px-4 py-2.5 border border-surface-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
                             maxLength={1000}
@@ -238,7 +215,7 @@ export default function AddRecordingModal({
                             disabled={isSubmitting}
                             className="flex-1 px-4 py-2.5 border border-surface-200 rounded-lg text-surface-700 font-medium hover:bg-surface-50 transition-colors disabled:opacity-50"
                         >
-                            Cancel
+                            Avbryt
                         </button>
                         <button
                             type="submit"
@@ -246,7 +223,7 @@ export default function AddRecordingModal({
                             className="flex-1 px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                            {isSubmitting ? 'Saving...' : isEditing ? 'Save Changes' : 'Add Recording'}
+                            {isSubmitting ? 'Sparar...' : isEditing ? 'Spara ändringar' : 'Lägg till inspelning'}
                         </button>
                     </div>
                 </form>

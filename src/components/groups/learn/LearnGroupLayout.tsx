@@ -63,6 +63,9 @@ export default function LearnGroupLayout({
     const [showRecordingModal, setShowRecordingModal] = useState(false);
     const [showAssetModal, setShowAssetModal] = useState(false);
 
+    // Bumpas när innehåll läggs till så att ModuleDetail laddar om sina listor
+    const [contentVersion, setContentVersion] = useState(0);
+
     // Determine view
     const view = activeRecordingId ? 'lesson' : activeModuleId ? 'module' : 'grid';
 
@@ -172,7 +175,7 @@ export default function LearnGroupLayout({
 
     const handleDeleteModule = async () => {
         if (!activeModule) return;
-        if (!confirm(`Are you sure you want to delete the module "${activeModule.title}"? This will unassign all recordings and assets.`)) return;
+        if (!confirm(`Är du säker på att du vill ta bort modulen "${activeModule.title}"? Alla inspelningar och allt material kopplas bort.`)) return;
 
         try {
             await deleteModule(activeModule.id);
@@ -180,7 +183,7 @@ export default function LearnGroupLayout({
             loadModules();
         } catch (error) {
             console.error('Error deleting module:', error);
-            alert('Failed to delete module');
+            alert('Det gick inte att ta bort modulen');
         }
     };
 
@@ -203,10 +206,10 @@ export default function LearnGroupLayout({
                         <Lock className="w-8 h-8 text-surface-400 dark:text-surface-500" />
                     </div>
                     <h3 className="text-lg font-medium text-surface-900 dark:text-surface-50 mb-2">
-                        This is a private classroom
+                        Det här är ett privat klassrum
                     </h3>
                     <p className="text-surface-500 dark:text-surface-400 max-w-md mx-auto">
-                        You need to be a member to see the content of this classroom.
+                        Du behöver vara medlem för att se innehållet i det här klassrummet.
                     </p>
                 </div>
             </div>
@@ -240,8 +243,8 @@ export default function LearnGroupLayout({
                 {/* Compact Header */}
                 <CompactGroupHeader group={group} />
 
-                {/* Content */}
-                <div className="p-6">
+                {/* Content — centrerad med begränsad bredd så innehållet inte flyter ut på breda skärmar */}
+                <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
                     {view === 'grid' && (
                         <ModuleGrid
                             modules={modules}
@@ -256,6 +259,7 @@ export default function LearnGroupLayout({
                         <ModuleDetail
                             module={activeModule}
                             userRole={group.user_role}
+                            refreshKey={contentVersion}
                             onLessonClick={(recId) => navigateToLesson(activeModule.id, recId)}
                             onBack={navigateToGrid}
                             onAddRecording={() => setShowRecordingModal(true)}
@@ -306,6 +310,7 @@ export default function LearnGroupLayout({
                 onClose={() => setShowRecordingModal(false)}
                 onSuccess={() => {
                     setShowRecordingModal(false);
+                    setContentVersion((v) => v + 1);
                     loadModules();
                 }}
             />
@@ -317,6 +322,7 @@ export default function LearnGroupLayout({
                 onClose={() => setShowAssetModal(false)}
                 onSuccess={() => {
                     setShowAssetModal(false);
+                    setContentVersion((v) => v + 1);
                     loadModules();
                 }}
             />
