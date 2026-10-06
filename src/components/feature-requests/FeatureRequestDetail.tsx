@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import DOMPurify from 'dompurify';
 import {
     ChevronUp,
@@ -142,7 +143,7 @@ export default function FeatureRequestDetailView({
                             {request.author.display_name || request.author.username}
                         </span>
                         <span className="text-xs text-surface-400">
-                            {formatDistanceToNow(new Date(request.created_at), { addSuffix: true })}
+                            {formatDistanceToNow(new Date(request.created_at), { addSuffix: true, locale: sv })}
                         </span>
                     </div>
                 </div>
@@ -160,7 +161,7 @@ export default function FeatureRequestDetailView({
                     <div className="flex items-center gap-2 mb-2">
                         <Shield className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                         <span className="text-sm font-medium text-primary-700 dark:text-primary-300">
-                            Official Response
+                            Officiellt svar
                         </span>
                     </div>
                     <p className="text-sm text-primary-800 dark:text-primary-200 whitespace-pre-wrap">
@@ -175,7 +176,7 @@ export default function FeatureRequestDetailView({
                     <div className="flex items-center gap-2 mb-2">
                         <Shield className="w-4 h-4 text-primary-600" />
                         <span className="text-sm font-semibold text-surface-900 dark:text-surface-100">
-                            Admin Controls
+                            Adminverktyg
                         </span>
                     </div>
 
@@ -217,18 +218,18 @@ export default function FeatureRequestDetailView({
                         }`}
                     >
                         <Star className={`w-3.5 h-3.5 ${request.is_pinned ? 'fill-yellow-500 text-yellow-500' : ''}`} />
-                        {request.is_pinned ? 'Unpin' : 'Pin'}
+                        {request.is_pinned ? 'Ta bort fästning' : 'Fäst'}
                     </button>
 
                     {/* Admin response */}
                     <div>
                         <label className="block text-xs font-medium text-surface-600 dark:text-surface-400 mb-1.5">
-                            Official Response
+                            Officiellt svar
                         </label>
                         <textarea
                             value={adminResponse}
                             onChange={(e) => setAdminResponse(e.target.value)}
-                            placeholder="Add an official response..."
+                            placeholder="Lägg till ett officiellt svar..."
                             className="w-full px-3 py-2 rounded-lg border border-surface-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 text-sm resize-none placeholder-surface-400"
                             rows={3}
                         />
@@ -238,7 +239,7 @@ export default function FeatureRequestDetailView({
                             className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 transition-colors"
                         >
                             {isSavingResponse ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
-                            Save Response
+                            Spara svar
                         </button>
                     </div>
                 </div>

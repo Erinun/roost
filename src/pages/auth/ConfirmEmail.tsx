@@ -40,7 +40,7 @@ export default function ConfirmEmail() {
         } catch (error) {
             console.error('Error resending confirmation email:', error);
             setResendStatus('error');
-            setErrorMessage(error instanceof Error ? error.message : 'Failed to resend email');
+            setErrorMessage(error instanceof Error ? error.message : 'Det gick inte att skicka e-postmeddelandet igen');
         }
     };
 
@@ -63,12 +63,12 @@ export default function ConfirmEmail() {
 
                     {/* Title */}
                     <h1 className="text-2xl font-bold text-surface-900 dark:text-white mb-2">
-                        Confirm Your Email
+                        Bekräfta din e-post
                     </h1>
 
                     {/* Description */}
                     <p className="text-surface-600 dark:text-surface-400 mb-6">
-                        We've sent a confirmation link to:
+                        Vi har skickat en bekräftelselänk till:
                     </p>
 
                     {/* Email display */}
@@ -81,12 +81,12 @@ export default function ConfirmEmail() {
                     {/* Instructions */}
                     <div className="text-left bg-surface-50 dark:bg-surface-700/50 rounded-lg p-4 mb-6">
                         <p className="text-sm text-surface-600 dark:text-surface-400 mb-3">
-                            Please check your inbox and:
+                            Kolla din inkorg och:
                         </p>
                         <ol className="text-sm text-surface-600 dark:text-surface-400 space-y-2 list-decimal list-inside">
-                            <li>Open the email from {APP_CONFIG.name}</li>
-                            <li>Click the confirmation link</li>
-                            <li>Return here and refresh the page</li>
+                            <li>Öppna e-postmeddelandet från {APP_CONFIG.name}</li>
+                            <li>Klicka på bekräftelselänken</li>
+                            <li>Kom tillbaka hit och ladda om sidan</li>
                         </ol>
                     </div>
 
@@ -94,13 +94,13 @@ export default function ConfirmEmail() {
                     {resendStatus === 'sent' && (
                         <div className="flex items-center justify-center gap-2 text-green-600 dark:text-green-400 mb-4">
                             <CheckCircle className="w-5 h-5" />
-                            <span className="text-sm">Confirmation email sent!</span>
+                            <span className="text-sm">Bekräftelsemejl skickat!</span>
                         </div>
                     )}
 
                     {resendStatus === 'error' && (
                         <div className="text-red-600 dark:text-red-400 text-sm mb-4">
-                            {errorMessage || 'Failed to resend email. Please try again.'}
+                            {errorMessage || 'Det gick inte att skicka e-postmeddelandet igen. Försök igen.'}
                         </div>
                     )}
 
@@ -114,17 +114,17 @@ export default function ConfirmEmail() {
                             {resendStatus === 'sending' ? (
                                 <>
                                     <RefreshCw className="w-5 h-5 animate-spin" />
-                                    Sending...
+                                    Skickar...
                                 </>
                             ) : resendStatus === 'sent' ? (
                                 <>
                                     <CheckCircle className="w-5 h-5" />
-                                    Email Sent
+                                    E-post skickad
                                 </>
                             ) : (
                                 <>
                                     <RefreshCw className="w-5 h-5" />
-                                    Resend Confirmation Email
+                                    Skicka bekräftelsemejl igen
                                 </>
                             )}
                         </button>
@@ -134,7 +134,7 @@ export default function ConfirmEmail() {
                             className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-surface-100 hover:bg-surface-200 dark:bg-surface-700 dark:hover:bg-surface-600 text-surface-700 dark:text-surface-300 rounded-lg font-medium transition-colors"
                         >
                             <RefreshCw className="w-5 h-5" />
-                            I've Confirmed - Refresh
+                            Jag har bekräftat – ladda om
                         </button>
 
                         <button
@@ -142,13 +142,13 @@ export default function ConfirmEmail() {
                             className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-white transition-colors"
                         >
                             <LogOut className="w-5 h-5" />
-                            Sign Out
+                            Logga ut
                         </button>
                     </div>
 
                     {/* Help text */}
                     <p className="text-xs text-surface-500 dark:text-surface-500 mt-6">
-                        Didn't receive the email? Check your spam folder or try resending.
+                        Fick du inget mejl? Kolla din skräppost eller försök skicka igen.
                     </p>
                 </div>
             </div>

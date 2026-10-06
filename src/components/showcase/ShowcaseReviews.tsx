@@ -101,7 +101,7 @@ function ReviewItem({
     };
 
     const handleDelete = async () => {
-        if (!confirm('Are you sure you want to delete this review?')) return;
+        if (!confirm('Är du säker på att du vill ta bort den här recensionen?')) return;
 
         setIsSubmitting(true);
         try {
@@ -153,10 +153,10 @@ function ReviewItem({
                         </Link>
                         <StarRating rating={isEditing ? editRating : review.rating} onChange={isEditing ? setEditRating : undefined} readonly={!isEditing} size="sm" />
                         <span className="text-xs text-surface-500 dark:text-surface-400">
-                            {new Date(review.created_at).toLocaleDateString()}
+                            {new Date(review.created_at).toLocaleDateString('sv-SE')}
                         </span>
                         {review.is_edited && (
-                            <span className="text-xs text-surface-400">(edited)</span>
+                            <span className="text-xs text-surface-400">(redigerad)</span>
                         )}
                     </div>
 
@@ -175,7 +175,7 @@ function ReviewItem({
                                     disabled={isSubmitting}
                                     className="px-3 py-1.5 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 disabled:opacity-50"
                                 >
-                                    {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Save'}
+                                    {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Spara'}
                                 </button>
                                 <button
                                     onClick={() => {
@@ -185,7 +185,7 @@ function ReviewItem({
                                     }}
                                     className="px-3 py-1.5 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg text-sm"
                                 >
-                                    Cancel
+                                    Avbryt
                                 </button>
                             </div>
                         </div>
@@ -205,7 +205,7 @@ function ReviewItem({
                                         className="flex items-center gap-1 text-xs text-surface-500 hover:text-surface-700 dark:hover:text-surface-300"
                                     >
                                         <Edit2 className="w-3 h-3" />
-                                        Edit
+                                        Redigera
                                     </button>
                                     <button
                                         onClick={handleDelete}
@@ -213,7 +213,7 @@ function ReviewItem({
                                         className="flex items-center gap-1 text-xs text-red-500 hover:text-red-600"
                                     >
                                         <Trash2 className="w-3 h-3" />
-                                        Delete
+                                        Ta bort
                                     </button>
                                 </>
                             )}
@@ -223,7 +223,7 @@ function ReviewItem({
                                     className="flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700"
                                 >
                                     <MessageSquare className="w-3 h-3" />
-                                    Reply
+                                    Svara
                                 </button>
                             )}
                         </div>
@@ -233,7 +233,7 @@ function ReviewItem({
                     {review.maker_reply && (
                         <div className="mt-4 ml-4 pl-4 border-l-2 border-primary-200 dark:border-primary-800">
                             <p className="text-xs font-medium text-primary-600 dark:text-primary-400 mb-1">
-                                Maker Response
+                                Svar från skaparen
                             </p>
                             <p className="text-sm text-surface-700 dark:text-surface-300">
                                 {review.maker_reply}
@@ -247,7 +247,7 @@ function ReviewItem({
                             <textarea
                                 value={replyContent}
                                 onChange={(e) => setReplyContent(e.target.value)}
-                                placeholder="Write your reply..."
+                                placeholder="Skriv ditt svar..."
                                 rows={2}
                                 className="w-full px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
                             />
@@ -257,7 +257,7 @@ function ReviewItem({
                                     disabled={isSubmitting || !replyContent.trim()}
                                     className="px-3 py-1.5 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 disabled:opacity-50"
                                 >
-                                    {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Reply'}
+                                    {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Svara'}
                                 </button>
                                 <button
                                     onClick={() => {
@@ -266,7 +266,7 @@ function ReviewItem({
                                     }}
                                     className="px-3 py-1.5 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg text-sm"
                                 >
-                                    Cancel
+                                    Avbryt
                                 </button>
                             </div>
                         </div>
@@ -357,7 +357,7 @@ export default function ShowcaseReviews({
     return (
         <div className="card shadow-none p-6">
             <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
-                Reviews ({reviews.length})
+                Recensioner ({reviews.length})
             </h2>
 
             {/* New review form */}
@@ -365,19 +365,19 @@ export default function ShowcaseReviews({
                 <form onSubmit={handleSubmitReview} className="mb-8 pb-8 border-b border-surface-100 dark:border-surface-800">
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Your Rating
+                            Ditt betyg
                         </label>
                         <StarRating rating={newReviewRating} onChange={setNewReviewRating} size="lg" />
                     </div>
 
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Your Review
+                            Din recension
                         </label>
                         <textarea
                             value={newReviewContent}
                             onChange={(e) => setNewReviewContent(e.target.value)}
-                            placeholder="Share your experience with this project..."
+                            placeholder="Dela din upplevelse av det här projektet..."
                             rows={4}
                             className="w-full px-4 py-3 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         />
@@ -393,7 +393,7 @@ export default function ShowcaseReviews({
                         ) : (
                             <Send className="w-4 h-4" />
                         )}
-                        Submit Review
+                        Skicka recension
                     </button>
                 </form>
             )}
@@ -401,28 +401,28 @@ export default function ShowcaseReviews({
             {!user && (
                 <p className="text-sm text-surface-500 dark:text-surface-400 mb-6">
                     <Link to="/login" className="text-primary-600 hover:text-primary-700">
-                        Sign in
+                        Logga in
                     </Link>{' '}
-                    to leave a review.
+                    för att lämna en recension.
                 </p>
             )}
 
             {user && user.id === makerId && (
                 <p className="text-sm text-surface-500 dark:text-surface-400 mb-6">
-                    You cannot review your own project.
+                    Du kan inte recensera ditt eget projekt.
                 </p>
             )}
 
             {user && userHasReviewed && (
                 <p className="text-sm text-surface-500 dark:text-surface-400 mb-6">
-                    You've already reviewed this project.
+                    Du har redan recenserat det här projektet.
                 </p>
             )}
 
             {/* Reviews list */}
             {reviews.length === 0 ? (
                 <p className="text-center text-surface-500 dark:text-surface-400 py-8">
-                    No reviews yet. Be the first to review!
+                    Inga recensioner ännu. Bli först med att recensera!
                 </p>
             ) : (
                 <div>

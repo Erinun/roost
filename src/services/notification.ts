@@ -253,8 +253,8 @@ export async function createMentionNotifications(
       .map(u => ({
         user_id: u.id,
         type: 'mention' as const,
-        title: 'New Mention',
-        message: `${actorName} mentioned you in a comment`,
+        title: 'Nytt omnämnande',
+        message: `${actorName} nämnde dig i en kommentar`,
         link: `/post/${postId}`,
         is_read: false,
       }));

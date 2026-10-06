@@ -22,26 +22,26 @@ import type { FeatureRequestStatus, FeatureRequestType } from '@/types/database'
 const PAGE_SIZE = 20;
 
 const STATUS_TABS: { value: FeatureRequestStatus | ''; label: string }[] = [
-    { value: '', label: 'All' },
-    { value: 'under_review', label: 'Under Review' },
-    { value: 'planned', label: 'Planned' },
-    { value: 'in_progress', label: 'In Progress' },
-    { value: 'released', label: 'Released' },
-    { value: 'declined', label: 'Declined' },
+    { value: '', label: 'Alla' },
+    { value: 'under_review', label: 'Granskas' },
+    { value: 'planned', label: 'Planerad' },
+    { value: 'in_progress', label: 'Pågår' },
+    { value: 'released', label: 'Släppt' },
+    { value: 'declined', label: 'Avslagen' },
 ];
 
 const SORT_OPTIONS = [
-    { value: 'most_votes', label: 'Most Voted' },
-    { value: 'newest', label: 'Latest' },
-    { value: 'oldest', label: 'Oldest' },
-    { value: 'most_comments', label: 'Most Discussed' },
+    { value: 'most_votes', label: 'Flest röster' },
+    { value: 'newest', label: 'Senaste' },
+    { value: 'oldest', label: 'Äldsta' },
+    { value: 'most_comments', label: 'Mest diskuterade' },
 ] as const;
 
 const TYPE_FILTER_OPTIONS: { value: string; label: string }[] = [
-    { value: '', label: 'All Types' },
-    { value: 'feature_request', label: 'Feature Request' },
-    { value: 'bug_report', label: 'Bug Report' },
-    { value: 'improvement', label: 'Improvement' },
+    { value: '', label: 'Alla typer' },
+    { value: 'feature_request', label: 'Funktionsönskemål' },
+    { value: 'bug_report', label: 'Buggrapport' },
+    { value: 'improvement', label: 'Förbättring' },
 ];
 
 export default function FeatureRequestList() {
@@ -239,13 +239,13 @@ export default function FeatureRequestList() {
                     className="inline-flex items-center gap-1.5 text-sm text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-200 transition-colors mb-3"
                 >
                     <ArrowLeft className="w-4 h-4" />
-                    Back to Roadmap
+                    Tillbaka till färdplanen
                 </Link>
                 <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-50">
-                    All Feature Requests
+                    Alla funktionsönskemål
                 </h1>
                 <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                    Browse, filter, and vote on all feature requests, bug reports, and improvements.
+                    Bläddra, filtrera och rösta på alla funktionsönskemål, buggrapporter och förbättringar.
                 </p>
             </div>
 
@@ -290,7 +290,7 @@ export default function FeatureRequestList() {
                         type="text"
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
-                        placeholder="Search requests..."
+                        placeholder="Sök önskemål..."
                         className="w-full pl-9 pr-3 py-2 rounded-lg border border-surface-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder-surface-400 text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     />
                 </div>
@@ -345,8 +345,8 @@ export default function FeatureRequestList() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
                 >
                     <Plus className="w-4 h-4" />
-                    <span className="hidden sm:inline">Submit Request</span>
-                    <span className="sm:hidden">Submit</span>
+                    <span className="hidden sm:inline">Skicka önskemål</span>
+                    <span className="sm:hidden">Skicka</span>
                 </button>
             </div>
 
@@ -359,12 +359,12 @@ export default function FeatureRequestList() {
                 <div className="text-center py-20">
                     <Lightbulb className="w-16 h-16 mx-auto text-surface-300 dark:text-surface-600 mb-4" />
                     <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">
-                        No requests found
+                        Inga önskemål hittades
                     </h3>
                     <p className="text-surface-500 dark:text-surface-400 mb-6">
                         {filters.search || filters.type || filters.status
-                            ? 'Try adjusting your filters or search term.'
-                            : 'Be the first to submit a feature request or bug report!'}
+                            ? 'Prova att justera dina filter eller söktermen.'
+                            : 'Bli först med att skicka in ett funktionsönskemål eller en buggrapport!'}
                     </p>
                     {!filters.search && !filters.type && !filters.status && (
                         <button
@@ -372,7 +372,7 @@ export default function FeatureRequestList() {
                             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 transition-colors"
                         >
                             <Plus className="w-4 h-4" />
-                            Submit Request
+                            Skicka önskemål
                         </button>
                     )}
                 </div>
@@ -396,11 +396,11 @@ export default function FeatureRequestList() {
                     {isLoadingMore ? (
                         <div className="flex items-center justify-center gap-2 text-surface-500 dark:text-surface-400">
                             <Loader2 className="w-5 h-5 animate-spin" />
-                            <span className="text-sm">Loading more...</span>
+                            <span className="text-sm">Laddar fler...</span>
                         </div>
                     ) : (
                         <span className="text-sm text-surface-400 dark:text-surface-500">
-                            Scroll for more
+                            Skrolla för fler
                         </span>
                     )}
                 </div>

@@ -11,10 +11,10 @@ interface ShowcaseFiltersProps {
 }
 
 const SORT_OPTIONS = [
-    { value: 'newest', label: 'Newest' },
-    { value: 'votes', label: 'Most Votes' },
-    { value: 'rating', label: 'Highest Rated' },
-    { value: 'featured', label: 'Featured' },
+    { value: 'newest', label: 'Nyast' },
+    { value: 'votes', label: 'Flest röster' },
+    { value: 'rating', label: 'Högst betyg' },
+    { value: 'featured', label: 'Utvalda' },
 ] as const;
 
 const CATEGORY_OPTIONS = Object.entries(SHOWCASE_CATEGORY_INFO).map(([value, info]) => ({
@@ -75,7 +75,7 @@ export default function ShowcaseFilters({ filters, onFiltersChange }: ShowcaseFi
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400" />
                     <input
                         type="text"
-                        placeholder="Search showcases..."
+                        placeholder="Sök projekt..."
                         value={searchInput}
                         onChange={(e) => setSearchInput(e.target.value)}
                         className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -115,7 +115,7 @@ export default function ShowcaseFilters({ filters, onFiltersChange }: ShowcaseFi
                     `}
                 >
                     <Filter className="w-4 h-4" />
-                    <span>Tags</span>
+                    <span>Taggar</span>
                     {filters.tagIds && filters.tagIds.length > 0 && (
                         <span className="px-1.5 py-0.5 bg-primary-600 text-white text-xs rounded-full">
                             {filters.tagIds.length}
@@ -136,7 +136,7 @@ export default function ShowcaseFilters({ filters, onFiltersChange }: ShowcaseFi
                         }
                     `}
                 >
-                    All
+                    Alla
                 </button>
                 {CATEGORY_OPTIONS.map((category) => (
                     <button
@@ -190,7 +190,7 @@ export default function ShowcaseFilters({ filters, onFiltersChange }: ShowcaseFi
                     className="flex items-center gap-1 text-sm text-surface-500 hover:text-surface-700 dark:hover:text-surface-300"
                 >
                     <X className="w-4 h-4" />
-                    Clear all filters
+                    Rensa alla filter
                 </button>
             )}
         </div>

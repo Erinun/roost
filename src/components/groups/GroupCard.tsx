@@ -9,6 +9,12 @@ interface GroupCardProps {
     userIsPremium?: boolean;
 }
 
+const roleLabels: Record<string, string> = {
+    admin: 'Administratör',
+    moderator: 'Moderator',
+    member: 'Medlem',
+};
+
 export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true }: GroupCardProps) {
     const isPremiumGroup = group.is_premium ?? false;
     const canAccess = !isPremiumGroup || userIsPremium;
@@ -50,8 +56,8 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
                 <div className="absolute inset-0 bg-surface-900/40 dark:bg-surface-900/60 rounded-xl flex items-center justify-center z-10">
                     <div className="text-center text-white bg-surface-900/80 px-4 py-3 rounded-lg">
                         <Crown className="w-8 h-8 mx-auto mb-2 text-amber-400" />
-                        <p className="text-sm font-medium">Premium Only</p>
-                        <p className="text-xs text-surface-300 mt-1">Upgrade to access</p>
+                        <p className="text-sm font-medium">Endast Premium</p>
+                        <p className="text-xs text-surface-300 mt-1">Uppgradera för att få åtkomst</p>
                     </div>
                 </div>
             )}
@@ -106,7 +112,7 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
                     <div className="flex items-center gap-3 mt-3">
                         <div className="flex items-center gap-1 text-sm text-surface-500 dark:text-surface-400">
                             <Users className="w-4 h-4" />
-                            <span>{group.member_count} members</span>
+                            <span>{group.member_count} medlemmar</span>
                         </div>
                         {group.is_member && group.user_role && (
                             <span className={`
@@ -115,7 +121,7 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
                                     group.user_role === 'moderator' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' :
                                         'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400'}
                             `}>
-                                {group.user_role.charAt(0).toUpperCase() + group.user_role.slice(1)}
+                                {roleLabels[group.user_role] ?? group.user_role}
                             </span>
                         )}
                     </div>
@@ -133,14 +139,14 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
                             : 'bg-primary-600 text-white hover:bg-primary-700'}
                     `}
                 >
-                    {group.is_member ? 'Leave Classroom' : 'Join Classroom'}
+                    {group.is_member ? 'Lämna klassrummet' : 'Gå med i klassrummet'}
                 </button>
             )}
 
             {/* Upgrade button for premium groups */}
             {isPremiumGroup && !userIsPremium && (
                 <div className="mt-4 py-2 px-4 rounded-lg font-medium text-sm text-center bg-gradient-to-r from-amber-500 to-orange-500 text-white">
-                    Upgrade to Join
+                    Uppgradera för att gå med
                 </div>
             )}
         </Link>

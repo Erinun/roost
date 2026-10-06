@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import type { Conversation } from '../../services/message';
 import OnlineIndicator from '../common/OnlineIndicator';
 import { ProBadge } from '../common/ProBadge';
@@ -56,7 +57,7 @@ export default function ConversationItem({ conversation, isSelected, onClick }: 
             {otherUser.membership_type === 'premium' && <ProBadge size="xs" />}
           </div>
           <span className="text-xs text-surface-400 dark:text-surface-500 flex-shrink-0 ml-2">
-            {formatDistanceToNow(new Date(lastMessageAt), { addSuffix: true })}
+            {formatDistanceToNow(new Date(lastMessageAt), { addSuffix: true, locale: sv })}
           </span>
         </div>
         <div className="flex items-center justify-between">

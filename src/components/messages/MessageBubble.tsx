@@ -1,4 +1,5 @@
 import { format, isToday, isYesterday } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import type { MessageWithSender } from '../../services/message';
 import { Image as ImageIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -16,11 +17,11 @@ export default function MessageBubble({ message, isSent, showTimestamp = true }:
     const messageDate = new Date(date);
 
     if (isToday(messageDate)) {
-      return format(messageDate, 'h:mm a');
+      return format(messageDate, 'HH:mm', { locale: sv });
     } else if (isYesterday(messageDate)) {
-      return `Yesterday ${format(messageDate, 'h:mm a')}`;
+      return `Igår ${format(messageDate, 'HH:mm', { locale: sv })}`;
     } else {
-      return format(messageDate, 'MMM d, h:mm a');
+      return format(messageDate, 'd MMM HH:mm', { locale: sv });
     }
   };
 
@@ -51,7 +52,7 @@ export default function MessageBubble({ message, isSent, showTimestamp = true }:
                     >
                       <img
                         src={asset.file_url}
-                        alt={asset.filename || 'Attachment'}
+                        alt={asset.filename || 'Bilaga'}
                         className="max-w-full h-auto max-h-64 object-cover"
                       />
                     </button>
@@ -64,7 +65,7 @@ export default function MessageBubble({ message, isSent, showTimestamp = true }:
                         } hover:opacity-80 transition-opacity`}
                     >
                       <ImageIcon className="w-4 h-4" />
-                      <span className="text-xs truncate">{asset.filename ?? 'File'}</span>
+                      <span className="text-xs truncate">{asset.filename ?? 'Fil'}</span>
                     </a>
                   )}
                 </div>
@@ -89,7 +90,7 @@ export default function MessageBubble({ message, isSent, showTimestamp = true }:
         >
           <img
             src={selectedImage}
-            alt="Full size"
+            alt="Fullstorlek"
             className="max-w-full max-h-full object-contain"
             onClick={(e) => e.stopPropagation()}
           />

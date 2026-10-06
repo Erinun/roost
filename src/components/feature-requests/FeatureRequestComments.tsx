@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { formatDistanceToNow } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import {
     MessageSquare,
     Send,
@@ -78,7 +79,7 @@ function CommentItem({
     };
 
     const handleDelete = async () => {
-        if (!confirm('Delete this comment?')) return;
+        if (!confirm('Vill du ta bort den här kommentaren?')) return;
         try {
             await deleteFeatureRequestComment(comment.id);
             onRefresh();
@@ -106,10 +107,10 @@ function CommentItem({
                         </span>
                     )}
                     <span className="text-xs text-surface-400">
-                        {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true })}
+                        {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true, locale: sv })}
                     </span>
                     {comment.is_edited && (
-                        <span className="text-[10px] text-surface-400">(edited)</span>
+                        <span className="text-[10px] text-surface-400">(redigerad)</span>
                     )}
 
                     {/* Actions menu */}
@@ -131,7 +132,7 @@ function CommentItem({
                                                 className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700"
                                             >
                                                 <Pencil className="w-3.5 h-3.5" />
-                                                Edit
+                                                Redigera
                                             </button>
                                         )}
                                         {canDelete && (
@@ -140,7 +141,7 @@ function CommentItem({
                                                 className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                                             >
                                                 <Trash2 className="w-3.5 h-3.5" />
-                                                Delete
+                                                Ta bort
                                             </button>
                                         )}
                                     </div>
@@ -165,13 +166,13 @@ function CommentItem({
                                 disabled={isSubmitting || !editContent.trim()}
                                 className="px-3 py-1 rounded text-xs font-medium bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50"
                             >
-                                {isSubmitting ? 'Saving...' : 'Save'}
+                                {isSubmitting ? 'Sparar...' : 'Spara'}
                             </button>
                             <button
                                 onClick={() => { setIsEditing(false); setEditContent(comment.content); }}
                                 className="px-3 py-1 rounded text-xs font-medium text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800"
                             >
-                                Cancel
+                                Avbryt
                             </button>
                         </div>
                     </div>
@@ -188,7 +189,7 @@ function CommentItem({
                         className="flex items-center gap-1 mt-1.5 text-xs text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 transition-colors"
                     >
                         <Reply className="w-3 h-3" />
-                        Reply
+                        Svara
                     </button>
                 )}
 
@@ -198,7 +199,7 @@ function CommentItem({
                         <textarea
                             value={replyContent}
                             onChange={(e) => setReplyContent(e.target.value)}
-                            placeholder="Write a reply..."
+                            placeholder="Skriv ett svar..."
                             className="flex-1 px-3 py-2 rounded-lg border border-surface-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 text-sm resize-none placeholder-surface-400"
                             rows={2}
                         />
@@ -279,7 +280,7 @@ export default function FeatureRequestComments({
         <div>
             <h3 className="flex items-center gap-2 text-base font-semibold text-surface-900 dark:text-surface-100 mb-4">
                 <MessageSquare className="w-5 h-5" />
-                Discussion ({totalComments})
+                Diskussion ({totalComments})
             </h3>
 
             {/* New comment form */}
@@ -294,7 +295,7 @@ export default function FeatureRequestComments({
                         <textarea
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
-                            placeholder="Share your thoughts..."
+                            placeholder="Dela dina tankar..."
                             className="w-full px-3 py-2.5 rounded-lg border border-surface-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 text-sm resize-none placeholder-surface-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                             rows={3}
                         />
@@ -307,12 +308,12 @@ export default function FeatureRequestComments({
                                 {isSubmitting ? (
                                     <>
                                         <Loader2 className="w-4 h-4 animate-spin" />
-                                        Posting...
+                                        Publicerar...
                                     </>
                                 ) : (
                                     <>
                                         <Send className="w-4 h-4" />
-                                        Comment
+                                        Kommentera
                                     </>
                                 )}
                             </button>
@@ -326,7 +327,7 @@ export default function FeatureRequestComments({
                 <div className="text-center py-8">
                     <MessageSquare className="w-10 h-10 mx-auto text-surface-300 dark:text-surface-600 mb-2" />
                     <p className="text-sm text-surface-500 dark:text-surface-400">
-                        No comments yet. Be the first to share your thoughts!
+                        Inga kommentarer ännu. Bli först med att dela dina tankar!
                     </p>
                 </div>
             ) : (

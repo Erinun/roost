@@ -37,10 +37,10 @@ import {
 type SettingsTab = 'profile' | 'account' | 'subscription' | 'notifications';
 
 const TABS: { id: SettingsTab; label: string; icon: typeof User }[] = [
-    { id: 'profile', label: 'Profile', icon: User },
-    { id: 'account', label: 'Account', icon: Shield },
-    { id: 'subscription', label: 'Subscription', icon: CreditCard },
-    { id: 'notifications', label: 'Notifications', icon: Bell },
+    { id: 'profile', label: 'Profil', icon: User },
+    { id: 'account', label: 'Konto', icon: Shield },
+    { id: 'subscription', label: 'Prenumeration', icon: CreditCard },
+    { id: 'notifications', label: 'Aviseringar', icon: Bell },
 ];
 
 export default function Settings() {
@@ -134,7 +134,7 @@ export default function Settings() {
                 setNotificationPrefs(prefs);
             } catch (err) {
                 console.error('Failed to load notification preferences:', err);
-                setPrefsError('Failed to load notification preferences');
+                setPrefsError('Det gick inte att ladda aviseringsinställningarna');
             } finally {
                 setIsPrefsLoading(false);
             }
@@ -163,7 +163,7 @@ export default function Settings() {
             setTimeout(() => setPrefsSaved(false), 3000);
         } catch (err) {
             console.error('Failed to save notification preferences:', err);
-            setPrefsError('Failed to save preferences. Please try again.');
+            setPrefsError('Det gick inte att spara inställningarna. Försök igen.');
         } finally {
             setIsPrefsSaving(false);
         }
@@ -236,7 +236,7 @@ export default function Settings() {
             await refreshProfile();
         } catch (err) {
             console.error('Failed to upload cover photo:', err);
-            setError(err instanceof Error ? err.message : 'Failed to upload cover photo');
+            setError(err instanceof Error ? err.message : 'Det gick inte att ladda upp omslagsbilden');
         } finally {
             setIsCoverUploading(false);
         }
@@ -264,27 +264,27 @@ export default function Settings() {
 
         // Validate
         if (!formData.display_name.trim()) {
-            setError('Display name is required');
+            setError('Visningsnamn krävs');
             return;
         }
 
         if (!isValidUsername(formData.username)) {
-            setError('Username must be 3-30 characters, letters, numbers, underscores, or hyphens only');
+            setError('Användarnamnet måste vara 3–30 tecken och får bara innehålla bokstäver, siffror, understreck och bindestreck');
             return;
         }
 
         if (usernameStatus === 'taken') {
-            setError('Username is already taken');
+            setError('Användarnamnet är redan upptaget');
             return;
         }
 
         if (formData.website && !isValidWebsite(formData.website)) {
-            setError('Please enter a valid website URL');
+            setError('Ange en giltig webbplatsadress');
             return;
         }
 
         if (formData.bio.length > 500) {
-            setError('Bio must be 500 characters or less');
+            setError('Bio får vara högst 500 tecken');
             return;
         }
 
@@ -305,7 +305,7 @@ export default function Settings() {
             // Clear saved indicator after 3 seconds
             setTimeout(() => setIsSaved(false), 3000);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to update profile');
+            setError(err instanceof Error ? err.message : 'Det gick inte att uppdatera profilen');
         } finally {
             setIsLoading(false);
         }
@@ -325,10 +325,10 @@ export default function Settings() {
             <div className="mb-8">
                 <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 flex items-center gap-3">
                     <SettingsIcon className="w-7 h-7 text-primary-600" />
-                    Settings
+                    Inställningar
                 </h1>
                 <p className="text-surface-500 dark:text-surface-400 mt-1">
-                    Manage your account settings and preferences
+                    Hantera dina kontoinställningar och preferenser
                 </p>
             </div>
 
@@ -366,19 +366,19 @@ export default function Settings() {
                     {activeTab === 'profile' && (
                         <div className="card shadow-none p-6 sm:p-8">
                             <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
-                                Profile Information
+                                Profilinformation
                             </h2>
 
                             {/* Cover Photo */}
                             <div className="mb-8 pb-8 border-b border-surface-200 dark:border-surface-700">
                                 <h3 className="font-medium text-surface-900 dark:text-surface-100 mb-3">
-                                    Cover Photo
+                                    Omslagsbild
                                 </h3>
                                 <div className="relative w-full h-48 rounded-xl overflow-hidden bg-gradient-to-br from-primary-400 to-primary-600">
                                     {coverUrl && (
                                         <img
                                             src={coverUrl}
-                                            alt="Cover"
+                                            alt="Omslag"
                                             className="w-full h-full object-cover"
                                         />
                                     )}
@@ -390,7 +390,7 @@ export default function Settings() {
                                     <div className="absolute bottom-3 right-3 flex gap-2">
                                         <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 bg-white/90 dark:bg-surface-800/90 text-surface-700 dark:text-surface-200 text-sm font-medium rounded-lg hover:bg-white dark:hover:bg-surface-800 transition-colors">
                                             <ImageIcon className="w-4 h-4" />
-                                            <span>{coverUrl ? 'Change' : 'Upload'}</span>
+                                            <span>{coverUrl ? 'Byt' : 'Ladda upp'}</span>
                                             <input
                                                 type="file"
                                                 accept="image/jpeg,image/png,image/gif,image/webp"
@@ -406,13 +406,13 @@ export default function Settings() {
                                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-500/90 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition-colors"
                                             >
                                                 <Trash2 className="w-4 h-4" />
-                                                <span>Remove</span>
+                                                <span>Ta bort</span>
                                             </button>
                                         )}
                                     </div>
                                 </div>
                                 <p className="text-sm text-surface-500 dark:text-surface-400 mt-2">
-                                    Recommended size: 1200x400px. JPG, PNG, GIF or WebP.
+                                    Rekommenderad storlek: 1200x400 px. JPG, PNG, GIF eller WebP.
                                 </p>
                             </div>
 
@@ -427,10 +427,10 @@ export default function Settings() {
                                 />
                                 <div>
                                     <h3 className="font-medium text-surface-900 dark:text-surface-100">
-                                        Profile Photo
+                                        Profilbild
                                     </h3>
                                     <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                                        Click to upload a new photo. JPG, PNG or GIF, max 5MB.
+                                        Klicka för att ladda upp en ny bild. JPG, PNG eller GIF, max 5 MB.
                                     </p>
                                 </div>
                             </div>
@@ -449,7 +449,7 @@ export default function Settings() {
                                 {isSaved && (
                                     <div className="p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-lg text-sm flex items-center gap-2">
                                         <Check className="w-4 h-4" />
-                                        <span>Profile saved successfully!</span>
+                                        <span>Profilen har sparats!</span>
                                     </div>
                                 )}
 
@@ -458,7 +458,7 @@ export default function Settings() {
                                     {/* Display Name */}
                                     <div>
                                         <label htmlFor="display_name" className="label">
-                                            Display Name
+                                            Visningsnamn
                                         </label>
                                         <div className="relative">
                                             <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
@@ -468,7 +468,7 @@ export default function Settings() {
                                                 type="text"
                                                 value={formData.display_name}
                                                 onChange={handleChange}
-                                                placeholder="Your name"
+                                                placeholder="Ditt namn"
                                                 required
                                                 maxLength={100}
                                                 className="input pl-10"
@@ -479,7 +479,7 @@ export default function Settings() {
                                     {/* Username */}
                                     <div>
                                         <label htmlFor="username" className="label">
-                                            Username
+                                            Användarnamn
                                         </label>
                                         <div className="relative">
                                             <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
@@ -489,7 +489,7 @@ export default function Settings() {
                                                 type="text"
                                                 value={formData.username}
                                                 onChange={handleChange}
-                                                placeholder="username"
+                                                placeholder="användarnamn"
                                                 required
                                                 pattern="^[a-zA-Z0-9_\-]+$"
                                                 maxLength={30}
@@ -512,7 +512,7 @@ export default function Settings() {
                                             </div>
                                         </div>
                                         <p className="text-xs text-surface-400 dark:text-surface-500 mt-1">
-                                            3-30 characters. Letters, numbers, underscores, and hyphens only.
+                                            3–30 tecken. Endast bokstäver, siffror, understreck och bindestreck.
                                         </p>
                                     </div>
                                 </div>
@@ -529,7 +529,7 @@ export default function Settings() {
                                             name="bio"
                                             value={formData.bio}
                                             onChange={handleChange}
-                                            placeholder="Tell us about yourself..."
+                                            placeholder="Berätta om dig själv..."
                                             rows={4}
                                             maxLength={500}
                                             className="input pl-10 resize-none"
@@ -545,7 +545,7 @@ export default function Settings() {
                                     {/* Location */}
                                     <div>
                                         <label htmlFor="location" className="label">
-                                            Location
+                                            Plats
                                         </label>
                                         <div className="relative">
                                             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
@@ -555,7 +555,7 @@ export default function Settings() {
                                                 type="text"
                                                 value={formData.location}
                                                 onChange={handleChange}
-                                                placeholder="City, Country"
+                                                placeholder="Stad, land"
                                                 maxLength={100}
                                                 className="input pl-10"
                                             />
@@ -565,7 +565,7 @@ export default function Settings() {
                                     {/* Website */}
                                     <div>
                                         <label htmlFor="website" className="label">
-                                            Website
+                                            Webbplats
                                         </label>
                                         <div className="relative">
                                             <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
@@ -575,7 +575,7 @@ export default function Settings() {
                                                 type="url"
                                                 value={formData.website}
                                                 onChange={handleChange}
-                                                placeholder="https://yourwebsite.com"
+                                                placeholder="https://dinwebbplats.se"
                                                 className="input pl-10"
                                             />
                                         </div>
@@ -592,10 +592,10 @@ export default function Settings() {
                                         {isLoading ? (
                                             <>
                                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                                <span>Saving...</span>
+                                                <span>Sparar...</span>
                                             </>
                                         ) : (
-                                            <span>Save Changes</span>
+                                            <span>Spara ändringar</span>
                                         )}
                                     </button>
                                 </div>

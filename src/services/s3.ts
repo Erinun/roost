@@ -23,7 +23,7 @@ export interface UploadResult {
 async function getAuthToken(): Promise<string> {
     const session = await getCurrentSession();
     if (!session?.access_token) {
-        throw new Error('Authentication required for file uploads');
+        throw new Error('Du måste vara inloggad för att ladda upp filer');
     }
     return session.access_token;
 }
@@ -48,8 +48,8 @@ async function uploadViaPresignedUrl(file: File, folder: string): Promise<Upload
     });
 
     if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: 'Upload failed' }));
-        throw new Error(error.error || 'Failed to get upload URL');
+        const error = await response.json().catch(() => ({ error: 'Uppladdningen misslyckades' }));
+        throw new Error(error.error || 'Kunde inte hämta uppladdningslänk');
     }
 
     const { presignedUrl, key, publicUrl } = await response.json();
@@ -64,7 +64,7 @@ async function uploadViaPresignedUrl(file: File, folder: string): Promise<Upload
     });
 
     if (!uploadResponse.ok) {
-        throw new Error('Failed to upload file to storage');
+        throw new Error('Kunde inte ladda upp filen till lagringen');
     }
 
     return {
@@ -82,7 +82,7 @@ export async function uploadFile(
     folder: string = 'uploads'
 ): Promise<UploadResult> {
     if (file.size > MAX_FILE_SIZE) {
-        throw new Error(`File size exceeds maximum allowed (${MAX_FILE_SIZE / 1024 / 1024}MB)`);
+        throw new Error(`Filen är för stor (max ${MAX_FILE_SIZE / 1024 / 1024} MB)`);
     }
 
     return uploadViaPresignedUrl(file, folder);
@@ -91,11 +91,11 @@ export async function uploadFile(
 // Upload image with validation
 export async function uploadImage(file: File): Promise<UploadResult> {
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-        throw new Error('Invalid image type. Allowed types: JPEG, PNG, GIF, WebP');
+        throw new Error('Ogiltig bildtyp. Tillåtna typer: JPEG, PNG, GIF, WebP');
     }
 
     if (file.size > MAX_IMAGE_SIZE) {
-        throw new Error(`Image size exceeds maximum allowed (${MAX_IMAGE_SIZE / 1024 / 1024}MB)`);
+        throw new Error(`Bilden är för stor (max ${MAX_IMAGE_SIZE / 1024 / 1024} MB)`);
     }
 
     return uploadViaPresignedUrl(file, 'images');
@@ -104,11 +104,11 @@ export async function uploadImage(file: File): Promise<UploadResult> {
 // Upload avatar with validation
 export async function uploadAvatar(file: File, userId: string): Promise<UploadResult> {
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-        throw new Error('Invalid image type. Allowed types: JPEG, PNG, GIF, WebP');
+        throw new Error('Ogiltig bildtyp. Tillåtna typer: JPEG, PNG, GIF, WebP');
     }
 
     if (file.size > 5 * 1024 * 1024) {
-        throw new Error('Avatar size exceeds maximum allowed (5MB)');
+        throw new Error('Profilbilden är för stor (max 5 MB)');
     }
 
     return uploadViaPresignedUrl(file, `avatars/${userId}`);
@@ -117,7 +117,7 @@ export async function uploadAvatar(file: File, userId: string): Promise<UploadRe
 // Upload video
 export async function uploadVideo(file: File): Promise<UploadResult> {
     if (!ALLOWED_VIDEO_TYPES.includes(file.type)) {
-        throw new Error('Invalid video type. Allowed types: MP4, WebM, MOV');
+        throw new Error('Ogiltig videotyp. Tillåtna typer: MP4, WebM, MOV');
     }
 
     return uploadViaPresignedUrl(file, 'videos');
@@ -126,7 +126,7 @@ export async function uploadVideo(file: File): Promise<UploadResult> {
 // Upload document
 export async function uploadDocument(file: File): Promise<UploadResult> {
     if (!ALLOWED_DOCUMENT_TYPES.includes(file.type)) {
-        throw new Error('Invalid document type. Allowed types: PDF, DOC, DOCX');
+        throw new Error('Ogiltig dokumenttyp. Tillåtna typer: PDF, DOC, DOCX');
     }
 
     return uploadViaPresignedUrl(file, 'documents');
@@ -146,7 +146,7 @@ export async function deleteFile(key: string): Promise<void> {
     });
 
     if (!response.ok) {
-        throw new Error('Failed to delete file');
+        throw new Error('Kunde inte ta bort filen');
     }
 }
 

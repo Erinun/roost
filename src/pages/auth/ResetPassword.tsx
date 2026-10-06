@@ -20,9 +20,9 @@ export default function ResetPassword() {
 
     // Password requirements
     const passwordRequirements = [
-        { label: 'At least 8 characters', test: (p: string) => p.length >= 8 },
-        { label: 'Contains a number', test: (p: string) => /\d/.test(p) },
-        { label: 'Contains a letter', test: (p: string) => /[a-zA-Z]/.test(p) },
+        { label: 'Minst 8 tecken', test: (p: string) => p.length >= 8 },
+        { label: 'Innehåller en siffra', test: (p: string) => /\d/.test(p) },
+        { label: 'Innehåller en bokstav', test: (p: string) => /[a-zA-Z]/.test(p) },
     ];
 
     // Validate token on mount
@@ -62,7 +62,7 @@ export default function ResetPassword() {
 
         // Validate passwords match
         if (password !== confirmPassword) {
-            setError('Passwords do not match');
+            setError('Lösenorden matchar inte');
             return;
         }
 
@@ -71,7 +71,7 @@ export default function ResetPassword() {
             req.test(password)
         );
         if (!allRequirementsMet) {
-            setError('Password does not meet all requirements');
+            setError('Lösenordet uppfyller inte alla krav');
             return;
         }
 
@@ -89,7 +89,7 @@ export default function ResetPassword() {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to reset password');
+                throw new Error(data.error || 'Det gick inte att återställa lösenordet');
             }
 
             setSuccess(true);
@@ -99,7 +99,7 @@ export default function ResetPassword() {
                 navigate('/login');
             }, 3000);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to reset password');
+            setError(err instanceof Error ? err.message : 'Det gick inte att återställa lösenordet');
         } finally {
             setIsLoading(false);
         }
@@ -110,7 +110,7 @@ export default function ResetPassword() {
         return (
             <div className="card p-8 animate-fade-in text-center max-w-md w-full mx-auto">
                 <Loader2 className="w-8 h-8 animate-spin text-primary-600 mx-auto mb-4" />
-                <p className="text-surface-500 dark:text-surface-400">Verifying reset link...</p>
+                <p className="text-surface-500 dark:text-surface-400">Verifierar återställningslänken...</p>
             </div>
         );
     }
@@ -122,12 +122,12 @@ export default function ResetPassword() {
                 <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                     <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
                 </div>
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">Invalid or Expired Link</h1>
+                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">Ogiltig eller utgången länk</h1>
                 <p className="text-surface-500 dark:text-surface-400 mb-6">
-                    This password reset link is invalid or has expired. Please request a new one.
+                    Den här återställningslänken är ogiltig eller har gått ut. Begär en ny.
                 </p>
                 <Link to="/forgot-password" className="btn-primary w-full py-2.5">
-                    Request New Link
+                    Begär ny länk
                 </Link>
             </div>
         );
@@ -140,12 +140,12 @@ export default function ResetPassword() {
                 <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Check className="w-8 h-8 text-green-600 dark:text-green-400" />
                 </div>
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">Password Reset!</h1>
+                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">Lösenordet är återställt!</h1>
                 <p className="text-surface-500 dark:text-surface-400 mb-6">
-                    Your password has been successfully reset. Redirecting you to the login page...
+                    Ditt lösenord har återställts. Du skickas vidare till inloggningssidan...
                 </p>
                 <Link to="/login" className="btn-primary w-full py-2.5">
-                    Go to Login
+                    Gå till inloggning
                 </Link>
             </div>
         );
@@ -155,8 +155,8 @@ export default function ResetPassword() {
         <div className="card p-8 animate-fade-in max-w-md w-full mx-auto">
             {/* Header */}
             <div className="text-center mb-8">
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Reset Password</h1>
-                <p className="text-surface-500 dark:text-surface-400 mt-2">Enter your new password below</p>
+                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Återställ lösenord</h1>
+                <p className="text-surface-500 dark:text-surface-400 mt-2">Ange ditt nya lösenord nedan</p>
             </div>
 
             {/* Error message */}
@@ -172,7 +172,7 @@ export default function ResetPassword() {
                 {/* New Password field */}
                 <div>
                     <label htmlFor="password" className="label">
-                        New Password
+                        Nytt lösenord
                     </label>
                     <div className="relative">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
@@ -181,7 +181,7 @@ export default function ResetPassword() {
                             type={showPassword ? 'text' : 'password'}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter new password"
+                            placeholder="Ange nytt lösenord"
                             required
                             className="input pl-10 pr-10"
                             disabled={isLoading}
@@ -225,7 +225,7 @@ export default function ResetPassword() {
                 {/* Confirm Password field */}
                 <div>
                     <label htmlFor="confirmPassword" className="label">
-                        Confirm New Password
+                        Bekräfta nytt lösenord
                     </label>
                     <div className="relative">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
@@ -234,7 +234,7 @@ export default function ResetPassword() {
                             type={showPassword ? 'text' : 'password'}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="Confirm new password"
+                            placeholder="Bekräfta nytt lösenord"
                             required
                             className="input pl-10"
                             disabled={isLoading}
@@ -251,10 +251,10 @@ export default function ResetPassword() {
                     {isLoading ? (
                         <>
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            <span>Resetting...</span>
+                            <span>Återställer...</span>
                         </>
                     ) : (
-                        <span>Reset Password</span>
+                        <span>Återställ lösenord</span>
                     )}
                 </button>
             </form>

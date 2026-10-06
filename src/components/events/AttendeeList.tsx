@@ -76,10 +76,10 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
             {/* Filter tabs */}
             <div className="flex gap-2 mb-4 flex-wrap">
                 {[
-                    { key: 'all', label: 'All', count: statusCounts.all },
-                    { key: 'going', label: 'Going', count: statusCounts.going },
-                    { key: 'maybe', label: 'Maybe', count: statusCounts.maybe },
-                    { key: 'not_going', label: 'Can\'t Go', count: statusCounts.not_going },
+                    { key: 'all', label: 'Alla', count: statusCounts.all },
+                    { key: 'going', label: 'Deltar', count: statusCounts.going },
+                    { key: 'maybe', label: 'Kanske', count: statusCounts.maybe },
+                    { key: 'not_going', label: 'Kan inte delta', count: statusCounts.not_going },
                 ].map(({ key, label, count }) => (
                     <button
                         key={key}
@@ -101,7 +101,7 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
             {filteredAttendees.length === 0 ? (
                 <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                     <Users size={48} className="mx-auto mb-2 opacity-20" />
-                    <p>No attendees in this category yet</p>
+                    <p>Inga deltagare i den här kategorin ännu</p>
                 </div>
             ) : (
                 <div className="space-y-2">
@@ -127,7 +127,7 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2">
                                     <p className="font-medium text-gray-900 dark:text-gray-100 truncate">
-                                        {attendee.user?.display_name || 'Unknown User'}
+                                        {attendee.user?.display_name || 'Okänd användare'}
                                     </p>
                                     {attendee.user?.is_online && (
                                         <div className="w-2 h-2 bg-green-500 rounded-full" title="Online" />
@@ -147,9 +147,9 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
                                 ${attendee.status === 'maybe' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400' : ''}
                                 ${attendee.status === 'not_going' ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' : ''}
                             `}>
-                                {attendee.status === 'going' && 'Going'}
-                                {attendee.status === 'maybe' && 'Maybe'}
-                                {attendee.status === 'not_going' && 'Can\'t Go'}
+                                {attendee.status === 'going' && 'Deltar'}
+                                {attendee.status === 'maybe' && 'Kanske'}
+                                {attendee.status === 'not_going' && 'Kan inte delta'}
                             </div>
                         </div>
                     ))}

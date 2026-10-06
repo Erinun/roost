@@ -72,7 +72,7 @@ export default function LessonPlayer({
                     </div>
                 ) : (
                     <div className="aspect-video flex items-center justify-center text-surface-400">
-                        Video unavailable
+                        Videon är inte tillgänglig
                     </div>
                 )}
             </div>
@@ -99,9 +99,9 @@ export default function LessonPlayer({
                 >
                     <ChevronLeft className="w-4 h-4 flex-shrink-0" />
                     <span className="truncate hidden sm:inline">
-                        {prevRecording ? prevRecording.title : 'Previous'}
+                        {prevRecording ? prevRecording.title : 'Föregående'}
                     </span>
-                    <span className="sm:hidden">Prev</span>
+                    <span className="sm:hidden">Föreg.</span>
                 </button>
 
                 {/* Mark Complete */}
@@ -121,7 +121,7 @@ export default function LessonPlayer({
                     ) : (
                         <Circle className="w-4 h-4" />
                     )}
-                    {isCompleted ? 'Completed' : 'Mark Complete'}
+                    {isCompleted ? 'Slutförd' : 'Markera som slutförd'}
                 </button>
 
                 {/* Next */}
@@ -131,9 +131,9 @@ export default function LessonPlayer({
                     className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg border border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-400 hover:bg-surface-50 dark:hover:bg-surface-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors ml-auto min-w-0"
                 >
                     <span className="truncate hidden sm:inline">
-                        {nextRecording ? nextRecording.title : 'Next'}
+                        {nextRecording ? nextRecording.title : 'Nästa'}
                     </span>
-                    <span className="sm:hidden">Next</span>
+                    <span className="sm:hidden">Nästa</span>
                     <ChevronRight className="w-4 h-4 flex-shrink-0" />
                 </button>
             </div>
@@ -142,7 +142,7 @@ export default function LessonPlayer({
             {commentSection && (
                 <div>
                     <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-50 mb-4">
-                        Discussion
+                        Diskussion
                     </h3>
                     {commentSection}
                 </div>

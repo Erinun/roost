@@ -70,7 +70,7 @@ export default function MentionDropdown({ query, onSelect, onClose }: MentionDro
                 </div>
             ) : results.length === 0 ? (
                 <div className="p-3 text-sm text-surface-500 dark:text-surface-400 text-center">
-                    No users found
+                    Inga användare hittades
                 </div>
             ) : (
                 <div className="py-1 max-h-48 overflow-y-auto">

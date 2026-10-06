@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useMemo, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import {
     MoreHorizontal,
     Edit2,
@@ -41,11 +42,11 @@ interface CommentItemProps {
 }
 
 const reactionIcons: Record<ReactionType, { icon: typeof Heart; label: string; color: string; bgColor: string }> = {
-    like: { icon: ThumbsUp, label: 'Like', color: 'text-blue-500', bgColor: 'hover:bg-blue-50 dark:hover:bg-blue-900/30' },
-    love: { icon: Heart, label: 'Love', color: 'text-red-500', bgColor: 'hover:bg-red-50 dark:hover:bg-red-900/30' },
-    fire: { icon: Flame, label: 'Fire', color: 'text-orange-500', bgColor: 'hover:bg-orange-50 dark:hover:bg-orange-900/30' },
-    clap: { icon: Hand, label: 'Clap', color: 'text-yellow-500', bgColor: 'hover:bg-yellow-50 dark:hover:bg-yellow-900/30' },
-    think: { icon: Brain, label: 'Think', color: 'text-purple-500', bgColor: 'hover:bg-purple-50 dark:hover:bg-purple-900/30' },
+    like: { icon: ThumbsUp, label: 'Gilla', color: 'text-blue-500', bgColor: 'hover:bg-blue-50 dark:hover:bg-blue-900/30' },
+    love: { icon: Heart, label: 'Älska', color: 'text-red-500', bgColor: 'hover:bg-red-50 dark:hover:bg-red-900/30' },
+    fire: { icon: Flame, label: 'Eld', color: 'text-orange-500', bgColor: 'hover:bg-orange-50 dark:hover:bg-orange-900/30' },
+    clap: { icon: Hand, label: 'Applåd', color: 'text-yellow-500', bgColor: 'hover:bg-yellow-50 dark:hover:bg-yellow-900/30' },
+    think: { icon: Brain, label: 'Tänkvärt', color: 'text-purple-500', bgColor: 'hover:bg-purple-50 dark:hover:bg-purple-900/30' },
     haha: { icon: Laugh, label: 'Haha', color: 'text-green-500', bgColor: 'hover:bg-green-50 dark:hover:bg-green-900/30' },
 };
 
@@ -224,7 +225,7 @@ function CommentItem({
     };
 
     const handleDelete = async () => {
-        if (window.confirm('Are you sure you want to delete this comment?')) {
+        if (window.confirm('Är du säker på att du vill ta bort den här kommentaren?')) {
             await onDelete(comment.id);
         }
     };
@@ -284,8 +285,8 @@ function CommentItem({
                                 : comment.author.membership_type === 'premium' && <ProBadge size="xs" className="ml-1.5" />
                             }
                             <span className="text-xs text-surface-400 dark:text-surface-500 ml-2">
-                                {formatDistanceToNow(new Date(comment.created_at || Date.now()), { addSuffix: true })}
-                                {comment.is_edited && <span className="ml-1">(edited)</span>}
+                                {formatDistanceToNow(new Date(comment.created_at || Date.now()), { addSuffix: true, locale: sv })}
+                                {comment.is_edited && <span className="ml-1">(redigerad)</span>}
                             </span>
                         </div>
                     </Link>
@@ -310,7 +311,7 @@ function CommentItem({
                                         className="w-full flex items-center gap-2 px-3 py-2 text-sm text-surface-700 dark:text-surface-200 hover:bg-surface-50 dark:hover:bg-surface-700"
                                     >
                                         <Edit2 className="w-3.5 h-3.5" />
-                                        Edit
+                                        Redigera
                                     </button>
                                     <button
                                         onClick={() => {
@@ -320,7 +321,7 @@ function CommentItem({
                                         className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
                                     >
                                         <Trash2 className="w-3.5 h-3.5" />
-                                        Delete
+                                        Ta bort
                                     </button>
                                 </div>
                             )}
@@ -334,7 +335,7 @@ function CommentItem({
                         <CommentForm
                             onSubmit={handleEditSubmit}
                             initialValue={comment.content}
-                            submitLabel="Save"
+                            submitLabel="Spara"
                             onCancel={() => setIsEditing(false)}
                             autoFocus
                             isReply
@@ -394,7 +395,7 @@ function CommentItem({
                                     }`}
                             >
                                 <ReactionIcon className="w-4 h-4" />
-                                <span>{currentReaction ? reactionIcons[currentReaction].label : 'React'}</span>
+                                <span>{currentReaction ? reactionIcons[currentReaction].label : 'Reagera'}</span>
                             </button>
 
                             {/* Reaction picker popup */}
@@ -437,7 +438,7 @@ function CommentItem({
                                         ? 'text-green-500'
                                         : 'text-surface-400 hover:text-surface-600 dark:hover:text-surface-300'
                                 }`}
-                                title="Upvote"
+                                title="Rösta upp"
                             >
                                 <ChevronUp className="w-4 h-4" />
                             </button>
@@ -458,7 +459,7 @@ function CommentItem({
                                         ? 'text-red-500'
                                         : 'text-surface-400 hover:text-surface-600 dark:hover:text-surface-300'
                                 }`}
-                                title="Downvote"
+                                title="Rösta ner"
                             >
                                 <ChevronDown className="w-4 h-4" />
                             </button>
@@ -470,7 +471,7 @@ function CommentItem({
                                 className="flex items-center gap-1 text-xs text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 transition-colors"
                             >
                                 <MessageCircle className="w-4 h-4" />
-                                Reply
+                                Svara
                             </button>
                         )}
 
@@ -482,12 +483,12 @@ function CommentItem({
                                 {showReplies ? (
                                     <>
                                         <ChevronUp className="w-4 h-4" />
-                                        Hide {comment.replies!.length} {comment.replies!.length === 1 ? 'reply' : 'replies'}
+                                        Dölj {comment.replies!.length} svar
                                     </>
                                 ) : (
                                     <>
                                         <ChevronDown className="w-4 h-4" />
-                                        Show {comment.replies!.length} {comment.replies!.length === 1 ? 'reply' : 'replies'}
+                                        Visa {comment.replies!.length} svar
                                     </>
                                 )}
                             </button>
@@ -500,7 +501,7 @@ function CommentItem({
                     <div className="mt-3">
                         <CommentForm
                             onSubmit={handleReplySubmit}
-                            placeholder={`Reply to ${comment.author.display_name}...`}
+                            placeholder={`Svara ${comment.author.display_name}...`}
                             onCancel={() => setIsReplying(false)}
                             autoFocus
                             isReply

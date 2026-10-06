@@ -321,14 +321,14 @@ export default function PostFeed({
     }, []);
 
     const handleDeletePost = useCallback(async (postId: string) => {
-        if (!window.confirm('Are you sure you want to delete this post?')) return;
+        if (!window.confirm('Är du säker på att du vill ta bort det här inlägget?')) return;
 
         try {
             await deletePostService(postId);
             setPosts((prev) => prev.filter((p) => p.id !== postId));
         } catch (error) {
             console.error('Error deleting post:', error);
-            alert('Failed to delete post. Please try again.');
+            alert('Det gick inte att ta bort inlägget. Försök igen.');
         }
     }, []);
 
@@ -341,7 +341,7 @@ export default function PostFeed({
             loadPosts(true);
         } catch (error) {
             console.error('Error toggling pin:', error);
-            alert('Failed to pin/unpin post. Please try again.');
+            alert('Det gick inte att fästa/lossa inlägget. Försök igen.');
         }
     }, [loadPosts]);
 
@@ -470,7 +470,7 @@ export default function PostFeed({
                         onClick={() => setIsModalOpen(true)}
                         className="flex-1 text-left px-4 py-2.5 bg-surface-100 dark:bg-surface-800 rounded-lg text-surface-400 dark:text-surface-500 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
                     >
-                        Write something...
+                        Skriv något...
                     </button>
                 </div>
             </div>
@@ -497,7 +497,7 @@ export default function PostFeed({
                         transition-colors flex items-center justify-center gap-2 border border-primary-200 dark:border-primary-800"
                 >
                     <ChevronUp className="w-4 h-4" />
-                    Show {pendingPosts.length} new {pendingPosts.length === 1 ? 'post' : 'posts'}
+                    Visa {pendingPosts.length} {pendingPosts.length === 1 ? 'nytt' : 'nya'} inlägg
                 </button>
             )}
 
@@ -524,7 +524,7 @@ export default function PostFeed({
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-2 text-sm font-medium text-surface-500 dark:text-surface-400">
                                         <Pin className="w-4 h-4" />
-                                        <span>Pinned Posts</span>
+                                        <span>Fästa inlägg</span>
                                     </div>
                                     {totalSlides > 1 && (
                                         <div className="flex items-center gap-2">
@@ -585,16 +585,16 @@ export default function PostFeed({
                                     <div className="w-16 h-16 bg-primary-50 dark:bg-primary-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
                                         <UserPlus className="w-8 h-8 text-primary-500" />
                                     </div>
-                                    <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">Your feed is empty</h3>
+                                    <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">Ditt flöde är tomt</h3>
                                     <p className="text-surface-500 dark:text-surface-400 mb-4">
-                                        Follow community members to see their posts here. Admin and moderator posts will always appear.
+                                        Följ medlemmar i communityn för att se deras inlägg här. Inlägg från administratörer och moderatorer visas alltid.
                                     </p>
                                     <Link
                                         to="/explore"
                                         className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
                                     >
                                         <Compass className="w-4 h-4" />
-                                        Explore Posts
+                                        Utforska inlägg
                                     </Link>
                                 </div>
                             ) : (
@@ -614,9 +614,9 @@ export default function PostFeed({
                                             />
                                         </svg>
                                     </div>
-                                    <h3 className="text-lg font-medium text-surface-900 mb-2">No posts yet</h3>
+                                    <h3 className="text-lg font-medium text-surface-900 mb-2">Inga inlägg än</h3>
                                     <p className="text-surface-500 mb-4">
-                                        Be the first to share something with the community!
+                                        Bli först med att dela något med communityn!
                                     </p>
                                 </div>
                             )

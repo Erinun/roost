@@ -39,7 +39,7 @@ export default function UserRankBadge({ rank, size = 'md' }: UserRankBadgeProps)
                 shadow-md
                 relative
             `}
-            title={`Rank #${rank}`}
+            title={`Placering #${rank}`}
         >
             {rank === 1 && (
                 <Trophy

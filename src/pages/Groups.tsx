@@ -116,21 +116,21 @@ export default function Groups() {
             fetchGroups(true);
         } catch (error) {
             console.error('Error joining group:', error);
-            alert('Failed to join classroom');
+            alert('Det gick inte att gå med i klassrummet');
         }
     };
 
     const handleLeave = async (groupId: string) => {
         if (!user) return;
 
-        if (!confirm('Are you sure you want to leave this classroom?')) return;
+        if (!confirm('Är du säker på att du vill lämna det här klassrummet?')) return;
 
         try {
             await leaveGroup(groupId, user.id);
             fetchGroups(true);
         } catch (error) {
             console.error('Error leaving group:', error);
-            alert(error instanceof Error ? error.message : 'Failed to leave classroom');
+            alert(error instanceof Error ? error.message : 'Det gick inte att lämna klassrummet');
         }
     };
 
@@ -141,9 +141,9 @@ export default function Groups() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-50">Classrooms</h1>
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-50">Klassrum</h1>
                     <p className="text-surface-500 dark:text-surface-400 mt-1">
-                        Join classrooms and connect with like-minded learners
+                        Gå med i klassrum och knyt kontakt med likasinnade
                     </p>
                 </div>
                 {isPlatformAdmin && (
@@ -152,7 +152,7 @@ export default function Groups() {
                         className="flex items-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                     >
                         <Plus className="w-5 h-5" />
-                        Create Classroom
+                        Skapa klassrum
                     </button>
                 )}
             </div>
@@ -166,7 +166,7 @@ export default function Groups() {
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search classrooms..."
+                        placeholder="Sök klassrum..."
                         className="w-full pl-10 pr-4 py-2.5 border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                 </div>

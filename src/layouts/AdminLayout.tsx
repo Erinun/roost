@@ -26,17 +26,17 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-    { path: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
-    { path: '/admin/users', label: 'Users', icon: Users },
-    { path: '/admin/content', label: 'Content', icon: FileText, moderatorAccess: true },
-    { path: '/admin/categories', label: 'Categories', icon: Tag },
-    { path: '/admin/announcements', label: 'Announcements', icon: Megaphone },
-    { path: '/admin/subscriptions', label: 'Subscriptions', icon: CreditCard },
-    { path: '/admin/activations', label: 'Activations', icon: Key, moderatorAccess: true },
-    { path: '/admin/showcases', label: 'Showcases', icon: Rocket, moderatorAccess: true },
-    { path: '/admin/live-room', label: 'Live Room', icon: Radio },
-    { path: '/admin/backups', label: 'Backups', icon: Database },
-    { path: '/admin/site-settings', label: 'Site Settings', icon: Settings },
+    { path: '/admin', label: 'Översikt', icon: LayoutDashboard, end: true },
+    { path: '/admin/users', label: 'Användare', icon: Users },
+    { path: '/admin/content', label: 'Innehåll', icon: FileText, moderatorAccess: true },
+    { path: '/admin/categories', label: 'Kategorier', icon: Tag },
+    { path: '/admin/announcements', label: 'Tillkännagivanden', icon: Megaphone },
+    { path: '/admin/subscriptions', label: 'Prenumerationer', icon: CreditCard },
+    { path: '/admin/activations', label: 'Aktiveringar', icon: Key, moderatorAccess: true },
+    { path: '/admin/showcases', label: 'Showcase', icon: Rocket, moderatorAccess: true },
+    { path: '/admin/live-room', label: 'Liverum', icon: Radio },
+    { path: '/admin/backups', label: 'Säkerhetskopior', icon: Database },
+    { path: '/admin/site-settings', label: 'Webbplatsinställningar', icon: Settings },
 ];
 
 export default function AdminLayout() {
@@ -66,13 +66,13 @@ export default function AdminLayout() {
                     {!collapsed && (
                         <div className="flex items-center gap-2">
                             <Shield className="w-6 h-6 text-primary-400" />
-                            <span className="font-semibold">{isPlatformAdmin ? 'Admin Panel' : 'Mod Panel'}</span>
+                            <span className="font-semibold">{isPlatformAdmin ? 'Adminpanel' : 'Moderatorpanel'}</span>
                         </div>
                     )}
                     <button
                         onClick={() => setCollapsed(!collapsed)}
                         className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-                        title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                        title={collapsed ? 'Expandera sidofältet' : 'Fäll ihop sidofältet'}
                     >
                         <ChevronLeft
                             className={`w-5 h-5 transition-transform ${collapsed ? 'rotate-180' : ''}`}
@@ -109,10 +109,10 @@ export default function AdminLayout() {
                     <NavLink
                         to="/"
                         className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
-                        title={collapsed ? 'Back to Site' : undefined}
+                        title={collapsed ? 'Tillbaka till webbplatsen' : undefined}
                     >
                         <ChevronLeft className="w-5 h-5" />
-                        {!collapsed && <span>Back to Site</span>}
+                        {!collapsed && <span>Tillbaka till webbplatsen</span>}
                     </NavLink>
                 </div>
             </aside>

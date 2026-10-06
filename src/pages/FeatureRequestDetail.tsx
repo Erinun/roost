@@ -107,10 +107,10 @@ export default function FeatureRequestDetailPage() {
                 </button>
                 <div className="text-center py-20">
                     <h2 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">
-                        Feature request not found
+                        Funktionsönskemålet hittades inte
                     </h2>
                     <p className="text-surface-500">
-                        The feature request you're looking for doesn't exist or was deleted.
+                        Funktionsönskemålet du letar efter finns inte eller har tagits bort.
                     </p>
                 </div>
             </div>
@@ -125,7 +125,7 @@ export default function FeatureRequestDetailPage() {
                 className="inline-flex items-center gap-2 text-sm text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 mb-6 transition-colors"
             >
                 <ArrowLeft className="w-4 h-4" />
-                Back to Roadmap
+                Tillbaka till färdplanen
             </button>
 
             {/* Detail view */}

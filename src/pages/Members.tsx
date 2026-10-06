@@ -88,12 +88,12 @@ export function Members() {
                     <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg text-primary-600 dark:text-primary-400">
                         <Users className="w-6 h-6" />
                     </div>
-                    <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-50">Members Directory</h1>
+                    <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-50">Medlemskatalog</h1>
                 </div>
                 <div className="flex gap-4 text-surface-500 dark:text-surface-400 text-sm">
-                    <p>Total Members: <span className="font-medium text-surface-900 dark:text-surface-100">{totalCount}</span></p>
+                    <p>Totalt antal medlemmar: <span className="font-medium text-surface-900 dark:text-surface-100">{totalCount}</span></p>
                     <p>•</p>
-                    <p>Online Now: <span className="font-medium text-green-500">{onlineCount}</span></p>
+                    <p>Online nu: <span className="font-medium text-green-500">{onlineCount}</span></p>
                 </div>
             </div>
 

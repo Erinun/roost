@@ -27,12 +27,12 @@ export default function ForgotPassword() {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to send reset email');
+                throw new Error(data.error || 'Det gick inte att skicka återställningsmejlet');
             }
 
             setSuccess(true);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to send reset email');
+            setError(err instanceof Error ? err.message : 'Det gick inte att skicka återställningsmejlet');
         } finally {
             setIsLoading(false);
         }
@@ -46,16 +46,16 @@ export default function ForgotPassword() {
                 <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Check className="w-8 h-8 text-green-600 dark:text-green-400" />
                 </div>
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">Check your email</h1>
+                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">Kolla din e-post</h1>
                 <p className="text-surface-500 dark:text-surface-400 mb-6">
-                    If an account exists with <strong>{email}</strong>, we've sent a password reset link.
-                    The link will expire in 1 hour.
+                    Om det finns ett konto med <strong>{email}</strong> har vi skickat en länk för att återställa lösenordet.
+                    Länken upphör att gälla om 1 timme.
                 </p>
                 <p className="text-surface-400 dark:text-surface-500 text-sm mb-6">
-                    Don't see the email? Check your spam folder.
+                    Ser du inget mejl? Kolla din skräppost.
                 </p>
                 <Link to="/login" className="btn-primary w-full py-2.5">
-                    Back to login
+                    Tillbaka till inloggning
                 </Link>
             </div>
             </div>
@@ -70,14 +70,14 @@ export default function ForgotPassword() {
                 className="inline-flex items-center gap-1 text-sm text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300 mb-6"
             >
                 <ArrowLeft className="w-4 h-4" />
-                <span>Back to login</span>
+                <span>Tillbaka till inloggning</span>
             </Link>
 
             {/* Header */}
             <div className="text-center mb-8">
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Forgot password?</h1>
+                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Glömt lösenordet?</h1>
                 <p className="text-surface-500 dark:text-surface-400 mt-2">
-                    No worries, we'll send you reset instructions
+                    Ingen fara, vi skickar instruktioner för återställning
                 </p>
             </div>
 
@@ -93,7 +93,7 @@ export default function ForgotPassword() {
                 {/* Email field */}
                 <div>
                     <label htmlFor="email" className="label">
-                        Email address
+                        E-postadress
                     </label>
                     <div className="relative">
                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
@@ -102,7 +102,7 @@ export default function ForgotPassword() {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="you@example.com"
+                            placeholder="du@exempel.se"
                             required
                             className="input pl-10"
                             disabled={isLoading}
@@ -119,10 +119,10 @@ export default function ForgotPassword() {
                     {isLoading ? (
                         <>
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            <span>Sending...</span>
+                            <span>Skickar...</span>
                         </>
                     ) : (
-                        <span>Reset password</span>
+                        <span>Återställ lösenord</span>
                     )}
                 </button>
             </form>

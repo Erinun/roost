@@ -64,10 +64,10 @@ export interface BanDuration {
 }
 
 export const BAN_DURATIONS: BanDuration[] = [
-    { label: '1 Hour', value: '1 hour' },
-    { label: '24 Hours', value: '1 day' },
-    { label: '7 Days', value: '7 days' },
-    { label: '30 Days', value: '30 days' },
+    { label: '1 timme', value: '1 hour' },
+    { label: '24 timmar', value: '1 day' },
+    { label: '7 dagar', value: '7 days' },
+    { label: '30 dagar', value: '30 days' },
     { label: 'Permanent', value: null },
 ];
 

@@ -28,10 +28,10 @@ import type { ActivationRequestStatus } from '@/types/database';
 // Status badge helper
 function StatusBadge({ status }: { status: ActivationRequestStatus }) {
     const config = {
-        pending: { label: 'Pending Review', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400', icon: Clock },
-        in_progress: { label: 'In Progress', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400', icon: Loader2 },
-        completed: { label: 'Completed', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400', icon: CheckCircle },
-        rejected: { label: 'Rejected', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400', icon: XCircle },
+        pending: { label: 'Väntar på granskning', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400', icon: Clock },
+        in_progress: { label: 'Pågår', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400', icon: Loader2 },
+        completed: { label: 'Slutförd', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400', icon: CheckCircle },
+        rejected: { label: 'Avslagen', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400', icon: XCircle },
     };
     const { label, color, icon: Icon } = config[status] || config.pending;
 
@@ -91,7 +91,7 @@ export default function Activations() {
     const handleSubmitRequest = async () => {
         if (!user || !selectedProduct) return;
         if (!requestForm.website_url.trim() || !requestForm.wp_username.trim() || !requestForm.wp_password.trim()) {
-            setError('Please fill in all required fields');
+            setError('Fyll i alla obligatoriska fält');
             return;
         }
 
@@ -99,7 +99,7 @@ export default function Activations() {
         try {
             new URL(requestForm.website_url);
         } catch {
-            setError('Please enter a valid website URL');
+            setError('Ange en giltig webbadress');
             return;
         }
 
@@ -108,13 +108,13 @@ export default function Activations() {
             a => a.product_id === selectedProduct.id && (a.status === 'pending' || a.status === 'in_progress')
         );
         if (hasActiveRequest) {
-            setError('You already have an active request for this product');
+            setError('Du har redan en aktiv förfrågan för den här produkten');
             return;
         }
 
         // Check remaining activations
         if (selectedProduct.remaining_activations <= 0) {
-            setError('Monthly activation limit reached for this product');
+            setError('Månadsgränsen för aktiveringar är nådd för den här produkten');
             return;
         }
 
@@ -139,7 +139,7 @@ export default function Activations() {
             setActiveTab('history');
         } catch (err) {
             console.error('Error submitting request:', err);
-            setError(err instanceof Error ? err.message : 'Failed to submit request');
+            setError(err instanceof Error ? err.message : 'Det gick inte att skicka förfrågan');
         } finally {
             setSubmitting(false);
         }
@@ -155,7 +155,7 @@ export default function Activations() {
             a => a.product_id === product.id && (a.status === 'pending' || a.status === 'in_progress')
         );
         if (hasActiveRequest) {
-            alert('You already have an active request for this product');
+            alert('Du har redan en aktiv förfrågan för den här produkten');
             return;
         }
 
@@ -179,10 +179,10 @@ export default function Activations() {
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-3">
                         <Key className="w-8 h-8 text-primary-500" />
-                        Product Activations
+                        Produktaktiveringar
                     </h1>
                     <p className="text-gray-600 dark:text-gray-400 mt-2">
-                        Request activation keys for premium products like Elementor, Bricks Builder, themes, and more.
+                        Begär aktiveringsnycklar för premiumprodukter som Elementor, Bricks Builder, teman med mera.
                     </p>
                 </div>
 
@@ -197,7 +197,7 @@ export default function Activations() {
                                     : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'
                             }`}
                         >
-                            Available Products
+                            Tillgängliga produkter
                         </button>
                         <button
                             onClick={() => setActiveTab('history')}
@@ -207,7 +207,7 @@ export default function Activations() {
                                     : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'
                             }`}
                         >
-                            My Requests
+                            Mina förfrågningar
                             {myActivations.filter(a => a.status === 'pending' || a.status === 'in_progress').length > 0 && (
                                 <span className="ml-2 px-2 py-0.5 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 rounded-full text-xs">
                                     {myActivations.filter(a => a.status === 'pending' || a.status === 'in_progress').length}
@@ -223,8 +223,8 @@ export default function Activations() {
                         {products.length === 0 ? (
                             <div className="text-center py-12">
                                 <Package className="w-16 h-16 mx-auto text-surface-300 dark:text-surface-600 mb-4" />
-                                <p className="text-surface-600 dark:text-surface-400 text-lg">No products available</p>
-                                <p className="text-surface-500 dark:text-surface-500 mt-1">Check back later for new products</p>
+                                <p className="text-surface-600 dark:text-surface-400 text-lg">Inga produkter tillgängliga</p>
+                                <p className="text-surface-500 dark:text-surface-500 mt-1">Kom tillbaka senare för nya produkter</p>
                             </div>
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -254,9 +254,9 @@ export default function Activations() {
                                             )}
 
                                             <div className="flex items-center justify-between text-sm mb-4">
-                                                <span className="text-surface-500 dark:text-surface-400">Monthly Limit</span>
+                                                <span className="text-surface-500 dark:text-surface-400">Månadsgräns</span>
                                                 <span className="font-medium text-surface-900 dark:text-surface-100">
-                                                    {product.remaining_activations} / {product.monthly_limit} remaining
+                                                    {product.remaining_activations} / {product.monthly_limit} kvar
                                                 </span>
                                             </div>
 
@@ -282,10 +282,10 @@ export default function Activations() {
                                                 className="w-full py-2.5 px-4 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed bg-primary-500 hover:bg-primary-600 text-white disabled:hover:bg-primary-500"
                                             >
                                                 {product.has_active_request
-                                                    ? 'Request Pending'
+                                                    ? 'Förfrågan väntar'
                                                     : product.remaining_activations === 0
-                                                    ? 'Limit Reached'
-                                                    : 'Request Activation'}
+                                                    ? 'Gränsen nådd'
+                                                    : 'Begär aktivering'}
                                             </button>
                                         </div>
                                     </div>
@@ -301,15 +301,15 @@ export default function Activations() {
                         {myActivations.length === 0 ? (
                             <div className="text-center py-12">
                                 <Clock className="w-16 h-16 mx-auto text-surface-300 dark:text-surface-600 mb-4" />
-                                <p className="text-surface-600 dark:text-surface-400 text-lg">No activation requests yet</p>
+                                <p className="text-surface-600 dark:text-surface-400 text-lg">Inga aktiveringsförfrågningar än</p>
                                 <p className="text-surface-500 dark:text-surface-500 mt-1">
-                                    Browse available products and submit your first request
+                                    Bläddra bland tillgängliga produkter och skicka din första förfrågan
                                 </p>
                                 <button
                                     onClick={() => setActiveTab('available')}
                                     className="mt-4 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors"
                                 >
-                                    View Products
+                                    Visa produkter
                                 </button>
                             </div>
                         ) : (
@@ -338,7 +338,7 @@ export default function Activations() {
                                                         <ExternalLink className="w-3 h-3" />
                                                     </a>
                                                     <p className="text-xs text-surface-500 dark:text-surface-400 mt-2">
-                                                        Requested {activation.created_at ? new Date(activation.created_at).toLocaleDateString() : '-'}
+                                                        Begärd {activation.created_at ? new Date(activation.created_at).toLocaleDateString('sv-SE') : '-'}
                                                     </p>
                                                 </div>
                                             </div>
@@ -349,7 +349,7 @@ export default function Activations() {
                                         {activation.status === 'pending' && (
                                             <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
                                                 <p className="text-sm text-yellow-800 dark:text-yellow-400">
-                                                    Your request is awaiting review. We'll notify you when it's being processed.
+                                                    Din förfrågan väntar på granskning. Vi meddelar dig när den börjar behandlas.
                                                 </p>
                                             </div>
                                         )}
@@ -357,7 +357,7 @@ export default function Activations() {
                                         {activation.status === 'in_progress' && (
                                             <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
                                                 <p className="text-sm text-blue-800 dark:text-blue-400">
-                                                    Your activation is being processed. This usually takes a few minutes.
+                                                    Din aktivering behandlas. Det tar oftast några minuter.
                                                 </p>
                                             </div>
                                         )}
@@ -366,11 +366,11 @@ export default function Activations() {
                                             <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
                                                 <p className="text-sm text-green-800 dark:text-green-400 flex items-center gap-2">
                                                     <CheckCircle className="w-4 h-4" />
-                                                    Your product has been activated successfully!
+                                                    Din produkt har aktiverats!
                                                 </p>
                                                 {activation.admin_notes && (
                                                     <p className="text-sm text-green-700 dark:text-green-500 mt-2">
-                                                        <strong>Note:</strong> {activation.admin_notes}
+                                                        <strong>Notering:</strong> {activation.admin_notes}
                                                     </p>
                                                 )}
                                             </div>
@@ -380,11 +380,11 @@ export default function Activations() {
                                             <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                                                 <p className="text-sm text-red-800 dark:text-red-400 flex items-center gap-2">
                                                     <XCircle className="w-4 h-4" />
-                                                    Your request could not be completed.
+                                                    Din förfrågan kunde inte slutföras.
                                                 </p>
                                                 {activation.admin_notes && (
                                                     <p className="text-sm text-red-700 dark:text-red-500 mt-2">
-                                                        <strong>Reason:</strong> {activation.admin_notes}
+                                                        <strong>Orsak:</strong> {activation.admin_notes}
                                                     </p>
                                                 )}
                                             </div>
@@ -396,10 +396,10 @@ export default function Activations() {
                                                 <div className="flex items-center justify-between gap-3">
                                                     <div className="min-w-0">
                                                         <p className="text-sm font-medium text-primary-800 dark:text-primary-300">
-                                                            Download & install the {activation.product.product_type === 'theme' ? 'theme' : 'plugin'} on your WordPress site
+                                                            Ladda ner och installera {activation.product.product_type === 'theme' ? 'temat' : 'tillägget'} på din WordPress-webbplats
                                                         </p>
                                                         <p className="text-xs text-primary-600 dark:text-primary-500 mt-0.5 truncate">
-                                                            {activation.product.file_name || 'File'}
+                                                            {activation.product.file_name || 'Fil'}
                                                         </p>
                                                     </div>
                                                     <a
@@ -410,7 +410,7 @@ export default function Activations() {
                                                         className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-medium transition-colors flex-shrink-0"
                                                     >
                                                         <Download className="w-4 h-4" />
-                                                        Download
+                                                        Ladda ner
                                                     </a>
                                                 </div>
                                             </div>
@@ -419,7 +419,7 @@ export default function Activations() {
                                         {/* User notes */}
                                         {activation.notes && (
                                             <div className="mt-4 pt-4 border-t border-surface-100 dark:border-surface-800">
-                                                <p className="text-xs text-surface-500 dark:text-surface-400 mb-1">Your notes:</p>
+                                                <p className="text-xs text-surface-500 dark:text-surface-400 mb-1">Dina anteckningar:</p>
                                                 <p className="text-sm text-surface-600 dark:text-surface-400">{activation.notes}</p>
                                             </div>
                                         )}
@@ -438,7 +438,7 @@ export default function Activations() {
                         <div className="p-6 border-b border-surface-200 dark:border-surface-700">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
-                                    Request Activation
+                                    Begär aktivering
                                 </h2>
                                 <button
                                     onClick={() => {
@@ -462,7 +462,7 @@ export default function Activations() {
                                 <div>
                                     <p className="font-medium text-surface-900 dark:text-surface-100">{selectedProduct.name}</p>
                                     <p className="text-sm text-surface-500 dark:text-surface-400">
-                                        {selectedProduct.remaining_activations} activation{selectedProduct.remaining_activations !== 1 ? 's' : ''} remaining this month
+                                        {selectedProduct.remaining_activations} aktivering{selectedProduct.remaining_activations !== 1 ? 'ar' : ''} kvar den här månaden
                                     </p>
                                 </div>
                             </div>
@@ -480,20 +480,20 @@ export default function Activations() {
                             {/* Form Fields */}
                             <div>
                                 <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
-                                    Website URL <span className="text-red-500">*</span>
+                                    Webbadress <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     type="url"
                                     value={requestForm.website_url}
                                     onChange={(e) => setRequestForm({ ...requestForm, website_url: e.target.value })}
-                                    placeholder="https://yourwebsite.com"
+                                    placeholder="https://dinwebbplats.se"
                                     className="w-full px-3 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100"
                                 />
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
-                                    WordPress Username <span className="text-red-500">*</span>
+                                    WordPress-användarnamn <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -506,14 +506,14 @@ export default function Activations() {
 
                             <div>
                                 <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
-                                    WordPress Password <span className="text-red-500">*</span>
+                                    WordPress-lösenord <span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative">
                                     <input
                                         type={showPassword ? 'text' : 'password'}
                                         value={requestForm.wp_password}
                                         onChange={(e) => setRequestForm({ ...requestForm, wp_password: e.target.value })}
-                                        placeholder="Your WordPress password"
+                                        placeholder="Ditt WordPress-lösenord"
                                         className="w-full px-3 py-2 pr-10 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100"
                                     />
                                     <button
@@ -528,12 +528,12 @@ export default function Activations() {
 
                             <div>
                                 <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
-                                    Notes (optional)
+                                    Anteckningar (valfritt)
                                 </label>
                                 <textarea
                                     value={requestForm.notes}
                                     onChange={(e) => setRequestForm({ ...requestForm, notes: e.target.value })}
-                                    placeholder="Any additional information..."
+                                    placeholder="Eventuell ytterligare information..."
                                     rows={3}
                                     className="w-full px-3 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100"
                                 />
@@ -543,9 +543,9 @@ export default function Activations() {
                             <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
                                 <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                                 <div className="text-sm text-blue-700 dark:text-blue-400">
-                                    <p className="font-medium">Your credentials are secure</p>
+                                    <p className="font-medium">Dina inloggningsuppgifter är säkra</p>
                                     <p className="mt-1 text-blue-600 dark:text-blue-500">
-                                        Your login details are stored securely and only used by our team to activate the product on your website.
+                                        Dina inloggningsuppgifter lagras säkert och används endast av vårt team för att aktivera produkten på din webbplats.
                                     </p>
                                 </div>
                             </div>
@@ -561,7 +561,7 @@ export default function Activations() {
                                 }}
                                 className="px-4 py-2 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
                             >
-                                Cancel
+                                Avbryt
                             </button>
                             <button
                                 onClick={handleSubmitRequest}
@@ -571,12 +571,12 @@ export default function Activations() {
                                 {submitting ? (
                                     <>
                                         <Loader2 className="w-4 h-4 animate-spin" />
-                                        Submitting...
+                                        Skickar...
                                     </>
                                 ) : (
                                     <>
                                         <Key className="w-4 h-4" />
-                                        Submit Request
+                                        Skicka förfrågan
                                     </>
                                 )}
                             </button>

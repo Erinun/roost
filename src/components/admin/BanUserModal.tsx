@@ -30,7 +30,7 @@ export default function BanUserModal({
             onBanned();
             onClose();
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to ban user');
+            setError(err instanceof Error ? err.message : 'Kunde inte stänga av användaren');
         } finally {
             setLoading(false);
         }
@@ -52,7 +52,7 @@ export default function BanUserModal({
                         <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
                             <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
                         </div>
-                        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Ban User</h2>
+                        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Stäng av användare</h2>
                     </div>
                     <button
                         onClick={onClose}
@@ -80,7 +80,7 @@ export default function BanUserModal({
                     {/* Duration */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Ban Duration
+                            Avstängningens längd
                         </label>
                         <div className="grid grid-cols-2 gap-2">
                             {BAN_DURATIONS.map(({ label, value }) => (
@@ -102,12 +102,12 @@ export default function BanUserModal({
                     {/* Reason */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Reason (optional)
+                            Anledning (valfritt)
                         </label>
                         <textarea
                             value={reason}
                             onChange={(e) => setReason(e.target.value)}
-                            placeholder="Provide a reason for the ban..."
+                            placeholder="Ange en anledning till avstängningen..."
                             rows={3}
                             className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
                         />
@@ -122,8 +122,8 @@ export default function BanUserModal({
 
                     {/* Warning */}
                     <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400 text-sm rounded-lg">
-                        <strong>Warning:</strong> This will prevent the user from accessing the platform
-                        {duration ? ` for ${BAN_DURATIONS.find(d => d.value === duration)?.label.toLowerCase()}` : ' permanently'}.
+                        <strong>Varning:</strong> Detta hindrar användaren från att komma åt plattformen
+                        {duration ? ` i ${BAN_DURATIONS.find(d => d.value === duration)?.label.toLowerCase()}` : ' permanent'}.
                     </div>
                 </div>
 
@@ -134,7 +134,7 @@ export default function BanUserModal({
                         onClick={onClose}
                         className="flex-1 px-4 py-2.5 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-surface-800 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-surface-700 transition-colors"
                     >
-                        Cancel
+                        Avbryt
                     </button>
                     <button
                         type="button"
@@ -142,7 +142,7 @@ export default function BanUserModal({
                         disabled={loading}
                         className="flex-1 px-4 py-2.5 text-white bg-red-600 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50"
                     >
-                        {loading ? 'Banning...' : 'Ban User'}
+                        {loading ? 'Stänger av...' : 'Stäng av användare'}
                     </button>
                 </div>
             </div>

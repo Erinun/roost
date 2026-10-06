@@ -26,7 +26,7 @@ export interface BackupListResponse {
 async function getAuthHeaders(): Promise<Record<string, string>> {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session?.access_token) {
-        throw new Error('Not authenticated');
+        throw new Error('Du är inte inloggad');
     }
     return {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export const backupService = {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || data.message || 'Failed to trigger backup');
+            throw new Error(data.error || data.message || 'Kunde inte starta säkerhetskopiering');
         }
 
         return data;
@@ -67,7 +67,7 @@ export const backupService = {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || data.message || 'Failed to list backups');
+            throw new Error(data.error || data.message || 'Kunde inte hämta säkerhetskopior');
         }
 
         return data;
@@ -86,7 +86,7 @@ export const backupService = {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || data.message || 'Failed to get download URL');
+            throw new Error(data.error || data.message || 'Kunde inte hämta nedladdningslänk');
         }
 
         return data.downloadUrl;

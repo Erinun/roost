@@ -26,9 +26,9 @@ import { useAuth } from '../../contexts/AuthContext';
 
 const TYPE_OPTIONS: { value: AnnouncementType; label: string; icon: typeof Info; color: string }[] = [
     { value: 'info', label: 'Info', icon: Info, color: 'text-blue-500' },
-    { value: 'success', label: 'Success', icon: CheckCircle, color: 'text-green-500' },
-    { value: 'warning', label: 'Warning', icon: AlertTriangle, color: 'text-yellow-500' },
-    { value: 'error', label: 'Error', icon: AlertCircle, color: 'text-red-500' },
+    { value: 'success', label: 'Lyckat', icon: CheckCircle, color: 'text-green-500' },
+    { value: 'warning', label: 'Varning', icon: AlertTriangle, color: 'text-yellow-500' },
+    { value: 'error', label: 'Fel', icon: AlertCircle, color: 'text-red-500' },
 ];
 
 interface AnnouncementFormData {
@@ -138,7 +138,7 @@ export default function AdminAnnouncements() {
             loadData();
         } catch (err) {
             console.error('Failed to save announcement:', err);
-            alert('Failed to save announcement');
+            alert('Det gick inte att spara tillkännagivandet');
         } finally {
             setSaving(false);
         }
@@ -156,7 +156,7 @@ export default function AdminAnnouncements() {
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this announcement?')) return;
+        if (!confirm('Är du säker på att du vill ta bort det här tillkännagivandet?')) return;
         try {
             await deleteAnnouncement(id);
             loadData();
@@ -171,8 +171,8 @@ export default function AdminAnnouncements() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Announcements</h1>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">Manage site-wide and group announcements</p>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Tillkännagivanden</h1>
+                    <p className="text-gray-500 dark:text-gray-400 mt-1">Hantera tillkännagivanden för hela webbplatsen och grupper</p>
                 </div>
                 {!showForm && (
                     <button
@@ -180,7 +180,7 @@ export default function AdminAnnouncements() {
                         className="flex items-center gap-2 px-4 py-2.5 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors"
                     >
                         <Plus className="w-5 h-5" />
-                        New Announcement
+                        Nytt tillkännagivande
                     </button>
                 )}
             </div>
@@ -189,32 +189,32 @@ export default function AdminAnnouncements() {
             {showForm && (
                 <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 p-6">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                        {editingId ? 'Edit Announcement' : 'New Announcement'}
+                        {editingId ? 'Redigera tillkännagivande' : 'Nytt tillkännagivande'}
                     </h3>
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Rubrik</label>
                             <input
                                 type="text"
                                 value={form.title}
                                 onChange={(e) => setForm({ ...form, title: e.target.value })}
-                                placeholder="Announcement title"
+                                placeholder="Tillkännagivandets rubrik"
                                 className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-primary-500"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Content</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Innehåll</label>
                             <textarea
                                 value={form.content}
                                 onChange={(e) => setForm({ ...form, content: e.target.value })}
-                                placeholder="Announcement content"
+                                placeholder="Tillkännagivandets innehåll"
                                 rows={3}
                                 className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-primary-500 resize-none"
                             />
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Type</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Typ</label>
                                 <div className="flex gap-2">
                                     {TYPE_OPTIONS.map(({ value, label, icon: Icon, color }) => (
                                         <button
@@ -233,7 +233,7 @@ export default function AdminAnnouncements() {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Scope</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Omfattning</label>
                                 <div className="flex gap-2">
                                     <button
                                         type="button"
@@ -244,7 +244,7 @@ export default function AdminAnnouncements() {
                                             }`}
                                     >
                                         <Globe className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-                                        <span className="text-sm text-gray-700 dark:text-gray-300">Global</span>
+                                        <span className="text-sm text-gray-700 dark:text-gray-300">Globalt</span>
                                     </button>
                                     <button
                                         type="button"
@@ -255,20 +255,20 @@ export default function AdminAnnouncements() {
                                             }`}
                                     >
                                         <Users className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-                                        <span className="text-sm text-gray-700 dark:text-gray-300">Group</span>
+                                        <span className="text-sm text-gray-700 dark:text-gray-300">Grupp</span>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         {form.scope === 'group' && (
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Group</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Välj grupp</label>
                                 <select
                                     value={form.group_id}
                                     onChange={(e) => setForm({ ...form, group_id: e.target.value })}
                                     className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500"
                                 >
-                                    <option value="">Select a group...</option>
+                                    <option value="">Välj en grupp...</option>
                                     {groups.map((group) => (
                                         <option key={group.id} value={group.id}>
                                             {group.name}
@@ -279,7 +279,7 @@ export default function AdminAnnouncements() {
                         )}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Start Date (optional)</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Startdatum (valfritt)</label>
                                 <input
                                     type="datetime-local"
                                     value={form.starts_at}
@@ -288,7 +288,7 @@ export default function AdminAnnouncements() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">End Date (optional)</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Slutdatum (valfritt)</label>
                                 <input
                                     type="datetime-local"
                                     value={form.expires_at}
@@ -304,7 +304,7 @@ export default function AdminAnnouncements() {
                                 onChange={(e) => setForm({ ...form, is_dismissible: e.target.checked })}
                                 className="w-4 h-4 text-primary-500 rounded focus:ring-primary-500"
                             />
-                            <span className="text-sm text-gray-700 dark:text-gray-300">Allow users to dismiss</span>
+                            <span className="text-sm text-gray-700 dark:text-gray-300">Tillåt användare att stänga</span>
                         </label>
                         <div className="flex gap-3 pt-2">
                             <button
@@ -313,7 +313,7 @@ export default function AdminAnnouncements() {
                                 className="flex items-center gap-2 px-4 py-2 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 disabled:opacity-50"
                             >
                                 <Check className="w-4 h-4" />
-                                {saving ? 'Saving...' : editingId ? 'Save Changes' : 'Create'}
+                                {saving ? 'Sparar...' : editingId ? 'Spara ändringar' : 'Skapa'}
                             </button>
                             <button
                                 onClick={() => {
@@ -324,7 +324,7 @@ export default function AdminAnnouncements() {
                                 className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-surface-800 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-surface-700"
                             >
                                 <X className="w-4 h-4" />
-                                Cancel
+                                Avbryt
                             </button>
                         </div>
                     </div>
@@ -334,11 +334,11 @@ export default function AdminAnnouncements() {
             {/* Announcements List */}
             <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 overflow-hidden">
                 {loading ? (
-                    <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading...</div>
+                    <div className="p-8 text-center text-gray-500 dark:text-gray-400">Laddar...</div>
                 ) : announcements.length === 0 ? (
                     <div className="p-8 text-center text-gray-500 dark:text-gray-400">
                         <Megaphone className="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-3" />
-                        <p>No announcements yet</p>
+                        <p>Inga tillkännagivanden ännu</p>
                     </div>
                 ) : (
                     <ul className="divide-y divide-gray-100 dark:divide-surface-700">
@@ -358,24 +358,24 @@ export default function AdminAnnouncements() {
                                                 <h4 className="font-medium text-gray-900 dark:text-gray-100">{announcement.title}</h4>
                                                 {announcement.scope === 'group' && (
                                                     <span className="px-2 py-0.5 text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded">
-                                                        Group
+                                                        Grupp
                                                     </span>
                                                 )}
                                                 {!announcement.is_active && (
                                                     <span className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">
-                                                        Inactive
+                                                        Inaktivt
                                                     </span>
                                                 )}
                                                 {isExpired && (
                                                     <span className="px-2 py-0.5 text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded">
-                                                        Expired
+                                                        Utgånget
                                                     </span>
                                                 )}
                                             </div>
                                             <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">{announcement.content}</p>
                                             <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
-                                                Created {new Date(announcement.created_at).toLocaleDateString()}
-                                                {announcement.expires_at && ` • Expires ${new Date(announcement.expires_at).toLocaleDateString()}`}
+                                                Skapat {new Date(announcement.created_at).toLocaleDateString('sv-SE')}
+                                                {announcement.expires_at && ` • Upphör ${new Date(announcement.expires_at).toLocaleDateString('sv-SE')}`}
                                             </p>
                                         </div>
                                         <div className="flex items-center gap-2">
@@ -386,7 +386,7 @@ export default function AdminAnnouncements() {
                                                     : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
                                                     }`}
                                             >
-                                                {announcement.is_active ? 'Active' : 'Inactive'}
+                                                {announcement.is_active ? 'Aktivt' : 'Inaktivt'}
                                             </button>
                                             <button
                                                 onClick={() => handleEdit(announcement)}

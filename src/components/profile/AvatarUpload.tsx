@@ -39,13 +39,13 @@ export default function AvatarUpload({
 
         // Validate file type
         if (!file.type.startsWith('image/')) {
-            setError('Please select an image file');
+            setError('Välj en bildfil');
             return;
         }
 
         // Validate file size (5MB)
         if (file.size > 5 * 1024 * 1024) {
-            setError('Image must be less than 5MB');
+            setError('Bilden måste vara mindre än 5 MB');
             return;
         }
 
@@ -60,7 +60,7 @@ export default function AvatarUpload({
             const result = await uploadAvatar(file, userId);
             onUpload(result.url);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Upload failed');
+            setError(err instanceof Error ? err.message : 'Uppladdningen misslyckades');
             setPreviewUrl(null);
         } finally {
             setIsUploading(false);
@@ -99,7 +99,7 @@ export default function AvatarUpload({
                     {displayUrl ? (
                         <img
                             src={displayUrl}
-                            alt={displayName || 'Avatar'}
+                            alt={displayName || 'Profilbild'}
                             className="w-full h-full object-cover"
                         />
                     ) : (
@@ -136,7 +136,7 @@ export default function AvatarUpload({
 
             {/* Helper text */}
             <p className="text-xs text-surface-400 dark:text-surface-500">
-                Click to upload • Max 5MB
+                Klicka för att ladda upp • Max 5 MB
             </p>
         </div>
     );

@@ -48,7 +48,7 @@ export default function CompactGroupHeader({ group }: CompactGroupHeaderProps) {
                     <Link
                         to={`/classrooms/${group.slug}/settings`}
                         className="p-2 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
-                        title="Classroom settings"
+                        title="Klassrumsinställningar"
                     >
                         <Settings className="w-5 h-5" />
                     </Link>

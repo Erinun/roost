@@ -114,7 +114,7 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-surface-700">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                        {initialData ? 'Edit Event' : 'Create New Event'}
+                        {initialData ? 'Redigera evenemang' : 'Skapa nytt evenemang'}
                     </h2>
                     <button
                         onClick={onClose}
@@ -129,14 +129,14 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                     {/* Group Selection */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Group (Optional)
+                            Grupp (valfritt)
                         </label>
                         <select
                             value={formData.group_id || ''}
                             onChange={(e) => handleChange('group_id', e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                         >
-                            <option value="">General (Community Event)</option>
+                            <option value="">Allmänt (community-evenemang)</option>
                             {userGroups.map((group) => (
                                 <option key={group.id} value={group.id}>
                                     {group.name}
@@ -144,14 +144,14 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                             ))}
                         </select>
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            Select "General" for community-wide events, or choose a specific group.
+                            Välj "Allmänt" för evenemang som gäller hela communityt, eller välj en specifik grupp.
                         </p>
                     </div>
 
                     {/* Title */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Event Title <span className="text-red-500">*</span>
+                            Evenemangets titel <span className="text-red-500">*</span>
                         </label>
                         <input
                             type="text"
@@ -159,21 +159,21 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                             value={formData.title}
                             onChange={(e) => handleChange('title', e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            placeholder="Monthly Team Meetup"
+                            placeholder="Månatlig teamträff"
                         />
                     </div>
 
                     {/* Description */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Description
+                            Beskrivning
                         </label>
                         <textarea
                             value={formData.description}
                             onChange={(e) => handleChange('description', e.target.value)}
                             rows={4}
                             className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                            placeholder="Tell attendees what to expect..."
+                            placeholder="Berätta för deltagarna vad de kan förvänta sig..."
                         />
                     </div>
 
@@ -181,7 +181,7 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Start Date & Time <span className="text-red-500">*</span>
+                                Startdatum och -tid <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="datetime-local"
@@ -193,7 +193,7 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                End Date & Time <span className="text-red-500">*</span>
+                                Slutdatum och -tid <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="datetime-local"
@@ -215,7 +215,7 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                             className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
                         />
                         <label htmlFor="is_virtual" className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer">
-                            This is a virtual event
+                            Det här är ett virtuellt evenemang
                         </label>
                     </div>
 
@@ -223,7 +223,7 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                     {formData.is_virtual ? (
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Meeting URL
+                                Mötes-URL
                             </label>
                             <input
                                 type="url"
@@ -233,20 +233,20 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                                 placeholder="https://zoom.us/j/123456789"
                             />
                             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                Optional: Add after event creation or closer to event date
+                                Valfritt: Lägg till efter att evenemanget skapats eller närmare evenemangsdatumet
                             </p>
                         </div>
                     ) : (
                         <div>
                             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Location
+                                Plats
                             </label>
                             <input
                                 type="text"
                                 value={formData.location}
                                 onChange={(e) => handleChange('location', e.target.value)}
                                 className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                                placeholder="123 Main St, City, State"
+                                placeholder="Storgatan 1, Stockholm"
                             />
                         </div>
                     )}
@@ -259,14 +259,14 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                         onClick={onClose}
                         className="px-4 py-2 border border-gray-300 dark:border-surface-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-800 transition-colors"
                     >
-                        Cancel
+                        Avbryt
                     </button>
                     <button
                         onClick={handleSubmit}
                         disabled={loading}
                         className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
                     >
-                        {loading ? 'Saving...' : initialData ? 'Update Event' : 'Create Event'}
+                        {loading ? 'Sparar...' : initialData ? 'Uppdatera evenemang' : 'Skapa evenemang'}
                     </button>
                 </div>
             </div>

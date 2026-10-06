@@ -105,7 +105,7 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
                         {index === 5 && assets.length > 6 && (
                             <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
                                 <span className="text-white text-xl font-semibold">
-                                    +{assets.length - 6} more
+                                    +{assets.length - 6} till
                                 </span>
                             </div>
                         )}
@@ -123,7 +123,7 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
                     <button
                         onClick={closeLightbox}
                         className="absolute top-4 right-4 z-10 p-3 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all"
-                        aria-label="Close"
+                        aria-label="Stäng"
                     >
                         <X className="w-8 h-8" />
                     </button>
@@ -134,14 +134,14 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
                             <button
                                 onClick={goToPrevious}
                                 className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all hover:scale-110"
-                                aria-label="Previous image"
+                                aria-label="Föregående bild"
                             >
                                 <ChevronLeft className="w-8 h-8" />
                             </button>
                             <button
                                 onClick={goToNext}
                                 className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all hover:scale-110"
-                                aria-label="Next image"
+                                aria-label="Nästa bild"
                             >
                                 <ChevronRight className="w-8 h-8" />
                             </button>
@@ -172,10 +172,10 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
                     {/* Footer info */}
                     <div className="absolute bottom-4 left-0 right-0 text-center">
                         <p className="text-white/60 text-sm">
-                            {selectedIndex + 1} of {assets.length}
+                            {selectedIndex + 1} av {assets.length}
                         </p>
                         <p className="text-white/40 text-xs mt-1">
-                            Press arrow keys to navigate • ESC to close
+                            Använd piltangenterna för att bläddra • ESC för att stänga
                         </p>
                     </div>
 

@@ -46,7 +46,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
         try {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                throw new Error('You must be logged in');
+                throw new Error('Du måste vara inloggad');
             }
 
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -61,14 +61,14 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to setup 2FA');
+                throw new Error(data.error || 'Kunde inte konfigurera 2FA');
             }
 
             setSecret(data.secret);
             setOtpauthUri(data.otpauthUri);
             setStep('scan');
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to setup 2FA');
+            setError(err instanceof Error ? err.message : 'Kunde inte konfigurera 2FA');
         } finally {
             setIsLoading(false);
         }
@@ -76,7 +76,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
 
     const verifyCode = async () => {
         if (verificationCode.length !== 6) {
-            setError('Please enter a 6-digit code');
+            setError('Ange en 6-siffrig kod');
             return;
         }
 
@@ -86,7 +86,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
         try {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                throw new Error('You must be logged in');
+                throw new Error('Du måste vara inloggad');
             }
 
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -102,13 +102,13 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Invalid verification code');
+                throw new Error(data.error || 'Ogiltig verifieringskod');
             }
 
             setBackupCodes(data.backupCodes);
             setStep('backup');
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to verify code');
+            setError(err instanceof Error ? err.message : 'Kunde inte verifiera koden');
         } finally {
             setIsLoading(false);
         }
@@ -151,7 +151,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                             <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
                         </div>
                         <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
-                            Setup Two-Factor Authentication
+                            Konfigurera tvåfaktorsautentisering
                         </h2>
                     </div>
                     {step !== 'backup' && (
@@ -183,26 +183,26 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                     <Shield className="w-8 h-8 text-green-600 dark:text-green-400" />
                                 </div>
                                 <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">
-                                    Add an Extra Layer of Security
+                                    Lägg till ett extra säkerhetslager
                                 </h3>
                                 <p className="text-surface-500 dark:text-surface-400">
-                                    Two-factor authentication adds an additional layer of security to your account
-                                    by requiring a code from your authenticator app when you sign in.
+                                    Tvåfaktorsautentisering ger ditt konto ett extra säkerhetslager
+                                    genom att kräva en kod från din autentiseringsapp när du loggar in.
                                 </p>
                             </div>
 
                             <div className="bg-surface-50 dark:bg-surface-800 rounded-lg p-4">
                                 <h4 className="font-medium text-surface-900 dark:text-surface-100 mb-2">
-                                    You'll need:
+                                    Du behöver:
                                 </h4>
                                 <ul className="space-y-2 text-sm text-surface-600 dark:text-surface-400">
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 text-green-500" />
-                                        An authenticator app (Google Authenticator, Authy, etc.)
+                                        En autentiseringsapp (Google Authenticator, Authy m.fl.)
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <Check className="w-4 h-4 text-green-500" />
-                                        Your phone nearby to scan a QR code
+                                        Din telefon till hands för att skanna en QR-kod
                                     </li>
                                 </ul>
                             </div>
@@ -215,10 +215,10 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                 {isLoading ? (
                                     <>
                                         <Loader2 className="w-5 h-5 animate-spin" />
-                                        <span>Setting up...</span>
+                                        <span>Konfigurerar...</span>
                                     </>
                                 ) : (
-                                    <span>Get Started</span>
+                                    <span>Kom igång</span>
                                 )}
                             </button>
                         </div>
@@ -229,10 +229,10 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                         <div className="space-y-6">
                             <div className="text-center">
                                 <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">
-                                    Scan QR Code
+                                    Skanna QR-koden
                                 </h3>
                                 <p className="text-surface-500 dark:text-surface-400 text-sm">
-                                    Open your authenticator app and scan this QR code
+                                    Öppna din autentiseringsapp och skanna den här QR-koden
                                 </p>
                             </div>
 
@@ -241,7 +241,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                 <div className="p-4 bg-white rounded-lg border border-surface-200 dark:border-surface-700">
                                     <img
                                         src={getQRCodeUrl(otpauthUri)}
-                                        alt="QR Code"
+                                        alt="QR-kod"
                                         className="w-48 h-48"
                                     />
                                 </div>
@@ -250,7 +250,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                             {/* Manual entry option */}
                             <div className="bg-surface-50 dark:bg-surface-800 rounded-lg p-4">
                                 <p className="text-xs text-surface-500 dark:text-surface-400 mb-2">
-                                    Can't scan? Enter this code manually:
+                                    Kan du inte skanna? Ange den här koden manuellt:
                                 </p>
                                 <code className="block px-3 py-2 bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-700 rounded text-sm font-mono break-all">
                                     {secret}
@@ -261,7 +261,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                 onClick={() => setStep('verify')}
                                 className="w-full px-4 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                             >
-                                Continue
+                                Fortsätt
                             </button>
                         </div>
                     )}
@@ -271,10 +271,10 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                         <div className="space-y-6">
                             <div className="text-center">
                                 <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">
-                                    Enter Verification Code
+                                    Ange verifieringskod
                                 </h3>
                                 <p className="text-surface-500 dark:text-surface-400 text-sm">
-                                    Enter the 6-digit code from your authenticator app
+                                    Ange den 6-siffriga koden från din autentiseringsapp
                                 </p>
                             </div>
 
@@ -298,7 +298,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                     onClick={() => setStep('scan')}
                                     className="flex-1 px-4 py-3 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 rounded-lg font-medium hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors"
                                 >
-                                    Back
+                                    Tillbaka
                                 </button>
                                 <button
                                     onClick={verifyCode}
@@ -308,10 +308,10 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                     {isLoading ? (
                                         <>
                                             <Loader2 className="w-5 h-5 animate-spin" />
-                                            <span>Verifying...</span>
+                                            <span>Verifierar...</span>
                                         </>
                                     ) : (
-                                        <span>Verify</span>
+                                        <span>Verifiera</span>
                                     )}
                                 </button>
                             </div>
@@ -326,11 +326,11 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                     <Key className="w-8 h-8 text-yellow-600 dark:text-yellow-400" />
                                 </div>
                                 <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">
-                                    Save Your Backup Codes
+                                    Spara dina reservkoder
                                 </h3>
                                 <p className="text-surface-500 dark:text-surface-400 text-sm">
-                                    If you lose access to your authenticator app, you can use these backup codes to sign in.
-                                    Each code can only be used once.
+                                    Om du förlorar åtkomsten till din autentiseringsapp kan du använda dessa reservkoder för att logga in.
+                                    Varje kod kan bara användas en gång.
                                 </p>
                             </div>
 
@@ -354,19 +354,19 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                 {copiedBackupCodes ? (
                                     <>
                                         <CheckCircle className="w-4 h-4 text-green-500" />
-                                        <span>Copied!</span>
+                                        <span>Kopierat!</span>
                                     </>
                                 ) : (
                                     <>
                                         <Copy className="w-4 h-4" />
-                                        <span>Copy Codes</span>
+                                        <span>Kopiera koder</span>
                                     </>
                                 )}
                             </button>
 
                             <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
                                 <p className="text-sm text-yellow-700 dark:text-yellow-400">
-                                    <strong>Important:</strong> Store these codes in a safe place. You won't be able to see them again.
+                                    <strong>Viktigt:</strong> Förvara dessa koder på ett säkert ställe. Du kommer inte att kunna se dem igen.
                                 </p>
                             </div>
 
@@ -375,7 +375,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                 className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
                             >
                                 <Check className="w-5 h-5" />
-                                <span>I've Saved My Codes</span>
+                                <span>Jag har sparat mina koder</span>
                             </button>
                         </div>
                     )}

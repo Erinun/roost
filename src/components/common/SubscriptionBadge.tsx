@@ -20,7 +20,7 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
         return (
             <div className={`inline-flex items-center gap-2 px-3 py-1.5 bg-surface-100 text-surface-600 rounded-lg ${className}`}>
                 <XCircle className="w-4 h-4" />
-                <span className="text-sm font-medium">No Subscription</span>
+                <span className="text-sm font-medium">Ingen prenumeration</span>
             </div>
         );
     }
@@ -31,7 +31,7 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
             <div className={`${showDetails ? 'p-4 rounded-xl border' : 'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg'} bg-green-50 border-green-200 ${className}`}>
                 <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span className="text-sm font-medium text-green-700">Active</span>
+                    <span className="text-sm font-medium text-green-700">Aktiv</span>
                     {subscription.productName && !showDetails && (
                         <span className="text-sm text-green-600">- {subscription.variantName || subscription.productName}</span>
                     )}
@@ -44,12 +44,12 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
                         </p>
                         {subscription.billingCycle && (
                             <p className="text-xs text-green-600 capitalize">
-                                Billing: {subscription.billingCycle}
+                                Fakturering: {subscription.billingCycle}
                             </p>
                         )}
                         {subscription.startedAt && (
                             <p className="text-xs text-green-600">
-                                Member since: {new Date(subscription.startedAt).toLocaleDateString()}
+                                Medlem sedan: {new Date(subscription.startedAt).toLocaleDateString('sv-SE')}
                             </p>
                         )}
                     </div>
@@ -69,22 +69,22 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
             <div className={`${showDetails ? 'p-4 rounded-xl border' : 'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg'} bg-amber-50 border-amber-200 ${className}`}>
                 <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-amber-600" />
-                    <span className="text-sm font-medium text-amber-700">Grace Period</span>
+                    <span className="text-sm font-medium text-amber-700">Respitperiod</span>
                     {daysRemaining !== null && !showDetails && (
                         <span className="text-sm text-amber-600">
-                            - {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} left
+                            - {daysRemaining} dag{daysRemaining !== 1 ? 'ar' : ''} kvar
                         </span>
                     )}
                 </div>
                 {showDetails && (
                     <div className="mt-2 space-y-1">
                         <p className="text-sm text-amber-700">
-                            Your subscription was cancelled but you still have access.
+                            Din prenumeration har avslutats men du har fortfarande åtkomst.
                         </p>
                         {endsAt && (
                             <p className="text-xs text-amber-600">
-                                Access ends: {endsAt.toLocaleDateString()}
-                                {daysRemaining !== null && ` (${daysRemaining} day${daysRemaining !== 1 ? 's' : ''} remaining)`}
+                                Åtkomsten upphör: {endsAt.toLocaleDateString('sv-SE')}
+                                {daysRemaining !== null && ` (${daysRemaining} dag${daysRemaining !== 1 ? 'ar' : ''} kvar)`}
                             </p>
                         )}
                     </div>
@@ -100,28 +100,28 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
             border: 'border-red-200',
             text: 'text-red-700',
             icon: XCircle,
-            label: 'Expired',
+            label: 'Utgången',
         },
         cancelled: {
             bg: 'bg-surface-100',
             border: 'border-surface-200',
             text: 'text-surface-600',
             icon: XCircle,
-            label: 'Cancelled',
+            label: 'Avslutad',
         },
         failed_payment: {
             bg: 'bg-red-50',
             border: 'border-red-200',
             text: 'text-red-700',
             icon: AlertCircle,
-            label: 'Payment Failed',
+            label: 'Betalning misslyckades',
         },
         refunded: {
             bg: 'bg-surface-100',
             border: 'border-surface-200',
             text: 'text-surface-600',
             icon: XCircle,
-            label: 'Refunded',
+            label: 'Återbetald',
         },
     };
 
@@ -137,7 +137,7 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
             {showDetails && (
                 <div className="mt-2">
                     <p className={`text-sm ${config.text}`}>
-                        Your subscription is no longer active. Please renew to continue accessing the community.
+                        Din prenumeration är inte längre aktiv. Förnya för att fortsätta få åtkomst till communityt.
                     </p>
                 </div>
             )}

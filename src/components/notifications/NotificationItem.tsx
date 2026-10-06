@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import { MessageSquare, Heart, Mail, UserPlus, Users, AtSign, UserCheck, Bell, Reply } from 'lucide-react';
 import type { Notification } from '../../types/database';
 import { getNotificationIconInfo } from '../../services/notification';
@@ -55,7 +56,7 @@ export default function NotificationItem({ notification, onRead, onClick }: Noti
           </p>
         )}
         <p className="text-xs text-surface-400 dark:text-surface-500 mt-1">
-          {formatDistanceToNow(new Date(notification.created_at || Date.now()), { addSuffix: true })}
+          {formatDistanceToNow(new Date(notification.created_at || Date.now()), { addSuffix: true, locale: sv })}
         </p>
       </div>
 

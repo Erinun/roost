@@ -35,7 +35,7 @@ export default function ConversationList({
       setConversations(data);
     } catch (err) {
       console.error('Error loading conversations:', err);
-      setError('Failed to load conversations');
+      setError('Kunde inte ladda konversationer');
     } finally {
       if (showLoading) {
         setIsLoading(false);
@@ -105,7 +105,7 @@ export default function ConversationList({
           onClick={() => loadConversations()}
           className="btn btn-secondary mt-4"
         >
-          Retry
+          Försök igen
         </button>
       </div>
     );
@@ -115,11 +115,11 @@ export default function ConversationList({
     <div className="flex flex-col h-full bg-white dark:bg-surface-900 border-r border-surface-200 dark:border-surface-700">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-surface-200 dark:border-surface-700">
-        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Messages</h2>
+        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Meddelanden</h2>
         <button
           onClick={onNewMessage}
           className="p-2 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-lg transition-colors"
-          title="New message"
+          title="Nytt meddelande"
         >
           <Plus className="w-5 h-5" />
         </button>
@@ -130,13 +130,13 @@ export default function ConversationList({
         {conversations.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full p-4 text-center">
             <MessageSquareOff className="w-12 h-12 text-surface-300 dark:text-surface-600 mb-3" />
-            <p className="text-sm text-surface-500 dark:text-surface-400 mb-1">No conversations yet</p>
+            <p className="text-sm text-surface-500 dark:text-surface-400 mb-1">Inga konversationer än</p>
             <p className="text-xs text-surface-400 dark:text-surface-500 mb-4">
-              Start a new conversation to begin chatting
+              Starta en ny konversation för att börja chatta
             </p>
             <button onClick={onNewMessage} className="btn btn-primary">
               <Plus className="w-4 h-4" />
-              New Message
+              Nytt meddelande
             </button>
           </div>
         ) : (

@@ -1,5 +1,6 @@
 import { MapPin, Video, Users, Clock } from 'lucide-react';
 import { format } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import type { EventWithDetails } from '../../types';
 import RSVPButton from './RSVPButton';
 import type { RSVPStatus } from '../../types/database';
@@ -34,7 +35,7 @@ export default function EventCard({ event, onRSVP, onClick, showGroup = true }: 
                             {format(startDate, 'd')}
                         </div>
                         <div className="text-xs text-gray-600 dark:text-gray-400 uppercase">
-                            {format(startDate, 'MMM')}
+                            {format(startDate, 'MMM', { locale: sv })}
                         </div>
                     </div>
 
@@ -46,7 +47,7 @@ export default function EventCard({ event, onRSVP, onClick, showGroup = true }: 
                             : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
                         }
                     `}>
-                        {event.is_virtual ? 'Virtual' : 'In Person'}
+                        {event.is_virtual ? 'Virtuellt' : 'På plats'}
                     </div>
                 </div>
 
@@ -69,7 +70,7 @@ export default function EventCard({ event, onRSVP, onClick, showGroup = true }: 
                 <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                     <Clock size={16} className="text-gray-400 dark:text-gray-500 flex-shrink-0" />
                     <span>
-                        {format(startDate, 'MMM d, h:mm a')} - {format(endDate, 'h:mm a')}
+                        {format(startDate, 'd MMM, HH:mm', { locale: sv })} - {format(endDate, 'HH:mm', { locale: sv })}
                     </span>
                 </div>
 
@@ -78,7 +79,7 @@ export default function EventCard({ event, onRSVP, onClick, showGroup = true }: 
                     event.meeting_url && (
                         <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                             <Video size={16} className="text-gray-400 dark:text-gray-500 flex-shrink-0" />
-                            <span className="truncate">Online Meeting</span>
+                            <span className="truncate">Onlinemöte</span>
                         </div>
                     )
                 ) : (
@@ -95,8 +96,8 @@ export default function EventCard({ event, onRSVP, onClick, showGroup = true }: 
                     <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                         <Users size={16} className="text-gray-400 dark:text-gray-500 flex-shrink-0" />
                         <span>
-                            {event.attendeeCount.going} going
-                            {event.attendeeCount.maybe > 0 && `, ${event.attendeeCount.maybe} maybe`}
+                            {event.attendeeCount.going} deltar
+                            {event.attendeeCount.maybe > 0 && `, ${event.attendeeCount.maybe} kanske`}
                         </span>
                     </div>
                 )}
@@ -123,7 +124,7 @@ export default function EventCard({ event, onRSVP, onClick, showGroup = true }: 
                 {/* Past event indicator */}
                 {isPast && (
                     <div className="pt-3 border-t border-gray-100 dark:border-surface-700">
-                        <span className="text-sm text-gray-500 dark:text-gray-400 italic">This event has ended</span>
+                        <span className="text-sm text-gray-500 dark:text-gray-400 italic">Det här evenemanget har avslutats</span>
                     </div>
                 )}
             </div>

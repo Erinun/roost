@@ -48,20 +48,20 @@ export default function AdminBackups() {
             if (result.success) {
                 setBackupResult({
                     type: 'success',
-                    message: `Backup completed successfully in ${result.duration?.toFixed(1)}s`,
+                    message: `Säkerhetskopieringen slutfördes på ${result.duration?.toFixed(1)} s`,
                 });
                 setLastBackupDetails(result);
                 await fetchBackups();
             } else {
                 setBackupResult({
                     type: 'error',
-                    message: result.error || 'Backup failed',
+                    message: result.error || 'Säkerhetskopieringen misslyckades',
                 });
             }
         } catch (error) {
             setBackupResult({
                 type: 'error',
-                message: error instanceof Error ? error.message : 'Failed to trigger backup',
+                message: error instanceof Error ? error.message : 'Det gick inte att starta säkerhetskopieringen',
             });
         } finally {
             setIsBackingUp(false);
@@ -70,7 +70,7 @@ export default function AdminBackups() {
 
     const formatDate = (dateStr: string) => {
         const date = new Date(dateStr);
-        return date.toLocaleString('en-US', {
+        return date.toLocaleString('sv-SE', {
             month: 'short',
             day: 'numeric',
             year: 'numeric',
@@ -87,9 +87,9 @@ export default function AdminBackups() {
         const diffHours = Math.floor(diffMs / 3600000);
         const diffDays = Math.floor(diffMs / 86400000);
 
-        if (diffMins < 60) return `${diffMins} minutes ago`;
-        if (diffHours < 24) return `${diffHours} hours ago`;
-        return `${diffDays} days ago`;
+        if (diffMins < 60) return `${diffMins} minuter sedan`;
+        if (diffHours < 24) return `${diffHours} timmar sedan`;
+        return `${diffDays} dagar sedan`;
     };
 
     const handleDownload = async (filename: string) => {
@@ -100,7 +100,7 @@ export default function AdminBackups() {
             console.error('Download error:', error);
             setBackupResult({
                 type: 'error',
-                message: error instanceof Error ? error.message : 'Failed to download backup',
+                message: error instanceof Error ? error.message : 'Det gick inte att ladda ner säkerhetskopian',
             });
         } finally {
             setDownloadingFile(null);
@@ -123,9 +123,9 @@ export default function AdminBackups() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Database Backups</h1>
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Säkerhetskopior av databasen</h1>
                     <p className="text-surface-500 dark:text-surface-400 mt-1">
-                        Manage database backups stored in S3
+                        Hantera säkerhetskopior av databasen som lagras i S3
                     </p>
                 </div>
                 <button
@@ -133,7 +133,7 @@ export default function AdminBackups() {
                     className="flex items-center gap-2 px-4 py-2 bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-700 rounded-lg text-surface-700 dark:text-surface-300 transition-colors"
                 >
                     <RefreshCw className="w-4 h-4" />
-                    Refresh
+                    Uppdatera
                 </button>
             </div>
 
@@ -155,7 +155,7 @@ export default function AdminBackups() {
                         <p className="font-medium">{backupResult.message}</p>
                         {lastBackupDetails && (
                             <p className="text-sm mt-1 opacity-80">
-                                File: {lastBackupDetails.filename} ({((lastBackupDetails.size || 0) / (1024 * 1024)).toFixed(2)} MB)
+                                Fil: {lastBackupDetails.filename} ({((lastBackupDetails.size || 0) / (1024 * 1024)).toFixed(2)} MB)
                             </p>
                         )}
                     </div>
@@ -171,7 +171,7 @@ export default function AdminBackups() {
                         </div>
                         <div>
                             <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{backups.length}</p>
-                            <p className="text-sm text-surface-500 dark:text-surface-400">Total Backups</p>
+                            <p className="text-sm text-surface-500 dark:text-surface-400">Totalt antal säkerhetskopior</p>
                         </div>
                     </div>
                 </div>
@@ -185,7 +185,7 @@ export default function AdminBackups() {
                             <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">
                                 {totalSize.toFixed(1)} MB
                             </p>
-                            <p className="text-sm text-surface-500 dark:text-surface-400">Total Storage Used</p>
+                            <p className="text-sm text-surface-500 dark:text-surface-400">Totalt lagringsutrymme</p>
                         </div>
                     </div>
                 </div>
@@ -197,9 +197,9 @@ export default function AdminBackups() {
                         </div>
                         <div>
                             <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">
-                                {latestBackup ? getTimeSince(latestBackup.createdAt) : 'Never'}
+                                {latestBackup ? getTimeSince(latestBackup.createdAt) : 'Aldrig'}
                             </p>
-                            <p className="text-sm text-surface-500 dark:text-surface-400">Last Backup</p>
+                            <p className="text-sm text-surface-500 dark:text-surface-400">Senaste säkerhetskopia</p>
                         </div>
                     </div>
                 </div>
@@ -207,7 +207,7 @@ export default function AdminBackups() {
 
             {/* Trigger Backup */}
             <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
-                <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">Create Backup</h2>
+                <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">Skapa säkerhetskopia</h2>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                     <button
                         onClick={handleTriggerBackup}
@@ -217,18 +217,18 @@ export default function AdminBackups() {
                         {isBackingUp ? (
                             <>
                                 <RefreshCw className="w-5 h-5 animate-spin" />
-                                Creating Backup...
+                                Skapar säkerhetskopia...
                             </>
                         ) : (
                             <>
                                 <Play className="w-5 h-5" />
-                                Create Backup Now
+                                Skapa säkerhetskopia nu
                             </>
                         )}
                     </button>
                     <p className="text-sm text-surface-500 dark:text-surface-400">
-                        Creates a compressed SQL dump of the database and uploads it to S3.
-                        This may take a few minutes depending on database size.
+                        Skapar en komprimerad SQL-dump av databasen och laddar upp den till S3.
+                        Detta kan ta några minuter beroende på databasens storlek.
                     </p>
                 </div>
 
@@ -237,9 +237,9 @@ export default function AdminBackups() {
                     <div className="flex items-start gap-3">
                         <AlertTriangle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                         <div className="text-sm text-blue-800 dark:text-blue-300">
-                            <p className="font-medium">Automatic Backups</p>
+                            <p className="font-medium">Automatiska säkerhetskopior</p>
                             <p className="mt-1 opacity-80">
-                                Backups are automatically created before each deployment. The system keeps the last 30 backups.
+                                Säkerhetskopior skapas automatiskt före varje driftsättning. Systemet behåller de 30 senaste säkerhetskopiorna.
                             </p>
                         </div>
                     </div>
@@ -248,14 +248,14 @@ export default function AdminBackups() {
 
             {/* Backup List */}
             <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
-                <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">Backup History</h2>
+                <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">Historik för säkerhetskopior</h2>
 
                 {backups.length === 0 ? (
                     <div className="text-center py-12">
                         <FileArchive className="w-12 h-12 text-surface-300 dark:text-surface-600 mx-auto mb-4" />
-                        <p className="text-surface-500 dark:text-surface-400">No backups found</p>
+                        <p className="text-surface-500 dark:text-surface-400">Inga säkerhetskopior hittades</p>
                         <p className="text-sm text-surface-400 dark:text-surface-500 mt-1">
-                            Create your first backup using the button above
+                            Skapa din första säkerhetskopia med knappen ovan
                         </p>
                     </div>
                 ) : (
@@ -264,19 +264,19 @@ export default function AdminBackups() {
                             <thead>
                                 <tr className="border-b border-surface-200 dark:border-surface-700">
                                     <th className="text-left py-3 px-4 text-sm font-medium text-surface-500 dark:text-surface-400">
-                                        Filename
+                                        Filnamn
                                     </th>
                                     <th className="text-left py-3 px-4 text-sm font-medium text-surface-500 dark:text-surface-400">
-                                        Size
+                                        Storlek
                                     </th>
                                     <th className="text-left py-3 px-4 text-sm font-medium text-surface-500 dark:text-surface-400">
-                                        Created
+                                        Skapad
                                     </th>
                                     <th className="text-left py-3 px-4 text-sm font-medium text-surface-500 dark:text-surface-400">
-                                        Age
+                                        Ålder
                                     </th>
                                     <th className="text-right py-3 px-4 text-sm font-medium text-surface-500 dark:text-surface-400">
-                                        Actions
+                                        Åtgärder
                                     </th>
                                 </tr>
                             </thead>
@@ -296,7 +296,7 @@ export default function AdminBackups() {
                                                 </code>
                                                 {index === 0 && (
                                                     <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
-                                                        Latest
+                                                        Senaste
                                                     </span>
                                                 )}
                                             </div>
@@ -321,14 +321,14 @@ export default function AdminBackups() {
                                                 onClick={() => handleDownload(backup.filename)}
                                                 disabled={downloadingFile === backup.filename}
                                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors disabled:opacity-50"
-                                                title="Download backup"
+                                                title="Ladda ner säkerhetskopia"
                                             >
                                                 {downloadingFile === backup.filename ? (
                                                     <RefreshCw className="w-4 h-4 animate-spin" />
                                                 ) : (
                                                     <Download className="w-4 h-4" />
                                                 )}
-                                                Download
+                                                Ladda ner
                                             </button>
                                         </td>
                                     </tr>

@@ -58,7 +58,7 @@ export default function LearnSidebar({
                     className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-surface-50 dark:hover:bg-surface-800 border-b border-surface-200 dark:border-surface-700 transition-colors"
                 >
                     <ArrowLeft className="w-4 h-4" />
-                    Back to Modules
+                    Tillbaka till moduler
                 </button>
             )}
 
@@ -128,7 +128,7 @@ export default function LearnSidebar({
 
                             {isExpanded && recordings.length === 0 && (
                                 <p className="text-xs text-surface-400 dark:text-surface-500 pl-10 pr-4 pb-3">
-                                    No lessons yet
+                                    Inga lektioner ännu
                                 </p>
                             )}
                         </div>

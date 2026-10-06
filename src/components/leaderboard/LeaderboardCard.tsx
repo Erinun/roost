@@ -15,7 +15,7 @@ export default function LeaderboardCard({
     groupId,
     period = 30,
     limit = 10,
-    title = 'Top Contributors',
+    title = 'Toppbidragsgivare',
 }: LeaderboardCardProps) {
     const [leaderboard, setLeaderboard] = useState<LeaderboardRank[]>([]);
     const [loading, setLoading] = useState(true);
@@ -72,7 +72,7 @@ export default function LeaderboardCard({
                         <Award size={20} className="text-purple-600 dark:text-purple-400" />
                         {title}
                     </h3>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{period}d</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{period} d</span>
                 </div>
             </div>
 
@@ -81,7 +81,7 @@ export default function LeaderboardCard({
                 {leaderboard.length === 0 ? (
                     <div className="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
                         <Award size={32} className="mx-auto mb-2 opacity-20" />
-                        <p className="text-sm">No data yet</p>
+                        <p className="text-sm">Ingen data ännu</p>
                     </div>
                 ) : (
                     leaderboard.map((entry) => (
@@ -120,7 +120,7 @@ export default function LeaderboardCard({
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-1.5">
                                         <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                                            {entry.user?.display_name || 'Unknown'}
+                                            {entry.user?.display_name || 'Okänd'}
                                         </p>
                                         {entry.user?.membership_type === 'premium' && <ProBadge size="xs" />}
                                     </div>
@@ -136,7 +136,7 @@ export default function LeaderboardCard({
                                     <span className="text-sm font-bold text-purple-600 dark:text-purple-400">
                                         {(entry.total_points || 0).toLocaleString()}
                                     </span>
-                                    <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">pts</span>
+                                    <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">p</span>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +151,7 @@ export default function LeaderboardCard({
                         href={groupId ? `/groups/${groupId}/leaderboard` : '/leaderboard'}
                         className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium flex items-center justify-center gap-1 group"
                     >
-                        View Full Leaderboard
+                        Visa hela topplistan
                         <svg
                             className="w-4 h-4 group-hover:translate-x-1 transition-transform"
                             fill="none"

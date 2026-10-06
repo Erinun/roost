@@ -16,6 +16,12 @@ interface GroupMembersProps {
 
 const MEMBERS_PER_PAGE = 20;
 
+const roleLabels: Record<string, string> = {
+    admin: 'Administratör',
+    moderator: 'Moderator',
+    member: 'Medlem',
+};
+
 export default function GroupMembers({
     groupId,
     userRole,
@@ -123,12 +129,12 @@ export default function GroupMembers({
             onMemberChange?.();
         } catch (error) {
             console.error('Error updating role:', error);
-            alert(error instanceof Error ? error.message : 'Failed to update role');
+            alert(error instanceof Error ? error.message : 'Det gick inte att uppdatera rollen');
         }
     };
 
     const handleRemoveMember = async (memberId: string) => {
-        if (!confirm('Are you sure you want to remove this member?')) return;
+        if (!confirm('Är du säker på att du vill ta bort den här medlemmen?')) return;
 
         try {
             await removeMember(groupId, memberId);
@@ -138,7 +144,7 @@ export default function GroupMembers({
             onMemberChange?.();
         } catch (error) {
             console.error('Error removing member:', error);
-            alert(error instanceof Error ? error.message : 'Failed to remove member');
+            alert(error instanceof Error ? error.message : 'Det gick inte att ta bort medlemmen');
         }
     };
 
@@ -158,7 +164,7 @@ export default function GroupMembers({
             <div className="card p-6">
                 <h3 className="font-semibold text-surface-900 dark:text-surface-50 mb-4 flex items-center gap-2">
                     <Users className="w-5 h-5" />
-                    Members
+                    Medlemmar
                 </h3>
                 <div className="space-y-3">
                     {[...Array(3)].map((_, i) => (
@@ -179,7 +185,7 @@ export default function GroupMembers({
             <div className="card p-6">
                 <h3 className="font-semibold text-surface-900 dark:text-surface-50 mb-4 flex items-center gap-2">
                     <Users className="w-5 h-5" />
-                    Members
+                    Medlemmar
                 </h3>
                 <div className="space-y-3">
                     {members.map((member) => (
@@ -215,7 +221,7 @@ export default function GroupMembers({
                         to={`/classrooms/${groupId}/members`}
                         className="flex items-center justify-center gap-1 mt-4 pt-4 border-t border-surface-100 dark:border-surface-700 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
                     >
-                        View all members
+                        Visa alla medlemmar
                         <ChevronRight className="w-4 h-4" />
                     </Link>
                 )}
@@ -229,7 +235,7 @@ export default function GroupMembers({
             <div className="p-6 border-b border-surface-100 dark:border-surface-700">
                 <h3 className="font-semibold text-surface-900 dark:text-surface-50 flex items-center gap-2">
                     <Users className="w-5 h-5" />
-                    Members ({members.length}{hasMore ? '+' : ''})
+                    Medlemmar ({members.length}{hasMore ? '+' : ''})
                 </h3>
             </div>
             <div className="divide-y divide-surface-100 dark:divide-surface-700">
@@ -273,7 +279,7 @@ export default function GroupMembers({
                                 member.role === 'moderator' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' :
                                     'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400'}
                         `}>
-                            {member.role && (member.role.charAt(0).toUpperCase() + member.role.slice(1))}
+                            {member.role && (roleLabels[member.role] ?? member.role)}
                         </span>
 
                         {/* Actions menu */}
@@ -294,7 +300,7 @@ export default function GroupMembers({
                                                 className="w-full flex items-center gap-2 px-4 py-2 text-sm text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700"
                                             >
                                                 <ShieldPlus className="w-4 h-4" />
-                                                Make Moderator
+                                                Gör till moderator
                                             </button>
                                         )}
                                         {canPromote && member.role === 'moderator' && (
@@ -304,14 +310,14 @@ export default function GroupMembers({
                                                     className="w-full flex items-center gap-2 px-4 py-2 text-sm text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700"
                                                 >
                                                     <Crown className="w-4 h-4" />
-                                                    Make Admin
+                                                    Gör till administratör
                                                 </button>
                                                 <button
                                                     onClick={() => handleRoleChange(member.user_id, 'member')}
                                                     className="w-full flex items-center gap-2 px-4 py-2 text-sm text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700"
                                                 >
                                                     <ShieldMinus className="w-4 h-4" />
-                                                    Remove Moderator
+                                                    Ta bort som moderator
                                                 </button>
                                             </>
                                         )}
@@ -320,7 +326,7 @@ export default function GroupMembers({
                                             className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
                                         >
                                             <UserMinus className="w-4 h-4" />
-                                            Remove from Classroom
+                                            Ta bort från klassrummet
                                         </button>
                                     </div>
                                 )}
@@ -335,11 +341,11 @@ export default function GroupMembers({
                         {loadingMore ? (
                             <div className="flex items-center justify-center gap-2 text-surface-500 dark:text-surface-400">
                                 <Loader2 className="w-5 h-5 animate-spin" />
-                                <span className="text-sm">Loading more members...</span>
+                                <span className="text-sm">Laddar fler medlemmar...</span>
                             </div>
                         ) : (
                             <span className="text-sm text-surface-400 dark:text-surface-500">
-                                Scroll for more
+                                Skrolla för att visa fler
                             </span>
                         )}
                     </div>

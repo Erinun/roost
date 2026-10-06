@@ -8,7 +8,7 @@ export interface Tab {
 }
 
 export const groupTabs: Tab[] = [
-    { value: 'feed', label: 'Feed', icon: BookOpen },
-    { value: 'assets', label: 'Assets', icon: FileText },
-    { value: 'recordings', label: 'Recordings', icon: Video },
+    { value: 'feed', label: 'Flöde', icon: BookOpen },
+    { value: 'assets', label: 'Material', icon: FileText },
+    { value: 'recordings', label: 'Inspelningar', icon: Video },
 ];

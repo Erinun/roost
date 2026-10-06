@@ -36,24 +36,24 @@ export default function Explore() {
             <div className="hidden lg:block fixed top-16 right-0 w-80 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-thin p-4 space-y-6 bg-white dark:bg-surface-900 border-l border-surface-200 dark:border-surface-800">
                 {/* About card */}
                 <div className="card p-6 shadow-none">
-                    <h2 className="font-semibold text-surface-900 dark:text-surface-100 mb-4">About</h2>
+                    <h2 className="font-semibold text-surface-900 dark:text-surface-100 mb-4">Om</h2>
                     <p className="text-surface-600 dark:text-surface-400 text-sm mb-4">
-                        Welcome to {APP_CONFIG.name}! {APP_CONFIG.description}
+                        Välkommen till {APP_CONFIG.name}! {APP_CONFIG.description}
                     </p>
                     <div className="flex items-center gap-6 text-sm">
                         <div className="flex items-center gap-2">
                             <Users className="w-4 h-4 text-surface-400 dark:text-surface-500" />
-                            <span className="text-surface-600 dark:text-surface-400">{membersCount} Members</span>
+                            <span className="text-surface-600 dark:text-surface-400">{membersCount} medlem{membersCount !== 1 ? 'mar' : ''}</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                            <span className="text-surface-600 dark:text-surface-400">{onlineCount} Online</span>
+                            <span className="text-surface-600 dark:text-surface-400">{onlineCount} online</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Leaderboard card */}
-                <LeaderboardCard period={30} limit={10} title="Top Contributors" />
+                <LeaderboardCard period={30} limit={10} title="Toppbidragsgivare" />
 
                 {/* Community Members Widget */}
                 <CommunityMembersWidget />
@@ -66,10 +66,10 @@ export default function Explore() {
                 <div className="py-8 px-4 sm:px-6 lg:px-8 space-y-6">
                     <div className="card p-6 shadow-none">
                         <h1 className="text-md md:text-lg font-semibold text-surface-900 dark:text-surface-100">
-                            Explore
+                            Utforska
                         </h1>
                         <p className="text-surface-500 dark:text-surface-400 mt-1 text-xs md:text-base">
-                            Discover posts from the entire community
+                            Upptäck inlägg från hela communityt
                         </p>
                     </div>
 

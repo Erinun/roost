@@ -29,7 +29,7 @@ export default function NewMessageModal({ isOpen, onClose, onUserSelect }: NewMe
       <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-surface-200">
-          <h2 className="text-lg font-semibold text-surface-900">New Message</h2>
+          <h2 className="text-lg font-semibold text-surface-900">Nytt meddelande</h2>
           <button
             onClick={onClose}
             className="p-1 text-surface-400 hover:text-surface-600 hover:bg-surface-100 rounded-lg transition-colors"
@@ -41,18 +41,18 @@ export default function NewMessageModal({ isOpen, onClose, onUserSelect }: NewMe
         {/* Content */}
         <div className="p-4">
           <label className="block text-sm font-medium text-surface-700 mb-2">
-            Search for a user to message
+            Sök efter en användare att skicka meddelande till
           </label>
           <UserSearchInput
             onUserSelect={handleUserSelect}
-            placeholder="Search by name or username..."
+            placeholder="Sök på namn eller användarnamn..."
           />
         </div>
 
         {/* Footer */}
         <div className="p-4 border-t border-surface-200 bg-surface-50 rounded-b-2xl">
           <p className="text-xs text-surface-500 text-center">
-            Start typing to search for users in the community
+            Börja skriva för att söka efter användare i communityt
           </p>
         </div>
       </div>

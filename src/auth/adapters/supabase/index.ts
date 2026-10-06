@@ -42,7 +42,7 @@ function mapSession(supaSession: any): AuthSession | null {
 function mapError(err: any): AuthError | null {
   if (!err) return null;
   return {
-    message: err.message ?? 'Unknown error',
+    message: err.message ?? 'Okänt fel',
     code: err.code,
     status: err.status,
   };

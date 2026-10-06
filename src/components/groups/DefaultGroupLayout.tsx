@@ -79,11 +79,11 @@ export default function DefaultGroupLayout({
                             <Lock className="w-8 h-8 text-surface-400 dark:text-surface-500" />
                         </div>
                         <h3 className="text-lg font-medium text-surface-900 dark:text-surface-50 mb-2">
-                            This is a private classroom
+                            Det här är ett privat klassrum
                         </h3>
                         <p className="text-surface-500 dark:text-surface-400 max-w-md mx-auto">
-                            You need to be a member to see the content of this classroom.
-                            Request to join or contact the classroom admin.
+                            Du behöver vara medlem för att se innehållet i det här klassrummet.
+                            Ansök om att gå med eller kontakta klassrummets administratör.
                         </p>
                     </div>
                 </div>

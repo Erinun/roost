@@ -38,9 +38,9 @@ export interface ActivationStats {
 }
 
 export const PRODUCT_TYPES = [
-    { value: 'plugin', label: 'Plugin' },
-    { value: 'theme', label: 'Theme' },
-    { value: 'other', label: 'Other' },
+    { value: 'plugin', label: 'Tillägg' },
+    { value: 'theme', label: 'Tema' },
+    { value: 'other', label: 'Övrigt' },
 ] as const;
 
 export type ProductType = (typeof PRODUCT_TYPES)[number]['value'];

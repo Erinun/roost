@@ -39,7 +39,7 @@ export default function ShowcaseCard({ showcase, onVote, isVoting }: ShowcaseCar
                 {/* Featured badge */}
                 {showcase.is_featured && (
                     <div className="absolute top-2 left-2 px-2 py-1 bg-purple-600 text-white text-xs font-medium rounded-full">
-                        Featured
+                        Utvald
                     </div>
                 )}
                 {/* Category badge */}

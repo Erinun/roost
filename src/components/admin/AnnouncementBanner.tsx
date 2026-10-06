@@ -99,7 +99,7 @@ export default function AnnouncementBanner({ groupId }: AnnouncementBannerProps)
                             <button
                                 onClick={() => handleDismiss(announcement.id)}
                                 className={`p-1 rounded hover:bg-black/10 dark:hover:bg-white/10 transition-colors ${typeTextColors[announcement.type]}`}
-                                title="Dismiss"
+                                title="Avfärda"
                             >
                                 <X className="w-4 h-4" />
                             </button>

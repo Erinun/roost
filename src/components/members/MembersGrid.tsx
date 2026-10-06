@@ -32,8 +32,8 @@ export function MembersGrid({ members, loading }: MembersGridProps) {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-100 dark:bg-surface-800 mb-4">
                     <span className="text-2xl">👥</span>
                 </div>
-                <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-1">No members found</h3>
-                <p className="text-surface-500 dark:text-surface-400">Try adjusting your filters or search query.</p>
+                <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-1">Inga medlemmar hittades</h3>
+                <p className="text-surface-500 dark:text-surface-400">Prova att justera dina filter eller din sökning.</p>
             </div>
         );
     }

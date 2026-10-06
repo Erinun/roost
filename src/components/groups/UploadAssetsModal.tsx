@@ -110,7 +110,7 @@ export default function UploadAssetsModal({
             onSuccess();
         } catch (err) {
             console.error('Error uploading files:', err);
-            setError(err instanceof Error ? err.message : 'Failed to upload files');
+            setError(err instanceof Error ? err.message : 'Det gick inte att ladda upp filerna');
         } finally {
             setIsUploading(false);
             setUploadProgress(0);
@@ -124,7 +124,7 @@ export default function UploadAssetsModal({
             <div className="bg-white dark:bg-surface-900 rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-surface-100 dark:border-surface-700">
-                    <h2 className="text-xl font-semibold text-surface-900 dark:text-surface-50">Upload Course Materials</h2>
+                    <h2 className="text-xl font-semibold text-surface-900 dark:text-surface-50">Ladda upp kursmaterial</h2>
                     <button
                         onClick={onClose}
                         disabled={isUploading}
@@ -156,13 +156,13 @@ export default function UploadAssetsModal({
                         <input {...getInputProps()} disabled={isUploading} />
                         <Upload className="w-12 h-12 mx-auto text-surface-400 dark:text-surface-500 mb-3" />
                         <p className="text-base font-medium text-surface-900 dark:text-surface-50 mb-1">
-                            {isDragActive ? 'Drop files here' : 'Drag & drop files here'}
+                            {isDragActive ? 'Släpp filerna här' : 'Dra och släpp filer här'}
                         </p>
                         <p className="text-sm text-surface-500 dark:text-surface-400 mb-4">
-                            or click to browse your computer
+                            eller klicka för att bläddra på din dator
                         </p>
                         <p className="text-xs text-surface-400 dark:text-surface-500">
-                            Supported: PDF, DOC, DOCX, MD, ZIP, RAR, Images (up to 100MB)
+                            Stöds: PDF, DOC, DOCX, MD, ZIP, RAR, bilder (upp till 100 MB)
                         </p>
                     </div>
 
@@ -170,7 +170,7 @@ export default function UploadAssetsModal({
                     {files.length > 0 && (
                         <div className="space-y-2">
                             <h3 className="text-sm font-medium text-surface-700 dark:text-surface-300">
-                                Files to upload ({files.length})
+                                Filer att ladda upp ({files.length})
                             </h3>
                             <div className="space-y-2 max-h-64 overflow-y-auto">
                                 {files.map((fileItem, index) => (
@@ -207,7 +207,7 @@ export default function UploadAssetsModal({
                     {isUploading && (
                         <div className="space-y-2">
                             <div className="flex items-center justify-between text-sm">
-                                <span className="text-surface-700 dark:text-surface-300">Uploading files...</span>
+                                <span className="text-surface-700 dark:text-surface-300">Laddar upp filer...</span>
                                 <span className="font-medium text-primary-600 dark:text-primary-400">{uploadProgress}%</span>
                             </div>
                             <div className="w-full bg-surface-200 dark:bg-surface-700 rounded-full h-2">
@@ -228,7 +228,7 @@ export default function UploadAssetsModal({
                         disabled={isUploading}
                         className="flex-1 px-4 py-2.5 border border-surface-200 dark:border-surface-600 rounded-lg text-surface-700 dark:text-surface-300 font-medium hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors disabled:opacity-50"
                     >
-                        Cancel
+                        Avbryt
                     </button>
                     <button
                         onClick={handleUpload}
@@ -236,7 +236,7 @@ export default function UploadAssetsModal({
                         className="flex-1 px-4 py-2.5 bg-primary-600 dark:bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 dark:hover:bg-primary-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                         {isUploading && <Loader2 className="w-4 h-4 animate-spin" />}
-                        {isUploading ? 'Uploading...' : `Upload ${files.length} ${files.length === 1 ? 'File' : 'Files'}`}
+                        {isUploading ? 'Laddar upp...' : `Ladda upp ${files.length} ${files.length === 1 ? 'fil' : 'filer'}`}
                     </button>
                 </div>
             </div>

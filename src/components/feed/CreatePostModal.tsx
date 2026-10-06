@@ -104,7 +104,7 @@ export default function CreatePostModal({
 
                 // Validate file size (max 10MB)
                 if (file.size > 10 * 1024 * 1024) {
-                    setError(`File ${file.name} is too large. Maximum size is 10MB.`);
+                    setError(`Filen ${file.name} är för stor. Maxstorleken är 10 MB.`);
                     continue;
                 }
 
@@ -128,7 +128,7 @@ export default function CreatePostModal({
             }
         } catch (err) {
             console.error('Upload failed:', err);
-            setError(err instanceof Error ? err.message : 'Failed to upload images');
+            setError(err instanceof Error ? err.message : 'Det gick inte att ladda upp bilderna');
         } finally {
             setIsUploading(false);
             setUploadProgress(0);
@@ -199,7 +199,7 @@ export default function CreatePostModal({
             onSuccess();
             onClose();
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to save post');
+            setError(err instanceof Error ? err.message : 'Det gick inte att spara inlägget');
         } finally {
             setIsSubmitting(false);
         }
@@ -217,7 +217,7 @@ export default function CreatePostModal({
             <div className="relative bg-white dark:bg-surface-900 rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden animate-fade-in flex flex-col">
                 <div className="flex items-center justify-between p-4 border-b border-surface-200 dark:border-surface-700">
                     <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">
-                        {editingPost ? 'Edit Post' : 'Create Post'}
+                        {editingPost ? 'Redigera inlägg' : 'Skapa inlägg'}
                     </h2>
                     <button
                         onClick={onClose}
@@ -263,7 +263,7 @@ export default function CreatePostModal({
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Add a title (optional)"
+                            placeholder="Lägg till en rubrik (valfritt)"
                             className="w-full px-4 py-3 text-lg font-medium text-surface-900 dark:text-surface-100 placeholder-surface-400 dark:placeholder-surface-500 bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                         />
                     </div>
@@ -274,7 +274,7 @@ export default function CreatePostModal({
                                 key={editorKey}
                                 value={content}
                                 onChange={setContent}
-                                placeholder="What would you like to share with the community?"
+                                placeholder="Vad vill du dela med communityn?"
                                 initialValue={editingPost?.content || ''}
                             />
                         </Suspense>
@@ -297,7 +297,7 @@ export default function CreatePostModal({
                                 <>
                                     <Loader2 className="w-8 h-8 text-primary-500 animate-spin" />
                                     <p className="text-sm text-surface-600 dark:text-surface-400">
-                                        Uploading... {uploadProgress}%
+                                        Laddar upp... {uploadProgress}%
                                     </p>
                                 </>
                             ) : (
@@ -305,10 +305,10 @@ export default function CreatePostModal({
                                     <Upload className={`w-8 h-8 ${isDragActive ? 'text-primary-500' : 'text-surface-400 dark:text-surface-500'}`} />
                                     <div>
                                         <p className="text-sm font-medium text-surface-700 dark:text-surface-300">
-                                            {isDragActive ? 'Drop images here' : 'Drag & drop images, or click to select'}
+                                            {isDragActive ? 'Släpp bilderna här' : 'Dra och släpp bilder, eller klicka för att välja'}
                                         </p>
                                         <p className="text-xs text-surface-400 dark:text-surface-500 mt-1">
-                                            PNG, JPG, GIF, WebP up to 10MB each
+                                            PNG, JPG, GIF, WebP upp till 10 MB per fil
                                         </p>
                                     </div>
                                 </>
@@ -342,7 +342,7 @@ export default function CreatePostModal({
 
                     {categories.length > 0 && (
                         <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-sm text-surface-500 dark:text-surface-400">Category:</span>
+                            <span className="text-sm text-surface-500 dark:text-surface-400">Kategori:</span>
                             {categories.map((cat) => (
                                 <button
                                     key={cat.id}
@@ -372,7 +372,7 @@ export default function CreatePostModal({
                             onClick={open}
                             disabled={isUploading}
                             className="p-2 hover:bg-surface-200 dark:hover:bg-surface-700 rounded-full transition-colors text-surface-500 dark:text-surface-400 disabled:opacity-50"
-                            title="Add images"
+                            title="Lägg till bilder"
                         >
                             {isUploading ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -382,13 +382,13 @@ export default function CreatePostModal({
                         </button>
                         <button
                             className="p-2 hover:bg-surface-200 dark:hover:bg-surface-700 rounded-full transition-colors text-surface-500 dark:text-surface-400"
-                            title="Add link"
+                            title="Lägg till länk"
                         >
                             <LinkIcon className="w-5 h-5" />
                         </button>
                         {assets.length > 0 && (
                             <span className="text-xs text-surface-500 dark:text-surface-400 ml-2">
-                                {assets.length} image{assets.length !== 1 ? 's' : ''} attached
+                                {assets.length} bild{assets.length !== 1 ? 'er' : ''} bifogad{assets.length !== 1 ? 'e' : ''}
                             </span>
                         )}
                     </div>
@@ -402,7 +402,7 @@ export default function CreatePostModal({
                             {isSubmitting ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />
                             ) : (
-                                editingPost ? 'Save Changes' : 'Post'
+                                editingPost ? 'Spara ändringar' : 'Publicera'
                             )}
                         </button>
                     </div>

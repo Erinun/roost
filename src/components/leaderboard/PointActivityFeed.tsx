@@ -12,14 +12,14 @@ const ITEMS_PER_PAGE = 15;
 
 // Map action types to icons and labels
 const ACTION_CONFIG = {
-    post_created: { icon: FileText, label: 'Created a post', color: 'text-blue-500' },
-    comment_created: { icon: MessageCircle, label: 'Wrote a comment', color: 'text-green-500' },
-    reaction_given: { icon: ThumbsUp, label: 'Reacted to content', color: 'text-purple-500' },
-    reaction_received: { icon: Award, label: 'Received a reaction', color: 'text-yellow-500' },
-    event_attended: { icon: Calendar, label: 'Attended an event', color: 'text-pink-500' },
-    daily_login: { icon: Award, label: 'Daily login', color: 'text-indigo-500' },
-    profile_completed: { icon: Award, label: 'Completed profile', color: 'text-teal-500' },
-    manual_adjustment: { icon: Award, label: 'Manual adjustment', color: 'text-gray-500' },
+    post_created: { icon: FileText, label: 'Skapade ett inlägg', color: 'text-blue-500' },
+    comment_created: { icon: MessageCircle, label: 'Skrev en kommentar', color: 'text-green-500' },
+    reaction_given: { icon: ThumbsUp, label: 'Reagerade på innehåll', color: 'text-purple-500' },
+    reaction_received: { icon: Award, label: 'Fick en reaktion', color: 'text-yellow-500' },
+    event_attended: { icon: Calendar, label: 'Deltog i ett evenemang', color: 'text-pink-500' },
+    daily_login: { icon: Award, label: 'Daglig inloggning', color: 'text-indigo-500' },
+    profile_completed: { icon: Award, label: 'Slutförde profilen', color: 'text-teal-500' },
+    manual_adjustment: { icon: Award, label: 'Manuell justering', color: 'text-gray-500' },
 } as const;
 
 export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: PointActivityFeedProps) {
@@ -77,7 +77,7 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
             setHasMore(data.length >= limit);
         } catch (err) {
             console.error('Error loading point activities:', err);
-            setError('Failed to load point activities');
+            setError('Kunde inte ladda poängaktiviteter');
         } finally {
             setLoading(false);
             setLoadingMore(false);
@@ -110,11 +110,11 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
         const hours = Math.floor(diff / 3600000);
         const days = Math.floor(diff / 86400000);
 
-        if (minutes < 1) return 'Just now';
-        if (minutes < 60) return `${minutes}m ago`;
-        if (hours < 24) return `${hours}h ago`;
-        if (days < 7) return `${days}d ago`;
-        return date.toLocaleDateString();
+        if (minutes < 1) return 'Nyss';
+        if (minutes < 60) return `${minutes} min sedan`;
+        if (hours < 24) return `${hours} h sedan`;
+        if (days < 7) return `${days} d sedan`;
+        return date.toLocaleDateString('sv-SE');
     };
 
     if (loading) {
@@ -145,14 +145,14 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
         return (
             <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                 <Award size={48} className="mx-auto mb-2 opacity-20" />
-                <p>No point activities yet</p>
-                <p className="text-sm mt-1">Start earning points by creating posts and engaging!</p>
+                <p>Inga poängaktiviteter ännu</p>
+                <p className="text-sm mt-1">Börja tjäna poäng genom att skapa inlägg och engagera dig!</p>
             </div>
         );
     }
 
     // Default config for unknown action types
-    const DEFAULT_CONFIG = { icon: Award, label: 'Activity', color: 'text-gray-500' };
+    const DEFAULT_CONFIG = { icon: Award, label: 'Aktivitet', color: 'text-gray-500' };
 
     return (
         <div className="space-y-3">
@@ -191,10 +191,10 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
                     {loadingMore ? (
                         <div className="flex items-center justify-center gap-2 text-gray-500 dark:text-gray-400">
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            <span className="text-xs">Loading more...</span>
+                            <span className="text-xs">Laddar fler...</span>
                         </div>
                     ) : (
-                        <span className="text-xs text-gray-400 dark:text-gray-500">Scroll for more</span>
+                        <span className="text-xs text-gray-400 dark:text-gray-500">Skrolla för fler</span>
                     )}
                 </div>
             )}

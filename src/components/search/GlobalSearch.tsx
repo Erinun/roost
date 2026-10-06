@@ -21,7 +21,7 @@ interface GlobalSearchProps {
 
 export default function GlobalSearch({
     className = '',
-    placeholder = 'Search...',
+    placeholder = 'Sök...',
     onClose,
     autoFocus = false,
 }: GlobalSearchProps) {
@@ -193,11 +193,11 @@ export default function GlobalSearch({
                     {isSearching && !hasResults ? (
                         <div className="p-4 text-center text-surface-500">
                             <Loader2 className="w-5 h-5 animate-spin mx-auto mb-2" />
-                            <span className="text-sm">Searching...</span>
+                            <span className="text-sm">Söker...</span>
                         </div>
                     ) : !hasResults ? (
                         <div className="p-4 text-center text-surface-500 text-sm">
-                            No results found for "{query}"
+                            Inga resultat för "{query}"
                         </div>
                     ) : (
                         <div className="py-2">
@@ -205,7 +205,7 @@ export default function GlobalSearch({
                             {results.users.length > 0 && (
                                 <div>
                                     <div className="px-3 py-1.5 text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wide">
-                                        Members
+                                        Medlemmar
                                     </div>
                                     {results.users.map((user) => (
                                         <UserResult
@@ -224,7 +224,7 @@ export default function GlobalSearch({
                                         <div className="border-t border-surface-100 dark:border-surface-700 my-1" />
                                     )}
                                     <div className="px-3 py-1.5 text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wide">
-                                        Posts
+                                        Inlägg
                                     </div>
                                     {results.posts.map((post) => (
                                         <PostResult
@@ -243,7 +243,7 @@ export default function GlobalSearch({
                                         <div className="border-t border-surface-100 dark:border-surface-700 my-1" />
                                     )}
                                     <div className="px-3 py-1.5 text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wide">
-                                        Classrooms
+                                        Klassrum
                                     </div>
                                     {results.groups.map((group) => (
                                         <GroupResult
@@ -325,10 +325,10 @@ function PostResult({
                     {post.title || truncateText(post.content, 50)}
                 </div>
                 <div className="text-xs text-surface-500 dark:text-surface-400 truncate flex items-center gap-1">
-                    <span>by {post.author.display_name}</span>
+                    <span>av {post.author.display_name}</span>
                     {post.group_name && (
                         <>
-                            <span>in</span>
+                            <span>i</span>
                             <span className="font-medium">{post.group_name}</span>
                             {post.group_is_premium && (
                                 <Crown className="w-3 h-3 text-amber-500" />
@@ -386,7 +386,7 @@ function GroupResult({
                     )}
                 </div>
                 <div className="text-xs text-surface-500 dark:text-surface-400 truncate">
-                    {group.member_count} {group.member_count === 1 ? 'member' : 'members'}
+                    {group.member_count} {group.member_count === 1 ? 'medlem' : 'medlemmar'}
                     {group.description && ` • ${truncateText(group.description, 40)}`}
                 </div>
             </div>

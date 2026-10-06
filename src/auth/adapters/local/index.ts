@@ -114,7 +114,7 @@ async function apiCall(
     return {
       ok: false,
       status: 0,
-      data: { message: err.message || 'Network error' },
+      data: { message: err.message || 'Nätverksfel' },
     };
   }
 }
@@ -122,7 +122,7 @@ async function apiCall(
 function toError(res: ApiResponse): AuthError | null {
   if (res.ok) return null;
   return {
-    message: res.data?.message || res.data?.error || 'Request failed',
+    message: res.data?.message || res.data?.error || 'Begäran misslyckades',
     code: res.data?.code,
     status: res.status,
   };

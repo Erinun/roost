@@ -53,7 +53,7 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
       setHasMore(data.length >= NOTIFICATIONS_PER_PAGE);
     } catch (err) {
       console.error('Error loading notifications:', err);
-      setError('Failed to load notifications');
+      setError('Kunde inte ladda aviseringar');
     } finally {
       if (showLoading) {
         setIsLoading(false);
@@ -188,7 +188,7 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
       ">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-surface-200 dark:border-surface-700">
-          <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Notifications</h3>
+          <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Aviseringar</h3>
           <div className="flex items-center gap-2">
             {unreadCount > 0 && (
               <button
@@ -196,7 +196,7 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
                 className="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium flex items-center gap-1"
               >
                 <CheckCheck className="w-4 h-4" />
-                Mark all read
+                Markera alla som lästa
               </button>
             )}
             <button
@@ -218,15 +218,15 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
             <div className="flex flex-col items-center justify-center p-8 text-center">
               <p className="text-sm text-error mb-2">{error}</p>
               <button onClick={() => loadNotifications(true, true)} className="btn btn-secondary btn-sm">
-                Retry
+                Försök igen
               </button>
             </div>
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center p-8 text-center">
               <Bell className="w-12 h-12 text-surface-300 dark:text-surface-600 mb-3" />
-              <p className="text-sm text-surface-500 dark:text-surface-400">No notifications yet</p>
+              <p className="text-sm text-surface-500 dark:text-surface-400">Inga aviseringar än</p>
               <p className="text-xs text-surface-400 dark:text-surface-500 mt-1">
-                You'll be notified about comments, reactions, and messages
+                Du får aviseringar om kommentarer, reaktioner och meddelanden
               </p>
             </div>
           ) : (
@@ -246,10 +246,10 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
                   {loadingMore ? (
                     <div className="flex items-center justify-center gap-2 text-surface-500 dark:text-surface-400">
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span className="text-xs">Loading more...</span>
+                      <span className="text-xs">Laddar fler...</span>
                     </div>
                   ) : (
-                    <span className="text-xs text-surface-400 dark:text-surface-500">Scroll for more</span>
+                    <span className="text-xs text-surface-400 dark:text-surface-500">Skrolla för fler</span>
                   )}
                 </div>
               )}

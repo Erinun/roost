@@ -16,9 +16,9 @@ interface SubmitRequestModalProps {
 }
 
 const REQUEST_TYPES: { value: FeatureRequestType; label: string; icon: typeof Lightbulb; description: string }[] = [
-    { value: 'feature_request', label: 'Feature Request', icon: Lightbulb, description: 'Suggest a new feature' },
-    { value: 'bug_report', label: 'Bug Report', icon: Bug, description: 'Report something broken' },
-    { value: 'improvement', label: 'Improvement', icon: Sparkles, description: 'Improve existing functionality' },
+    { value: 'feature_request', label: 'Funktionsönskemål', icon: Lightbulb, description: 'Föreslå en ny funktion' },
+    { value: 'bug_report', label: 'Buggrapport', icon: Bug, description: 'Rapportera något som är trasigt' },
+    { value: 'improvement', label: 'Förbättring', icon: Sparkles, description: 'Förbättra befintlig funktionalitet' },
 ];
 
 export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: SubmitRequestModalProps) {
@@ -53,7 +53,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                 }
 
                 if (file.size > 10 * 1024 * 1024) {
-                    setError(`File ${file.name} is too large. Maximum size is 10MB.`);
+                    setError(`Filen ${file.name} är för stor. Maxstorleken är 10 MB.`);
                     continue;
                 }
 
@@ -75,7 +75,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
             }
         } catch (err) {
             console.error('Upload failed:', err);
-            setError(err instanceof Error ? err.message : 'Failed to upload images');
+            setError(err instanceof Error ? err.message : 'Det gick inte att ladda upp bilderna');
         } finally {
             setIsUploading(false);
             setUploadProgress(0);
@@ -138,7 +138,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
             onClose();
         } catch (err) {
             console.error('Error submitting request:', err);
-            setError('Failed to submit request. Please try again.');
+            setError('Det gick inte att skicka önskemålet. Försök igen.');
         } finally {
             setIsSubmitting(false);
         }
@@ -159,7 +159,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-surface-200 dark:border-surface-700">
                     <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
-                        Submit Request
+                        Skicka önskemål
                     </h2>
                     <button
                         onClick={onClose}
@@ -176,7 +176,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                     {/* Type selector */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Type
+                            Typ
                         </label>
                         <div className="grid grid-cols-3 gap-2">
                             {REQUEST_TYPES.map((rt) => {
@@ -205,40 +205,40 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                     {/* Title */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">
-                            Title
+                            Titel
                         </label>
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="Brief summary of your request..."
+                            placeholder="Kort sammanfattning av ditt önskemål..."
                             maxLength={255}
                             className="w-full px-3 py-2.5 rounded-lg border border-surface-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder-surface-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                         />
                         <p className="text-xs text-surface-400 mt-1">
-                            {title.length}/255 characters (min 5)
+                            {title.length}/255 tecken (minst 5)
                         </p>
                     </div>
 
                     {/* Description */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">
-                            Description
+                            Beskrivning
                         </label>
                         <RichTextEditor
                             value={description}
                             onChange={setDescription}
-                            placeholder="Describe your request in detail..."
+                            placeholder="Beskriv ditt önskemål i detalj..."
                         />
                         <p className="text-xs text-surface-400 mt-1">
-                            Min 20 characters of text
+                            Minst 20 tecken text
                         </p>
                     </div>
 
                     {/* Image Upload Zone */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">
-                            Screenshots (optional)
+                            Skärmdumpar (valfritt)
                         </label>
                         <div
                             onClick={open}
@@ -256,17 +256,17 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                                     <>
                                         <Loader2 className="w-6 h-6 text-primary-500 animate-spin" />
                                         <p className="text-sm text-surface-600 dark:text-surface-400">
-                                            Uploading... {uploadProgress}%
+                                            Laddar upp... {uploadProgress}%
                                         </p>
                                     </>
                                 ) : (
                                     <>
                                         <Upload className={`w-6 h-6 ${isDragActive ? 'text-primary-500' : 'text-surface-400 dark:text-surface-500'}`} />
                                         <p className="text-sm text-surface-600 dark:text-surface-400">
-                                            {isDragActive ? 'Drop images here' : 'Drag & drop images, or click to select'}
+                                            {isDragActive ? 'Släpp bilderna här' : 'Dra och släpp bilder, eller klicka för att välja'}
                                         </p>
                                         <p className="text-xs text-surface-400 dark:text-surface-500">
-                                            PNG, JPG, GIF, WebP up to 10MB each
+                                            PNG, JPG, GIF, WebP på upp till 10 MB vardera
                                         </p>
                                     </>
                                 )}
@@ -311,7 +311,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                     <div className="flex items-center gap-2">
                         {assets.length > 0 && (
                             <span className="text-xs text-surface-500 dark:text-surface-400">
-                                {assets.length} image{assets.length !== 1 ? 's' : ''} attached
+                                {assets.length} bild{assets.length !== 1 ? 'er' : ''} bifogade
                             </span>
                         )}
                     </div>
@@ -320,7 +320,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                             onClick={onClose}
                             className="px-4 py-2 rounded-lg text-sm font-medium text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
                         >
-                            Cancel
+                            Avbryt
                         </button>
                         <button
                             onClick={handleSubmit}
@@ -330,10 +330,10 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                             {isSubmitting ? (
                                 <>
                                     <Loader2 className="w-4 h-4 animate-spin" />
-                                    Submitting...
+                                    Skickar...
                                 </>
                             ) : (
-                                'Submit Request'
+                                'Skicka önskemål'
                             )}
                         </button>
                     </div>

@@ -25,7 +25,7 @@ export default function RecordingCard({ recording, canEdit, onDeleted, onEdit }:
     };
 
     const handleDelete = async () => {
-        if (!confirm('Are you sure you want to delete this recording?')) return;
+        if (!confirm('Är du säker på att du vill ta bort den här inspelningen?')) return;
 
         try {
             setIsDeleting(true);
@@ -33,14 +33,14 @@ export default function RecordingCard({ recording, canEdit, onDeleted, onEdit }:
             onDeleted(recording.id);
         } catch (error) {
             console.error('Error deleting recording:', error);
-            alert('Failed to delete recording');
+            alert('Det gick inte att ta bort inspelningen');
         } finally {
             setIsDeleting(false);
         }
     };
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
+        return new Date(dateString).toLocaleDateString('sv-SE', {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -100,7 +100,7 @@ export default function RecordingCard({ recording, canEdit, onDeleted, onEdit }:
                         <button
                             onClick={() => onEdit?.(recording)}
                             className="p-1.5 text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded transition-colors"
-                            title="Edit recording"
+                            title="Redigera inspelning"
                         >
                             <Edit2 className="w-4 h-4" />
                         </button>
@@ -108,7 +108,7 @@ export default function RecordingCard({ recording, canEdit, onDeleted, onEdit }:
                             onClick={handleDelete}
                             disabled={isDeleting}
                             className="p-1.5 text-surface-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors disabled:opacity-50"
-                            title="Delete recording"
+                            title="Ta bort inspelning"
                         >
                             {isDeleting ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />

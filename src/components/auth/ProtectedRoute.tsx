@@ -22,7 +22,7 @@ export default function ProtectedRoute({
             <div className="min-h-screen flex items-center justify-center bg-surface-50">
                 <div className="flex flex-col items-center gap-3">
                     <Loader2 className="w-8 h-8 animate-spin text-primary-600" />
-                    <p className="text-sm text-surface-500">Loading...</p>
+                    <p className="text-sm text-surface-500">Laddar...</p>
                 </div>
             </div>
         );

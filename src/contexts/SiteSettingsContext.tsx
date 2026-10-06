@@ -23,8 +23,8 @@ export interface SiteSettings {
 
 const DEFAULT_SETTINGS: SiteSettings = {
   site_name: import.meta.env.VITE_APP_NAME || 'Roost',
-  site_tagline: import.meta.env.VITE_APP_TAGLINE || 'Learn, Build, Grow Together',
-  site_description: import.meta.env.VITE_APP_DESCRIPTION || 'A community platform for learning, building, and growing together.',
+  site_tagline: import.meta.env.VITE_APP_TAGLINE || 'Lär dig, bygg och väx tillsammans',
+  site_description: import.meta.env.VITE_APP_DESCRIPTION || 'En communityplattform för att lära, bygga och växa tillsammans.',
   primary_color: '#0ea5e9',
   logo_url: '',
   logo_dark_url: '',
@@ -144,7 +144,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
         applyFavicon(merged.favicon_url);
 
         // Update document title
-        document.title = `${merged.site_name} - Community Platform`;
+        document.title = `${merged.site_name} - Communityplattform`;
       }
     } catch (error) {
       console.error('Error loading site settings:', error);
@@ -160,7 +160,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
   const updateSettings = useCallback(async (updates: Partial<SiteSettings>) => {
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
     const { data: { session } } = await supabase.auth.getSession();
-    if (!session) throw new Error('Not authenticated');
+    if (!session) throw new Error('Inte inloggad');
 
     const response = await fetch(`${API_URL}/api/site-settings`, {
       method: 'PUT',
@@ -173,7 +173,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
 
     if (!response.ok) {
       const data = await response.json();
-      throw new Error(data.error || 'Failed to update settings');
+      throw new Error(data.error || 'Kunde inte uppdatera inställningarna');
     }
 
     // Apply changes immediately
@@ -181,13 +181,13 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
     setSettings(newSettings);
     applyPrimaryColor(newSettings.primary_color);
     applyFavicon(newSettings.favicon_url);
-    document.title = `${newSettings.site_name} - Community Platform`;
+    document.title = `${newSettings.site_name} - Communityplattform`;
   }, [settings]);
 
   const uploadBrandingAsset = useCallback(async (file: File, type: 'logo' | 'logo_dark' | 'favicon'): Promise<string> => {
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
     const { data: { session } } = await supabase.auth.getSession();
-    if (!session) throw new Error('Not authenticated');
+    if (!session) throw new Error('Inte inloggad');
 
     const formData = new FormData();
     formData.append('file', file);
@@ -203,7 +203,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
 
     if (!response.ok) {
       const data = await response.json();
-      throw new Error(data.error || 'Failed to upload file');
+      throw new Error(data.error || 'Kunde inte ladda upp filen');
     }
 
     const data = await response.json();

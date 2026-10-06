@@ -59,7 +59,7 @@ export default function SubscriptionRequired() {
             const url = await subscriptionService.createCheckoutSession();
             window.location.href = url;
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to start checkout');
+            setError(err instanceof Error ? err.message : 'Det gick inte att starta betalningen');
             setIsCheckoutLoading(false);
         }
     };
@@ -71,14 +71,14 @@ export default function SubscriptionRequired() {
             const url = await subscriptionService.createPortalSession();
             window.location.href = url;
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to open subscription management');
+            setError(err instanceof Error ? err.message : 'Det gick inte att öppna prenumerationshanteringen');
             setIsPortalLoading(false);
         }
     };
 
     // Format date nicely
     const formatDate = (dateString: string) => {
-        return new Intl.DateTimeFormat('en-US', {
+        return new Intl.DateTimeFormat('sv-SE', {
             dateStyle: 'long',
         }).format(new Date(dateString));
     };
@@ -89,20 +89,20 @@ export default function SubscriptionRequired() {
         const end = new Date(endsAt);
         const diff = end.getTime() - now.getTime();
 
-        if (diff <= 0) return 'Expired';
+        if (diff <= 0) return 'Utgången';
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
-        if (days > 0) return `${days} day${days > 1 ? 's' : ''} remaining`;
-        if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} remaining`;
-        return 'Less than an hour remaining';
+        if (days > 0) return `${days} ${days > 1 ? 'dagar' : 'dag'} kvar`;
+        if (hours > 0) return `${hours} ${hours > 1 ? 'timmar' : 'timme'} kvar`;
+        return 'Mindre än en timme kvar';
     };
 
     if (authLoading || isLoading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-surface-50 dark:bg-surface-950">
-                <p className="text-surface-500 dark:text-surface-400">Loading...</p>
+                <p className="text-surface-500 dark:text-surface-400">Laddar...</p>
             </div>
         );
     }
@@ -116,8 +116,8 @@ export default function SubscriptionRequired() {
                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 mb-4">
                             <CreditCard className="w-8 h-8 text-white" />
                         </div>
-                        <h1 className="text-2xl font-bold text-white">Subscription Required</h1>
-                        <p className="text-primary-100 mt-2">Access to the community requires an active subscription</p>
+                        <h1 className="text-2xl font-bold text-white">Prenumeration krävs</h1>
+                        <p className="text-primary-100 mt-2">Åtkomst till communityt kräver en aktiv prenumeration</p>
                     </div>
 
                     {/* Content */}
@@ -128,9 +128,9 @@ export default function SubscriptionRequired() {
                                 <div className="flex items-start gap-3">
                                     <Clock className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" />
                                     <div>
-                                        <p className="text-sm font-medium text-amber-800 dark:text-amber-300">Grace Period Active</p>
+                                        <p className="text-sm font-medium text-amber-800 dark:text-amber-300">Respitperiod aktiv</p>
                                         <p className="text-sm text-amber-700 dark:text-amber-400 mt-1">
-                                            Your subscription was cancelled but you still have access until{' '}
+                                            Din prenumeration har avslutats, men du har fortfarande åtkomst fram till{' '}
                                             <strong>{formatDate(subscription.currentPeriodEnd)}</strong>.
                                         </p>
                                         <p className="text-sm text-amber-600 dark:text-amber-500 mt-1 font-medium">
@@ -147,9 +147,9 @@ export default function SubscriptionRequired() {
                                 <div className="flex items-start gap-3">
                                     <AlertCircle className="w-5 h-5 text-surface-400 dark:text-surface-500 mt-0.5 flex-shrink-0" />
                                     <div>
-                                        <p className="text-sm font-medium text-surface-700 dark:text-surface-300">No Active Subscription</p>
+                                        <p className="text-sm font-medium text-surface-700 dark:text-surface-300">Ingen aktiv prenumeration</p>
                                         <p className="text-sm text-surface-600 dark:text-surface-400 mt-1">
-                                            You don't have an active subscription. Purchase a membership to access the community.
+                                            Du har ingen aktiv prenumeration. Köp ett medlemskap för att få åtkomst till communityt.
                                         </p>
                                     </div>
                                 </div>
@@ -162,9 +162,9 @@ export default function SubscriptionRequired() {
                                 <div className="flex items-start gap-3">
                                     <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
                                     <div>
-                                        <p className="text-sm font-medium text-surface-700 dark:text-surface-300">Subscription Expired</p>
+                                        <p className="text-sm font-medium text-surface-700 dark:text-surface-300">Prenumerationen har gått ut</p>
                                         <p className="text-sm text-surface-600 dark:text-surface-400 mt-1">
-                                            Your subscription has expired. Renew to continue accessing the community.
+                                            Din prenumeration har gått ut. Förnya för att fortsätta ha åtkomst till communityt.
                                         </p>
                                     </div>
                                 </div>
@@ -177,9 +177,9 @@ export default function SubscriptionRequired() {
                                 <div className="flex items-start gap-3">
                                     <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
                                     <div>
-                                        <p className="text-sm font-medium text-red-800 dark:text-red-300">Payment Failed</p>
+                                        <p className="text-sm font-medium text-red-800 dark:text-red-300">Betalningen misslyckades</p>
                                         <p className="text-sm text-red-700 dark:text-red-400 mt-1">
-                                            There was an issue processing your payment. Please update your payment method.
+                                            Det uppstod ett problem när din betalning behandlades. Uppdatera din betalningsmetod.
                                         </p>
                                     </div>
                                 </div>
@@ -201,12 +201,12 @@ export default function SubscriptionRequired() {
                                 {isCheckoutLoading ? (
                                     <>
                                         <Loader2 className="w-4 h-4 animate-spin" />
-                                        Redirecting...
+                                        Omdirigerar...
                                     </>
                                 ) : (
                                     <>
                                         <CreditCard className="w-4 h-4" />
-                                        {subscription?.hasSubscription ? 'Renew Subscription' : 'Get Membership'}
+                                        {subscription?.hasSubscription ? 'Förnya prenumeration' : 'Skaffa medlemskap'}
                                     </>
                                 )}
                             </button>
@@ -221,12 +221,12 @@ export default function SubscriptionRequired() {
                                     {isPortalLoading ? (
                                         <>
                                             <Loader2 className="w-4 h-4 animate-spin" />
-                                            Opening...
+                                            Öppnar...
                                         </>
                                     ) : (
                                         <>
                                             <Settings className="w-4 h-4" />
-                                            Manage Subscription
+                                            Hantera prenumeration
                                         </>
                                     )}
                                 </button>
@@ -239,14 +239,14 @@ export default function SubscriptionRequired() {
                                 className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300 rounded-lg font-medium transition-colors disabled:opacity-50"
                             >
                                 <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-                                {isRefreshing ? 'Checking...' : 'Check Subscription Status'}
+                                {isRefreshing ? 'Kontrollerar...' : 'Kontrollera prenumerationsstatus'}
                             </button>
                         </div>
 
                         {/* Help text */}
                         <p className="text-sm text-surface-500 dark:text-surface-400 text-center">
-                            Already purchased? Click "Check Subscription Status" to refresh.
-                            If you're still having issues, please contact support.
+                            Har du redan köpt? Klicka på "Kontrollera prenumerationsstatus" för att uppdatera.
+                            Om du fortfarande har problem, kontakta supporten.
                         </p>
 
                         {/* Divider */}
@@ -258,7 +258,7 @@ export default function SubscriptionRequired() {
                             className="w-full flex items-center justify-center gap-2 px-4 py-3 text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-800 rounded-lg font-medium transition-colors"
                         >
                             <LogOut className="w-4 h-4" />
-                            Sign Out
+                            Logga ut
                         </button>
                     </div>
                 </div>

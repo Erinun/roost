@@ -49,13 +49,13 @@ interface NavTab {
 // Mobile navigation tabs (matches SideNav items)
 const navTabs: NavTab[] = [
     { name: 'Community', href: '/', icon: Home },
-    { name: 'Explore', href: '/explore', icon: Compass },
-    { name: 'Classrooms', href: '/classrooms', icon: BookOpen },
-    { name: 'Showcase', href: '/showcase', icon: Rocket },
-    { name: 'Calendar', href: '/calendar', icon: Calendar, premiumOnly: true },
-    { name: 'Members', href: '/members', icon: Users },
-    { name: 'Leaderboard', href: '/leaderboard', icon: Trophy },
-    { name: 'Messages', href: '/messages', icon: MessageSquare, premiumOnly: true },
+    { name: 'Utforska', href: '/explore', icon: Compass },
+    { name: 'Klassrum', href: '/classrooms', icon: BookOpen },
+    { name: 'Projekt', href: '/showcase', icon: Rocket },
+    { name: 'Kalender', href: '/calendar', icon: Calendar, premiumOnly: true },
+    { name: 'Medlemmar', href: '/members', icon: Users },
+    { name: 'Topplista', href: '/leaderboard', icon: Trophy },
+    { name: 'Meddelanden', href: '/messages', icon: MessageSquare, premiumOnly: true },
     { name: 'Guide', href: '/guide', icon: HelpCircle },
 ];
 
@@ -151,7 +151,7 @@ function TopNav() {
 
                     {/* Search bar - Desktop (takes more space now) */}
                     <div className="hidden md:flex flex-1 max-w-full lg:max-w-4xl">
-                        <GlobalSearch className="w-full" placeholder="Search members, posts, classrooms..." />
+                        <GlobalSearch className="w-full" placeholder="Sök medlemmar, inlägg, klassrum..." />
                     </div>
 
                     {/* Right section */}
@@ -171,7 +171,7 @@ function TopNav() {
                                 ? 'text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800'
                                 : 'text-surface-400 dark:text-surface-500 hover:bg-amber-50 dark:hover:bg-amber-900/20'
                             }`}
-                            title={isPremium ? "Messages" : "Messages (Premium)"}
+                            title={isPremium ? "Meddelanden" : "Meddelanden (Premium)"}
                         >
                             <MessageSquare className="w-5 h-5" />
                             {isPremium ? (
@@ -207,7 +207,7 @@ function TopNav() {
                             <Link
                                 to="/live"
                                 className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-semibold transition-colors animate-pulse"
-                                title="A live session is happening now!"
+                                title="En live-session pågår just nu!"
                             >
                                 <span className="relative flex h-2 w-2">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
@@ -221,7 +221,7 @@ function TopNav() {
                         <button
                             onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
                             className="p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800"
-                            title={resolvedTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                            title={resolvedTheme === 'dark' ? 'Byt till ljust läge' : 'Byt till mörkt läge'}
                         >
                             {resolvedTheme === 'dark' ? (
                                 <Sun className="w-5 h-5" />
@@ -262,11 +262,11 @@ function TopNav() {
                                             {isPremium && <ProBadge size="xs" />}
                                             <div className="flex items-center gap-2">
                                                 <p className="font-medium text-surface-900 dark:text-surface-50">
-                                                    {profile?.display_name || 'User'}
+                                                    {profile?.display_name || 'Användare'}
                                                 </p>
                                             </div>
                                             <p className="text-xs text-surface-500 dark:text-surface-400">
-                                                @{profile?.username || 'username'}
+                                                @{profile?.username || 'användarnamn'}
                                             </p>
                                         </div>
                                         <div className="py-1">
@@ -276,7 +276,7 @@ function TopNav() {
                                                 onClick={() => setIsProfileMenuOpen(false)}
                                             >
                                                 <User className="w-4 h-4" />
-                                                <span>Profile</span>
+                                                <span>Profil</span>
                                             </Link>
                                             <Link
                                                 to="/settings"
@@ -284,7 +284,7 @@ function TopNav() {
                                                 onClick={() => setIsProfileMenuOpen(false)}
                                             >
                                                 <Settings className="w-4 h-4" />
-                                                <span>Settings</span>
+                                                <span>Inställningar</span>
                                             </Link>
                                             <Link
                                                 to="/guide"
@@ -301,7 +301,7 @@ function TopNav() {
                                                     onClick={() => setIsProfileMenuOpen(false)}
                                                 >
                                                     <Shield className="w-4 h-4" />
-                                                    <span>Admin Panel</span>
+                                                    <span>Adminpanel</span>
                                                 </Link>
                                             )}
                                         </div>
@@ -311,7 +311,7 @@ function TopNav() {
                                                 className="dropdown-item text-error w-full"
                                             >
                                                 <LogOut className="w-4 h-4" />
-                                                <span>Sign out</span>
+                                                <span>Logga ut</span>
                                             </button>
                                         </div>
                                     </div>
@@ -338,7 +338,7 @@ function TopNav() {
                     <div className="md:hidden py-3 border-t border-surface-100 dark:border-surface-700">
                         <GlobalSearch
                             className="w-full"
-                            placeholder="Search members, posts, classrooms..."
+                            placeholder="Sök medlemmar, inlägg, klassrum..."
                             autoFocus
                             onClose={() => setIsSearchOpen(false)}
                         />

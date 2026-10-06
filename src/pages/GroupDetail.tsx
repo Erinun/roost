@@ -27,13 +27,13 @@ export default function GroupDetail() {
             setError(null);
             const data = await getGroupBySlug(slug, user?.id);
             if (!data) {
-                setError('Classroom not found');
+                setError('Klassrummet hittades inte');
             } else {
                 setGroup(data);
             }
         } catch (err) {
             console.error('Error fetching group:', err);
-            setError('Failed to load classroom');
+            setError('Det gick inte att ladda klassrummet');
         } finally {
             setIsLoading(false);
         }
@@ -58,7 +58,7 @@ export default function GroupDetail() {
             } : null);
         } catch (err) {
             console.error('Error joining group:', err);
-            alert('Failed to join classroom');
+            alert('Det gick inte att gå med i klassrummet');
         } finally {
             setIsJoining(false);
         }
@@ -67,7 +67,7 @@ export default function GroupDetail() {
     const handleLeave = async () => {
         if (!user || !group) return;
 
-        if (!confirm('Are you sure you want to leave this classroom?')) return;
+        if (!confirm('Är du säker på att du vill lämna det här klassrummet?')) return;
 
         try {
             setIsLeaving(true);
@@ -81,7 +81,7 @@ export default function GroupDetail() {
             } : null);
         } catch (err) {
             console.error('Error leaving group:', err);
-            alert(err instanceof Error ? err.message : 'Failed to leave classroom');
+            alert(err instanceof Error ? err.message : 'Det gick inte att lämna klassrummet');
         } finally {
             setIsLeaving(false);
         }
@@ -100,16 +100,16 @@ export default function GroupDetail() {
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="text-center py-12">
                     <h2 className="text-xl font-semibold text-surface-900 dark:text-surface-50 mb-2">
-                        {error || 'Classroom not found'}
+                        {error || 'Klassrummet hittades inte'}
                     </h2>
                     <p className="text-surface-500 dark:text-surface-400 mb-4">
-                        The classroom you're looking for doesn't exist or you don't have access.
+                        Klassrummet du letar efter finns inte eller så har du inte åtkomst.
                     </p>
                     <button
                         onClick={() => navigate('/classrooms')}
                         className="px-4 py-2 text-primary-600 dark:text-primary-400 font-medium hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
                     >
-                        Browse Classrooms
+                        Bläddra bland klassrum
                     </button>
                 </div>
             </div>
@@ -129,13 +129,13 @@ export default function GroupDetail() {
                         <Crown className="w-10 h-10 text-white" />
                     </div>
                     <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">
-                        Premium Classroom
+                        Premiumklassrum
                     </h1>
                     <p className="text-surface-500 dark:text-surface-400 mb-2">
-                        <span className="font-semibold text-surface-700 dark:text-surface-300">{group.name}</span> is a premium-only classroom.
+                        <span className="font-semibold text-surface-700 dark:text-surface-300">{group.name}</span> är ett klassrum endast för premiummedlemmar.
                     </p>
                     <p className="text-surface-500 dark:text-surface-400 mb-6">
-                        Upgrade to premium to access this classroom and all its content.
+                        Uppgradera till premium för att få åtkomst till det här klassrummet och allt dess innehåll.
                     </p>
 
                     {group.description && (
@@ -152,14 +152,14 @@ export default function GroupDetail() {
                             className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-all"
                         >
                             <Crown className="w-5 h-5" />
-                            <span>Upgrade to Premium</span>
+                            <span>Uppgradera till premium</span>
                         </Link>
                         <button
                             onClick={() => navigate('/classrooms')}
                             className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 font-medium rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
                         >
                             <ArrowLeft className="w-5 h-5" />
-                            <span>Back to Classrooms</span>
+                            <span>Tillbaka till klassrum</span>
                         </button>
                     </div>
                 </div>

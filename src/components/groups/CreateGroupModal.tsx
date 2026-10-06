@@ -81,7 +81,7 @@ export default function CreateGroupModal({
             try {
                 const available = await isSlugAvailable(slug, editingGroup?.id);
                 if (!available) {
-                    setSlugError('This URL is already taken');
+                    setSlugError('Den här URL:en är redan upptagen');
                 } else {
                     setSlugError(null);
                 }
@@ -164,7 +164,7 @@ export default function CreateGroupModal({
             onClose();
         } catch (err) {
             console.error('Error saving group:', err);
-            setError(err instanceof Error ? err.message : 'Failed to save group');
+            setError(err instanceof Error ? err.message : 'Det gick inte att spara klassrummet');
         } finally {
             setIsSubmitting(false);
         }
@@ -178,7 +178,7 @@ export default function CreateGroupModal({
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-surface-100 dark:border-surface-700">
                     <h2 className="text-xl font-semibold text-surface-900 dark:text-surface-50">
-                        {isEditing ? 'Edit Classroom' : 'Create New Classroom'}
+                        {isEditing ? 'Redigera klassrum' : 'Skapa nytt klassrum'}
                     </h2>
                     <button
                         onClick={onClose}
@@ -199,13 +199,13 @@ export default function CreateGroupModal({
                     {/* Cover image upload */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Cover Image
+                            Omslagsbild
                         </label>
                         <div className="relative h-32 bg-surface-100 dark:bg-surface-800 rounded-lg overflow-hidden">
                             {coverPreview ? (
                                 <img
                                     src={coverPreview}
-                                    alt="Cover preview"
+                                    alt="Förhandsvisning av omslagsbild"
                                     className="w-full h-full object-cover"
                                 />
                             ) : (
@@ -225,14 +225,14 @@ export default function CreateGroupModal({
                     {/* Avatar upload */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Classroom Avatar
+                            Klassrummets avatar
                         </label>
                         <div className="flex items-center gap-4">
                             <div className="relative w-20 h-20 bg-surface-100 dark:bg-surface-800 rounded-xl overflow-hidden">
                                 {avatarPreview ? (
                                     <img
                                         src={avatarPreview}
-                                        alt="Avatar preview"
+                                        alt="Förhandsvisning av avatar"
                                         className="w-full h-full object-cover"
                                     />
                                 ) : (
@@ -248,7 +248,7 @@ export default function CreateGroupModal({
                                 />
                             </div>
                             <p className="text-sm text-surface-500 dark:text-surface-400">
-                                Click to upload a classroom avatar
+                                Klicka för att ladda upp en avatar för klassrummet
                             </p>
                         </div>
                     </div>
@@ -256,14 +256,14 @@ export default function CreateGroupModal({
                     {/* Classroom name */}
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Classroom Name *
+                            Klassrummets namn *
                         </label>
                         <input
                             type="text"
                             id="name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="e.g., JavaScript Developers"
+                            placeholder="t.ex. JavaScript-utvecklare"
                             className="w-full px-4 py-2.5 border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                             required
                             minLength={2}
@@ -297,13 +297,13 @@ export default function CreateGroupModal({
                     {/* Description */}
                     <div>
                         <label htmlFor="description" className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Description
+                            Beskrivning
                         </label>
                         <textarea
                             id="description"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="What is this classroom about?"
+                            placeholder="Vad handlar det här klassrummet om?"
                             rows={3}
                             className="w-full px-4 py-2.5 border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
                         />
@@ -312,7 +312,7 @@ export default function CreateGroupModal({
                     {/* Privacy toggle */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-3">
-                            Privacy
+                            Sekretess
                         </label>
                         <div className="flex gap-3">
                             <button
@@ -326,9 +326,9 @@ export default function CreateGroupModal({
                                 <Globe className={`w-5 h-5 ${!isPrivate ? 'text-primary-600 dark:text-primary-400' : 'text-surface-400 dark:text-surface-500'}`} />
                                 <div className="text-left">
                                     <p className={`font-medium ${!isPrivate ? 'text-primary-900 dark:text-primary-100' : 'text-surface-700 dark:text-surface-300'}`}>
-                                        Public
+                                        Offentligt
                                     </p>
-                                    <p className="text-xs text-surface-500 dark:text-surface-400">Anyone can find and join</p>
+                                    <p className="text-xs text-surface-500 dark:text-surface-400">Vem som helst kan hitta och gå med</p>
                                 </div>
                             </button>
                             <button
@@ -342,9 +342,9 @@ export default function CreateGroupModal({
                                 <Lock className={`w-5 h-5 ${isPrivate ? 'text-primary-600 dark:text-primary-400' : 'text-surface-400 dark:text-surface-500'}`} />
                                 <div className="text-left">
                                     <p className={`font-medium ${isPrivate ? 'text-primary-900 dark:text-primary-100' : 'text-surface-700 dark:text-surface-300'}`}>
-                                        Private
+                                        Privat
                                     </p>
-                                    <p className="text-xs text-surface-500 dark:text-surface-400">Invite only</p>
+                                    <p className="text-xs text-surface-500 dark:text-surface-400">Endast via inbjudan</p>
                                 </div>
                             </button>
                         </div>
@@ -353,7 +353,7 @@ export default function CreateGroupModal({
                     {/* Access Type toggle (Free/Premium) */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-3">
-                            Access Type
+                            Åtkomsttyp
                         </label>
                         <div className="flex gap-3">
                             <button
@@ -367,9 +367,9 @@ export default function CreateGroupModal({
                                 <Users className={`w-5 h-5 ${!isPremiumGroup ? 'text-primary-600 dark:text-primary-400' : 'text-surface-400 dark:text-surface-500'}`} />
                                 <div className="text-left">
                                     <p className={`font-medium ${!isPremiumGroup ? 'text-primary-900 dark:text-primary-100' : 'text-surface-700 dark:text-surface-300'}`}>
-                                        Free Access
+                                        Gratis åtkomst
                                     </p>
-                                    <p className="text-xs text-surface-500 dark:text-surface-400">All members can join</p>
+                                    <p className="text-xs text-surface-500 dark:text-surface-400">Alla medlemmar kan gå med</p>
                                 </div>
                             </button>
                             <button
@@ -383,9 +383,9 @@ export default function CreateGroupModal({
                                 <Crown className={`w-5 h-5 ${isPremiumGroup ? 'text-amber-600 dark:text-amber-400' : 'text-surface-400 dark:text-surface-500'}`} />
                                 <div className="text-left">
                                     <p className={`font-medium ${isPremiumGroup ? 'text-amber-900 dark:text-amber-100' : 'text-surface-700 dark:text-surface-300'}`}>
-                                        Premium Only
+                                        Endast Premium
                                     </p>
-                                    <p className="text-xs text-surface-500 dark:text-surface-400">Premium members only</p>
+                                    <p className="text-xs text-surface-500 dark:text-surface-400">Endast för premiummedlemmar</p>
                                 </div>
                             </button>
                         </div>
@@ -398,7 +398,7 @@ export default function CreateGroupModal({
                             onClick={onClose}
                             className="flex-1 px-4 py-2.5 border border-surface-200 dark:border-surface-700 rounded-lg text-surface-700 dark:text-surface-300 font-medium hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors"
                         >
-                            Cancel
+                            Avbryt
                         </button>
                         <button
                             type="submit"
@@ -406,7 +406,7 @@ export default function CreateGroupModal({
                             className="flex-1 px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                             {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                            {isEditing ? 'Save Changes' : 'Create Classroom'}
+                            {isEditing ? 'Spara ändringar' : 'Skapa klassrum'}
                         </button>
                     </div>
                 </form>

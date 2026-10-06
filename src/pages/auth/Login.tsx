@@ -47,7 +47,7 @@ export default function Login() {
                     setStep('email-not-confirmed');
                     return;
                 }
-                throw new Error(data.error || 'Invalid email or password');
+                throw new Error(data.error || 'Fel e-postadress eller lösenord');
             }
 
             if (data.requires2FA) {
@@ -64,7 +64,7 @@ export default function Login() {
                 }
             }
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to sign in');
+            setError(err instanceof Error ? err.message : 'Det gick inte att logga in');
         } finally {
             setIsLoading(false);
         }
@@ -91,7 +91,7 @@ export default function Login() {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Invalid verification code');
+                throw new Error(data.error || 'Ogiltig verifieringskod');
             }
 
             // Set the session and navigate
@@ -103,7 +103,7 @@ export default function Login() {
                 navigate('/');
             }
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to verify code');
+            setError(err instanceof Error ? err.message : 'Det gick inte att verifiera koden');
         } finally {
             setIsLoading(false);
         }
@@ -138,7 +138,7 @@ export default function Login() {
         } catch (err) {
             console.error('Error resending confirmation email:', err);
             setResendStatus('error');
-            setError(err instanceof Error ? err.message : 'Failed to resend confirmation email');
+            setError(err instanceof Error ? err.message : 'Det gick inte att skicka bekräftelsemejlet igen');
         }
     };
 
@@ -153,7 +153,7 @@ export default function Login() {
                         : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'
                 }`}
             >
-                Login
+                Logga in
             </Link>
             <Link
                 to="/signup"
@@ -163,7 +163,7 @@ export default function Login() {
                         : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'
                 }`}
             >
-                Sign Up
+                Skapa konto
             </Link>
         </div>
     );
@@ -178,10 +178,10 @@ export default function Login() {
                         <Mail className="w-8 h-8 text-amber-600 dark:text-amber-400" />
                     </div>
                     <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">
-                        Email Not Confirmed
+                        E-postadressen är inte bekräftad
                     </h1>
                     <p className="text-surface-500 dark:text-surface-400 mt-2 text-sm">
-                        Please confirm your email address to continue
+                        Bekräfta din e-postadress för att fortsätta
                     </p>
                 </div>
 
@@ -195,12 +195,12 @@ export default function Login() {
                 {/* Instructions */}
                 <div className="bg-surface-50 dark:bg-surface-800/50 rounded-lg p-4 mb-6">
                     <p className="text-sm text-surface-600 dark:text-surface-400 mb-3">
-                        We've sent a confirmation link to your email. Please:
+                        Vi har skickat en bekräftelselänk till din e-post. Gör så här:
                     </p>
                     <ol className="text-sm text-surface-600 dark:text-surface-400 space-y-2 list-decimal list-inside">
-                        <li>Check your inbox (and spam folder)</li>
-                        <li>Click the confirmation link</li>
-                        <li>Return here and try logging in again</li>
+                        <li>Kolla din inkorg (och skräpposten)</li>
+                        <li>Klicka på bekräftelselänken</li>
+                        <li>Kom tillbaka hit och försök logga in igen</li>
                     </ol>
                 </div>
 
@@ -208,7 +208,7 @@ export default function Login() {
                 {resendStatus === 'sent' && (
                     <div className="flex items-center justify-center gap-2 text-green-600 dark:text-green-400 mb-4">
                         <CheckCircle className="w-5 h-5" />
-                        <span className="text-sm">Confirmation email sent!</span>
+                        <span className="text-sm">Bekräftelsemejl skickat!</span>
                     </div>
                 )}
 
@@ -228,17 +228,17 @@ export default function Login() {
                         {resendStatus === 'sending' ? (
                             <>
                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                Sending...
+                                Skickar...
                             </>
                         ) : resendStatus === 'sent' ? (
                             <>
                                 <CheckCircle className="w-4 h-4" />
-                                Email Sent
+                                E-post skickad
                             </>
                         ) : (
                             <>
                                 <RefreshCw className="w-4 h-4" />
-                                Resend Confirmation Email
+                                Skicka bekräftelsemejl igen
                             </>
                         )}
                     </button>
@@ -247,13 +247,13 @@ export default function Login() {
                         onClick={handleBackToCredentials}
                         className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-surface-100 hover:bg-surface-200 dark:bg-surface-800 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300 rounded-lg font-medium transition-colors text-sm"
                     >
-                        Back to Login
+                        Tillbaka till inloggning
                     </button>
                 </div>
 
                 {/* Help text */}
                 <p className="text-xs text-surface-500 mt-6 text-center">
-                    Didn't receive the email? Check your spam folder or try resending.
+                    Fick du inget mejl? Kolla din skräppost eller försök skicka igen.
                 </p>
             </div>
         );
@@ -268,8 +268,8 @@ export default function Login() {
 
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Welcome back</h1>
-                    <p className="text-surface-500 dark:text-surface-400 mt-1 text-sm">Sign in to your account to continue</p>
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Välkommen tillbaka</h1>
+                    <p className="text-surface-500 dark:text-surface-400 mt-1 text-sm">Logga in på ditt konto för att fortsätta</p>
                 </div>
 
                 {/* Error message */}
@@ -284,14 +284,14 @@ export default function Login() {
                     {/* Email field */}
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
-                            Email
+                            E-post
                         </label>
                         <input
                             id="email"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="you@example.com"
+                            placeholder="du@exempel.se"
                             required
                             className="input w-full"
                             disabled={isLoading}
@@ -301,7 +301,7 @@ export default function Login() {
                     {/* Password field */}
                     <div>
                         <label htmlFor="password" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
-                            Password
+                            Lösenord
                         </label>
                         <div className="relative">
                             <input
@@ -309,7 +309,7 @@ export default function Login() {
                                 type={showPassword ? 'text' : 'password'}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter your password"
+                                placeholder="Ange ditt lösenord"
                                 required
                                 className="input w-full pr-10"
                                 disabled={isLoading}
@@ -334,7 +334,7 @@ export default function Login() {
                             to="/forgot-password"
                             className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium"
                         >
-                            Forgot password?
+                            Glömt lösenordet?
                         </Link>
                     </div>
 
@@ -347,10 +347,10 @@ export default function Login() {
                         {isLoading ? (
                             <>
                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                <span>Signing in...</span>
+                                <span>Loggar in...</span>
                             </>
                         ) : (
-                            <span>Sign In</span>
+                            <span>Logga in</span>
                         )}
                     </button>
                 </form>
@@ -367,12 +367,12 @@ export default function Login() {
                     <Shield className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                 </div>
                 <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">
-                    Two-Factor Authentication
+                    Tvåfaktorsautentisering
                 </h1>
                 <p className="text-surface-500 dark:text-surface-400 mt-2 text-sm">
                     {useBackupCode
-                        ? 'Enter one of your backup codes'
-                        : 'Enter the 6-digit code from your authenticator app'
+                        ? 'Ange en av dina reservkoder'
+                        : 'Ange den 6-siffriga koden från din autentiseringsapp'
                     }
                 </p>
             </div>
@@ -389,7 +389,7 @@ export default function Login() {
                 {useBackupCode ? (
                     <div>
                         <label htmlFor="backupCode" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
-                            Backup Code
+                            Reservkod
                         </label>
                         <div className="relative">
                             <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
@@ -409,7 +409,7 @@ export default function Login() {
                 ) : (
                     <div>
                         <label htmlFor="twoFactorCode" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
-                            Verification Code
+                            Verifieringskod
                         </label>
                         <input
                             id="twoFactorCode"
@@ -438,10 +438,10 @@ export default function Login() {
                     {isLoading ? (
                         <>
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            <span>Verifying...</span>
+                            <span>Verifierar...</span>
                         </>
                     ) : (
-                        <span>Verify & Sign in</span>
+                        <span>Verifiera och logga in</span>
                     )}
                 </button>
             </form>
@@ -459,8 +459,8 @@ export default function Login() {
                     className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
                 >
                     {useBackupCode
-                        ? 'Use authenticator app instead'
-                        : 'Use a backup code instead'
+                        ? 'Använd autentiseringsapp istället'
+                        : 'Använd en reservkod istället'
                     }
                 </button>
             </div>
@@ -472,7 +472,7 @@ export default function Login() {
                     onClick={handleBackToCredentials}
                     className="text-sm text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200"
                 >
-                    &larr; Back to login
+                    &larr; Tillbaka till inloggning
                 </button>
             </div>
         </div>

@@ -263,7 +263,7 @@ export async function createGroup(group: GroupInsert): Promise<Group> {
     // Verify slug is available
     const slugAvailable = await isSlugAvailable(slug);
     if (!slugAvailable) {
-        throw new Error('Group slug is already taken. Please choose a different name.');
+        throw new Error('Gruppens webbadress är redan upptagen. Välj ett annat namn.');
     }
 
     const { data, error } = await supabase
@@ -297,7 +297,7 @@ export async function updateGroup(groupId: string, updates: GroupUpdate): Promis
         slug = generateSlug(updates.name);
         const slugAvailable = await isSlugAvailable(slug, groupId);
         if (!slugAvailable) {
-            throw new Error('Group slug is already taken. Please choose a different name.');
+            throw new Error('Gruppens webbadress är redan upptagen. Välj ett annat namn.');
         }
     }
 
@@ -377,7 +377,7 @@ export async function leaveGroup(groupId: string, userId: string): Promise<void>
             .eq('role', 'admin');
 
         if (count === 1) {
-            throw new Error('Cannot leave group as the only admin. Transfer ownership or delete the group.');
+            throw new Error('Du kan inte lämna gruppen som enda administratör. Överför ägarskapet eller ta bort gruppen.');
         }
     }
 
@@ -452,7 +452,7 @@ export async function updateMemberRole(
             .neq('user_id', userId);
 
         if (count === 0) {
-            throw new Error('Cannot demote the only admin. Promote another member first.');
+            throw new Error('Det går inte att degradera den enda administratören. Befordra en annan medlem först.');
         }
     }
 
@@ -482,7 +482,7 @@ export async function removeMember(groupId: string, userId: string): Promise<voi
             .eq('role', 'admin');
 
         if (count === 1) {
-            throw new Error('Cannot remove the only admin. Transfer ownership first.');
+            throw new Error('Det går inte att ta bort den enda administratören. Överför ägarskapet först.');
         }
     }
 

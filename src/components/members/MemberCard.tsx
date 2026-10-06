@@ -56,7 +56,7 @@ export function MemberCard({ member }: MemberCardProps) {
                     </p>
                 ) : (
                     <p className="text-sm text-surface-400 dark:text-surface-500 italic">
-                        No bio available
+                        Ingen bio tillgänglig
                     </p>
                 )}
             </div>
@@ -67,14 +67,14 @@ export function MemberCard({ member }: MemberCardProps) {
                     to={`/profile/${member.username}`}
                     className="flex items-center justify-center px-3 py-2 rounded-lg bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors text-xs font-medium"
                 >
-                    Profile
+                    Profil
                 </Link>
                 <Link
                     to={`/messages/${member.id}`}
                     className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors text-xs font-medium dark:bg-black dark:hover:bg-black"
                 >
                     <MessageCircle className="w-3.5 h-3.5" />
-                    Message
+                    Meddelande
                 </Link>
             </div>
         </div>

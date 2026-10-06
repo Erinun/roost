@@ -24,7 +24,7 @@ export function MemberFilters({
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400 dark:text-surface-500" />
                     <input
                         type="text"
-                        placeholder="Search members..."
+                        placeholder="Sök medlemmar..."
                         value={searchQuery}
                         onChange={(e) => onSearchChange(e.target.value)}
                         className="w-full pl-9 pr-4 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50"
@@ -37,8 +37,8 @@ export function MemberFilters({
                         onChange={(e) => onStatusChange(e.target.value as 'all' | 'online')}
                         className="px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50"
                     >
-                        <option value="all">All Status</option>
-                        <option value="online">Online Now</option>
+                        <option value="all">Alla statusar</option>
+                        <option value="online">Online nu</option>
                     </select>
 
                     <select
@@ -46,9 +46,9 @@ export function MemberFilters({
                         onChange={(e) => onSortChange(e.target.value as any)}
                         className="px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50"
                     >
-                        <option value="newest">Newest Members</option>
-                        <option value="last_active">Recently Active</option>
-                        <option value="alphabetical">Alphabetical</option>
+                        <option value="newest">Nyaste medlemmar</option>
+                        <option value="last_active">Nyligen aktiva</option>
+                        <option value="alphabetical">Alfabetisk ordning</option>
                     </select>
                 </div>
             </div>

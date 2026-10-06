@@ -31,16 +31,16 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
 
     const validatePassword = (password: string): string | null => {
         if (password.length < 8) {
-            return 'Password must be at least 8 characters';
+            return 'Lösenordet måste vara minst 8 tecken';
         }
         if (!/[A-Z]/.test(password)) {
-            return 'Password must contain at least one uppercase letter';
+            return 'Lösenordet måste innehålla minst en versal';
         }
         if (!/[a-z]/.test(password)) {
-            return 'Password must contain at least one lowercase letter';
+            return 'Lösenordet måste innehålla minst en gemen';
         }
         if (!/[0-9]/.test(password)) {
-            return 'Password must contain at least one number';
+            return 'Lösenordet måste innehålla minst en siffra';
         }
         return null;
     };
@@ -51,7 +51,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
 
         // Validation
         if (!currentPassword) {
-            setError('Current password is required');
+            setError('Nuvarande lösenord krävs');
             return;
         }
 
@@ -62,12 +62,12 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
         }
 
         if (newPassword !== confirmPassword) {
-            setError('New passwords do not match');
+            setError('De nya lösenorden matchar inte');
             return;
         }
 
         if (currentPassword === newPassword) {
-            setError('New password must be different from current password');
+            setError('Det nya lösenordet måste skilja sig från det nuvarande');
             return;
         }
 
@@ -77,7 +77,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
             // Get current session token
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                throw new Error('You must be logged in to change your password');
+                throw new Error('Du måste vara inloggad för att byta lösenord');
             }
 
             // Call backend to verify current password and change it
@@ -94,7 +94,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to change password');
+                throw new Error(data.error || 'Kunde inte byta lösenord');
             }
 
             setSuccess(true);
@@ -104,7 +104,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                 handleClose();
             }, 2000);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to change password');
+            setError(err instanceof Error ? err.message : 'Kunde inte byta lösenord');
         } finally {
             setIsLoading(false);
         }
@@ -129,7 +129,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                             <Lock className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                         </div>
                         <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
-                            Change Password
+                            Byt lösenord
                         </h2>
                     </div>
                     <button
@@ -147,7 +147,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                     {success && (
                         <div className="p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-lg flex items-center gap-3">
                             <Check className="w-5 h-5 flex-shrink-0" />
-                            <span>Password changed successfully!</span>
+                            <span>Lösenordet har bytts!</span>
                         </div>
                     )}
 
@@ -164,7 +164,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                             {/* Current Password */}
                             <div>
                                 <label htmlFor="currentPassword" className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                                    Current Password
+                                    Nuvarande lösenord
                                 </label>
                                 <div className="relative">
                                     <input
@@ -172,7 +172,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                                         type={showCurrentPassword ? 'text' : 'password'}
                                         value={currentPassword}
                                         onChange={(e) => setCurrentPassword(e.target.value)}
-                                        placeholder="Enter your current password"
+                                        placeholder="Ange ditt nuvarande lösenord"
                                         className="input pr-10"
                                         disabled={isLoading}
                                         autoComplete="current-password"
@@ -194,7 +194,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                             {/* New Password */}
                             <div>
                                 <label htmlFor="newPassword" className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                                    New Password
+                                    Nytt lösenord
                                 </label>
                                 <div className="relative">
                                     <input
@@ -202,7 +202,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                                         type={showNewPassword ? 'text' : 'password'}
                                         value={newPassword}
                                         onChange={(e) => setNewPassword(e.target.value)}
-                                        placeholder="Enter your new password"
+                                        placeholder="Ange ditt nya lösenord"
                                         className="input pr-10"
                                         disabled={isLoading}
                                         autoComplete="new-password"
@@ -220,14 +220,14 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                                     </button>
                                 </div>
                                 <p className="text-xs text-surface-500 dark:text-surface-400 mt-1.5">
-                                    At least 8 characters with uppercase, lowercase, and a number
+                                    Minst 8 tecken med versal, gemen och en siffra
                                 </p>
                             </div>
 
                             {/* Confirm Password */}
                             <div>
                                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                                    Confirm New Password
+                                    Bekräfta nytt lösenord
                                 </label>
                                 <div className="relative">
                                     <input
@@ -235,7 +235,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                                         type={showConfirmPassword ? 'text' : 'password'}
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                        placeholder="Confirm your new password"
+                                        placeholder="Bekräfta ditt nya lösenord"
                                         className="input pr-10"
                                         disabled={isLoading}
                                         autoComplete="new-password"
@@ -262,7 +262,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                                     disabled={isLoading}
                                     className="flex-1 px-4 py-2.5 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 rounded-lg font-medium hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors disabled:opacity-50"
                                 >
-                                    Cancel
+                                    Avbryt
                                 </button>
                                 <button
                                     type="submit"
@@ -272,10 +272,10 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                                     {isLoading ? (
                                         <>
                                             <Loader2 className="w-4 h-4 animate-spin" />
-                                            <span>Changing...</span>
+                                            <span>Byter...</span>
                                         </>
                                     ) : (
-                                        <span>Change Password</span>
+                                        <span>Byt lösenord</span>
                                     )}
                                 </button>
                             </div>

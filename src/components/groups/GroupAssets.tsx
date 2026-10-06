@@ -37,7 +37,7 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
     };
 
     const handleDelete = async (assetId: string) => {
-        if (!confirm('Are you sure you want to delete this asset?')) return;
+        if (!confirm('Är du säker på att du vill ta bort det här materialet?')) return;
 
         try {
             setDeletingId(assetId);
@@ -45,7 +45,7 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
             setAssets((prev) => prev.filter((a) => a.id !== assetId));
         } catch (error) {
             console.error('Error deleting asset:', error);
-            alert('Failed to delete asset');
+            alert('Det gick inte att ta bort materialet');
         } finally {
             setDeletingId(null);
         }
@@ -64,15 +64,28 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
         }
     };
 
+    const getAssetTypeLabel = (assetType: string) => {
+        switch (assetType) {
+            case 'image':
+                return 'bild';
+            case 'video':
+                return 'video';
+            case 'document':
+                return 'dokument';
+            default:
+                return 'fil';
+        }
+    };
+
     const formatFileSize = (bytes: number | null) => {
-        if (!bytes) return 'N/A';
+        if (!bytes) return '–';
         if (bytes < 1024) return `${bytes} B`;
         if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
         return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
     };
 
     const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
+        return new Date(dateString).toLocaleDateString('sv-SE', {
             year: 'numeric',
             month: 'short',
             day: 'numeric',
@@ -100,9 +113,9 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold text-surface-900 dark:text-surface-50">Course Materials</h2>
+                    <h2 className="text-2xl font-bold text-surface-900 dark:text-surface-50">Kursmaterial</h2>
                     <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                        {assets.length} {assets.length === 1 ? 'file' : 'files'} uploaded
+                        {assets.length} {assets.length === 1 ? 'uppladdad fil' : 'uppladdade filer'}
                     </p>
                 </div>
                 {canUpload && (
@@ -111,7 +124,7 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
                         className="flex items-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                     >
                         <Upload className="w-4 h-4" />
-                        Upload Files
+                        Ladda upp filer
                     </button>
                 )}
             </div>
@@ -120,11 +133,11 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
             {assets.length === 0 ? (
                 <div className="text-center py-12 bg-surface-50 dark:bg-surface-900 rounded-lg border-2 border-dashed border-surface-200 dark:border-surface-700">
                     <FileText className="w-12 h-12 mx-auto text-surface-400 dark:text-surface-500 mb-3" />
-                    <h3 className="text-lg font-medium text-surface-900 dark:text-surface-50 mb-1">No materials yet</h3>
+                    <h3 className="text-lg font-medium text-surface-900 dark:text-surface-50 mb-1">Inget material ännu</h3>
                     <p className="text-sm text-surface-500 dark:text-surface-400 mb-4">
                         {canUpload
-                            ? 'Upload course materials, PDFs, documents, and resources for students.'
-                            : 'Course materials will appear here when uploaded by instructors.'}
+                            ? 'Ladda upp kursmaterial, PDF:er, dokument och resurser till deltagarna.'
+                            : 'Kursmaterial visas här när kursledarna har laddat upp det.'}
                     </p>
                     {canUpload && (
                         <button
@@ -132,7 +145,7 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
                             className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-surface-800 border border-surface-300 dark:border-surface-600 rounded-lg text-surface-700 dark:text-surface-300 font-medium hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors"
                         >
                             <Upload className="w-4 h-4" />
-                            Upload Your First File
+                            Ladda upp din första fil
                         </button>
                     )}
                 </div>
@@ -143,19 +156,19 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
                             <thead className="bg-surface-50 dark:bg-surface-800 border-b border-surface-200 dark:border-surface-700">
                                 <tr>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
-                                        Name
+                                        Namn
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
-                                        Type
+                                        Typ
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
-                                        Size
+                                        Storlek
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
-                                        Date
+                                        Datum
                                     </th>
                                     <th className="px-6 py-3 text-right text-xs font-medium text-surface-500 dark:text-surface-400 uppercase tracking-wider">
-                                        Actions
+                                        Åtgärder
                                     </th>
                                 </tr>
                             </thead>
@@ -172,7 +185,7 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
                                         </td>
                                         <td className="px-2 py-4">
                                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 capitalize">
-                                                {item.asset.asset_type}
+                                                {getAssetTypeLabel(item.asset.asset_type)}
                                             </span>
                                         </td>
                                         <td className="px-2 py-4 text-xs text-surface-600 dark:text-surface-400">
@@ -187,7 +200,7 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
                                                     <button
                                                         onClick={() => setPreviewFile({ url: item.asset.file_url, name: item.asset.filename })}
                                                         className="p-2 text-surface-500 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
-                                                        title="Preview"
+                                                        title="Förhandsvisa"
                                                     >
                                                         <Eye className="w-4 h-4" />
                                                     </button>
@@ -198,7 +211,7 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
                                                     rel="noopener noreferrer"
                                                     download
                                                     className="p-2 text-surface-500 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
-                                                    title="Download"
+                                                    title="Ladda ner"
                                                 >
                                                     <Download className="w-4 h-4" />
                                                 </a>
@@ -207,7 +220,7 @@ export default function GroupAssets({ groupId, userRole }: GroupAssetsProps) {
                                                         onClick={() => handleDelete(item.id)}
                                                         disabled={deletingId === item.id}
                                                         className="p-2 text-surface-500 dark:text-surface-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors disabled:opacity-50"
-                                                        title="Delete"
+                                                        title="Ta bort"
                                                     >
                                                         {deletingId === item.id ? (
                                                             <Loader2 className="w-4 h-4 animate-spin" />

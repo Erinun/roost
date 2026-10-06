@@ -3,11 +3,11 @@ import { Crown, CheckCircle } from 'lucide-react';
 import { APP_CONFIG } from '@/config/app';
 
 const premiumBenefits = [
-    { text: 'Everything in Free, plus:', bold: true },
-    { text: 'Direct messaging with members', bold: false },
-    { text: 'Access to premium groups', bold: false },
-    { text: 'Priority support', bold: false },
-    { text: 'Exclusive content and events', bold: false },
+    { text: 'Allt i gratisversionen, plus:', bold: true },
+    { text: 'Direktmeddelanden med medlemmar', bold: false },
+    { text: 'Åtkomst till premiumgrupper', bold: false },
+    { text: 'Prioriterad support', bold: false },
+    { text: 'Exklusivt innehåll och evenemang', bold: false },
 ];
 
 export default function AuthLayout() {
@@ -46,7 +46,7 @@ export default function AuthLayout() {
                         <img src="/logo-square-sm.png" alt={APP_CONFIG.name} className="w-12 h-12 rounded-xl shadow-lg" />
                         <div className="text-center">
                             <h2 className="text-lg font-bold text-surface-900 dark:text-surface-100 leading-tight">{APP_CONFIG.name}</h2>
-                            <p className="text-xs text-surface-500 dark:text-surface-400">Community Platform</p>
+                            <p className="text-xs text-surface-500 dark:text-surface-400">Community-plattform</p>
                         </div>
                     </div>
 
@@ -57,9 +57,9 @@ export default function AuthLayout() {
                             <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-400/30">
                                 <Crown className="w-7 h-7 text-white" />
                             </div>
-                            <h3 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Go Premium</h3>
+                            <h3 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Skaffa Premium</h3>
                             <p className="text-surface-500 dark:text-surface-400 text-sm mt-1">
-                                Unlock all features and exclusive content
+                                Lås upp alla funktioner och exklusivt innehåll
                             </p>
                         </div>
 
@@ -77,17 +77,17 @@ export default function AuthLayout() {
 
                         {/* CTA Text */}
                         <div className="w-full py-3 text-sm flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-xl">
-                            <span>Get Premium Membership</span>
+                            <span>Skaffa premiummedlemskap</span>
                         </div>
 
                         <p className="text-xs text-surface-500 dark:text-surface-400 text-center mt-3">
-                            Sign up to get started. Upgrade to premium anytime.
+                            Skapa ett konto för att komma igång. Uppgradera till premium när du vill.
                         </p>
 
                         {/* Note */}
                         <div className="mt-4 p-3 bg-white/60 dark:bg-surface-800/50 rounded-lg">
                             <p className="text-xs text-surface-600 dark:text-surface-400 text-center">
-                                Not sure yet? Start with a free account and upgrade anytime!
+                                Inte säker än? Börja med ett gratiskonto och uppgradera när du vill!
                             </p>
                         </div>
                     </div>

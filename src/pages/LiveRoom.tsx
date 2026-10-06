@@ -110,7 +110,7 @@ export default function LiveRoom() {
                 [sessionId]: { hasRsvp: true, rsvp: { id: '', created_at: new Date().toISOString() } },
             }));
         } catch (error) {
-            alert(error instanceof Error ? error.message : 'Failed to RSVP');
+            alert(error instanceof Error ? error.message : 'Det gick inte att anmäla dig');
         } finally {
             setRsvpLoading(null);
         }
@@ -139,7 +139,7 @@ export default function LiveRoom() {
 
     const formatDate = (dateStr: string | null) => {
         if (!dateStr) return '';
-        return new Date(dateStr).toLocaleDateString('en-US', {
+        return new Date(dateStr).toLocaleDateString('sv-SE', {
             month: 'short',
             day: 'numeric',
             year: 'numeric',
@@ -152,21 +152,21 @@ export default function LiveRoom() {
         if (!start || !end) return '';
         const ms = new Date(end).getTime() - new Date(start).getTime();
         const minutes = Math.floor(ms / 60000);
-        if (minutes < 60) return `${minutes}m`;
+        if (minutes < 60) return `${minutes} min`;
         const hours = Math.floor(minutes / 60);
         const remainingMinutes = minutes % 60;
-        return `${hours}h ${remainingMinutes}m`;
+        return `${hours} h ${remainingMinutes} min`;
     };
 
     const formatTimeUntil = (dateStr: string) => {
         const ms = new Date(dateStr).getTime() - Date.now();
-        if (ms < 0) return 'Starting soon';
+        if (ms < 0) return 'Börjar snart';
         const hours = Math.floor(ms / (1000 * 60 * 60));
         const days = Math.floor(hours / 24);
-        if (days > 0) return `in ${days}d ${hours % 24}h`;
-        if (hours > 0) return `in ${hours}h`;
+        if (days > 0) return `om ${days} d ${hours % 24} h`;
+        if (hours > 0) return `om ${hours} h`;
         const minutes = Math.floor(ms / (1000 * 60));
-        return `in ${minutes}m`;
+        return `om ${minutes} min`;
     };
 
     // Only show full-page spinner on true first load (no cached data)
@@ -187,10 +187,10 @@ export default function LiveRoom() {
                     <div className="flex items-center justify-between">
                         <div>
                             <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-50">
-                                Live Room
+                                Live-rum
                             </h1>
                             <p className="mt-1 text-surface-500 dark:text-surface-400">
-                                Watch live sessions and past recordings
+                                Titta på livesessioner och tidigare inspelningar
                             </p>
                         </div>
                         <div className="flex items-center gap-3">
@@ -201,7 +201,7 @@ export default function LiveRoom() {
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                                             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
                                         </span>
-                                        LIVE NOW
+                                        LIVE NU
                                     </span>
                                     {/* Mobile chat toggle */}
                                     <button
@@ -209,7 +209,7 @@ export default function LiveRoom() {
                                         className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800"
                                     >
                                         <MessageSquare className="w-4 h-4" />
-                                        Chat
+                                        Chatt
                                     </button>
                                 </>
                             )}
@@ -226,7 +226,7 @@ export default function LiveRoom() {
                                     </div>
                                     <div>
                                         <h2 className="font-semibold text-surface-900 dark:text-surface-50">
-                                            {status.session?.title || 'Live Session'}
+                                            {status.session?.title || 'Livesession'}
                                         </h2>
                                         {status.session?.description && (
                                             <p className="text-sm text-surface-500 dark:text-surface-400 mt-0.5">
@@ -236,7 +236,7 @@ export default function LiveRoom() {
                                         {status.session?.started_at && (
                                             <p className="text-xs text-surface-400 dark:text-surface-500 mt-1 flex items-center gap-1">
                                                 <Clock className="w-3 h-3" />
-                                                Started {formatDate(status.session.started_at)}
+                                                Startade {formatDate(status.session.started_at)}
                                             </p>
                                         )}
                                     </div>
@@ -246,10 +246,10 @@ export default function LiveRoom() {
                                 <div className="p-8 text-center flex flex-col items-center justify-center min-h-[300px]">
                                     <Lock className="w-12 h-12 text-amber-400 dark:text-amber-500 mb-4" />
                                     <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-50 mb-2">
-                                        Private Stream
+                                        Privat sändning
                                     </h3>
                                     <p className="text-surface-500 dark:text-surface-400 mb-6 max-w-md">
-                                        This session is a private YouTube stream. Click below to watch on YouTube. Make sure you're signed in with the email you used to RSVP.
+                                        Den här sessionen är en privat YouTube-sändning. Klicka nedan för att titta på YouTube. Se till att du är inloggad med den e-postadress du använde när du anmälde dig.
                                     </p>
                                     <a
                                         href={`https://www.youtube.com/watch?v=${extractVideoId(status.playerUrl)}`}
@@ -258,7 +258,7 @@ export default function LiveRoom() {
                                         className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors"
                                     >
                                         <ExternalLink className="w-4 h-4" />
-                                        Watch on YouTube
+                                        Titta på YouTube
                                     </a>
                                 </div>
                             ) : (
@@ -268,7 +268,7 @@ export default function LiveRoom() {
                                         className="absolute inset-0 w-full h-full"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowFullScreen
-                                        title="Live stream"
+                                        title="Livesändning"
                                     />
                                 </div>
                             )}
@@ -277,10 +277,10 @@ export default function LiveRoom() {
                         <div className="bg-white dark:bg-surface-900 rounded-2xl border border-surface-200 dark:border-surface-700 p-12 text-center">
                             <VideoOff className="w-16 h-16 mx-auto text-surface-300 dark:text-surface-600" />
                             <h2 className="mt-4 text-xl font-semibold text-surface-900 dark:text-surface-50">
-                                No Live Session
+                                Ingen livesession
                             </h2>
                             <p className="mt-2 text-surface-500 dark:text-surface-400 max-w-md mx-auto">
-                                There's no live session right now. Check back later or browse past recordings below.
+                                Det pågår ingen livesession just nu. Kom tillbaka senare eller bläddra bland tidigare inspelningar nedan.
                             </p>
                         </div>
                     )}
@@ -289,7 +289,7 @@ export default function LiveRoom() {
                     {upcoming.length > 0 && (
                         <div>
                             <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50 mb-4">
-                                Upcoming Sessions
+                                Kommande sessioner
                             </h2>
                             <div className="space-y-3">
                                 {upcoming.map((session) => {
@@ -336,8 +336,8 @@ export default function LiveRoom() {
                                                         >
                                                             <CalendarCheck className="w-4 h-4 group-hover:hidden" />
                                                             <CalendarX className="w-4 h-4 hidden group-hover:block" />
-                                                            <span className="group-hover:hidden">RSVP'd</span>
-                                                            <span className="hidden group-hover:inline">Cancel</span>
+                                                            <span className="group-hover:hidden">Anmäld</span>
+                                                            <span className="hidden group-hover:inline">Avbryt</span>
                                                         </button>
                                                     ) : rsvpOpen ? (
                                                         <button
@@ -346,11 +346,11 @@ export default function LiveRoom() {
                                                             className="flex items-center gap-1.5 px-3 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
                                                         >
                                                             <CalendarCheck className="w-4 h-4" />
-                                                            {rsvpLoading === session.id ? 'Saving...' : 'RSVP'}
+                                                            {rsvpLoading === session.id ? 'Sparar...' : 'Anmäl dig'}
                                                         </button>
                                                     ) : (
                                                         <span className="text-xs text-surface-400 dark:text-surface-500 px-3 py-1.5">
-                                                            RSVP Closed
+                                                            Anmälan stängd
                                                         </span>
                                                     )}
                                                 </div>
@@ -386,14 +386,14 @@ export default function LiveRoom() {
                                     onClick={() => setActiveRecording(null)}
                                     className="text-sm text-surface-500 hover:text-surface-700 dark:hover:text-surface-300"
                                 >
-                                    Close
+                                    Stäng
                                 </button>
                             </div>
                             {activeRecording.visibility === 'private' ? (
                                 <div className="p-8 text-center">
                                     <Lock className="w-10 h-10 mx-auto text-amber-400 dark:text-amber-500 mb-3" />
                                     <p className="text-surface-500 dark:text-surface-400 mb-4">
-                                        This recording is private. Watch it on YouTube with your RSVP email.
+                                        Den här inspelningen är privat. Titta på den på YouTube med e-postadressen du anmälde dig med.
                                     </p>
                                     <a
                                         href={`https://www.youtube.com/watch?v=${extractVideoId(activeRecording.playerUrl)}`}
@@ -402,7 +402,7 @@ export default function LiveRoom() {
                                         className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors"
                                     >
                                         <ExternalLink className="w-4 h-4" />
-                                        Watch on YouTube
+                                        Titta på YouTube
                                     </a>
                                 </div>
                             ) : (
@@ -423,7 +423,7 @@ export default function LiveRoom() {
                     {recordings.length > 0 && (
                         <div>
                             <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50 mb-4">
-                                Past Recordings
+                                Tidigare inspelningar
                             </h2>
                             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                                 {recordings.map((recording) => (
@@ -468,7 +468,7 @@ export default function LiveRoom() {
                     {/* Empty state */}
                     {!isLoading && recordings.length === 0 && !status?.isLive && upcoming.length === 0 && (
                         <p className="text-center text-surface-400 dark:text-surface-500 py-8">
-                            No past recordings available yet.
+                            Inga tidigare inspelningar tillgängliga ännu.
                         </p>
                     )}
                 </div>
@@ -500,7 +500,7 @@ export default function LiveRoom() {
                                 <button
                                     onClick={() => setShowChat(true)}
                                     className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-100 dark:hover:bg-surface-800 text-surface-600 dark:text-surface-400"
-                                    title="Show chat"
+                                    title="Visa chatten"
                                 >
                                     <MessageSquare className="w-5 h-5" />
                                 </button>
@@ -515,13 +515,13 @@ export default function LiveRoom() {
                                     <div className="flex items-center gap-2">
                                         <MessageSquare className="w-4 h-4 text-primary-500" />
                                         <span className="text-sm font-medium text-surface-900 dark:text-surface-50">
-                                            Live Chat
+                                            Livechatt
                                         </span>
                                     </div>
                                     <button
                                         onClick={() => setShowChat(false)}
                                         className="p-1 hover:bg-surface-100 dark:hover:bg-surface-800 rounded"
-                                        title="Hide chat"
+                                        title="Dölj chatten"
                                     >
                                         <ChevronLeft className="w-5 h-5 text-surface-500 rotate-180" />
                                     </button>

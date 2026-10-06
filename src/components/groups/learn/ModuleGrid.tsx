@@ -33,9 +33,9 @@ export default function ModuleGrid({
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-xl font-bold text-surface-900 dark:text-surface-50">Modules</h2>
+                    <h2 className="text-xl font-bold text-surface-900 dark:text-surface-50">Moduler</h2>
                     <p className="text-sm text-surface-500 dark:text-surface-400 mt-0.5">
-                        {modules.length} {modules.length === 1 ? 'module' : 'modules'} available
+                        {modules.length} {modules.length === 1 ? 'modul tillgänglig' : 'moduler tillgängliga'}
                     </p>
                 </div>
                 {canManage && (
@@ -44,7 +44,7 @@ export default function ModuleGrid({
                         className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                     >
                         <Plus className="w-4 h-4" />
-                        Add Module
+                        Lägg till modul
                     </button>
                 )}
             </div>
@@ -54,12 +54,12 @@ export default function ModuleGrid({
                 <div className="text-center py-12 bg-surface-50 dark:bg-surface-900 rounded-lg border-2 border-dashed border-surface-200 dark:border-surface-700">
                     <BookOpen className="w-12 h-12 mx-auto text-surface-400 dark:text-surface-500 mb-3" />
                     <h3 className="text-lg font-medium text-surface-900 dark:text-surface-50 mb-1">
-                        No modules yet
+                        Inga moduler ännu
                     </h3>
                     <p className="text-sm text-surface-500 dark:text-surface-400 mb-4">
                         {canManage
-                            ? 'Create modules to organize your course content.'
-                            : 'Course modules will appear here when published by instructors.'}
+                            ? 'Skapa moduler för att organisera ditt kursinnehåll.'
+                            : 'Kursmoduler visas här när de publiceras av kursledarna.'}
                     </p>
                     {canManage && (
                         <button
@@ -67,7 +67,7 @@ export default function ModuleGrid({
                             className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-surface-800 border border-surface-300 dark:border-surface-600 rounded-lg text-surface-700 dark:text-surface-300 font-medium hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors"
                         >
                             <Plus className="w-4 h-4" />
-                            Create Your First Module
+                            Skapa din första modul
                         </button>
                     )}
                 </div>

@@ -1,7 +1,7 @@
 import { Calendar as BigCalendar, dateFnsLocalizer } from 'react-big-calendar';
 import type { View } from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
-import { enUS } from 'date-fns/locale';
+import { sv } from 'date-fns/locale';
 import { useState } from 'react';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import type { CalendarEvent, EventWithDetails } from '../../types';
@@ -15,8 +15,23 @@ const localizer = dateFnsLocalizer({
     parse,
     startOfWeek,
     getDay,
-    locales: { 'en-US': enUS },
+    locales: { sv },
 });
+
+const calendarMessages = {
+    today: 'Idag',
+    previous: 'Föregående',
+    next: 'Nästa',
+    month: 'Månad',
+    week: 'Vecka',
+    day: 'Dag',
+    agenda: 'Agenda',
+    date: 'Datum',
+    time: 'Tid',
+    event: 'Evenemang',
+    noEventsInRange: 'Inga evenemang i perioden',
+    showMore: (n: number) => `+${n} till`,
+};
 
 interface CalendarViewProps {
     events: EventWithDetails[];
@@ -262,6 +277,8 @@ export default function CalendarView({ events, onCreateEvent, onRefresh }: Calen
             `}</style>
             <BigCalendar
                 localizer={localizer}
+                culture="sv"
+                messages={calendarMessages}
                 events={calendarEvents}
                 startAccessor="start"
                 endAccessor="end"

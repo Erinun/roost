@@ -50,9 +50,9 @@ export function CommunityMembersWidget() {
     return (
         <div className="card bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-700 rounded-xl overflow-hidden shadow-none">
             <div className="p-4 border-b border-surface-200 dark:border-surface-700 flex items-center justify-between">
-                <h3 className="font-semibold text-surface-900 dark:text-surface-100">Community Members</h3>
+                <h3 className="font-semibold text-surface-900 dark:text-surface-100">Communityns medlemmar</h3>
                 <Link to="/members" className="text-xs text-primary-600 dark:text-primary-400 hover:underline">
-                    View All
+                    Visa alla
                 </Link>
             </div>
 
@@ -65,7 +65,7 @@ export function CommunityMembersWidget() {
                         : 'text-surface-500 dark:text-surface-400 hover:bg-surface-50 dark:hover:bg-surface-800/50'
                         }`}
                 >
-                    Active
+                    Aktiva
                 </button>
                 <button
                     onClick={() => setActiveTab('newest')}
@@ -74,7 +74,7 @@ export function CommunityMembersWidget() {
                         : 'text-surface-500 dark:text-surface-400 hover:bg-surface-50 dark:hover:bg-surface-800/50'
                         }`}
                 >
-                    Newest
+                    Nyast
                 </button>
             </div>
 
@@ -131,7 +131,7 @@ export function CommunityMembersWidget() {
 
                 {!loading && members.length === 0 && (
                     <div className="text-center py-4 text-surface-500 dark:text-surface-400 text-sm">
-                        No members found.
+                        Inga medlemmar hittades.
                     </div>
                 )}
             </div>

@@ -53,7 +53,7 @@ export default function ChatView({ conversation, onBack }: ChatViewProps) {
       }
     } catch (err) {
       console.error('Error loading messages:', err);
-      setError('Failed to load messages');
+      setError('Kunde inte ladda meddelanden');
     } finally {
       if (showLoading) {
         setIsLoading(false);
@@ -182,7 +182,7 @@ export default function ChatView({ conversation, onBack }: ChatViewProps) {
       sender: {
         id: user.id,
         username: user.email?.split('@')[0] || '',
-        display_name: user.user_metadata?.display_name || 'You',
+        display_name: user.user_metadata?.display_name || 'Du',
         avatar_url: user.user_metadata?.avatar_url,
         is_online: true,
         membership_type: user.user_metadata?.membership_type || null
@@ -200,7 +200,7 @@ export default function ChatView({ conversation, onBack }: ChatViewProps) {
       console.error('Error sending message:', err);
       // Remove optimistic message on error
       setMessages(prev => prev.filter(m => m.id !== optimisticMessage.id));
-      setError('Failed to send message. Please try again.');
+      setError('Kunde inte skicka meddelandet. Försök igen.');
     }
   };
 
@@ -277,7 +277,7 @@ export default function ChatView({ conversation, onBack }: ChatViewProps) {
         ) : messages.length === 0 ? (
           <div className="flex items-center justify-center h-full text-center">
             <p className="text-sm text-surface-500 dark:text-surface-400">
-              No messages yet. Start the conversation!
+              Inga meddelanden än. Starta konversationen!
             </p>
           </div>
         ) : (

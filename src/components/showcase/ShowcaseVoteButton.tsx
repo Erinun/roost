@@ -68,10 +68,10 @@ export default function ShowcaseVoteButton({
                     ${!user ? 'opacity-50 cursor-not-allowed' : ''}
                     ${className}
                 `}
-                title={!user ? 'Sign in to vote' : localHasVoted ? 'Remove vote' : 'Upvote'}
+                title={!user ? 'Logga in för att rösta' : localHasVoted ? 'Ta bort röst' : 'Rösta upp'}
             >
                 <ChevronUp className="w-5 h-5 flex-shrink-0" />
-                <span className="font-semibold">{localHasVoted ? 'Upvoted' : 'Upvote'}</span>
+                <span className="font-semibold">{localHasVoted ? 'Uppröstad' : 'Rösta upp'}</span>
                 <span className="font-semibold">·</span>
                 <span className="font-semibold">{localVoteCount}</span>
             </button>
@@ -104,7 +104,7 @@ export default function ShowcaseVoteButton({
                 ${!user ? 'opacity-50 cursor-not-allowed' : ''}
                 ${className}
             `}
-            title={!user ? 'Sign in to vote' : localHasVoted ? 'Remove vote' : 'Upvote'}
+            title={!user ? 'Logga in för att rösta' : localHasVoted ? 'Ta bort röst' : 'Rösta upp'}
         >
             <ChevronUp className={`${iconSizes[size]} ${localHasVoted ? 'text-primary-600 dark:text-primary-400' : ''}`} />
             <span className="font-semibold">{localVoteCount}</span>

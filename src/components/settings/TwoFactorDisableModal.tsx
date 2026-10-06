@@ -23,7 +23,7 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
 
     const handleDisable = async () => {
         if (verificationCode.length !== 6) {
-            setError('Please enter a 6-digit code');
+            setError('Ange en 6-siffrig kod');
             return;
         }
 
@@ -33,7 +33,7 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
         try {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                throw new Error('You must be logged in');
+                throw new Error('Du måste vara inloggad');
             }
 
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -49,13 +49,13 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to disable 2FA');
+                throw new Error(data.error || 'Kunde inte inaktivera 2FA');
             }
 
             onSuccess();
             onClose();
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to disable 2FA');
+            setError(err instanceof Error ? err.message : 'Kunde inte inaktivera 2FA');
         } finally {
             setIsLoading(false);
         }
@@ -80,7 +80,7 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
                             <ShieldOff className="w-5 h-5 text-red-600 dark:text-red-400" />
                         </div>
                         <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
-                            Disable Two-Factor Authentication
+                            Inaktivera tvåfaktorsautentisering
                         </h2>
                     </div>
                     <button
@@ -97,8 +97,8 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
                     {/* Warning */}
                     <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
                         <p className="text-sm text-yellow-700 dark:text-yellow-400">
-                            <strong>Warning:</strong> Disabling 2FA will make your account less secure.
-                            You will only need your password to sign in.
+                            <strong>Varning:</strong> Om du inaktiverar 2FA blir ditt konto mindre säkert.
+                            Du behöver då bara ditt lösenord för att logga in.
                         </p>
                     </div>
 
@@ -113,7 +113,7 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
                     {/* Verification code */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Enter your 2FA code to confirm
+                            Ange din 2FA-kod för att bekräfta
                         </label>
                         <input
                             type="text"
@@ -137,7 +137,7 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
                             disabled={isLoading}
                             className="flex-1 px-4 py-2.5 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-300 rounded-lg font-medium hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors disabled:opacity-50"
                         >
-                            Cancel
+                            Avbryt
                         </button>
                         <button
                             onClick={handleDisable}
@@ -147,10 +147,10 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
                             {isLoading ? (
                                 <>
                                     <Loader2 className="w-4 h-4 animate-spin" />
-                                    <span>Disabling...</span>
+                                    <span>Inaktiverar...</span>
                                 </>
                             ) : (
-                                <span>Disable 2FA</span>
+                                <span>Inaktivera 2FA</span>
                             )}
                         </button>
                     </div>

@@ -1,8 +1,8 @@
 // App configuration - customize your community
 export const APP_CONFIG = {
   name: import.meta.env.VITE_APP_NAME || 'Roost',
-  tagline: import.meta.env.VITE_APP_TAGLINE || 'Learn, Build, Grow Together',
-  description: import.meta.env.VITE_APP_DESCRIPTION || 'A community platform for learning, building, and growing together.',
+  tagline: import.meta.env.VITE_APP_TAGLINE || 'Lär, bygg och väx tillsammans',
+  description: import.meta.env.VITE_APP_DESCRIPTION || 'En community-plattform för att lära, bygga och växa tillsammans.',
   url: import.meta.env.VITE_APP_URL || 'http://localhost:5173',
   apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:3000',
   logo: {

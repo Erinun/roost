@@ -26,11 +26,11 @@ function calculatePasswordStrength(password: string): PasswordStrength {
     score = Math.min(score, 4);
 
     const strengths: PasswordStrength[] = [
-        { score: 0, label: 'Too weak', color: 'text-red-500', bgColor: 'bg-red-500' },
-        { score: 1, label: 'Weak', color: 'text-orange-500', bgColor: 'bg-orange-500' },
-        { score: 2, label: 'Fair', color: 'text-yellow-500', bgColor: 'bg-yellow-500' },
-        { score: 3, label: 'Good', color: 'text-lime-500', bgColor: 'bg-lime-500' },
-        { score: 4, label: 'Strong', color: 'text-green-500', bgColor: 'bg-green-500' },
+        { score: 0, label: 'För svagt', color: 'text-red-500', bgColor: 'bg-red-500' },
+        { score: 1, label: 'Svagt', color: 'text-orange-500', bgColor: 'bg-orange-500' },
+        { score: 2, label: 'Okej', color: 'text-yellow-500', bgColor: 'bg-yellow-500' },
+        { score: 3, label: 'Bra', color: 'text-lime-500', bgColor: 'bg-lime-500' },
+        { score: 4, label: 'Starkt', color: 'text-green-500', bgColor: 'bg-green-500' },
     ];
 
     return strengths[score];
@@ -73,13 +73,13 @@ export default function Signup() {
 
         if (username.length < 3) {
             setUsernameStatus('invalid');
-            setUsernameError('Username must be at least 3 characters');
+            setUsernameError('Användarnamnet måste vara minst 3 tecken');
             return;
         }
 
         if (!isValidUsername(username)) {
             setUsernameStatus('invalid');
-            setUsernameError('Only letters, numbers, underscores, and hyphens allowed');
+            setUsernameError('Endast bokstäver, siffror, understreck och bindestreck tillåts');
             return;
         }
 
@@ -90,7 +90,7 @@ export default function Signup() {
             try {
                 const available = await isUsernameAvailable(username);
                 setUsernameStatus(available ? 'available' : 'taken');
-                setUsernameError(available ? null : 'Username is already taken');
+                setUsernameError(available ? null : 'Användarnamnet är redan upptaget');
             } catch {
                 setUsernameStatus('idle');
                 setUsernameError(null);
@@ -117,19 +117,19 @@ export default function Signup() {
 
     const validateForm = (): string | null => {
         if (!formData.email || !formData.password || !formData.username || !formData.displayName) {
-            return 'All fields are required';
+            return 'Alla fält är obligatoriska';
         }
         if (formData.password.length < 6) {
-            return 'Password must be at least 6 characters';
+            return 'Lösenordet måste vara minst 6 tecken';
         }
         if (formData.password !== formData.confirmPassword) {
-            return 'Passwords do not match';
+            return 'Lösenorden matchar inte';
         }
         if (usernameStatus === 'taken') {
-            return 'Username is already taken';
+            return 'Användarnamnet är redan upptaget';
         }
         if (usernameStatus === 'invalid') {
-            return usernameError || 'Invalid username';
+            return usernameError || 'Ogiltigt användarnamn';
         }
         return null;
     };
@@ -161,7 +161,7 @@ export default function Signup() {
                 navigate('/');
             }
         } catch (err) {
-            const message = err instanceof Error ? err.message : 'Failed to create account';
+            const message = err instanceof Error ? err.message : 'Det gick inte att skapa kontot';
             setError(message);
         } finally {
             setIsLoading(false);
@@ -176,7 +176,7 @@ export default function Signup() {
             return (
                 <div className="flex items-center gap-1 mt-1 text-surface-500 text-xs">
                     <Loader2 className="w-3 h-3 animate-spin" />
-                    <span>Checking...</span>
+                    <span>Kontrollerar...</span>
                 </div>
             );
         }
@@ -185,7 +185,7 @@ export default function Signup() {
             return (
                 <div className="flex items-center gap-1 mt-1 text-green-600 dark:text-green-400 text-xs">
                     <CheckCircle className="w-3 h-3" />
-                    <span>Available</span>
+                    <span>Tillgängligt</span>
                 </div>
             );
         }
@@ -245,7 +245,7 @@ export default function Signup() {
                         : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'
                 }`}
             >
-                Login
+                Logga in
             </Link>
             <Link
                 to="/signup"
@@ -255,7 +255,7 @@ export default function Signup() {
                         : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'
                 }`}
             >
-                Sign Up
+                Skapa konto
             </Link>
         </div>
     );
@@ -269,38 +269,38 @@ export default function Signup() {
                         <Mail className="w-7 h-7 text-green-600 dark:text-green-400" />
                     </div>
                     <h1 className="text-xl font-bold text-surface-900 dark:text-surface-100 mb-2">
-                        Check your email
+                        Kolla din e-post
                     </h1>
                     <p className="text-surface-600 dark:text-surface-400 text-sm mb-4">
-                        We've sent a confirmation link to:
+                        Vi har skickat en bekräftelselänk till:
                     </p>
                     <p className="font-medium text-surface-900 dark:text-surface-100 mb-6 break-all">
                         {confirmationEmail}
                     </p>
                     <div className="bg-surface-50 dark:bg-surface-800 rounded-lg p-4 text-left text-sm text-surface-600 dark:text-surface-400 mb-6">
                         <p className="mb-2">
-                            <strong>Next steps:</strong>
+                            <strong>Nästa steg:</strong>
                         </p>
                         <ol className="list-decimal list-inside space-y-1">
-                            <li>Open the email we just sent</li>
-                            <li>Click the confirmation link</li>
-                            <li>Start using {APP_CONFIG.name}!</li>
+                            <li>Öppna mejlet vi just skickade</li>
+                            <li>Klicka på bekräftelselänken</li>
+                            <li>Börja använda {APP_CONFIG.name}!</li>
                         </ol>
                     </div>
                     <p className="text-xs text-surface-500 dark:text-surface-400 mb-4">
-                        Didn't receive the email? Check your spam folder or{' '}
+                        Fick du inget mejl? Kolla din skräppost eller{' '}
                         <button
                             onClick={() => setEmailConfirmationSent(false)}
                             className="text-primary-600 hover:text-primary-700 dark:text-primary-400 font-medium"
                         >
-                            try again
+                            försök igen
                         </button>
                     </p>
                     <Link
                         to="/login"
                         className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 font-medium"
                     >
-                        Back to login
+                        Tillbaka till inloggning
                     </Link>
                 </div>
             </div>
@@ -314,9 +314,9 @@ export default function Signup() {
 
             {/* Header */}
             <div className="text-center mb-6">
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Create an account</h1>
+                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Skapa ett konto</h1>
                 <p className="text-surface-500 dark:text-surface-400 mt-1 text-sm">
-                    Join the community and start vibing
+                    Gå med i communityt och kom igång
                 </p>
             </div>
 
@@ -330,7 +330,7 @@ export default function Signup() {
                 {/* Display Name */}
                 <div>
                     <label htmlFor="displayName" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
-                        Full Name
+                        Fullständigt namn
                     </label>
                     <input
                         type="text"
@@ -339,7 +339,7 @@ export default function Signup() {
                         value={formData.displayName}
                         onChange={handleChange}
                         className="input w-full"
-                        placeholder="Your full name"
+                        placeholder="Ditt fullständiga namn"
                         required
                         disabled={isLoading}
                     />
@@ -348,7 +348,7 @@ export default function Signup() {
                 {/* Username */}
                 <div>
                     <label htmlFor="username" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
-                        Username
+                        Användarnamn
                     </label>
                     <input
                         type="text"
@@ -373,7 +373,7 @@ export default function Signup() {
                 {/* Email */}
                 <div>
                     <label htmlFor="email" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
-                        Email
+                        E-post
                     </label>
                     <input
                         type="email"
@@ -382,7 +382,7 @@ export default function Signup() {
                         value={formData.email}
                         onChange={handleChange}
                         className="input w-full"
-                        placeholder="you@example.com"
+                        placeholder="du@exempel.se"
                         required
                         disabled={isLoading}
                     />
@@ -391,7 +391,7 @@ export default function Signup() {
                 {/* Password */}
                 <div>
                     <label htmlFor="password" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
-                        Password
+                        Lösenord
                     </label>
                     <div className="relative">
                         <input
@@ -401,7 +401,7 @@ export default function Signup() {
                             value={formData.password}
                             onChange={handleChange}
                             className="input w-full pr-10"
-                            placeholder="Min. 6 characters"
+                            placeholder="Minst 6 tecken"
                             required
                             disabled={isLoading}
                         />
@@ -419,7 +419,7 @@ export default function Signup() {
                 {/* Confirm Password */}
                 <div>
                     <label htmlFor="confirmPassword" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
-                        Confirm Password
+                        Bekräfta lösenord
                     </label>
                     <div className="relative">
                         <input
@@ -435,7 +435,7 @@ export default function Signup() {
                                     ? 'border-green-500 focus:ring-green-500'
                                     : ''
                             }`}
-                            placeholder="Confirm your password"
+                            placeholder="Bekräfta ditt lösenord"
                             required
                             disabled={isLoading}
                         />
@@ -450,7 +450,7 @@ export default function Signup() {
                     {formData.confirmPassword && formData.password !== formData.confirmPassword && (
                         <div className="flex items-center gap-1 mt-1 text-red-600 dark:text-red-400 text-xs">
                             <XCircle className="w-3 h-3" />
-                            <span>Passwords do not match</span>
+                            <span>Lösenorden matchar inte</span>
                         </div>
                     )}
                 </div>
@@ -464,10 +464,10 @@ export default function Signup() {
                     {isLoading ? (
                         <>
                             <Loader2 className="w-4 h-4 animate-spin" />
-                            <span>Creating account...</span>
+                            <span>Skapar konto...</span>
                         </>
                     ) : (
-                        <span>Create Account</span>
+                        <span>Skapa konto</span>
                     )}
                 </button>
             </form>

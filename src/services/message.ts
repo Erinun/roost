@@ -156,17 +156,17 @@ export async function sendMessage(
   try {
     // Validate content
     if (!content.trim()) {
-      throw new Error('Message content cannot be empty');
+      throw new Error('Meddelandet får inte vara tomt');
     }
 
     if (content.length > 5000) {
-      throw new Error('Message content exceeds maximum length (5000 characters)');
+      throw new Error('Meddelandet överskrider maxlängden (5000 tecken)');
     }
 
     // Get current user
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
-      throw new Error('User not authenticated');
+      throw new Error('Du är inte inloggad');
     }
 
     // Step 1: Create the message

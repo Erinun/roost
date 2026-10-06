@@ -10,7 +10,7 @@ interface MessageInputProps {
 
 export default function MessageInput({
   onSend,
-  placeholder = 'Type a message...',
+  placeholder = 'Skriv ett meddelande...',
   disabled = false
 }: MessageInputProps) {
   const [content, setContent] = useState('');
@@ -110,7 +110,7 @@ export default function MessageInput({
             onClick={open}
             disabled={disabled || isSubmitting}
             className="flex-shrink-0 p-2 text-surface-500 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            title="Attach images"
+            title="Bifoga bilder"
           >
             <ImageIcon className="w-5 h-5" />
           </button>
@@ -146,11 +146,11 @@ export default function MessageInput({
         {/* Helper text */}
         <div className="flex items-center justify-between mt-2">
           <span className="text-xs text-surface-400 dark:text-surface-500">
-            Press Ctrl+Enter to send
+            Tryck Ctrl+Enter för att skicka
           </span>
           {content.length > 4500 && (
             <span className={`text-xs ${content.length > 5000 ? 'text-error' : 'text-warning'}`}>
-              {5000 - content.length} characters remaining
+              {5000 - content.length} tecken kvar
             </span>
           )}
         </div>

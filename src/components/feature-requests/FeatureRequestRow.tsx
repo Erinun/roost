@@ -1,5 +1,6 @@
 import { ChevronUp, MessageSquare, Star } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import type { FeatureRequestCardData } from '@/types/feature-request';
 import {
     FEATURE_REQUEST_STATUS_INFO,
@@ -103,7 +104,7 @@ export default function FeatureRequestRow({
 
                     {/* Date */}
                     <span className="text-[11px] text-surface-400 dark:text-surface-500">
-                        {formatDistanceToNow(new Date(request.created_at), { addSuffix: true })}
+                        {formatDistanceToNow(new Date(request.created_at), { addSuffix: true, locale: sv })}
                     </span>
                 </div>
             </div>

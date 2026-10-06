@@ -19,10 +19,10 @@ interface CommentFormProps {
 
 export default function CommentForm({
     onSubmit,
-    placeholder = 'Write a comment...',
+    placeholder = 'Skriv en kommentar...',
     autoFocus = false,
     initialValue = '',
-    submitLabel = 'Post',
+    submitLabel = 'Skicka',
     onCancel,
     isReply = false,
 }: CommentFormProps) {
@@ -153,7 +153,7 @@ export default function CommentForm({
                             type="button"
                             onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                             className="absolute top-3 right-3 p-1.5 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
-                            title="Add emoji"
+                            title="Lägg till emoji"
                         >
                             <Smile className="w-5 h-5 text-surface-500 dark:text-surface-400" />
                         </button>
@@ -187,7 +187,7 @@ export default function CommentForm({
                     </div>
                     <div className="flex items-center justify-between mt-2">
                         <span className="text-xs text-surface-400 dark:text-surface-500">
-                            Press Ctrl+Enter to submit | Type @ to mention
+                            Tryck Ctrl+Enter för att skicka | Skriv @ för att nämna någon
                         </span>
                         <div className="flex gap-2">
                             {onCancel && (
@@ -197,7 +197,7 @@ export default function CommentForm({
                                     className="px-4 py-2 text-sm font-medium text-surface-600 dark:text-surface-400
                                                hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
                                 >
-                                    Cancel
+                                    Avbryt
                                 </button>
                             )}
                             <button

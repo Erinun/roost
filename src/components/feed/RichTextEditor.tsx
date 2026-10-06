@@ -105,7 +105,7 @@ export default function RichTextEditor({
                 type="button"
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}
                 className="absolute top-2 right-2 z-10 p-2 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
-                title="Add emoji"
+                title="Lägg till emoji"
             >
                 <Smile className="w-5 h-5 text-surface-500 dark:text-surface-400" />
             </button>

@@ -121,8 +121,8 @@ export default function Calendar() {
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Calendar</h1>
-                    <p className="text-gray-600 dark:text-gray-400 mt-1">Community events and activities</p>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Kalender</h1>
+                    <p className="text-gray-600 dark:text-gray-400 mt-1">Evenemang och aktiviteter i communityt</p>
                 </div>
                 <button
                     onClick={() => {
@@ -132,7 +132,7 @@ export default function Calendar() {
                     className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
                 >
                     <Plus size={20} />
-                    <span>Create Event</span>
+                    <span>Skapa evenemang</span>
                 </button>
             </div>
 
@@ -157,16 +157,16 @@ export default function Calendar() {
                     <div className="bg-white dark:bg-surface-900 rounded-lg shadow-sm dark:shadow-none dark:border dark:border-surface-700 p-4">
                         <div className="flex items-center gap-2 mb-3">
                             <Filter size={18} className="text-gray-600 dark:text-gray-400" />
-                            <h2 className="font-semibold text-gray-900 dark:text-gray-100">Filters</h2>
+                            <h2 className="font-semibold text-gray-900 dark:text-gray-100">Filter</h2>
                         </div>
                         <div>
-                            <label className="block text-sm text-gray-600 dark:text-gray-400 mb-1">Group</label>
+                            <label className="block text-sm text-gray-600 dark:text-gray-400 mb-1">Grupp</label>
                             <select
                                 value={selectedGroup || ''}
                                 onChange={(e) => setSelectedGroup(e.target.value || undefined)}
                                 className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500"
                             >
-                                <option value="">All Groups</option>
+                                <option value="">Alla grupper</option>
                                 {userGroups.map((group) => (
                                     <option key={group.id} value={group.id}>
                                         {group.name}
@@ -178,10 +178,10 @@ export default function Calendar() {
 
                     {/* Upcoming Events */}
                     <div className="bg-white dark:bg-surface-900 rounded-lg shadow-sm dark:shadow-none dark:border dark:border-surface-700 p-4">
-                        <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Upcoming Events</h2>
+                        <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Kommande evenemang</h2>
                         {upcomingEvents.length === 0 ? (
                             <p className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">
-                                No upcoming events
+                                Inga kommande evenemang
                             </p>
                         ) : (
                             <div className="space-y-3">

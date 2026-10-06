@@ -42,7 +42,7 @@ export default function MarkdownPreviewModal({
             setContent(text);
         } catch (err) {
             console.error('Error fetching markdown:', err);
-            setError('Failed to load file content');
+            setError('Det gick inte att läsa in filens innehåll');
         } finally {
             setIsLoading(false);
         }
@@ -261,14 +261,14 @@ export default function MarkdownPreviewModal({
                             href={fileUrl}
                             download={fileName}
                             className="p-2 text-surface-500 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
-                            title="Download"
+                            title="Ladda ner"
                         >
                             <Download className="w-5 h-5" />
                         </a>
                         <button
                             onClick={onClose}
                             className="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
-                            title="Close"
+                            title="Stäng"
                         >
                             <X className="w-5 h-5 text-surface-500 dark:text-surface-400" />
                         </button>

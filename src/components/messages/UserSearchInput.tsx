@@ -10,7 +10,7 @@ interface UserSearchInputProps {
   placeholder?: string;
 }
 
-export default function UserSearchInput({ onUserSelect, placeholder = 'Search users...' }: UserSearchInputProps) {
+export default function UserSearchInput({ onUserSelect, placeholder = 'Sök användare...' }: UserSearchInputProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Pick<Profile, 'id' | 'username' | 'display_name' | 'avatar_url' | 'is_online' | 'membership_type'>[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -101,7 +101,7 @@ export default function UserSearchInput({ onUserSelect, placeholder = 'Search us
               </div>
             ) : results.length === 0 ? (
               <div className="p-8 text-center text-sm text-surface-500">
-                {query.length < 2 ? 'Type at least 2 characters to search' : 'No users found'}
+                {query.length < 2 ? 'Skriv minst 2 tecken för att söka' : 'Inga användare hittades'}
               </div>
             ) : (
               <div className="py-1">

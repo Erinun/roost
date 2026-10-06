@@ -138,7 +138,7 @@ export const subscriptionService = {
   // Create a Stripe Checkout session and return the URL
   async createCheckoutSession(priceId?: string): Promise<string> {
     const token = await getAuthToken();
-    if (!token) throw new Error('Not authenticated');
+    if (!token) throw new Error('Du är inte inloggad');
 
     const response = await fetch(`${API_URL}/api/stripe/create-checkout-session`, {
       method: 'POST',
@@ -151,7 +151,7 @@ export const subscriptionService = {
 
     if (!response.ok) {
       const data = await response.json();
-      throw new Error(data.error || 'Failed to create checkout session');
+      throw new Error(data.error || 'Kunde inte skapa betalningssession');
     }
 
     const data = await response.json();
@@ -161,7 +161,7 @@ export const subscriptionService = {
   // Create a Stripe Customer Portal session and return the URL
   async createPortalSession(): Promise<string> {
     const token = await getAuthToken();
-    if (!token) throw new Error('Not authenticated');
+    if (!token) throw new Error('Du är inte inloggad');
 
     const response = await fetch(`${API_URL}/api/stripe/create-portal-session`, {
       method: 'POST',
@@ -173,7 +173,7 @@ export const subscriptionService = {
 
     if (!response.ok) {
       const data = await response.json();
-      throw new Error(data.error || 'Failed to create portal session');
+      throw new Error(data.error || 'Kunde inte öppna kundportalen');
     }
 
     const data = await response.json();
@@ -186,7 +186,7 @@ export const stripeAdminService = {
   // Get stats
   async getStats(): Promise<StripeStats> {
     const token = await getAuthToken();
-    if (!token) throw new Error('Not authenticated');
+    if (!token) throw new Error('Du är inte inloggad');
 
     const response = await fetch(`${API_URL}/api/stripe/stats`, {
       headers: {
@@ -195,7 +195,7 @@ export const stripeAdminService = {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch stats');
+      throw new Error('Kunde inte hämta statistik');
     }
 
     return response.json();
@@ -204,7 +204,7 @@ export const stripeAdminService = {
   // Run cleanup for expired subscriptions
   async runCleanup(): Promise<{ message: string }> {
     const token = await getAuthToken();
-    if (!token) throw new Error('Not authenticated');
+    if (!token) throw new Error('Du är inte inloggad');
 
     const response = await fetch(`${API_URL}/api/stripe/cleanup`, {
       method: 'POST',
@@ -214,7 +214,7 @@ export const stripeAdminService = {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to run cleanup');
+      throw new Error('Kunde inte köra rensningen');
     }
 
     return response.json();

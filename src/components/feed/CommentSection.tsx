@@ -240,8 +240,8 @@ export default function CommentSection({
                 <MessageCircle className="w-5 h-5" />
                 <span>
                     {commentCount > 0
-                        ? `${commentCount} ${commentCount === 1 ? 'Comment' : 'Comments'}`
-                        : 'Add a comment'}
+                        ? `${commentCount} ${commentCount === 1 ? 'kommentar' : 'kommentarer'}`
+                        : 'Lägg till en kommentar'}
                 </span>
             </button>
 
@@ -264,7 +264,7 @@ export default function CommentSection({
                             <div className="flex-1">
                                 <CommentForm
                                     onSubmit={(content) => handleCreateComment(content)}
-                                    placeholder="Write a comment..."
+                                    placeholder="Skriv en kommentar..."
                                 />
                             </div>
                         </div>
@@ -281,7 +281,7 @@ export default function CommentSection({
                     {!isLoading && comments.length === 0 && (
                         <div className="text-center py-8 text-surface-400 dark:text-surface-500">
                             <MessageCircle className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                            <p className="text-sm">No comments yet. Be the first to comment!</p>
+                            <p className="text-sm">Inga kommentarer än. Bli först med att kommentera!</p>
                         </div>
                     )}
 
@@ -306,7 +306,7 @@ export default function CommentSection({
                                     onClick={() => loadComments(false, 0)}
                                     className="w-full py-2 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors"
                                 >
-                                    Load all comments
+                                    Ladda alla kommentarer
                                 </button>
                             )}
                         </div>

@@ -49,7 +49,7 @@ export default function ModuleCard({ module, onClick }: ModuleCardProps) {
                         {module.progress_percentage}%
                         {module.recording_count > 0 && (
                             <span className="ml-1">
-                                · {module.completed_count}/{module.recording_count} lessons
+                                · {module.completed_count}/{module.recording_count} lektioner
                             </span>
                         )}
                     </p>

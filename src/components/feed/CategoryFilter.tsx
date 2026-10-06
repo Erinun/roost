@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from 'date-fns';
+import { sv } from 'date-fns/locale';
 import { ChevronDown, Shield, SlidersHorizontal } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { Category } from '@/types';
@@ -16,9 +17,9 @@ interface CategoryFilterProps {
 }
 
 const SORT_LABELS: Record<SortOption, string> = {
-    newest: 'Newest',
-    popular: 'Popular',
-    trending: 'Trending',
+    newest: 'Nyast',
+    popular: 'Populärt',
+    trending: 'Trendar',
 };
 
 export default function CategoryFilter({
@@ -50,7 +51,7 @@ export default function CategoryFilter({
     }, []);
 
     const selectedCategory = categories.find(c => c.id === selectedCategoryId);
-    const topicLabel = selectedCategory ? selectedCategory.name : 'All Topics';
+    const topicLabel = selectedCategory ? selectedCategory.name : 'Alla ämnen';
 
     return (
         <div className="flex items-center gap-2 flex-wrap">
@@ -82,7 +83,7 @@ export default function CategoryFilter({
                                     : 'text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700'
                             }`}
                         >
-                            All Topics
+                            Alla ämnen
                         </button>
                         {categories.map(category => (
                             <button
@@ -141,9 +142,9 @@ export default function CategoryFilter({
                                 >
                                     {SORT_LABELS[option]}
                                     <span className="block text-xs text-surface-400 dark:text-surface-500 mt-0.5">
-                                        {option === 'newest' && 'Most recent posts'}
-                                        {option === 'popular' && 'Most reactions'}
-                                        {option === 'trending' && 'Most commented'}
+                                        {option === 'newest' && 'Senaste inläggen'}
+                                        {option === 'popular' && 'Flest reaktioner'}
+                                        {option === 'trending' && 'Flest kommentarer'}
                                     </span>
                                 </button>
                             ))}
@@ -166,7 +167,7 @@ export default function CategoryFilter({
                     `}
                 >
                     <Shield className="w-3.5 h-3.5" />
-                    Admin Posts
+                    Admininlägg
                 </button>
             )}
         </div>
@@ -175,5 +176,5 @@ export default function CategoryFilter({
 
 // Helper to format relative time
 export function formatRelativeTime(date: string): string {
-    return formatDistanceToNow(new Date(date), { addSuffix: true });
+    return formatDistanceToNow(new Date(date), { addSuffix: true, locale: sv });
 }

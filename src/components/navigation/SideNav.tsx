@@ -36,17 +36,17 @@ interface NavItem {
 
 // Main navigation items (featureKey items are filtered by admin settings)
 const allNavItems: NavItem[] = [
-    { name: 'Home', href: '/', icon: Home },
-    { name: 'Explore', href: '/explore', icon: Compass },
-    { name: 'Classrooms', href: '/classrooms', icon: BookOpen },
-    { name: 'Showcase', href: '/showcase', icon: Rocket, featureKey: 'showcase' },
-    { name: 'Calendar', href: '/calendar', icon: Calendar, premiumOnly: true },
-    { name: 'Members', href: '/members', icon: Users },
-    { name: 'Leaderboard', href: '/leaderboard', icon: Trophy },
-    { name: 'Messages', href: '/messages', icon: MessageSquare, premiumOnly: true },
-    { name: 'Live Room', href: '/live', icon: Radio, premiumOnly: true, featureKey: 'live_room' },
-    { name: 'Activations', href: '/activations', icon: Key, premiumOnly: true, featureKey: 'activations' },
-    { name: 'Roadmap & Issues', href: '/roadmap', icon: Lightbulb, featureKey: 'roadmap' },
+    { name: 'Hem', href: '/', icon: Home },
+    { name: 'Utforska', href: '/explore', icon: Compass },
+    { name: 'Klassrum', href: '/classrooms', icon: BookOpen },
+    { name: 'Projekt', href: '/showcase', icon: Rocket, featureKey: 'showcase' },
+    { name: 'Kalender', href: '/calendar', icon: Calendar, premiumOnly: true },
+    { name: 'Medlemmar', href: '/members', icon: Users },
+    { name: 'Topplista', href: '/leaderboard', icon: Trophy },
+    { name: 'Meddelanden', href: '/messages', icon: MessageSquare, premiumOnly: true },
+    { name: 'Live-rum', href: '/live', icon: Radio, premiumOnly: true, featureKey: 'live_room' },
+    { name: 'Aktiveringar', href: '/activations', icon: Key, premiumOnly: true, featureKey: 'activations' },
+    { name: 'Roadmap & ärenden', href: '/roadmap', icon: Lightbulb, featureKey: 'roadmap' },
     { name: 'Guide', href: '/guide', icon: HelpCircle },
 ];
 
@@ -108,7 +108,7 @@ export default function SideNav() {
                     <button
                         onClick={toggleSidebar}
                         className="p-1.5 rounded-lg text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-600 dark:hover:text-surface-300 transition-colors"
-                        title="Collapse sidebar"
+                        title="Fäll ihop sidopanelen"
                     >
                         <ChevronLeft className="w-5 h-5" />
                     </button>
@@ -121,7 +121,7 @@ export default function SideNav() {
                     <button
                         onClick={toggleSidebar}
                         className="w-full p-2 rounded-lg text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-600 dark:hover:text-surface-300 transition-colors flex items-center justify-center"
-                        title="Expand sidebar"
+                        title="Fäll ut sidopanelen"
                     >
                         <ChevronRight className="w-5 h-5" />
                     </button>
@@ -191,7 +191,7 @@ export default function SideNav() {
                         )}
                         <Link
                             to="/admin"
-                            title={isCollapsed ? 'Admin Panel' : undefined}
+                            title={isCollapsed ? 'Adminpanel' : undefined}
                             className={`
                                 flex items-center rounded-lg text-sm font-medium transition-all
                                 ${isCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'}
@@ -202,7 +202,7 @@ export default function SideNav() {
                             `}
                         >
                             <Shield className="w-5 h-5 flex-shrink-0" />
-                            {!isCollapsed && <span>Admin Panel</span>}
+                            {!isCollapsed && <span>Adminpanel</span>}
                         </Link>
                     </div>
                 )}
@@ -215,7 +215,7 @@ export default function SideNav() {
                     <div className="flex flex-col items-center gap-2">
                         <Link
                             to="/profile"
-                            title={profile?.display_name || 'Profile'}
+                            title={profile?.display_name || 'Profil'}
                             className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center overflow-hidden hover:ring-2 hover:ring-primary-200 dark:hover:ring-primary-700 transition-all"
                         >
                             {profile?.avatar_url ? (
@@ -232,14 +232,14 @@ export default function SideNav() {
                         </Link>
                         <Link
                             to="/settings"
-                            title="Settings"
+                            title="Inställningar"
                             className="p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
                         >
                             <Settings className="w-4 h-4" />
                         </Link>
                         <button
                             onClick={handleSignOut}
-                            title="Sign out"
+                            title="Logga ut"
                             className="p-2 rounded-lg text-error hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                         >
                             <LogOut className="w-4 h-4" />
@@ -265,10 +265,10 @@ export default function SideNav() {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm font-medium text-surface-900 dark:text-surface-50 truncate">
-                                        {profile?.display_name || 'User'}
+                                        {profile?.display_name || 'Användare'}
                                     </p>
                                     <p className="text-xs text-surface-500 dark:text-surface-400 truncate">
-                                        @{profile?.username || 'username'}
+                                        @{profile?.username || 'användarnamn'}
                                     </p>
                                 </div>
                             </Link>
