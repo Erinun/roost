@@ -486,6 +486,7 @@ export type Database = {
       }
       groups: {
         Row: {
+          about_content: string | null
           avatar_url: string | null
           cover_url: string | null
           created_at: string | null
@@ -500,6 +501,7 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          about_content?: string | null
           avatar_url?: string | null
           cover_url?: string | null
           created_at?: string | null
@@ -514,6 +516,7 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          about_content?: string | null
           avatar_url?: string | null
           cover_url?: string | null
           created_at?: string | null

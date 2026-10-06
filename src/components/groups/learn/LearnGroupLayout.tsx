@@ -14,6 +14,7 @@ import {
 } from '@/services/module';
 import CompactGroupHeader from './CompactGroupHeader';
 import LearnSidebar from './LearnSidebar';
+import GroupAbout from './GroupAbout';
 import ModuleGrid from './ModuleGrid';
 import ModuleDetail from './ModuleDetail';
 import LessonPlayer from './LessonPlayer';
@@ -66,8 +67,14 @@ export default function LearnGroupLayout({
     // Bumpas när innehåll läggs till så att ModuleDetail laddar om sina listor
     const [contentVersion, setContentVersion] = useState(0);
 
-    // Determine view
-    const view = activeRecordingId ? 'lesson' : activeModuleId ? 'module' : 'grid';
+    // Determine view — Om-sidan är startvy, modulgriden nås via ?view=modules
+    const view = activeRecordingId
+        ? 'lesson'
+        : activeModuleId
+            ? 'module'
+            : searchParams.get('view') === 'modules'
+                ? 'grid'
+                : 'about';
 
     // Fetch modules
     const loadModules = useCallback(async () => {
@@ -151,6 +158,10 @@ export default function LearnGroupLayout({
     };
 
     const navigateToGrid = () => {
+        setSearchParams({ view: 'modules' });
+    };
+
+    const navigateToAbout = () => {
         setSearchParams({});
     };
 
@@ -235,7 +246,9 @@ export default function LearnGroupLayout({
                 onSelectModule={navigateToModule}
                 onSelectLesson={navigateToLesson}
                 onBackToModules={navigateToGrid}
-                showBackButton={view !== 'grid'}
+                showBackButton={view === 'module' || view === 'lesson'}
+                onSelectAbout={navigateToAbout}
+                isAboutActive={view === 'about'}
             />
 
             {/* Main Content Area */}
@@ -245,6 +258,10 @@ export default function LearnGroupLayout({
 
                 {/* Content — centrerad med begränsad bredd så innehållet inte flyter ut på breda skärmar */}
                 <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+                    {view === 'about' && (
+                        <GroupAbout group={group} onStartModules={navigateToGrid} />
+                    )}
+
                     {view === 'grid' && (
                         <ModuleGrid
                             modules={modules}

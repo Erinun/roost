@@ -83,6 +83,7 @@ model Group {
   name          String
   slug          String    @unique
   description   String?
+  about_content String?
   avatar_url    String?
   cover_url     String?
   is_private    Boolean   @default(false)

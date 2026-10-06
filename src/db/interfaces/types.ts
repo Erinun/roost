@@ -83,6 +83,7 @@ export interface Group extends BaseEntity {
   name: string;
   slug: string;
   description: string | null;
+  about_content: string | null;
   avatar_url: string | null;
   cover_url: string | null;
   is_private: boolean;

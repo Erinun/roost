@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronRight, CheckCircle2, Circle, ArrowLeft, Menu, X } from 'lucide-react';
+import { ChevronDown, ChevronRight, CheckCircle2, Circle, ArrowLeft, Info, Menu, X } from 'lucide-react';
 import type { ModuleWithProgress, RecordingWithCompletion } from '@/types';
 import ProgressBar from './ProgressBar';
 
@@ -12,6 +12,8 @@ interface LearnSidebarProps {
     onSelectLesson: (moduleId: string, recordingId: string) => void;
     onBackToModules: () => void;
     showBackButton: boolean;
+    onSelectAbout: () => void;
+    isAboutActive: boolean;
 }
 
 export default function LearnSidebar({
@@ -23,6 +25,8 @@ export default function LearnSidebar({
     onSelectLesson,
     onBackToModules,
     showBackButton,
+    onSelectAbout,
+    isAboutActive,
 }: LearnSidebarProps) {
     const [expandedModules, setExpandedModules] = useState<Set<string>>(
         new Set(activeModuleId ? [activeModuleId] : [])
@@ -62,8 +66,27 @@ export default function LearnSidebar({
                 </button>
             )}
 
+            {/* About link */}
+            <button
+                onClick={() => {
+                    onSelectAbout();
+                    setIsMobileOpen(false);
+                }}
+                className={`flex items-center gap-2 px-4 py-3 text-sm font-medium border-b border-surface-200 dark:border-surface-700 transition-colors ${
+                    isAboutActive
+                        ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                        : 'text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-800'
+                }`}
+            >
+                <Info className="w-4 h-4 flex-shrink-0" />
+                Om communityn
+            </button>
+
             {/* Module list */}
             <div className="flex-1 overflow-y-auto">
+                <p className="px-4 pt-4 pb-1 text-xs font-semibold uppercase tracking-wide text-surface-400 dark:text-surface-500">
+                    Moduler
+                </p>
                 {modules.map((module) => {
                     const isExpanded = expandedModules.has(module.id);
                     const recordings = moduleRecordings[module.id] || [];

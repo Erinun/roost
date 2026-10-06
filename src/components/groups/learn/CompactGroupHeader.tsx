@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Settings, Users } from 'lucide-react';
+import { ArrowLeft, Settings, Users } from 'lucide-react';
 import type { GroupWithDetails } from '@/services/group';
 import { hasPermission } from '@/services/group';
 
@@ -12,6 +12,15 @@ export default function CompactGroupHeader({ group }: CompactGroupHeaderProps) {
 
     return (
         <div className="flex items-center gap-4 px-6 py-4 border-b border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-900">
+            {/* Back to classroom list */}
+            <Link
+                to="/classrooms"
+                className="p-2 -ml-2 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors flex-shrink-0"
+                title="Tillbaka till alla klassrum"
+            >
+                <ArrowLeft className="w-5 h-5" />
+            </Link>
+
             {/* Avatar */}
             {group.avatar_url ? (
                 <img

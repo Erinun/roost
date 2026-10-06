@@ -148,6 +148,7 @@ function mapGroup(row: any): Group {
     name: row.name,
     slug: row.slug,
     description: row.description ?? null,
+    about_content: row.about_content ?? null,
     avatar_url: row.avatar_url ?? null,
     cover_url: row.cover_url ?? null,
     is_private: row.is_private,

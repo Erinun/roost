@@ -152,6 +152,7 @@ CREATE TABLE IF NOT EXISTS groups (
     name TEXT NOT NULL,
     slug TEXT UNIQUE NOT NULL,
     description TEXT,
+    about_content TEXT,                                  -- Rik "Om"-text för klassrummets landningssida
     avatar_url TEXT,
     cover_url TEXT,
     is_private BOOLEAN DEFAULT false,
