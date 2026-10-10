@@ -69,7 +69,7 @@ export default function ShowcaseCard({ showcase, onVote, isVoting }: ShowcaseCar
                                 <span
                                     key={tag.id}
                                     className="text-xs px-2 py-0.5 rounded-full"
-                                    style={{ backgroundColor: `${tag.color}20`, color: tag.color }}
+                                    style={{ backgroundColor: `${tag.color ?? '#6b7280'}20`, color: tag.color ?? undefined }}
                                 >
                                     {tag.name}
                                 </span>

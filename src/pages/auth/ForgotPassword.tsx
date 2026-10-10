@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Loader2, ArrowLeft, Check } from 'lucide-react';
+import { APP_CONFIG } from '@/config/app';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = APP_CONFIG.apiUrl;
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('');

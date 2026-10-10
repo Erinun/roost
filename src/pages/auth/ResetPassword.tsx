@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Lock, Loader2, Eye, EyeOff, Check, AlertCircle } from 'lucide-react';
+import { APP_CONFIG } from '@/config/app';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = APP_CONFIG.apiUrl;
 
 export default function ResetPassword() {
     const navigate = useNavigate();

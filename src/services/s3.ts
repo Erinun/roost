@@ -1,7 +1,7 @@
 import { getCurrentSession } from './supabase';
+import { APP_CONFIG } from '@/config/app';
 
-// Backend API URL for pre-signed URL generation
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = APP_CONFIG.apiUrl;
 
 // File type configurations
 export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];

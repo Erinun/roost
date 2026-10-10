@@ -3,6 +3,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { updateProfile, isUsernameAvailable, isValidUsername, isValidWebsite } from '@/services/profile';
 import { uploadImage } from '@/services/s3';
 import { supabase } from '@/services/supabase';
+import { APP_CONFIG } from '@/config/app';
 import {
     getNotificationPreferences,
     updateNotificationPreferences,
@@ -86,7 +87,7 @@ export default function Settings() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) return;
 
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            const apiUrl = APP_CONFIG.apiUrl;
             const response = await fetch(`${apiUrl}/api/2fa/status`, {
                 headers: {
                     'Authorization': `Bearer ${session.access_token}`,

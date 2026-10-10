@@ -17,6 +17,7 @@ import { liveRoomRouter } from './routes/live-room.js';
 import { siteSettingsRouter } from './routes/site-settings.js';
 import path from 'path';
 import { initRedis, closeRedis, isRedisAvailable } from './lib/redis.js';
+import { ALLOWED_ORIGINS } from './lib/config.js';
 import {
   apiRateLimiter,
   webhookRateLimiter,
@@ -36,7 +37,7 @@ if (shouldTrustProxy) {
 console.log(`Trust proxy: ${shouldTrustProxy ? 'enabled' : 'disabled'}`);
 
 // CORS configuration - must be before other middleware
-const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5000'];
+const allowedOrigins = ALLOWED_ORIGINS;
 app.use(cors({
   origin: allowedOrigins,
   credentials: true,

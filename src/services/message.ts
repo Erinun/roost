@@ -57,6 +57,9 @@ export async function getConversations(userId: string): Promise<Conversation[]> 
         .eq('is_read', false),
     ]) as any[];
 
+    const queryError = sentResult.error || receivedResult.error || unreadResult.error;
+    if (queryError) throw queryError;
+
     const sentMessages = sentResult.data || [];
     const receivedMessages = receivedResult.data || [];
 

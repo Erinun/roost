@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Loader2, Check, AlertCircle, Shield, Copy, CheckCircle, Key } from 'lucide-react';
 import { supabase } from '@/services/supabase';
+import { APP_CONFIG } from '@/config/app';
 
 interface TwoFactorSetupModalProps {
     isOpen: boolean;
@@ -49,7 +50,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                 throw new Error('Du måste vara inloggad');
             }
 
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            const apiUrl = APP_CONFIG.apiUrl;
             const response = await fetch(`${apiUrl}/api/2fa/setup`, {
                 method: 'POST',
                 headers: {
@@ -89,7 +90,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                 throw new Error('Du måste vara inloggad');
             }
 
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            const apiUrl = APP_CONFIG.apiUrl;
             const response = await fetch(`${apiUrl}/api/2fa/verify`, {
                 method: 'POST',
                 headers: {

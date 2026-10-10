@@ -406,8 +406,6 @@ export default function PostFeed({
                 });
             }
         };
-    // Save on unmount only — we capture latest values via closure
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [posts, userReactions, followedAuthors, offset, hasMore, cacheKey]);
 
     const handleSuccess = () => {

@@ -3654,5 +3654,58 @@ GRANT SELECT ON site_settings TO anon;
 GRANT SELECT, INSERT, UPDATE ON site_settings TO authenticated;
 
 -- =============================================================================
+-- SECTION 15: LOCK DOWN SECURITY DEFINER FUNCTIONS (migration 060)
+-- =============================================================================
+-- Supersedes the function grants in Section 10. By default every function in
+-- public is executable by anon/authenticated via PostgREST /rest/v1/rpc —
+-- including admin actions like ban_user(). Revoke everything, then re-grant
+-- only what the clients actually use. service_role keeps EXECUTE for the
+-- backend, and runs setup_first_admin from the SQL Editor.
+
+DO $$
+DECLARE
+    fn RECORD;
+BEGIN
+    FOR fn IN
+        SELECT p.oid::regprocedure AS sig
+        FROM pg_proc p
+        JOIN pg_namespace n ON n.oid = p.pronamespace
+        WHERE n.nspname = 'public' AND p.prosecdef
+    LOOP
+        EXECUTE format('REVOKE EXECUTE ON FUNCTION %s FROM PUBLIC, anon, authenticated', fn.sig);
+        EXECUTE format('GRANT EXECUTE ON FUNCTION %s TO service_role', fn.sig);
+    END LOOP;
+END $$;
+
+-- Functions the frontend calls via supabase.rpc() with a user token
+GRANT EXECUTE ON FUNCTION public.award_points(UUID, point_action_type, INTEGER, UUID, TEXT, UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.can_access_group(UUID, UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.get_activation_stats() TO authenticated;
+GRANT EXECUTE ON FUNCTION public.get_remaining_activations(UUID, UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.get_user_rank(UUID, UUID, DATE, DATE) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.has_active_request(UUID, UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.has_active_subscription(UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.has_premium_access(UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.process_activation_request(UUID, UUID, activation_request_status, TEXT) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.request_activation(UUID, UUID, TEXT, TEXT, TEXT, TEXT) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.search_users(TEXT) TO authenticated;
+
+-- Helper functions referenced inside RLS policies. Policies evaluate these as
+-- the querying user's role, so authenticated needs EXECUTE for queries to work.
+GRANT EXECUTE ON FUNCTION public.check_group_admin(UUID, UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.check_group_membership(UUID, UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.is_group_admin_or_mod(UUID, UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.is_group_member(UUID, UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.is_group_public(UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.is_platform_admin(UUID) TO authenticated;
+GRANT EXECUTE ON FUNCTION public.is_platform_moderator(UUID) TO authenticated;
+
+-- Pin search_path (advisor: role mutable search_path)
+ALTER FUNCTION public.update_updated_at_column() SET search_path = '';
+
+-- Future functions should not be client-callable by default
+ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC;
+
+-- =============================================================================
 -- SCHEMA COMPLETE
 -- =============================================================================

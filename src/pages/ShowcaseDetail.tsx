@@ -85,7 +85,7 @@ export default function ShowcaseDetail() {
         if (showcase) {
             setShowcase({
                 ...showcase,
-                review_count: showcase.review_count + 1,
+                review_count: (showcase.review_count ?? 0) + 1,
             });
         }
     };
@@ -103,7 +103,7 @@ export default function ShowcaseDetail() {
         if (showcase) {
             setShowcase({
                 ...showcase,
-                review_count: Math.max(0, showcase.review_count - 1),
+                review_count: Math.max(0, (showcase.review_count ?? 0) - 1),
             });
         }
     };
@@ -137,7 +137,7 @@ export default function ShowcaseDetail() {
                     text: showcase?.tagline,
                     url: window.location.href,
                 });
-            } catch (err) {
+            } catch {
                 // User cancelled or error
             }
         } else {
@@ -284,7 +284,7 @@ export default function ShowcaseDetail() {
                                 }`}
                             >
                                 Reviews
-                                {showcase.review_count > 0 && (
+                                {(showcase.review_count ?? 0) > 0 && (
                                     <span className="px-1.5 py-0.5 bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 text-xs rounded">
                                         {showcase.review_count}
                                     </span>
@@ -437,7 +437,7 @@ export default function ShowcaseDetail() {
                         {/* Vote Button - Prominent at top */}
                         <ShowcaseVoteButton
                             showcaseId={showcase.id}
-                            voteCount={showcase.vote_count}
+                            voteCount={showcase.vote_count ?? 0}
                             hasVoted={showcase.user_has_voted || false}
                             onVoteChange={handleVoteChange}
                             size="lg"
@@ -495,11 +495,11 @@ export default function ShowcaseDetail() {
                                         </span>
                                     </div>
                                 )}
-                                {showcase.average_rating > 0 && (
+                                {(showcase.average_rating ?? 0) > 0 && (
                                     <div className="flex items-center gap-3 text-sm">
                                         <Star className="w-4 h-4 text-amber-500 fill-current flex-shrink-0" />
                                         <span className="text-surface-600 dark:text-surface-400">
-                                            {showcase.average_rating.toFixed(1)} ({showcase.review_count} reviews)
+                                            {(showcase.average_rating ?? 0).toFixed(1)} ({showcase.review_count} reviews)
                                         </span>
                                     </div>
                                 )}
@@ -523,7 +523,7 @@ export default function ShowcaseDetail() {
                                         <span
                                             key={tag.id}
                                             className="px-2.5 py-1 rounded-md text-xs font-medium"
-                                            style={{ backgroundColor: `${tag.color}15`, color: tag.color }}
+                                            style={{ backgroundColor: `${tag.color ?? '#6b7280'}15`, color: tag.color ?? undefined }}
                                         >
                                             {tag.name}
                                         </span>

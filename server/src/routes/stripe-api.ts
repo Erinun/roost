@@ -14,6 +14,7 @@ import {
   type SubscriptionStatus,
   type DashboardStats,
 } from '../services/cache.js';
+import { FRONTEND_URL } from '../lib/config.js';
 
 export const stripeApiRouter = Router();
 
@@ -111,7 +112,7 @@ stripeApiRouter.post('/create-checkout-session', async (req: Request, res: Respo
       return res.status(400).json({ error: 'No price ID configured. Set STRIPE_PRICE_ID environment variable.' });
     }
 
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const frontendUrl = FRONTEND_URL;
     const successUrl = `${frontendUrl}/?payment=success`;
     const cancelUrl = `${frontendUrl}/upgrade`;
 
@@ -147,7 +148,7 @@ stripeApiRouter.post('/create-portal-session', async (req: Request, res: Respons
       return res.status(401).json({ error: 'Invalid token' });
     }
 
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const frontendUrl = FRONTEND_URL;
     const url = await createPortalSession(user.id, `${frontendUrl}/settings`);
 
     res.json({ url });

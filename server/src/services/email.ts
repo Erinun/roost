@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { FRONTEND_URL } from '../lib/config.js';
 
 // HTML escape function to prevent XSS in email templates
 function escapeHtml(unsafe: string): string {
@@ -104,7 +105,7 @@ class EmailService {
     const safeProductName = escapeHtml(productName);
     const safeEmail = escapeHtml(email);
     const planType = escapeHtml(variantName || 'Prenumeration');
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const frontendUrl = FRONTEND_URL;
 
     const html = `
 <!DOCTYPE html>
@@ -258,7 +259,7 @@ ${this.fromName}-teamet
     // Escape user-provided data to prevent XSS
     const safeName = escapeHtml(name || 'där');
     const safeProductName = escapeHtml(productName);
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const frontendUrl = FRONTEND_URL;
 
     const html = `
 <!DOCTYPE html>
@@ -305,7 +306,7 @@ ${this.fromName}-teamet
     // Escape user-provided data to prevent XSS
     const safeName = escapeHtml(name || 'där');
     const safeEmail = escapeHtml(email);
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const frontendUrl = FRONTEND_URL;
 
     const html = `
 <!DOCTYPE html>
@@ -387,7 +388,7 @@ ${this.fromName}-teamet
     const safeName = escapeHtml(userName || 'där');
     const safeTitle = escapeHtml(title);
     const safeMessage = message ? escapeHtml(message) : '';
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const frontendUrl = FRONTEND_URL;
 
     // Get notification type specific styling
     const { color, icon, subject } = this.getNotificationTypeStyles(notificationType, title);
@@ -472,7 +473,7 @@ ${this.fromName}
     const safeProductName = escapeHtml(productName);
     const safeWebsiteUrl = escapeHtml(websiteUrl);
     const safeAdminNotes = adminNotes ? escapeHtml(adminNotes) : '';
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const frontendUrl = FRONTEND_URL;
 
     // Status-specific configuration
     const statusConfig = {

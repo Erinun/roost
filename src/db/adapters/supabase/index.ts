@@ -679,7 +679,7 @@ export class SupabaseAdapter implements DatabaseAdapter {
       if (existingReaction.reaction_type === reactionType) {
         // Same reaction type: remove it (toggle off)
         const { error } = await supabase.from('reactions').delete().eq('id', existingReaction.id);
-        if (error) return toResult(null, error);
+        if (error) return toResult<{ added: boolean }>(null, error);
         return toResult({ added: false }, null);
       } else {
         // Different reaction type: update to new type
@@ -687,7 +687,7 @@ export class SupabaseAdapter implements DatabaseAdapter {
           .from('reactions')
           .update({ reaction_type: reactionType } as never)
           .eq('id', existingReaction.id);
-        if (error) return toResult(null, error);
+        if (error) return toResult<{ added: boolean }>(null, error);
         return toResult({ added: true }, null);
       }
     } else {
@@ -700,7 +700,7 @@ export class SupabaseAdapter implements DatabaseAdapter {
           reactable_id: reactableId,
           reaction_type: reactionType,
         } as never);
-      if (error) return toResult(null, error);
+      if (error) return toResult<{ added: boolean }>(null, error);
       return toResult({ added: true }, null);
     }
   }
@@ -715,7 +715,7 @@ export class SupabaseAdapter implements DatabaseAdapter {
       .eq('reactable_type', reactableType)
       .eq('reactable_id', reactableId);
 
-    if (error) return toResult(null, error);
+    if (error) return toResult<Record<ReactionType, number>>(null, error);
 
     const counts: Record<ReactionType, number> = { like: 0, love: 0, fire: 0, clap: 0, think: 0, haha: 0 };
     for (const r of (data ?? []) as { reaction_type: ReactionType }[]) {
@@ -995,7 +995,7 @@ export class SupabaseAdapter implements DatabaseAdapter {
       p_group_id: groupId ?? null,
     });
 
-    if (error) return toResult(null, error);
+    if (error) return toResult<{ rank: number; points: number }>(null, error);
 
     const result = data as { rank: number; points: number } | null;
     return toResult(result ?? { rank: 0, points: 0 }, null);
@@ -1323,7 +1323,7 @@ export class SupabaseAdapter implements DatabaseAdapter {
     if (error) return toListResult<Profile>(null, error);
 
     // Extract the nested profile from each follow row
-    const profiles = (data ?? []).map((row: { follower: Profile }) => row.follower);
+    const profiles = ((data ?? []) as unknown as { follower: Profile }[]).map((row) => row.follower);
     return toListResult<Profile>(profiles, null);
   }
 
@@ -1337,7 +1337,7 @@ export class SupabaseAdapter implements DatabaseAdapter {
 
     if (error) return toListResult<Profile>(null, error);
 
-    const profiles = (data ?? []).map((row: { following: Profile }) => row.following);
+    const profiles = ((data ?? []) as unknown as { following: Profile }[]).map((row) => row.following);
     return toListResult<Profile>(profiles, null);
   }
 
@@ -1582,7 +1582,7 @@ export class SupabaseAdapter implements DatabaseAdapter {
       const { error } = await supabase
         .from('feature_request_votes')
         .insert({ feature_request_id: requestId, user_id: userId } as never);
-      if (error) return toResult(null, error);
+      if (error) return toResult<{ voted: boolean }>(null, error);
       // Increment count
       await supabase.rpc('increment_feature_vote', { p_request_id: requestId });
       return toResult({ voted: true }, null);
@@ -1676,7 +1676,15 @@ export class SupabaseAdapter implements DatabaseAdapter {
     ]);
 
     const anyError = usersRes.error || postsRes.error || commentsRes.error || groupsRes.error || eventsRes.error;
-    if (anyError) return toResult(null, anyError);
+    if (anyError) {
+      return toResult<{
+        total_users: number;
+        total_posts: number;
+        total_comments: number;
+        total_groups: number;
+        total_events: number;
+      }>(null, anyError);
+    }
 
     return toResult({
       total_users: usersRes.count ?? 0,

@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { z } from 'zod';
 import { supabaseAdmin } from '../lib/supabase';
 import { emailService } from '../services/email';
+import { FRONTEND_URL } from '../lib/config';
 
 const router = Router();
 
@@ -119,7 +120,7 @@ router.post('/request-reset', async (req: Request, res: Response) => {
     }
 
     // Build reset URL
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5000';
+    const frontendUrl = FRONTEND_URL;
     const resetUrl = `${frontendUrl}/reset-password?token=${token}`;
 
     // Send email

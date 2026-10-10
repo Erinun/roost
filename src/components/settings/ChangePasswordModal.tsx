@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, Eye, EyeOff, Loader2, Check, AlertCircle, Lock } from 'lucide-react';
 import { supabase } from '@/services/supabase';
+import { APP_CONFIG } from '@/config/app';
 
 interface ChangePasswordModalProps {
     isOpen: boolean;
@@ -81,7 +82,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
             }
 
             // Call backend to verify current password and change it
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            const apiUrl = APP_CONFIG.apiUrl;
             const response = await fetch(`${apiUrl}/api/auth/change-password`, {
                 method: 'POST',
                 headers: {

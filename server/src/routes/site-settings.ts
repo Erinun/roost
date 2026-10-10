@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { supabaseAdmin } from '../lib/supabase.js';
 import { getCachedUserProfile } from '../services/cache.js';
+import { FRONTEND_URL } from '../lib/config.js';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -213,9 +214,7 @@ siteSettingsRouter.post('/upload', requireSuperadmin, upload.single('file'), asy
       fs.writeFileSync(localPath, file.buffer);
 
       // Return full URL so frontend (different port in dev) can resolve it
-      const apiUrl = process.env.FRONTEND_URL
-        ? `${process.env.FRONTEND_URL.replace(/:\d+$/, '')}:${process.env.PORT || 3000}`
-        : `http://localhost:${process.env.PORT || 3000}`;
+      const apiUrl = `${FRONTEND_URL.replace(/:\d+$/, '')}:${process.env.PORT || 3000}`;
       fileUrl = `${apiUrl}/uploads/branding/${path.basename(localPath)}`;
     }
 

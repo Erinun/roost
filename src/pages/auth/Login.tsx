@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '@/services/supabase';
+import { APP_CONFIG } from '@/config/app';
 import { Mail, Loader2, Eye, EyeOff, Shield, Key, CheckCircle, RefreshCw } from 'lucide-react';
 
 type LoginStep = 'credentials' | '2fa' | 'email-not-confirmed';
@@ -29,7 +30,7 @@ export default function Login() {
         setIsLoading(true);
 
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            const apiUrl = APP_CONFIG.apiUrl;
             const response = await fetch(`${apiUrl}/api/2fa/check-required`, {
                 method: 'POST',
                 headers: {
@@ -76,7 +77,7 @@ export default function Login() {
         setIsLoading(true);
 
         try {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            const apiUrl = APP_CONFIG.apiUrl;
             const endpoint = useBackupCode ? '/api/2fa/verify-login-backup' : '/api/2fa/verify-login';
             const code = useBackupCode ? backupCode : twoFactorCode;
 

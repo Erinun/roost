@@ -274,7 +274,7 @@ export default function Showcase() {
                                     </div>
                                     <div className="space-y-3">
                                         {userShowcases.map((showcase) => {
-                                            const statusInfo = SHOWCASE_STATUS_INFO[showcase.status];
+                                            const statusInfo = SHOWCASE_STATUS_INFO[showcase.status ?? 'pending'];
                                             return (
                                                 <Link
                                                     key={showcase.id}

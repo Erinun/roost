@@ -21,6 +21,19 @@ vi.mock('./s3', () => ({
   uploadImage: vi.fn().mockResolvedValue('https://s3.example.com/image.jpg'),
 }));
 
+// Thenable query chain — getConversations awaits three chained queries in parallel
+function createQueryMock(result: { data: unknown; error: unknown }) {
+  const chain: any = {
+    select: vi.fn(() => chain),
+    eq: vi.fn(() => chain),
+    or: vi.fn(() => chain),
+    order: vi.fn(() => chain),
+    limit: vi.fn(() => chain),
+    then: (onFulfilled: any, onRejected: any) => Promise.resolve(result).then(onFulfilled, onRejected),
+  };
+  return chain;
+}
+
 describe('Message Service', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -53,13 +66,10 @@ describe('Message Service', () => {
         },
       ];
 
-      const mockChain = {
-        select: vi.fn().mockReturnThis(),
-        or: vi.fn().mockReturnThis(),
-        order: vi.fn().mockResolvedValue({ data: mockMessages, error: null }),
-      };
-
-      vi.mocked(supabase.from).mockReturnValue(mockChain as any);
+      vi.mocked(supabase.from)
+        .mockReturnValueOnce(createQueryMock({ data: [mockMessages[0]], error: null }) as any)
+        .mockReturnValueOnce(createQueryMock({ data: [mockMessages[1]], error: null }) as any)
+        .mockReturnValueOnce(createQueryMock({ data: [{ sender_id: otherUserId }], error: null }) as any);
 
       const result = await getConversations(currentUserId);
 
@@ -70,13 +80,7 @@ describe('Message Service', () => {
     });
 
     it('should return empty array when no messages exist', async () => {
-      const mockChain = {
-        select: vi.fn().mockReturnThis(),
-        or: vi.fn().mockReturnThis(),
-        order: vi.fn().mockResolvedValue({ data: [], error: null }),
-      };
-
-      vi.mocked(supabase.from).mockReturnValue(mockChain as any);
+      vi.mocked(supabase.from).mockReturnValue(createQueryMock({ data: [], error: null }) as any);
 
       const result = await getConversations('user-1');
 
@@ -86,13 +90,7 @@ describe('Message Service', () => {
     it('should throw error on database failure', async () => {
       const mockError = { message: 'Database error' };
 
-      const mockChain = {
-        select: vi.fn().mockReturnThis(),
-        or: vi.fn().mockReturnThis(),
-        order: vi.fn().mockResolvedValue({ data: null, error: mockError }),
-      };
-
-      vi.mocked(supabase.from).mockReturnValue(mockChain as any);
+      vi.mocked(supabase.from).mockReturnValue(createQueryMock({ data: null, error: mockError }) as any);
 
       await expect(getConversations('user-1')).rejects.toEqual(mockError);
     });

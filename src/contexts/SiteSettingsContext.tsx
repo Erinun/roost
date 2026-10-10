@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { supabase } from '@/services/supabase';
+import { APP_CONFIG } from '@/config/app';
 
 // Feature module access levels: disabled, all users, or premium only
 export type FeatureAccess = 'disabled' | 'all' | 'premium_only';
@@ -158,7 +159,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
   }, [fetchSettings]);
 
   const updateSettings = useCallback(async (updates: Partial<SiteSettings>) => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const API_URL = APP_CONFIG.apiUrl;
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) throw new Error('Inte inloggad');
 
@@ -185,7 +186,7 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
   }, [settings]);
 
   const uploadBrandingAsset = useCallback(async (file: File, type: 'logo' | 'logo_dark' | 'favicon'): Promise<string> => {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const API_URL = APP_CONFIG.apiUrl;
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) throw new Error('Inte inloggad');
 

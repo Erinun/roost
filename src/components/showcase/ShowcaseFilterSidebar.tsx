@@ -209,8 +209,8 @@ export default function ShowcaseFilterSidebar({
                                             `}
                                             style={
                                                 isSelected
-                                                    ? { backgroundColor: tag.color }
-                                                    : { borderColor: tag.color, borderWidth: 1 }
+                                                    ? { backgroundColor: tag.color ?? undefined }
+                                                    : { borderColor: tag.color ?? undefined, borderWidth: 1 }
                                             }
                                         >
                                             {tag.name}

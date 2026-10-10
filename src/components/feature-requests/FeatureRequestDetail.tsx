@@ -143,7 +143,7 @@ export default function FeatureRequestDetailView({
                             {request.author.display_name || request.author.username}
                         </span>
                         <span className="text-xs text-surface-400">
-                            {formatDistanceToNow(new Date(request.created_at), { addSuffix: true, locale: sv })}
+                            {formatDistanceToNow(new Date(request.created_at ?? Date.now()), { addSuffix: true, locale: sv })}
                         </span>
                     </div>
                 </div>

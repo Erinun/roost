@@ -131,8 +131,8 @@ server/src/
 
 ### Frontend
 ```bash
-npm run dev              # Start dev server (Vite, port 5173)
-npm run build            # Production build (tsc + vite)
+npm run dev              # Start dev server (Vite, port 5000)
+npm run build            # Production build (vite only — run typecheck separately)
 npm run lint             # ESLint
 npm test                 # Vitest
 npm run test:e2e         # Playwright E2E

@@ -27,40 +27,29 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
 
     // Active subscription
     if (isActive && !inGracePeriod) {
+        const periodEnd = subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd) : null;
         return (
             <div className={`${showDetails ? 'p-4 rounded-xl border' : 'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg'} bg-green-50 border-green-200 ${className}`}>
                 <div className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600" />
                     <span className="text-sm font-medium text-green-700">Aktiv</span>
-                    {subscription.productName && !showDetails && (
-                        <span className="text-sm text-green-600">- {subscription.variantName || subscription.productName}</span>
-                    )}
                 </div>
-                {showDetails && subscription.productName && (
+                {showDetails && periodEnd && (
                     <div className="mt-2 space-y-1">
-                        <p className="text-sm text-green-700">
-                            <strong>{subscription.productName}</strong>
-                            {subscription.variantName && ` (${subscription.variantName})`}
+                        <p className="text-xs text-green-600">
+                            {subscription.cancelAtPeriodEnd
+                                ? `Avslutas: ${periodEnd.toLocaleDateString('sv-SE')}`
+                                : `Förnyas: ${periodEnd.toLocaleDateString('sv-SE')}`}
                         </p>
-                        {subscription.billingCycle && (
-                            <p className="text-xs text-green-600 capitalize">
-                                Fakturering: {subscription.billingCycle}
-                            </p>
-                        )}
-                        {subscription.startedAt && (
-                            <p className="text-xs text-green-600">
-                                Medlem sedan: {new Date(subscription.startedAt).toLocaleDateString('sv-SE')}
-                            </p>
-                        )}
                     </div>
                 )}
             </div>
         );
     }
 
-    // Grace period
+    // Grace period — access lasts until the paid period ends
     if (inGracePeriod) {
-        const endsAt = subscription.endsAt ? new Date(subscription.endsAt) : null;
+        const endsAt = subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd) : null;
         const daysRemaining = endsAt
             ? Math.ceil((endsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
             : null;

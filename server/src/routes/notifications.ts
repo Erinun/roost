@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { supabaseAdmin } from '../lib/supabase.js';
 import { emailService } from '../services/email.js';
+import { FRONTEND_URL } from '../lib/config.js';
 
 const router = Router();
 
@@ -53,7 +54,7 @@ router.post('/process-emails', async (req: Request, res: Response) => {
             errors: [] as string[],
         };
 
-        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+        const frontendUrl = FRONTEND_URL;
 
         // Process each notification
         for (const notification of pendingNotifications as PendingNotification[]) {

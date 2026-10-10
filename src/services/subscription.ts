@@ -1,11 +1,12 @@
 import { supabase } from './supabase';
+import { APP_CONFIG } from '@/config/app';
+import type { SubscriptionStatus as StripeSubscriptionStatus } from '@/types/database';
 
-// Backend server URL - should be configured via environment variable
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = APP_CONFIG.apiUrl;
 
 export interface SubscriptionStatus {
   hasSubscription: boolean;
-  status: 'active' | 'cancelled' | 'expired' | 'failed_payment' | 'refunded' | 'past_due' | null;
+  status: StripeSubscriptionStatus | null;
   isActive: boolean;
   inGracePeriod?: boolean;
   currentPeriodEnd?: string;
@@ -109,7 +110,8 @@ export const subscriptionService = {
 
     return {
       hasSubscription: true,
-      status: subscription.status,
+      // TEXT column constrained by stripe_sub_status_check in the database
+      status: subscription.status as StripeSubscriptionStatus,
       isActive: isActive || inGracePeriod,
       inGracePeriod: inGracePeriod || undefined,
       currentPeriodEnd: subscription.current_period_end ?? undefined,

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { APP_CONFIG } from '@/config/app';
 import {
     RefreshCw,
     Plus,
@@ -262,7 +263,7 @@ export default function AdminActivations() {
         try {
             // Use the API endpoint to process and send email
             const token = (await (await import('@/services/supabase')).supabase.auth.getSession()).data.session?.access_token;
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+            const apiUrl = APP_CONFIG.apiUrl;
 
             const response = await fetch(`${apiUrl}/api/activations/${selectedRequest.id}/status`, {
                 method: 'POST',

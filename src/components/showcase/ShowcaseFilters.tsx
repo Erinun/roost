@@ -173,7 +173,7 @@ export default function ShowcaseFilters({ filters, onFiltersChange }: ShowcaseFi
                                             : 'bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-400 hover:opacity-80'
                                         }
                                     `}
-                                    style={isSelected ? { backgroundColor: tag.color } : { borderColor: tag.color, borderWidth: 1 }}
+                                    style={isSelected ? { backgroundColor: tag.color ?? undefined } : { borderColor: tag.color ?? undefined, borderWidth: 1 }}
                                 >
                                     {tag.name}
                                 </button>
