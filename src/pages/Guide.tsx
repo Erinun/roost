@@ -40,152 +40,152 @@ interface GuideSection {
 const guideSections: GuideSection[] = [
     {
         id: 'getting-started',
-        title: 'Getting Started',
+        title: 'Kom igång',
         icon: Sparkles,
-        description: 'Learn the basics of navigating and using the platform',
+        description: 'Lär dig grunderna i att navigera och använda plattformen',
         steps: [
             {
-                title: 'Set Up Your Profile',
-                description: 'After signing in, click on your avatar in the top-right corner and select "Settings" to customize your profile. Add a profile picture, display name, bio, and location to help other members get to know you.',
-                tips: ['Use a recognizable photo', 'Write a brief bio about your interests', 'Add your location to connect with nearby members'],
-                screenshot: { src: '/guide-screenshots/settings.png', alt: 'Profile Settings Page' },
+                title: 'Ställ in din profil',
+                description: 'När du har loggat in, klicka på din avatar uppe till höger och välj "Inställningar" för att anpassa din profil. Lägg till en profilbild, ett visningsnamn, en bio och din plats så att andra medlemmar kan lära känna dig.',
+                tips: ['Använd ett igenkännbart foto', 'Skriv en kort bio om dina intressen', 'Lägg till din plats för att hitta medlemmar nära dig'],
+                screenshot: { src: '/guide-screenshots/settings.png', alt: 'Sidan för profilinställningar' },
             },
             {
-                title: 'Explore the Home Feed',
-                description: 'The home feed shows all community posts. You can filter posts by category, see what\'s trending, and discover new content from fellow members.',
-                tips: ['Use category filters to find relevant content', 'Check the sidebar for top contributors', 'Click on member avatars to view their profiles'],
-                screenshot: { src: '/guide-screenshots/home-feed.png', alt: 'Home Feed' },
+                title: 'Utforska hemflödet',
+                description: 'Hemflödet visar alla inlägg i communityt. Du kan filtrera inlägg efter kategori, se vad som trendar och upptäcka nytt innehåll från andra medlemmar.',
+                tips: ['Använd kategorifilter för att hitta relevant innehåll', 'Kolla sidofältet för de främsta bidragsgivarna', 'Klicka på medlemmars avatarer för att se deras profiler'],
+                screenshot: { src: '/guide-screenshots/home-feed.png', alt: 'Hemflödet' },
             },
             {
-                title: 'Join Classrooms',
-                description: 'Classrooms are specialized groups focused on specific topics. Browse available classrooms and join the ones that interest you to access exclusive content and discussions.',
-                tips: ['Each classroom has its own feed and events', 'Some classrooms may require approval to join', 'You can leave a classroom anytime from its settings'],
-                screenshot: { src: '/guide-screenshots/classrooms.png', alt: 'Classrooms Page' },
+                title: 'Gå med i klassrum',
+                description: 'Klassrum är specialiserade utrymmen med fokus på specifika ämnen. Bläddra bland tillgängliga klassrum och gå med i de som intresserar dig för att få åtkomst till exklusivt innehåll och diskussioner.',
+                tips: ['Varje klassrum har sitt eget flöde och sina egna evenemang', 'Vissa klassrum kan kräva godkännande för att gå med', 'Du kan lämna ett klassrum när som helst via dess inställningar'],
+                screenshot: { src: '/guide-screenshots/classrooms.png', alt: 'Klassrumssidan' },
             },
         ],
     },
     {
         id: 'creating-posts',
-        title: 'Creating Posts',
+        title: 'Skapa inlägg',
         icon: PenSquare,
-        description: 'Share your thoughts, questions, and achievements with the community',
+        description: 'Dela dina tankar, frågor och framgångar med communityt',
         steps: [
             {
-                title: 'Start a New Post',
-                description: 'Click the "Create Post" button or the post composer at the top of your feed. Give your post a descriptive title and select an appropriate category.',
-                tips: ['Choose the right category for better visibility', 'Descriptive titles attract more engagement', 'You can post to the main feed or a specific classroom'],
-                screenshot: { src: '/guide-screenshots/home-feed.png', alt: 'Post Composer on Home Feed' },
+                title: 'Starta ett nytt inlägg',
+                description: 'Klicka på knappen "Skapa inlägg" eller inläggsrutan högst upp i ditt flöde. Ge inlägget en beskrivande titel och välj en lämplig kategori.',
+                tips: ['Välj rätt kategori för bättre synlighet', 'Beskrivande titlar ger mer engagemang', 'Du kan publicera i huvudflödet eller i ett specifikt klassrum'],
+                screenshot: { src: '/guide-screenshots/home-feed.png', alt: 'Inläggsrutan i hemflödet' },
             },
             {
-                title: 'Add Rich Content',
-                description: 'Use the rich text editor to format your post with headings, lists, code blocks, and more. You can also embed images and videos to make your posts more engaging.',
-                tips: ['Drag and drop images directly into the editor', 'YouTube and Vimeo links are automatically embedded', 'Use code blocks for sharing code snippets'],
+                title: 'Lägg till rikt innehåll',
+                description: 'Använd textredigeraren för att formatera ditt inlägg med rubriker, listor, kodblock med mera. Du kan också bädda in bilder och videor för att göra inläggen mer engagerande.',
+                tips: ['Dra och släpp bilder direkt i redigeraren', 'YouTube- och Vimeo-länkar bäddas in automatiskt', 'Använd kodblock för att dela kodsnuttar'],
             },
             {
-                title: 'Engage with Comments',
-                description: 'After posting, stay engaged by responding to comments. This builds relationships and encourages more discussion on your posts.',
-                tips: ['Reply to comments to keep the conversation going', 'Use @mentions to notify specific members', 'Pin important comments as the post author'],
+                title: 'Engagera dig i kommentarerna',
+                description: 'Håll dig aktiv efter publiceringen genom att svara på kommentarer. Det bygger relationer och uppmuntrar till mer diskussion kring dina inlägg.',
+                tips: ['Svara på kommentarer för att hålla samtalet igång', 'Använd @omnämnanden för att notifiera specifika medlemmar', 'Fäst viktiga kommentarer som inläggets författare'],
             },
         ],
     },
     {
         id: 'messaging',
-        title: 'Direct Messaging',
+        title: 'Direktmeddelanden',
         icon: MessageSquare,
-        description: 'Connect privately with other community members',
+        description: 'Håll kontakten privat med andra medlemmar i communityt',
         steps: [
             {
-                title: 'Start a Conversation',
-                description: 'Click the Messages icon in the navigation bar to access your inbox. Click "New Message" or click on a member\'s profile and select "Message" to start a conversation.',
-                tips: ['Your recent conversations appear in the sidebar', 'Unread messages show a notification badge', 'You can send text, images, and files'],
-                screenshot: { src: '/guide-screenshots/messages.png', alt: 'Messages Page' },
+                title: 'Starta en konversation',
+                description: 'Klicka på meddelandeikonen i navigeringsfältet för att öppna din inkorg. Klicka på "Nytt meddelande" eller gå till en medlems profil och välj "Meddelande" för att starta en konversation.',
+                tips: ['Dina senaste konversationer visas i sidofältet', 'Olästa meddelanden visar en notisbricka', 'Du kan skicka text, bilder och filer'],
+                screenshot: { src: '/guide-screenshots/messages.png', alt: 'Meddelandesidan' },
             },
             {
-                title: 'Message Features',
-                description: 'Messages support real-time delivery with read receipts. You can see when your message was delivered and when it was read by the recipient.',
-                tips: ['Blue checkmarks indicate read messages', 'Press Enter to send, Shift+Enter for new line', 'Attach files using the paperclip icon'],
+                title: 'Meddelandefunktioner',
+                description: 'Meddelanden levereras i realtid med läskvitton. Du kan se när ditt meddelande levererades och när mottagaren läste det.',
+                tips: ['Blå bockar betyder att meddelandet är läst', 'Tryck på Enter för att skicka, Shift+Enter för ny rad', 'Bifoga filer med gemikonen'],
             },
         ],
     },
     {
         id: 'events-calendar',
-        title: 'Events & Calendar',
+        title: 'Evenemang & kalender',
         icon: Calendar,
-        description: 'Discover and participate in community events',
+        description: 'Upptäck och delta i communityts evenemang',
         steps: [
             {
-                title: 'Browse Events',
-                description: 'Access the Calendar from the navigation bar to see all upcoming community events. Events can be community-wide or specific to a classroom you\'ve joined.',
-                tips: ['Click on a date to see events for that day', 'Filter by classroom to see specific events', 'Upcoming events also appear in the sidebar'],
-                screenshot: { src: '/guide-screenshots/calendar.png', alt: 'Calendar View' },
+                title: 'Bläddra bland evenemang',
+                description: 'Öppna kalendern från navigeringsfältet för att se alla kommande evenemang i communityt. Evenemang kan gälla hela communityt eller ett specifikt klassrum du gått med i.',
+                tips: ['Klicka på ett datum för att se dagens evenemang', 'Filtrera per klassrum för att se specifika evenemang', 'Kommande evenemang visas också i sidofältet'],
+                screenshot: { src: '/guide-screenshots/calendar.png', alt: 'Kalendervy' },
             },
             {
-                title: 'RSVP to Events',
-                description: 'Click on an event to see its details including time, location, description, and attendees. Click "RSVP" to confirm your attendance.',
-                tips: ['You\'ll receive reminders for events you\'ve RSVP\'d to', 'See who else is attending', 'Add events to your personal calendar'],
+                title: 'OSA till evenemang',
+                description: 'Klicka på ett evenemang för att se detaljer som tid, plats, beskrivning och deltagare. Klicka på "OSA" för att bekräfta att du kommer.',
+                tips: ['Du får påminnelser om evenemang du har OSA:t till', 'Se vilka andra som deltar', 'Lägg till evenemang i din egen kalender'],
             },
             {
-                title: 'Create Events (Moderators)',
-                description: 'If you\'re a classroom moderator or admin, you can create events for your community. Click on a calendar date or use the "Create Event" button.',
-                tips: ['Set clear titles and descriptions', 'Include all relevant details like links or location', 'Events can be recurring or one-time'],
+                title: 'Skapa evenemang (moderatorer)',
+                description: 'Om du är moderator eller admin för ett klassrum kan du skapa evenemang för ditt community. Klicka på ett datum i kalendern eller använd knappen "Skapa evenemang".',
+                tips: ['Ange tydliga titlar och beskrivningar', 'Ta med alla relevanta detaljer som länkar eller plats', 'Evenemang kan vara återkommande eller engångshändelser'],
             },
         ],
     },
     {
         id: 'leaderboard',
-        title: 'Leaderboard & Points',
+        title: 'Topplista & poäng',
         icon: Trophy,
-        description: 'Track your contributions and compete with other members',
+        description: 'Följ dina bidrag och tävla med andra medlemmar',
         steps: [
             {
-                title: 'Earning Points',
-                description: 'You earn points for various activities in the community. Points reflect your engagement and contribution to the community.',
-                tips: ['Creating posts: 10 points', 'Comments: 5 points', 'Receiving reactions: 1-2 points', 'Hosting events: 15 points'],
+                title: 'Tjäna poäng',
+                description: 'Du tjänar poäng för olika aktiviteter i communityt. Poängen speglar ditt engagemang och ditt bidrag till communityt.',
+                tips: ['Skapa inlägg: 10 poäng', 'Kommentarer: 5 poäng', 'Få reaktioner: 1-2 poäng', 'Arrangera evenemang: 15 poäng'],
             },
             {
-                title: 'Climbing the Leaderboard',
-                description: 'The leaderboard shows top contributors for the past 30 days. Consistent engagement helps you climb the ranks and gain recognition.',
-                tips: ['Check your current rank on your profile', 'View the full leaderboard from the sidebar', 'Each classroom has its own leaderboard'],
-                screenshot: { src: '/guide-screenshots/leaderboard.png', alt: 'Leaderboard Page' },
+                title: 'Klättra på topplistan',
+                description: 'Topplistan visar de främsta bidragsgivarna de senaste 30 dagarna. Regelbundet engagemang hjälper dig att klättra i rankningen och få uppmärksamhet.',
+                tips: ['Se din nuvarande placering på din profil', 'Visa hela topplistan från sidofältet', 'Varje klassrum har sin egen topplista'],
+                screenshot: { src: '/guide-screenshots/leaderboard.png', alt: 'Topplistesidan' },
             },
         ],
     },
     {
         id: 'notifications',
-        title: 'Notifications',
+        title: 'Notiser',
         icon: Bell,
-        description: 'Stay updated on activity that matters to you',
+        description: 'Håll dig uppdaterad om aktivitet som är viktig för dig',
         steps: [
             {
-                title: 'Notification Types',
-                description: 'You\'ll receive notifications for various activities including replies to your posts, mentions, new messages, event reminders, and more.',
-                tips: ['Click the bell icon to see all notifications', 'Unread notifications show a red badge', 'Click a notification to go directly to the content'],
+                title: 'Notistyper',
+                description: 'Du får notiser om olika aktiviteter, till exempel svar på dina inlägg, omnämnanden, nya meddelanden, evenemangspåminnelser med mera.',
+                tips: ['Klicka på klockikonen för att se alla notiser', 'Olästa notiser visas med en röd bricka', 'Klicka på en notis för att gå direkt till innehållet'],
             },
             {
-                title: 'Managing Notifications',
-                description: 'Mark notifications as read individually or mark all as read. You can customize which notifications you receive in your settings.',
-                tips: ['Swipe or click to mark as read', 'Use "Mark all read" to clear the badge', 'Adjust preferences in Settings > Notifications'],
-                screenshot: { src: '/guide-screenshots/settings.png', alt: 'Settings Page for Notification Preferences' },
+                title: 'Hantera notiser',
+                description: 'Markera notiser som lästa en i taget eller markera alla som lästa. Du kan anpassa vilka notiser du får i dina inställningar.',
+                tips: ['Svep eller klicka för att markera som läst', 'Använd "Markera alla som lästa" för att rensa brickan', 'Justera inställningarna under Inställningar > Notiser'],
+                screenshot: { src: '/guide-screenshots/settings.png', alt: 'Inställningssidan för notisinställningar' },
             },
         ],
     },
     {
         id: 'members',
-        title: 'Member Directory',
+        title: 'Medlemskatalog',
         icon: Users,
-        description: 'Discover and connect with community members',
+        description: 'Upptäck och knyt kontakt med communityts medlemmar',
         steps: [
             {
-                title: 'Browse Members',
-                description: 'Access the Members directory from the navigation bar. Browse through all community members with their profiles, and see who\'s currently online.',
-                tips: ['Green dot indicates online members', 'Use search to find specific members', 'Filter by online status'],
-                screenshot: { src: '/guide-screenshots/members.png', alt: 'Members Directory' },
+                title: 'Bläddra bland medlemmar',
+                description: 'Öppna medlemskatalogen från navigeringsfältet. Bläddra bland alla medlemmar i communityt, se deras profiler och vilka som är online just nu.',
+                tips: ['Grön prick betyder att medlemmen är online', 'Använd sök för att hitta specifika medlemmar', 'Filtrera på onlinestatus'],
+                screenshot: { src: '/guide-screenshots/members.png', alt: 'Medlemskatalogen' },
             },
             {
-                title: 'Member Profiles',
-                description: 'Click on any member to view their full profile including their bio, posts, and activity. From there, you can send them a message or follow their content.',
-                tips: ['See their recent posts and comments', 'View their points and rank', 'Quick actions for messaging'],
-                screenshot: { src: '/guide-screenshots/profile.png', alt: 'Member Profile Page' },
+                title: 'Medlemsprofiler',
+                description: 'Klicka på en medlem för att se hela profilen med bio, inlägg och aktivitet. Därifrån kan du skicka ett meddelande eller följa personens innehåll.',
+                tips: ['Se deras senaste inlägg och kommentarer', 'Visa deras poäng och placering', 'Snabbåtgärder för meddelanden'],
+                screenshot: { src: '/guide-screenshots/profile.png', alt: 'Medlemsprofilsida' },
             },
         ],
     },
@@ -302,7 +302,7 @@ function Lightbox({
             </button>
             <img
                 src={selectedImage}
-                alt="Screenshot preview"
+                alt="Förhandsvisning av skärmbild"
                 className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             />
@@ -366,11 +366,11 @@ export default function Guide() {
                     <BookOpen className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                 </div>
                 <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-100 mb-3">
-                    Platform Guide
+                    Plattformsguide
                 </h1>
                 <p className="text-lg text-surface-600 dark:text-surface-400 max-w-2xl mx-auto">
-                    Everything you need to know to get the most out of {APP_CONFIG.name}.
-                    Learn how to connect, share, and grow with our community.
+                    Allt du behöver veta för att få ut det mesta av {APP_CONFIG.name}.
+                    Lär dig hur du håller kontakten, delar och växer tillsammans med vårt community.
                 </p>
             </div>
 
@@ -378,23 +378,23 @@ export default function Guide() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
                 <FeatureCard
                     icon={Home}
-                    title="Community Feed"
-                    description="Share and discover posts from members"
+                    title="Communityflöde"
+                    description="Dela och upptäck inlägg från medlemmar"
                 />
                 <FeatureCard
                     icon={Users}
-                    title="Classrooms"
-                    description="Join topic-focused groups"
+                    title="Klassrum"
+                    description="Gå med i ämnesfokuserade klassrum"
                 />
                 <FeatureCard
                     icon={MessageSquare}
-                    title="Direct Messages"
-                    description="Private conversations with members"
+                    title="Direktmeddelanden"
+                    description="Privata konversationer med medlemmar"
                 />
                 <FeatureCard
                     icon={Calendar}
-                    title="Events"
-                    description="Discover and join community events"
+                    title="Evenemang"
+                    description="Upptäck och delta i communityts evenemang"
                 />
             </div>
 
@@ -404,7 +404,7 @@ export default function Guide() {
                 <div className="lg:col-span-1">
                     <div className="sticky top-24">
                         <h2 className="text-sm font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider mb-4 px-4">
-                            Guide Sections
+                            Guideavsnitt
                         </h2>
                         <GuideSidebar
                             sections={guideSections}
@@ -455,7 +455,7 @@ export default function Guide() {
                                     className="flex items-center gap-2 text-surface-600 dark:text-surface-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                                 >
                                     <ChevronRight className="w-4 h-4 rotate-180" />
-                                    Previous Section
+                                    Föregående avsnitt
                                 </button>
                             ) : (
                                 <div />
@@ -470,7 +470,7 @@ export default function Guide() {
                                     }}
                                     className="flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors font-medium"
                                 >
-                                    Next Section
+                                    Nästa avsnitt
                                     <ChevronRight className="w-4 h-4" />
                                 </button>
                             ) : (
@@ -482,7 +482,7 @@ export default function Guide() {
                     {/* Quick Actions */}
                     <div className="mt-8 bg-gradient-to-r from-surface-100 to-surface-50 dark:from-surface-800 dark:to-surface-900 rounded-2xl p-8 border border-surface-200 dark:border-surface-700">
                         <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">
-                            Quick Actions
+                            Snabbåtgärder
                         </h3>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <a
@@ -490,21 +490,21 @@ export default function Guide() {
                                 className="flex items-center gap-3 p-4 bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-700 transition-colors"
                             >
                                 <Home className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-                                <span className="font-medium text-surface-900 dark:text-surface-100">Go to Feed</span>
+                                <span className="font-medium text-surface-900 dark:text-surface-100">Gå till flödet</span>
                             </a>
                             <a
                                 href="/classrooms"
                                 className="flex items-center gap-3 p-4 bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-700 transition-colors"
                             >
                                 <Users className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-                                <span className="font-medium text-surface-900 dark:text-surface-100">Browse Classrooms</span>
+                                <span className="font-medium text-surface-900 dark:text-surface-100">Bläddra bland klassrum</span>
                             </a>
                             <a
                                 href="/settings"
                                 className="flex items-center gap-3 p-4 bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-700 transition-colors"
                             >
                                 <Settings className="w-5 h-5 text-primary-600 dark:text-primary-400" />
-                                <span className="font-medium text-surface-900 dark:text-surface-100">Edit Settings</span>
+                                <span className="font-medium text-surface-900 dark:text-surface-100">Redigera inställningar</span>
                             </a>
                         </div>
                     </div>
@@ -512,11 +512,11 @@ export default function Guide() {
                     {/* Need Help */}
                     <div className="mt-6 text-center">
                         <p className="text-surface-500 dark:text-surface-400">
-                            Still have questions?{' '}
+                            Har du fler frågor?{' '}
                             <a href="/messages" className="text-primary-600 dark:text-primary-400 hover:underline">
-                                Send us a message
+                                Skicka ett meddelande till oss
                             </a>{' '}
-                            and we'll be happy to help!
+                            så hjälper vi dig gärna!
                         </p>
                     </div>
                 </div>

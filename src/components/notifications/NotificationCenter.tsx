@@ -53,7 +53,7 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
       setHasMore(data.length >= NOTIFICATIONS_PER_PAGE);
     } catch (err) {
       console.error('Error loading notifications:', err);
-      setError('Kunde inte ladda aviseringar');
+      setError('Det gick inte att ladda notiser');
     } finally {
       if (showLoading) {
         setIsLoading(false);
@@ -188,7 +188,7 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
       ">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-surface-200 dark:border-surface-700">
-          <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Aviseringar</h3>
+          <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Notiser</h3>
           <div className="flex items-center gap-2">
             {unreadCount > 0 && (
               <button
@@ -224,9 +224,9 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center p-8 text-center">
               <Bell className="w-12 h-12 text-surface-300 dark:text-surface-600 mb-3" />
-              <p className="text-sm text-surface-500 dark:text-surface-400">Inga aviseringar än</p>
+              <p className="text-sm text-surface-500 dark:text-surface-400">Inga notiser än</p>
               <p className="text-xs text-surface-400 dark:text-surface-500 mt-1">
-                Du får aviseringar om kommentarer, reaktioner och meddelanden
+                Du får notiser om kommentarer, reaktioner och meddelanden
               </p>
             </div>
           ) : (

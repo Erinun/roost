@@ -33,8 +33,8 @@ const navItems: NavItem[] = [
     { path: '/admin/announcements', label: 'Tillkännagivanden', icon: Megaphone },
     { path: '/admin/subscriptions', label: 'Prenumerationer', icon: CreditCard },
     { path: '/admin/activations', label: 'Aktiveringar', icon: Key, moderatorAccess: true },
-    { path: '/admin/showcases', label: 'Showcase', icon: Rocket, moderatorAccess: true },
-    { path: '/admin/live-room', label: 'Liverum', icon: Radio },
+    { path: '/admin/showcases', label: 'Projekt', icon: Rocket, moderatorAccess: true },
+    { path: '/admin/live-room', label: 'Live-rum', icon: Radio },
     { path: '/admin/backups', label: 'Säkerhetskopior', icon: Database },
     { path: '/admin/site-settings', label: 'Webbplatsinställningar', icon: Settings },
 ];

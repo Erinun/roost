@@ -32,7 +32,7 @@ router.post('/:id/status', async (req, res) => {
         const authHeader = req.headers.authorization;
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(401).json({ error: 'Obehörig' });
         }
 
         const token = authHeader.substring(7);
@@ -41,7 +41,7 @@ router.post('/:id/status', async (req, res) => {
         const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
 
         if (authError || !user) {
-            return res.status(401).json({ error: 'Invalid token' });
+            return res.status(401).json({ error: 'Ogiltig token' });
         }
 
         // Check if user is admin or moderator (with cache)
@@ -56,22 +56,22 @@ router.post('/:id/status', async (req, res) => {
         });
 
         if (!profile) {
-            return res.status(401).json({ error: 'User not found' });
+            return res.status(401).json({ error: 'Användaren hittades inte' });
         }
 
         if (!['admin', 'superadmin', 'moderator'].includes(profile.role || '')) {
-            return res.status(403).json({ error: 'Insufficient permissions' });
+            return res.status(403).json({ error: 'Otillräcklig behörighet' });
         }
 
         if (profile.is_banned) {
-            return res.status(403).json({ error: 'Account is banned' });
+            return res.status(403).json({ error: 'Kontot är avstängt' });
         }
 
         // Validate request body
         const parsed = updateStatusSchema.safeParse(req.body);
         if (!parsed.success) {
             return res.status(400).json({
-                error: 'Invalid request body',
+                error: 'Ogiltig förfrågan',
                 details: parsed.error.issues,
             });
         }
@@ -90,7 +90,7 @@ router.post('/:id/status', async (req, res) => {
             .single();
 
         if (requestError || !request) {
-            return res.status(404).json({ error: 'Activation request not found' });
+            return res.status(404).json({ error: 'Aktiveringsförfrågan hittades inte' });
         }
 
         // Update the request status
@@ -106,7 +106,7 @@ router.post('/:id/status', async (req, res) => {
 
         if (updateError) {
             console.error('Error updating activation request:', updateError);
-            return res.status(500).json({ error: 'Failed to update request' });
+            return res.status(500).json({ error: 'Det gick inte att uppdatera förfrågan' });
         }
 
         // If completed, update usage counter
@@ -153,17 +153,17 @@ router.post('/:id/status', async (req, res) => {
 
         // Create in-app notification
         const notificationTitles = {
-            pending: 'Activation Request Received',
-            in_progress: 'Activation In Progress',
-            completed: 'Activation Completed',
-            rejected: 'Activation Request Update',
+            pending: 'Aktiveringsförfrågan mottagen',
+            in_progress: 'Aktivering pågår',
+            completed: 'Aktivering slutförd',
+            rejected: 'Uppdatering om din aktiveringsförfrågan',
         };
 
         const notificationMessages = {
-            pending: `Your ${request.product?.name} activation request has been received.`,
-            in_progress: `Your ${request.product?.name} activation is being processed.`,
-            completed: `Your ${request.product?.name} has been successfully activated!`,
-            rejected: `Your ${request.product?.name} activation request has been reviewed.`,
+            pending: `Din aktiveringsförfrågan för ${request.product?.name} har tagits emot.`,
+            in_progress: `Din aktivering av ${request.product?.name} behandlas nu.`,
+            completed: `${request.product?.name} har aktiverats!`,
+            rejected: `Din aktiveringsförfrågan för ${request.product?.name} har granskats.`,
         };
 
         await supabaseAdmin.from('notifications').insert({
@@ -182,8 +182,8 @@ router.post('/:id/status', async (req, res) => {
             // Send email notification
             await emailService.sendActivationStatusEmail({
                 email: userData.user.email,
-                name: request.user?.display_name || request.user?.username || 'there',
-                productName: request.product?.name || 'Product',
+                name: request.user?.display_name || request.user?.username || 'där',
+                productName: request.product?.name || 'Produkt',
                 status,
                 websiteUrl: request.website_url,
                 adminNotes: admin_notes,
@@ -195,11 +195,11 @@ router.post('/:id/status', async (req, res) => {
 
         return res.json({
             success: true,
-            message: `Request status updated to ${status}`,
+            message: `Förfrågans status har uppdaterats till ${status}`,
         });
     } catch (error) {
         console.error('Error processing activation status update:', error);
-        return res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ error: 'Internt serverfel' });
     }
 });
 
@@ -212,7 +212,7 @@ router.get('/stats', async (req, res) => {
         const authHeader = req.headers.authorization;
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(401).json({ error: 'Obehörig' });
         }
 
         const token = authHeader.substring(7);
@@ -221,7 +221,7 @@ router.get('/stats', async (req, res) => {
         const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
 
         if (authError || !user) {
-            return res.status(401).json({ error: 'Invalid token' });
+            return res.status(401).json({ error: 'Ogiltig token' });
         }
 
         // Check if user is admin or moderator (with cache)
@@ -235,11 +235,11 @@ router.get('/stats', async (req, res) => {
         });
 
         if (!['admin', 'superadmin', 'moderator'].includes(profile?.role || '')) {
-            return res.status(403).json({ error: 'Insufficient permissions' });
+            return res.status(403).json({ error: 'Otillräcklig behörighet' });
         }
 
         if (profile?.is_banned) {
-            return res.status(403).json({ error: 'Account is banned' });
+            return res.status(403).json({ error: 'Kontot är avstängt' });
         }
 
         // Get stats (with cache)
@@ -276,7 +276,7 @@ router.get('/stats', async (req, res) => {
         return res.json(stats);
     } catch (error) {
         console.error('Error fetching activation stats:', error);
-        return res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ error: 'Internt serverfel' });
     }
 });
 

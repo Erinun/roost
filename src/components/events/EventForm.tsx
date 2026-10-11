@@ -129,7 +129,7 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                     {/* Group Selection */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Grupp (valfritt)
+                            Klassrum (valfritt)
                         </label>
                         <select
                             value={formData.group_id || ''}
@@ -144,7 +144,7 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                             ))}
                         </select>
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            Välj "Allmänt" för evenemang som gäller hela communityt, eller välj en specifik grupp.
+                            Välj "Allmänt" för evenemang som gäller hela communityt, eller välj ett specifikt klassrum.
                         </p>
                     </div>
 

@@ -5,20 +5,20 @@ test.describe('Authentication Flow', () => {
     await page.goto('/login');
 
     // Check for login form elements
-    await expect(page.getByRole('heading', { name: /sign in|login/i })).toBeVisible();
-    await expect(page.getByPlaceholder(/email/i)).toBeVisible();
-    await expect(page.getByPlaceholder(/password/i)).toBeVisible();
-    await expect(page.getByRole('button', { name: /sign in|log in/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /välkommen tillbaka|logga in/i })).toBeVisible();
+    await expect(page.getByPlaceholder(/exempel|email/i)).toBeVisible();
+    await expect(page.getByPlaceholder(/lösenord/i)).toBeVisible();
+    await expect(page.getByRole('button', { name: /logga in|sign in/i })).toBeVisible();
   });
 
   test('should show validation errors for empty form submission', async ({ page }) => {
     await page.goto('/login');
 
     // Click login button without filling form
-    await page.getByRole('button', { name: /sign in|log in/i }).click();
+    await page.getByRole('button', { name: /logga in|sign in/i }).click();
 
     // Check for validation feedback (either HTML5 validation or custom)
-    const emailInput = page.getByPlaceholder(/email/i);
+    const emailInput = page.getByPlaceholder(/exempel|email/i);
     await expect(emailInput).toBeFocused();
   });
 
@@ -26,7 +26,7 @@ test.describe('Authentication Flow', () => {
     await page.goto('/login');
 
     // Look for signup link
-    const signupLink = page.getByRole('link', { name: /sign up|create account|register/i });
+    const signupLink = page.getByRole('link', { name: /skapa konto|registrera|sign up/i });
     await signupLink.click();
 
     // Verify we're on signup page
@@ -37,16 +37,16 @@ test.describe('Authentication Flow', () => {
     await page.goto('/signup');
 
     // Check for signup form elements
-    await expect(page.getByPlaceholder(/email/i)).toBeVisible();
-    await expect(page.getByPlaceholder(/password/i).first()).toBeVisible();
-    await expect(page.getByRole('button', { name: /sign up|create|register/i })).toBeVisible();
+    await expect(page.getByPlaceholder(/exempel|email/i)).toBeVisible();
+    await expect(page.getByPlaceholder(/minst 6 tecken|lösenord/i).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: /skapa konto|registrera/i })).toBeVisible();
   });
 
   test('should navigate to forgot password page', async ({ page }) => {
     await page.goto('/login');
 
     // Look for forgot password link
-    const forgotLink = page.getByRole('link', { name: /forgot|reset/i });
+    const forgotLink = page.getByRole('link', { name: /glömt|återställ/i });
 
     if (await forgotLink.isVisible()) {
       await forgotLink.click();
@@ -67,21 +67,21 @@ test.describe('Login Validation', () => {
   test('should show error for invalid email format', async ({ page }) => {
     await page.goto('/login');
 
-    await page.getByPlaceholder(/email/i).fill('invalid-email');
-    await page.getByPlaceholder(/password/i).fill('password123');
-    await page.getByRole('button', { name: /sign in|log in/i }).click();
+    await page.getByPlaceholder(/exempel|email/i).fill('invalid-email');
+    await page.getByPlaceholder(/lösenord/i).fill('password123');
+    await page.getByRole('button', { name: /logga in|sign in/i }).click();
 
     // Email input should be invalid
-    const emailInput = page.getByPlaceholder(/email/i);
+    const emailInput = page.getByPlaceholder(/exempel|email/i);
     await expect(emailInput).toHaveAttribute('type', 'email');
   });
 
   test('should show error for incorrect credentials', async ({ page }) => {
     await page.goto('/login');
 
-    await page.getByPlaceholder(/email/i).fill('nonexistent@example.com');
-    await page.getByPlaceholder(/password/i).fill('wrongpassword');
-    await page.getByRole('button', { name: /sign in|log in/i }).click();
+    await page.getByPlaceholder(/exempel|email/i).fill('nonexistent@example.com');
+    await page.getByPlaceholder(/lösenord/i).fill('wrongpassword');
+    await page.getByRole('button', { name: /logga in|sign in/i }).click();
 
     // Wait for error message
     await page.waitForTimeout(1000);

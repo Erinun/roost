@@ -19,16 +19,16 @@ import {
 import type { FeatureAccess } from '@/contexts/SiteSettingsContext';
 
 const COLOR_PRESETS = [
-    { name: 'Sky Blue', value: '#0ea5e9' },
+    { name: 'Himmelsblå', value: '#0ea5e9' },
     { name: 'Indigo', value: '#6366f1' },
-    { name: 'Emerald', value: '#10b981' },
-    { name: 'Rose', value: '#f43f5e' },
-    { name: 'Amber', value: '#f59e0b' },
-    { name: 'Purple', value: '#8b5cf6' },
-    { name: 'Teal', value: '#14b8a6' },
+    { name: 'Smaragdgrön', value: '#10b981' },
+    { name: 'Rosenröd', value: '#f43f5e' },
+    { name: 'Bärnsten', value: '#f59e0b' },
+    { name: 'Lila', value: '#8b5cf6' },
+    { name: 'Blågrön', value: '#14b8a6' },
     { name: 'Orange', value: '#f97316' },
     { name: 'Cyan', value: '#06b6d4' },
-    { name: 'Slate', value: '#64748b' },
+    { name: 'Skiffergrå', value: '#64748b' },
 ];
 
 export default function AdminSiteSettings() {
@@ -58,9 +58,9 @@ export default function AdminSiteSettings() {
                 feature_roadmap: form.feature_roadmap,
                 feature_showcase: form.feature_showcase,
             });
-            setMessage({ type: 'success', text: 'Settings saved successfully!' });
+            setMessage({ type: 'success', text: 'Inställningarna har sparats!' });
         } catch (err) {
-            setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Failed to save settings' });
+            setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Det gick inte att spara inställningarna' });
         } finally {
             setIsSaving(false);
         }
@@ -73,9 +73,9 @@ export default function AdminSiteSettings() {
             const url = await uploadBrandingAsset(file, type);
             const key = type === 'logo' ? 'logo_url' : type === 'logo_dark' ? 'logo_dark_url' : 'favicon_url';
             setForm(prev => ({ ...prev, [key]: url }));
-            setMessage({ type: 'success', text: `${type === 'favicon' ? 'Favicon' : 'Logo'} uploaded!` });
+            setMessage({ type: 'success', text: `${type === 'favicon' ? 'Favicon' : 'Logotyp'} har laddats upp!` });
         } catch (err) {
-            setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Upload failed' });
+            setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Uppladdningen misslyckades' });
         } finally {
             setIsUploading(null);
         }
@@ -92,9 +92,9 @@ export default function AdminSiteSettings() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Site Settings</h1>
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Webbplatsinställningar</h1>
                     <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                        Customize your community's branding and appearance
+                        Anpassa din communitys varumärke och utseende
                     </p>
                 </div>
                 <button
@@ -103,7 +103,7 @@ export default function AdminSiteSettings() {
                     className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
                 >
                     {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                    Save Changes
+                    Spara ändringar
                 </button>
             </div>
 
@@ -123,46 +123,46 @@ export default function AdminSiteSettings() {
             <div className="card p-6">
                 <div className="flex items-center gap-2 mb-4">
                     <Type className="w-5 h-5 text-primary-500" />
-                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Site Identity</h2>
+                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Webbplatsidentitet</h2>
                 </div>
 
                 <div className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
-                            Site Name
+                            Webbplatsnamn
                         </label>
                         <input
                             type="text"
                             value={form.site_name}
                             onChange={e => setForm(prev => ({ ...prev, site_name: e.target.value }))}
                             className="w-full px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                            placeholder="My Community"
+                            placeholder="Min community"
                         />
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
-                            Tagline
+                            Slogan
                         </label>
                         <input
                             type="text"
                             value={form.site_tagline}
                             onChange={e => setForm(prev => ({ ...prev, site_tagline: e.target.value }))}
                             className="w-full px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                            placeholder="Learn, Build, Grow Together"
+                            placeholder="Lär, bygg och väx tillsammans"
                         />
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
-                            Description
+                            Beskrivning
                         </label>
                         <textarea
                             value={form.site_description}
                             onChange={e => setForm(prev => ({ ...prev, site_description: e.target.value }))}
                             rows={2}
                             className="w-full px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
-                            placeholder="A community platform for learning and growing together."
+                            placeholder="En community-plattform för att lära och växa tillsammans."
                         />
                     </div>
                 </div>
@@ -172,18 +172,18 @@ export default function AdminSiteSettings() {
             <div className="card p-6">
                 <div className="flex items-center gap-2 mb-4">
                     <Image className="w-5 h-5 text-primary-500" />
-                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Logos</h2>
+                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Logotyper</h2>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-6">
                     {/* Light Logo */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Logo (Light Theme)
+                            Logotyp (ljust tema)
                         </label>
                         <div className="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-lg p-4 text-center">
                             {form.logo_url ? (
-                                <img src={form.logo_url} alt="Logo" className="h-16 mx-auto mb-2 object-contain" />
+                                <img src={form.logo_url} alt="Logotyp" className="h-16 mx-auto mb-2 object-contain" />
                             ) : (
                                 <div className="h-16 flex items-center justify-center text-surface-400">
                                     <Image className="w-8 h-8" />
@@ -196,7 +196,7 @@ export default function AdminSiteSettings() {
                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300 rounded-md transition-colors disabled:opacity-50"
                             >
                                 {isUploading === 'logo' ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
-                                Upload
+                                Ladda upp
                             </button>
                         </div>
                     </div>
@@ -204,11 +204,11 @@ export default function AdminSiteSettings() {
                     {/* Dark Logo */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Logo (Dark Theme)
+                            Logotyp (mörkt tema)
                         </label>
                         <div className="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded-lg p-4 text-center bg-surface-900 dark:bg-surface-800">
                             {form.logo_dark_url ? (
-                                <img src={form.logo_dark_url} alt="Dark Logo" className="h-16 mx-auto mb-2 object-contain" />
+                                <img src={form.logo_dark_url} alt="Mörk logotyp" className="h-16 mx-auto mb-2 object-contain" />
                             ) : (
                                 <div className="h-16 flex items-center justify-center text-surface-500">
                                     <Image className="w-8 h-8" />
@@ -221,7 +221,7 @@ export default function AdminSiteSettings() {
                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs bg-surface-700 hover:bg-surface-600 text-surface-200 rounded-md transition-colors disabled:opacity-50"
                             >
                                 {isUploading === 'logo_dark' ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
-                                Upload
+                                Ladda upp
                             </button>
                         </div>
                     </div>
@@ -246,10 +246,10 @@ export default function AdminSiteSettings() {
                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300 rounded-md transition-colors disabled:opacity-50"
                             >
                                 {isUploading === 'favicon' ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
-                                Upload
+                                Ladda upp
                             </button>
                         </div>
-                        <p className="text-xs text-surface-400 mt-1">Recommended: 32x32 or 64x64 PNG</p>
+                        <p className="text-xs text-surface-400 mt-1">Rekommenderat: 32x32 eller 64x64 PNG</p>
                     </div>
                 </div>
             </div>
@@ -258,14 +258,14 @@ export default function AdminSiteSettings() {
             <div className="card p-6">
                 <div className="flex items-center gap-2 mb-4">
                     <Palette className="w-5 h-5 text-primary-500" />
-                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Brand Color</h2>
+                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Varumärkesfärg</h2>
                 </div>
 
                 <div className="space-y-4">
                     {/* Color presets */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Presets
+                            Förval
                         </label>
                         <div className="flex flex-wrap gap-2">
                             {COLOR_PRESETS.map(preset => (
@@ -292,7 +292,7 @@ export default function AdminSiteSettings() {
                     {/* Custom color */}
                     <div className="flex items-center gap-3">
                         <label className="text-sm font-medium text-surface-700 dark:text-surface-300">
-                            Custom
+                            Anpassad
                         </label>
                         <input
                             type="color"
@@ -314,18 +314,18 @@ export default function AdminSiteSettings() {
                         />
                         {/* Preview */}
                         <div className="flex items-center gap-2 ml-4">
-                            <span className="text-xs text-surface-500">Preview:</span>
+                            <span className="text-xs text-surface-500">Förhandsvisning:</span>
                             <button
                                 className="px-4 py-1.5 rounded-lg text-white text-xs font-medium"
                                 style={{ backgroundColor: form.primary_color }}
                             >
-                                Button
+                                Knapp
                             </button>
                             <span
                                 className="text-sm font-medium"
                                 style={{ color: form.primary_color }}
                             >
-                                Link text
+                                Länktext
                             </span>
                         </div>
                     </div>
@@ -342,7 +342,7 @@ export default function AdminSiteSettings() {
                 <div className="grid md:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
-                            Support Email
+                            Support-e-post
                         </label>
                         <input
                             type="email"
@@ -355,7 +355,7 @@ export default function AdminSiteSettings() {
 
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">
-                            Support URL
+                            Support-URL
                         </label>
                         <input
                             type="url"
@@ -372,18 +372,18 @@ export default function AdminSiteSettings() {
             <div className="card p-6">
                 <div className="flex items-center gap-2 mb-4">
                     <Puzzle className="w-5 h-5 text-primary-500" />
-                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Feature Modules</h2>
+                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Funktionsmoduler</h2>
                 </div>
                 <p className="text-sm text-surface-500 dark:text-surface-400 mb-4">
-                    Enable or disable features and control who can access them.
+                    Aktivera eller inaktivera funktioner och styr vem som har åtkomst till dem.
                 </p>
 
                 <div className="space-y-3">
                     {([
-                        { key: 'feature_live_room' as const, name: 'Live Room', description: 'Live streaming sessions with chat', icon: Radio },
-                        { key: 'feature_activations' as const, name: 'Activations', description: 'Product activation and license management', icon: Key },
-                        { key: 'feature_roadmap' as const, name: 'Roadmap & Issues', description: 'Feature requests and bug reports from users', icon: Lightbulb },
-                        { key: 'feature_showcase' as const, name: 'Showcase', description: 'Member project gallery with reviews and voting', icon: Rocket },
+                        { key: 'feature_live_room' as const, name: 'Live-rum', description: 'Livesändningar med chatt', icon: Radio },
+                        { key: 'feature_activations' as const, name: 'Aktiveringar', description: 'Produktaktivering och licenshantering', icon: Key },
+                        { key: 'feature_roadmap' as const, name: 'Roadmap & ärenden', description: 'Funktionsönskemål och buggrapporter från användare', icon: Lightbulb },
+                        { key: 'feature_showcase' as const, name: 'Projekt', description: 'Medlemmarnas projektgalleri med recensioner och röstning', icon: Rocket },
                     ]).map(feature => {
                         const Icon = feature.icon;
                         const value = (form[feature.key] || 'all') as FeatureAccess;
@@ -403,9 +403,9 @@ export default function AdminSiteSettings() {
                                     onChange={e => setForm(prev => ({ ...prev, [feature.key]: e.target.value as FeatureAccess }))}
                                     className="px-3 py-1.5 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                                 >
-                                    <option value="all">Everyone</option>
-                                    <option value="premium_only">Premium Only</option>
-                                    <option value="disabled">Disabled</option>
+                                    <option value="all">Alla</option>
+                                    <option value="premium_only">Endast premium</option>
+                                    <option value="disabled">Inaktiverad</option>
                                 </select>
                             </div>
                         );

@@ -12,7 +12,7 @@ async function requireAdmin(req: Request, res: Response, next: () => void) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Authorization required' });
+    return res.status(401).json({ error: 'Inloggning krävs' });
   }
 
   const token = authHeader.substring(7);
@@ -22,7 +22,7 @@ async function requireAdmin(req: Request, res: Response, next: () => void) {
     const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
 
     if (error || !user) {
-      return res.status(401).json({ error: 'Invalid token' });
+      return res.status(401).json({ error: 'Ogiltig token' });
     }
 
     // Check if user is admin or superadmin
@@ -33,13 +33,13 @@ async function requireAdmin(req: Request, res: Response, next: () => void) {
       .single();
 
     if (!profile || !['admin', 'superadmin'].includes(profile.role)) {
-      return res.status(403).json({ error: 'Admin access required' });
+      return res.status(403).json({ error: 'Administratörsbehörighet krävs' });
     }
 
     next();
   } catch (error) {
     console.error('Auth error:', error);
-    return res.status(500).json({ error: 'Authentication failed' });
+    return res.status(500).json({ error: 'Autentiseringen misslyckades' });
   }
 }
 
@@ -84,20 +84,20 @@ router.post('/trigger', requireAdmin, async (_req: Request, res: Response) => {
 
     if (result.success) {
       res.json({
-        message: 'Backup completed successfully',
+        message: 'Säkerhetskopieringen har slutförts',
         ...result,
       });
     } else {
       res.status(500).json({
-        message: 'Backup failed',
+        message: 'Säkerhetskopieringen misslyckades',
         error: result.error,
       });
     }
   } catch (error) {
     console.error('[Backup API] Error:', error);
     res.status(500).json({
-      error: 'Failed to trigger backup',
-      message: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Det gick inte att starta säkerhetskopieringen',
+      message: error instanceof Error ? error.message : 'Okänt fel',
     });
   }
 });
@@ -113,20 +113,20 @@ router.post('/automated', requireBackupToken, async (_req: Request, res: Respons
 
     if (result.success) {
       res.json({
-        message: 'Backup completed successfully',
+        message: 'Säkerhetskopieringen har slutförts',
         ...result,
       });
     } else {
       res.status(500).json({
-        message: 'Backup failed',
+        message: 'Säkerhetskopieringen misslyckades',
         error: result.error,
       });
     }
   } catch (error) {
     console.error('[Backup API] Error:', error);
     res.status(500).json({
-      error: 'Failed to trigger backup',
-      message: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Det gick inte att starta säkerhetskopieringen',
+      message: error instanceof Error ? error.message : 'Okänt fel',
     });
   }
 });
@@ -154,8 +154,8 @@ router.get('/list', requireAdmin, async (_req: Request, res: Response) => {
   } catch (error) {
     console.error('[Backup API] List error:', error);
     res.status(500).json({
-      error: 'Failed to list backups',
-      message: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Det gick inte att hämta listan över säkerhetskopior',
+      message: error instanceof Error ? error.message : 'Okänt fel',
     });
   }
 });
@@ -169,7 +169,7 @@ router.get('/download/:filename', requireAdmin, async (req: Request, res: Respon
     const filename = req.params.filename as string;
 
     if (!filename) {
-      return res.status(400).json({ error: 'Filename is required' });
+      return res.status(400).json({ error: 'Filnamn krävs' });
     }
 
     console.log(`[Backup API] Download requested for: ${filename}`);
@@ -179,8 +179,8 @@ router.get('/download/:filename', requireAdmin, async (req: Request, res: Respon
   } catch (error) {
     console.error('[Backup API] Download error:', error);
     res.status(500).json({
-      error: 'Failed to generate download URL',
-      message: error instanceof Error ? error.message : 'Unknown error',
+      error: 'Det gick inte att skapa en nedladdningslänk',
+      message: error instanceof Error ? error.message : 'Okänt fel',
     });
   }
 });

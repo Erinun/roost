@@ -82,7 +82,7 @@ const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
 function toResult<T>(data: T | null, error: unknown): DbResult<T> {
   if (error) {
     const e = error as { message?: string; code?: string; details?: string };
-    return { data: null, error: { message: e.message ?? 'Unknown error', code: e.code, details: e.details } };
+    return { data: null, error: { message: e.message ?? 'Okänt fel', code: e.code, details: e.details } };
   }
   return { data: data as T, error: null };
 }
@@ -91,7 +91,7 @@ function toResult<T>(data: T | null, error: unknown): DbResult<T> {
 function toListResult<T>(data: T[] | null, error: unknown, count?: number | null): DbListResult<T> {
   if (error) {
     const e = error as { message?: string; code?: string; details?: string };
-    return { data: [], error: { message: e.message ?? 'Unknown error', code: e.code, details: e.details } };
+    return { data: [], error: { message: e.message ?? 'Okänt fel', code: e.code, details: e.details } };
   }
   return { data: (data ?? []) as T[], error: null, count: count ?? undefined };
 }

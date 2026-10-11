@@ -41,7 +41,7 @@ const TABS: { id: SettingsTab; label: string; icon: typeof User }[] = [
     { id: 'profile', label: 'Profil', icon: User },
     { id: 'account', label: 'Konto', icon: Shield },
     { id: 'subscription', label: 'Prenumeration', icon: CreditCard },
-    { id: 'notifications', label: 'Aviseringar', icon: Bell },
+    { id: 'notifications', label: 'Notiser', icon: Bell },
 ];
 
 export default function Settings() {
@@ -135,7 +135,7 @@ export default function Settings() {
                 setNotificationPrefs(prefs);
             } catch (err) {
                 console.error('Failed to load notification preferences:', err);
-                setPrefsError('Det gick inte att ladda aviseringsinställningarna');
+                setPrefsError('Det gick inte att ladda notisinställningarna');
             } finally {
                 setIsPrefsLoading(false);
             }
@@ -610,10 +610,10 @@ export default function Settings() {
                             {/* Email Section */}
                             <div className="card shadow-none p-6 sm:p-8">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
-                                    Email Address
+                                    E-postadress
                                 </h2>
                                 <div>
-                                    <label className="label">Email</label>
+                                    <label className="label">E-post</label>
                                     <input
                                         type="email"
                                         value={user.email || ''}
@@ -621,7 +621,7 @@ export default function Settings() {
                                         className="input bg-surface-50 dark:bg-surface-800 text-surface-500 dark:text-surface-400 cursor-not-allowed"
                                     />
                                     <p className="text-sm text-surface-500 dark:text-surface-400 mt-2">
-                                        Contact support to change your email address.
+                                        Kontakta supporten för att byta e-postadress.
                                     </p>
                                 </div>
                             </div>
@@ -629,23 +629,23 @@ export default function Settings() {
                             {/* Security Section */}
                             <div className="card shadow-none p-6 sm:p-8">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
-                                    Security
+                                    Säkerhet
                                 </h2>
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between p-4 bg-surface-50 dark:bg-surface-800 rounded-lg">
                                         <div>
                                             <h3 className="font-medium text-surface-900 dark:text-surface-100">
-                                                Password
+                                                Lösenord
                                             </h3>
                                             <p className="text-sm text-surface-500 dark:text-surface-400">
-                                                Keep your account secure with a strong password
+                                                Håll ditt konto säkert med ett starkt lösenord
                                             </p>
                                         </div>
                                         <button
                                             onClick={() => setIsChangePasswordModalOpen(true)}
                                             className="btn-secondary px-4 py-2 text-sm"
                                         >
-                                            Change Password
+                                            Byt lösenord
                                         </button>
                                     </div>
                                     <div className="flex items-center justify-between p-4 bg-surface-50 dark:bg-surface-800 rounded-lg">
@@ -661,12 +661,12 @@ export default function Settings() {
                                             )}
                                             <div>
                                                 <h3 className="font-medium text-surface-900 dark:text-surface-100">
-                                                    Two-Factor Authentication
+                                                    Tvåfaktorsautentisering
                                                 </h3>
                                                 <p className="text-sm text-surface-500 dark:text-surface-400">
                                                     {is2FAEnabled
-                                                        ? 'Your account is protected with 2FA'
-                                                        : 'Add an extra layer of security to your account'
+                                                        ? 'Ditt konto är skyddat med 2FA'
+                                                        : 'Lägg till ett extra säkerhetslager för ditt konto'
                                                     }
                                                 </p>
                                             </div>
@@ -678,14 +678,14 @@ export default function Settings() {
                                                 onClick={() => setIs2FADisableModalOpen(true)}
                                                 className="px-4 py-2 text-sm font-medium text-red-600 dark:text-red-400 border border-red-300 dark:border-red-800 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                                             >
-                                                Disable 2FA
+                                                Inaktivera 2FA
                                             </button>
                                         ) : (
                                             <button
                                                 onClick={() => setIs2FASetupModalOpen(true)}
                                                 className="px-4 py-2 text-sm font-medium text-green-600 dark:text-green-400 border border-green-300 dark:border-green-800 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors"
                                             >
-                                                Enable 2FA
+                                                Aktivera 2FA
                                             </button>
                                         )}
                                     </div>
@@ -695,13 +695,13 @@ export default function Settings() {
                             {/* Danger Zone */}
                             <div className="card shadow-none p-6 sm:p-8 border-red-200 dark:border-red-900">
                                 <h2 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-4">
-                                    Danger Zone
+                                    Farozon
                                 </h2>
                                 <p className="text-sm text-surface-500 dark:text-surface-400 mb-4">
-                                    Once you delete your account, there is no going back. Please be certain.
+                                    När du har tagit bort ditt konto går det inte att ångra. Var helt säker.
                                 </p>
                                 <button className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
-                                    Delete Account
+                                    Ta bort konto
                                 </button>
                             </div>
                         </div>
@@ -711,7 +711,7 @@ export default function Settings() {
                     {activeTab === 'subscription' && (
                         <div className="card shadow-none p-6 sm:p-8">
                             <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
-                                Subscription Status
+                                Prenumerationsstatus
                             </h2>
 
                             <div className="mb-6">
@@ -720,15 +720,15 @@ export default function Settings() {
 
                             <div className="bg-surface-50 dark:bg-surface-800 rounded-xl p-6 space-y-4">
                                 <h3 className="font-medium text-surface-900 dark:text-surface-100">
-                                    Membership Benefits
+                                    Medlemsförmåner
                                 </h3>
                                 <ul className="space-y-3">
                                     {[
-                                        'Access to all community features',
-                                        'Participate in exclusive groups',
-                                        'Submit projects to showcase',
-                                        'Direct messaging with members',
-                                        'Priority support',
+                                        'Tillgång till alla communityfunktioner',
+                                        'Delta i exklusiva klassrum',
+                                        'Skicka in projekt till Projekt-sektionen',
+                                        'Direktmeddelanden med medlemmar',
+                                        'Prioriterad support',
                                     ].map((benefit, index) => (
                                         <li key={index} className="flex items-center gap-3 text-sm text-surface-600 dark:text-surface-400">
                                             <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
@@ -749,10 +749,10 @@ export default function Settings() {
                                 }}
                                 className="mt-6 inline-flex items-center gap-2 px-4 py-2 text-sm bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors"
                             >
-                                Manage Subscription
+                                Hantera prenumeration
                             </button>
                             <p className="text-sm text-surface-500 dark:text-surface-400 mt-3">
-                                Manage your subscription via Stripe. Changes may take a few minutes to reflect here.
+                                Hantera din prenumeration via Stripe. Det kan ta några minuter innan ändringar syns här.
                             </p>
                         </div>
                     )}
@@ -763,10 +763,10 @@ export default function Settings() {
                             {/* Email Notifications */}
                             <div className="card shadow-none p-6 sm:p-8">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-2">
-                                    Email Notifications
+                                    E-postnotiser
                                 </h2>
                                 <p className="text-sm text-surface-500 dark:text-surface-400 mb-6">
-                                    Choose which notifications you want to receive via email.
+                                    Välj vilka notiser du vill få via e-post.
                                 </p>
 
                                 {isPrefsLoading ? (
@@ -787,17 +787,17 @@ export default function Settings() {
                                         {prefsSaved && (
                                             <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-lg text-sm flex items-center gap-2">
                                                 <Check className="w-4 h-4" />
-                                                <span>Notification preferences saved successfully!</span>
+                                                <span>Notisinställningarna har sparats!</span>
                                             </div>
                                         )}
 
                                         <div className="space-y-1">
                                             {[
-                                                { id: 'email_comments' as const, label: 'Comments on your posts', description: 'Get an email when someone comments on your posts' },
-                                                { id: 'email_replies' as const, label: 'Replies to your comments', description: 'Get an email when someone replies to your comments' },
-                                                { id: 'email_mentions' as const, label: 'Mentions', description: 'Get an email when someone @mentions you in a comment' },
-                                                { id: 'email_messages' as const, label: 'Direct messages', description: 'Get an email when you receive a new direct message' },
-                                                { id: 'email_announcements' as const, label: 'Community announcements', description: 'Receive important updates about the community' },
+                                                { id: 'email_comments' as const, label: 'Kommentarer på dina inlägg', description: 'Få ett mejl när någon kommenterar dina inlägg' },
+                                                { id: 'email_replies' as const, label: 'Svar på dina kommentarer', description: 'Få ett mejl när någon svarar på dina kommentarer' },
+                                                { id: 'email_mentions' as const, label: 'Omnämnanden', description: 'Få ett mejl när någon @nämner dig i en kommentar' },
+                                                { id: 'email_messages' as const, label: 'Direktmeddelanden', description: 'Få ett mejl när du får ett nytt direktmeddelande' },
+                                                { id: 'email_announcements' as const, label: 'Nyheter från communityt', description: 'Få viktiga uppdateringar om communityt' },
                                             ].map((item) => (
                                                 <div key={item.id} className="flex items-center justify-between py-4 border-b border-surface-100 dark:border-surface-800 last:border-0">
                                                     <div>
@@ -827,10 +827,10 @@ export default function Settings() {
                             {/* In-App Notifications */}
                             <div className="card shadow-none p-6 sm:p-8">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-2">
-                                    In-App Notifications
+                                    Notiser i appen
                                 </h2>
                                 <p className="text-sm text-surface-500 dark:text-surface-400 mb-6">
-                                    Choose which notifications appear in your notification center.
+                                    Välj vilka notiser som visas i ditt notiscenter.
                                 </p>
 
                                 {isPrefsLoading ? (
@@ -840,11 +840,11 @@ export default function Settings() {
                                 ) : (
                                     <div className="space-y-1">
                                         {[
-                                            { id: 'notify_comments' as const, label: 'Comments', description: 'When someone comments on your posts' },
-                                            { id: 'notify_replies' as const, label: 'Replies', description: 'When someone replies to your comments' },
-                                            { id: 'notify_mentions' as const, label: 'Mentions', description: 'When someone @mentions you' },
-                                            { id: 'notify_messages' as const, label: 'Messages', description: 'When you receive a direct message' },
-                                            { id: 'notify_reactions' as const, label: 'Reactions', description: 'When someone reacts to your content' },
+                                            { id: 'notify_comments' as const, label: 'Kommentarer', description: 'När någon kommenterar dina inlägg' },
+                                            { id: 'notify_replies' as const, label: 'Svar', description: 'När någon svarar på dina kommentarer' },
+                                            { id: 'notify_mentions' as const, label: 'Omnämnanden', description: 'När någon @nämner dig' },
+                                            { id: 'notify_messages' as const, label: 'Meddelanden', description: 'När du får ett direktmeddelande' },
+                                            { id: 'notify_reactions' as const, label: 'Reaktioner', description: 'När någon reagerar på ditt innehåll' },
                                         ].map((item) => (
                                             <div key={item.id} className="flex items-center justify-between py-4 border-b border-surface-100 dark:border-surface-800 last:border-0">
                                                 <div>
@@ -881,10 +881,10 @@ export default function Settings() {
                                         {isPrefsSaving ? (
                                             <>
                                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                                <span>Saving...</span>
+                                                <span>Sparar...</span>
                                             </>
                                         ) : (
-                                            <span>Save Preferences</span>
+                                            <span>Spara inställningar</span>
                                         )}
                                     </button>
                                 </div>

@@ -58,37 +58,37 @@ export const FEATURE_REQUEST_STATUS_INFO: Record<FeatureRequestStatus, {
     dotColor: string;
 }> = {
     under_review: {
-        label: 'Under Review',
+        label: 'Under granskning',
         color: 'text-yellow-700 dark:text-yellow-400',
         bgColor: 'bg-yellow-100 dark:bg-yellow-900/30',
         dotColor: 'bg-yellow-500',
     },
     planned: {
-        label: 'Planned',
+        label: 'Planerad',
         color: 'text-blue-700 dark:text-blue-400',
         bgColor: 'bg-blue-100 dark:bg-blue-900/30',
         dotColor: 'bg-blue-500',
     },
     in_progress: {
-        label: 'In Progress',
+        label: 'Pågår',
         color: 'text-orange-700 dark:text-orange-400',
         bgColor: 'bg-orange-100 dark:bg-orange-900/30',
         dotColor: 'bg-orange-500',
     },
     released: {
-        label: 'Released',
+        label: 'Släppt',
         color: 'text-green-700 dark:text-green-400',
         bgColor: 'bg-green-100 dark:bg-green-900/30',
         dotColor: 'bg-green-500',
     },
     declined: {
-        label: 'Declined',
+        label: 'Avböjd',
         color: 'text-red-700 dark:text-red-400',
         bgColor: 'bg-red-100 dark:bg-red-900/30',
         dotColor: 'bg-red-500',
     },
     duplicate: {
-        label: 'Duplicate',
+        label: 'Dubblett',
         color: 'text-surface-600 dark:text-surface-400',
         bgColor: 'bg-surface-100 dark:bg-surface-800',
         dotColor: 'bg-surface-400',
@@ -102,17 +102,17 @@ export const FEATURE_REQUEST_TYPE_INFO: Record<FeatureRequestType, {
     bgColor: string;
 }> = {
     feature_request: {
-        label: 'Feature',
+        label: 'Funktion',
         color: 'text-purple-700 dark:text-purple-400',
         bgColor: 'bg-purple-100 dark:bg-purple-900/30',
     },
     bug_report: {
-        label: 'Bug',
+        label: 'Bugg',
         color: 'text-red-700 dark:text-red-400',
         bgColor: 'bg-red-100 dark:bg-red-900/30',
     },
     improvement: {
-        label: 'Improvement',
+        label: 'Förbättring',
         color: 'text-blue-700 dark:text-blue-400',
         bgColor: 'bg-blue-100 dark:bg-blue-900/30',
     },

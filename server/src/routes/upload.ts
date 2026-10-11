@@ -117,13 +117,13 @@ uploadRouter.post('/presign', async (req: Request, res: Response) => {
   // Authenticate
   const userId = await authenticateUser(req);
   if (!userId) {
-    return res.status(401).json({ error: 'Authentication required' });
+    return res.status(401).json({ error: 'Inloggning krävs' });
   }
 
   // Validate request body
   const parsed = presignRequestSchema.safeParse(req.body);
   if (!parsed.success) {
-    return res.status(400).json({ error: 'Invalid request', details: parsed.error.errors });
+    return res.status(400).json({ error: 'Ogiltig förfrågan', details: parsed.error.errors });
   }
 
   const { fileName, fileType, fileSize, folder } = parsed.data;
@@ -131,12 +131,12 @@ uploadRouter.post('/presign', async (req: Request, res: Response) => {
   // Validate folder against allowed patterns
   if (!ALLOWED_FOLDER_PATTERN.test(folder)) {
     console.warn(`[Upload] Rejected folder value: "${folder}" from user ${userId}`);
-    return res.status(400).json({ error: 'Invalid upload folder' });
+    return res.status(400).json({ error: 'Ogiltig uppladdningsmapp' });
   }
 
   // Validate file type
   if (!ALL_ALLOWED_TYPES.includes(fileType)) {
-    return res.status(400).json({ error: `File type not allowed: ${fileType}` });
+    return res.status(400).json({ error: `Filtypen tillåts inte: ${fileType}` });
   }
 
   // Validate file size based on folder/type
@@ -149,7 +149,7 @@ uploadRouter.post('/presign', async (req: Request, res: Response) => {
 
   if (fileSize > maxSize) {
     return res.status(400).json({
-      error: `File too large. Maximum size: ${Math.round(maxSize / (1024 * 1024))}MB`,
+      error: `Filen är för stor. Maximal storlek: ${Math.round(maxSize / (1024 * 1024))} MB`,
     });
   }
 
@@ -173,7 +173,7 @@ uploadRouter.post('/presign', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[Upload] Pre-sign error:', error);
-    res.status(500).json({ error: 'Failed to generate upload URL' });
+    res.status(500).json({ error: 'Det gick inte att skapa en uppladdningslänk' });
   }
 });
 
@@ -184,12 +184,12 @@ uploadRouter.post('/presign', async (req: Request, res: Response) => {
 uploadRouter.post('/delete', async (req: Request, res: Response) => {
   const userId = await authenticateUser(req);
   if (!userId) {
-    return res.status(401).json({ error: 'Authentication required' });
+    return res.status(401).json({ error: 'Inloggning krävs' });
   }
 
   const parsed = deleteRequestSchema.safeParse(req.body);
   if (!parsed.success) {
-    return res.status(400).json({ error: 'Invalid request' });
+    return res.status(400).json({ error: 'Ogiltig förfrågan' });
   }
 
   const { key } = parsed.data;
@@ -198,13 +198,13 @@ uploadRouter.post('/delete', async (req: Request, res: Response) => {
   const hasValidPrefix = ALLOWED_DELETE_PREFIXES.some(prefix => key.startsWith(prefix));
   if (!hasValidPrefix) {
     console.warn(`[Upload] Rejected delete key: "${key}" from user ${userId}`);
-    return res.status(400).json({ error: 'Invalid file key' });
+    return res.status(400).json({ error: 'Ogiltig filnyckel' });
   }
 
   // Prevent path traversal in key
   if (key.includes('..') || key.includes('//')) {
     console.warn(`[Upload] Path traversal attempt in delete key: "${key}" from user ${userId}`);
-    return res.status(400).json({ error: 'Invalid file key' });
+    return res.status(400).json({ error: 'Ogiltig filnyckel' });
   }
 
   try {
@@ -232,14 +232,14 @@ uploadRouter.post('/delete', async (req: Request, res: Response) => {
         // Asset record found — verify ownership
         if (asset.uploaded_by !== userId) {
           console.warn(`[Upload] Unauthorized delete: user ${userId} tried to delete file owned by ${asset.uploaded_by}, key="${key}"`);
-          return res.status(403).json({ error: 'You can only delete your own files' });
+          return res.status(403).json({ error: 'Du kan bara ta bort dina egna filer' });
         }
       } else {
         // No asset record found — allow only if key contains the user's ID
         // (covers avatar uploads and other user-scoped paths like avatars/{userId}/...)
         if (!key.includes(userId)) {
           console.warn(`[Upload] Unauthorized delete: user ${userId} tried to delete unowned file, key="${key}"`);
-          return res.status(403).json({ error: 'You can only delete your own files' });
+          return res.status(403).json({ error: 'Du kan bara ta bort dina egna filer' });
         }
       }
     }
@@ -253,6 +253,6 @@ uploadRouter.post('/delete', async (req: Request, res: Response) => {
     res.json({ success: true });
   } catch (error) {
     console.error('[Upload] Delete error:', error);
-    res.status(500).json({ error: 'Failed to delete file' });
+    res.status(500).json({ error: 'Det gick inte att ta bort filen' });
   }
 });

@@ -263,7 +263,7 @@ export async function createGroup(group: GroupInsert): Promise<Group> {
     // Verify slug is available
     const slugAvailable = await isSlugAvailable(slug);
     if (!slugAvailable) {
-        throw new Error('Gruppens webbadress är redan upptagen. Välj ett annat namn.');
+        throw new Error('Klassrummets webbadress är redan upptagen. Välj ett annat namn.');
     }
 
     const { data, error } = await supabase
@@ -297,7 +297,7 @@ export async function updateGroup(groupId: string, updates: GroupUpdate): Promis
         slug = generateSlug(updates.name);
         const slugAvailable = await isSlugAvailable(slug, groupId);
         if (!slugAvailable) {
-            throw new Error('Gruppens webbadress är redan upptagen. Välj ett annat namn.');
+            throw new Error('Klassrummets webbadress är redan upptagen. Välj ett annat namn.');
         }
     }
 
@@ -377,7 +377,7 @@ export async function leaveGroup(groupId: string, userId: string): Promise<void>
             .eq('role', 'admin');
 
         if (count === 1) {
-            throw new Error('Du kan inte lämna gruppen som enda administratör. Överför ägarskapet eller ta bort gruppen.');
+            throw new Error('Du kan inte lämna klassrummet som enda administratör. Överför ägarskapet eller ta bort klassrummet.');
         }
     }
 

@@ -621,7 +621,7 @@ ${this.fromName}-teamet
         return {
           color: '#8b5cf6', // purple
           icon: '👥',
-          subject: `Gruppinbjudan: ${title}`,
+          subject: `Inbjudan till klassrum: ${title}`,
         };
       case 'new_follower':
         return {

@@ -48,7 +48,7 @@ interface NavTab {
 
 // Mobile navigation tabs (matches SideNav items)
 const navTabs: NavTab[] = [
-    { name: 'Community', href: '/', icon: Home },
+    { name: 'Hem', href: '/', icon: Home },
     { name: 'Utforska', href: '/explore', icon: Compass },
     { name: 'Klassrum', href: '/classrooms', icon: BookOpen },
     { name: 'Projekt', href: '/showcase', icon: Rocket },

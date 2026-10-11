@@ -64,7 +64,7 @@ if (USE_REDIS_RATE_LIMIT) {
   const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 300,
-    message: 'Too many requests from this IP, please try again later.',
+    message: 'För många förfrågningar från den här IP-adressen. Försök igen senare.',
   });
   app.use('/api/', limiter);
 
@@ -102,7 +102,7 @@ const adminLimiter = USE_REDIS_RATE_LIMIT
   : rateLimit({
       windowMs: 1 * 60 * 1000,
       max: 30,
-      message: 'Too many admin requests, please try again later.',
+      message: 'För många administratörsförfrågningar. Försök igen senare.',
       keyGenerator: extractUserIdFromToken,
     });
 
@@ -120,7 +120,7 @@ const authLimiterMiddleware = USE_REDIS_RATE_LIMIT
   : rateLimit({
       windowMs: 15 * 60 * 1000,
       max: 10,
-      message: 'Too many password reset attempts, please try again later.',
+      message: 'För många försök att återställa lösenordet. Försök igen senare.',
     });
 
 // Routes
@@ -143,7 +143,7 @@ app.use('/api/live-room', liveRoomRouter);
 app.use((err: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error('Server error:', err);
   res.status(500).json({
-    error: 'Internal server error',
+    error: 'Internt serverfel',
     message: process.env.NODE_ENV === 'development' ? err.message : undefined,
   });
 });

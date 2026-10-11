@@ -25,11 +25,11 @@ import type { ShowcaseStatus } from '@/types/database';
 import { SHOWCASE_CATEGORY_INFO, SHOWCASE_STATUS_INFO } from '@/types/showcase';
 
 const TABS: { value: ShowcaseStatus | 'all'; label: string }[] = [
-    { value: 'pending', label: 'Pending' },
-    { value: 'approved', label: 'Approved' },
-    { value: 'featured', label: 'Featured' },
-    { value: 'rejected', label: 'Rejected' },
-    { value: 'all', label: 'All' },
+    { value: 'pending', label: 'Väntande' },
+    { value: 'approved', label: 'Godkända' },
+    { value: 'featured', label: 'Utvalda' },
+    { value: 'rejected', label: 'Avvisade' },
+    { value: 'all', label: 'Alla' },
 ];
 
 export default function AdminShowcases() {
@@ -142,10 +142,10 @@ export default function AdminShowcases() {
             {/* Header */}
             <div>
                 <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-50">
-                    Showcase Moderation
+                    Projektmoderering
                 </h1>
                 <p className="text-surface-500 dark:text-surface-400 mt-1">
-                    Review and manage showcase submissions
+                    Granska och hantera inskickade projekt
                 </p>
             </div>
 
@@ -153,27 +153,27 @@ export default function AdminShowcases() {
             {stats && (
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-surface-500 dark:text-surface-400">Total</p>
+                        <p className="text-sm text-surface-500 dark:text-surface-400">Totalt</p>
                         <p className="text-2xl font-bold text-surface-900 dark:text-surface-50">{stats.total}</p>
                     </div>
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-yellow-600">Pending</p>
+                        <p className="text-sm text-yellow-600">Väntande</p>
                         <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
                     </div>
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-green-600">Approved</p>
+                        <p className="text-sm text-green-600">Godkända</p>
                         <p className="text-2xl font-bold text-green-600">{stats.approved}</p>
                     </div>
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-purple-600">Featured</p>
+                        <p className="text-sm text-purple-600">Utvalda</p>
                         <p className="text-2xl font-bold text-purple-600">{stats.featured}</p>
                     </div>
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-red-600">Rejected</p>
+                        <p className="text-sm text-red-600">Avvisade</p>
                         <p className="text-2xl font-bold text-red-600">{stats.rejected}</p>
                     </div>
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-surface-500 dark:text-surface-400">This Month</p>
+                        <p className="text-sm text-surface-500 dark:text-surface-400">Denna månad</p>
                         <p className="text-2xl font-bold text-surface-900 dark:text-surface-50">{stats.thisMonth}</p>
                     </div>
                 </div>
@@ -208,7 +208,7 @@ export default function AdminShowcases() {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400" />
                     <input
                         type="text"
-                        placeholder="Search showcases..."
+                        placeholder="Sök projekt..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         className="pl-10 pr-4 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -223,7 +223,7 @@ export default function AdminShowcases() {
                 </div>
             ) : showcases.length === 0 ? (
                 <div className="text-center py-12 text-surface-500 dark:text-surface-400">
-                    No showcases found
+                    Inga projekt hittades
                 </div>
             ) : (
                 <div className="card shadow-none overflow-hidden">
@@ -232,25 +232,25 @@ export default function AdminShowcases() {
                             <thead className="bg-surface-50 dark:bg-surface-800">
                                 <tr>
                                     <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 uppercase tracking-wider">
-                                        Project
+                                        Projekt
                                     </th>
                                     <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 uppercase tracking-wider">
-                                        Author
+                                        Skapare
                                     </th>
                                     <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 uppercase tracking-wider">
-                                        Category
+                                        Kategori
                                     </th>
                                     <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 uppercase tracking-wider">
                                         Status
                                     </th>
                                     <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 uppercase tracking-wider">
-                                        Stats
+                                        Statistik
                                     </th>
                                     <th className="px-4 py-3 text-left text-xs font-medium text-surface-500 uppercase tracking-wider">
-                                        Submitted
+                                        Inskickat
                                     </th>
                                     <th className="px-4 py-3 text-right text-xs font-medium text-surface-500 uppercase tracking-wider">
-                                        Actions
+                                        Åtgärder
                                     </th>
                                 </tr>
                             </thead>
@@ -328,7 +328,7 @@ export default function AdminShowcases() {
                                                 </div>
                                             </td>
                                             <td className="px-4 py-4 text-sm text-surface-500">
-                                                {new Date(showcase.created_at ?? Date.now()).toLocaleDateString()}
+                                                {new Date(showcase.created_at ?? Date.now()).toLocaleDateString('sv-SE')}
                                             </td>
                                             <td className="px-4 py-4">
                                                 <div className="flex items-center justify-end gap-2">
@@ -337,14 +337,14 @@ export default function AdminShowcases() {
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="p-2 text-surface-400 hover:text-surface-600 hover:bg-surface-100 dark:hover:bg-surface-700 rounded-lg"
-                                                        title="Visit project"
+                                                        title="Besök projektet"
                                                     >
                                                         <ExternalLink className="w-4 h-4" />
                                                     </a>
                                                     <Link
                                                         to={`/showcase/${showcase.id}`}
                                                         className="p-2 text-surface-400 hover:text-surface-600 hover:bg-surface-100 dark:hover:bg-surface-700 rounded-lg"
-                                                        title="View details"
+                                                        title="Visa detaljer"
                                                     >
                                                         <Eye className="w-4 h-4" />
                                                     </Link>
@@ -355,7 +355,7 @@ export default function AdminShowcases() {
                                                                 onClick={() => handleApprove(showcase.id)}
                                                                 disabled={isActionLoading}
                                                                 className="p-2 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg disabled:opacity-50"
-                                                                title="Approve"
+                                                                title="Godkänn"
                                                             >
                                                                 {isActionLoading ? (
                                                                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -367,7 +367,7 @@ export default function AdminShowcases() {
                                                                 onClick={() => openRejectModal(showcase.id)}
                                                                 disabled={isActionLoading}
                                                                 className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg disabled:opacity-50"
-                                                                title="Reject"
+                                                                title="Avvisa"
                                                             >
                                                                 <XCircle className="w-4 h-4" />
                                                             </button>
@@ -379,7 +379,7 @@ export default function AdminShowcases() {
                                                             onClick={() => handleFeature(showcase.id)}
                                                             disabled={isActionLoading}
                                                             className="p-2 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg disabled:opacity-50"
-                                                            title="Feature"
+                                                            title="Markera som utvalt"
                                                         >
                                                             {isActionLoading ? (
                                                                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -394,7 +394,7 @@ export default function AdminShowcases() {
                                                             onClick={() => handleUnfeature(showcase.id)}
                                                             disabled={isActionLoading}
                                                             className="p-2 text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-700 rounded-lg disabled:opacity-50"
-                                                            title="Unfeature"
+                                                            title="Ta bort utvalt-markering"
                                                         >
                                                             {isActionLoading ? (
                                                                 <Loader2 className="w-4 h-4 animate-spin" />
@@ -419,15 +419,15 @@ export default function AdminShowcases() {
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
                     <div className="bg-white dark:bg-surface-900 rounded-xl shadow-xl max-w-md w-full p-6">
                         <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">
-                            Reject Showcase
+                            Avvisa projekt
                         </h3>
                         <p className="text-sm text-surface-500 dark:text-surface-400 mb-4">
-                            Please provide a reason for rejection. This will be visible to the author.
+                            Ange en anledning till avvisningen. Den kommer att visas för skaparen.
                         </p>
                         <textarea
                             value={rejectReason}
                             onChange={(e) => setRejectReason(e.target.value)}
-                            placeholder="Reason for rejection..."
+                            placeholder="Anledning till avvisning..."
                             rows={4}
                             className="w-full px-4 py-3 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-primary-500"
                         />
@@ -440,7 +440,7 @@ export default function AdminShowcases() {
                                 }}
                                 className="px-4 py-2 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg"
                             >
-                                Cancel
+                                Avbryt
                             </button>
                             <button
                                 onClick={handleReject}
@@ -448,7 +448,7 @@ export default function AdminShowcases() {
                                 className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 flex items-center gap-2"
                             >
                                 {actionLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-                                Reject
+                                Avvisa
                             </button>
                         </div>
                     </div>

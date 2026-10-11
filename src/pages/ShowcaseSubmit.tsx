@@ -179,12 +179,12 @@ export default function ShowcaseSubmit() {
 
         const file = files[0];
         if (!file.type.startsWith('image/')) {
-            setError('Please upload an image file');
+            setError('Ladda upp en bildfil');
             return;
         }
 
         if (file.size > 5 * 1024 * 1024) {
-            setError('Thumbnail must be less than 5MB');
+            setError('Miniatyrbilden får vara högst 5 MB');
             return;
         }
 
@@ -196,7 +196,7 @@ export default function ShowcaseSubmit() {
             setThumbnailUrl(result.url);
         } catch (err) {
             console.error('Upload failed:', err);
-            setError('Failed to upload thumbnail');
+            setError('Det gick inte att ladda upp miniatyrbilden');
         } finally {
             setIsUploadingThumbnail(false);
         }
@@ -219,7 +219,7 @@ export default function ShowcaseSubmit() {
             }
         } catch (err) {
             console.error('Upload failed:', err);
-            setError('Failed to upload images');
+            setError('Det gick inte att ladda upp bilderna');
         } finally {
             setIsUploadingImages(false);
         }
@@ -321,7 +321,7 @@ export default function ShowcaseSubmit() {
             });
         } catch (err) {
             console.error('Error submitting showcase:', err);
-            setError('Failed to submit showcase. Please try again.');
+            setError('Det gick inte att skicka in projektet. Försök igen.');
         } finally {
             setIsSubmitting(false);
         }
@@ -333,7 +333,7 @@ export default function ShowcaseSubmit() {
             {showDraftNotice && (
                 <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center justify-between">
                     <p className="text-sm text-green-700 dark:text-green-400">
-                        Your previous draft has been restored.
+                        Ditt tidigare utkast har återställts.
                     </p>
                     <button
                         onClick={() => setShowDraftNotice(false)}
@@ -354,20 +354,20 @@ export default function ShowcaseSubmit() {
                 </button>
                 <div className="flex-1">
                     <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-50">
-                        Submit Your Project
+                        Skicka in ditt projekt
                     </h1>
                     <p className="text-surface-500 dark:text-surface-400 mt-1">
-                        Share what you've built with the community
+                        Dela det du har byggt med communityt
                     </p>
                 </div>
                 {hasDraft && (
                     <button
                         onClick={clearDraft}
                         className="flex items-center gap-2 px-3 py-2 text-sm text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
-                        title="Clear saved draft and start fresh"
+                        title="Rensa sparat utkast och börja om"
                     >
                         <RotateCcw className="w-4 h-4" />
-                        <span className="hidden sm:inline">Clear Draft</span>
+                        <span className="hidden sm:inline">Rensa utkast</span>
                     </button>
                 )}
             </div>
@@ -388,7 +388,7 @@ export default function ShowcaseSubmit() {
                             {s}
                         </div>
                         <span className={`text-sm hidden sm:block ${step >= s ? 'text-surface-900 dark:text-surface-100' : 'text-surface-500'}`}>
-                            {s === 1 ? 'Basic Info' : s === 2 ? 'Description' : 'Media & Tags'}
+                            {s === 1 ? 'Grundläggande info' : s === 2 ? 'Beskrivning' : 'Media & taggar'}
                         </span>
                         {s < 3 && <div className={`flex-1 h-0.5 ${step > s ? 'bg-primary-600' : 'bg-surface-200 dark:bg-surface-700'}`} />}
                     </div>
@@ -407,37 +407,37 @@ export default function ShowcaseSubmit() {
                 <div className="space-y-6">
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Project Title *
+                            Projekttitel *
                         </label>
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            placeholder="My Awesome Project"
+                            placeholder="Mitt fantastiska projekt"
                             maxLength={255}
                             className="w-full px-4 py-3 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         />
-                        <p className="text-xs text-surface-500 mt-1">{title.length}/255 characters</p>
+                        <p className="text-xs text-surface-500 mt-1">{title.length}/255 tecken</p>
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Tagline * <span className="font-normal text-surface-500">(Short description)</span>
+                            Slogan * <span className="font-normal text-surface-500">(Kort beskrivning)</span>
                         </label>
                         <input
                             type="text"
                             value={tagline}
                             onChange={(e) => setTagline(e.target.value)}
-                            placeholder="The best tool for doing amazing things"
+                            placeholder="Det bästa verktyget för att göra fantastiska saker"
                             maxLength={150}
                             className="w-full px-4 py-3 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         />
-                        <p className="text-xs text-surface-500 mt-1">{tagline.length}/150 characters (min 10)</p>
+                        <p className="text-xs text-surface-500 mt-1">{tagline.length}/150 tecken (minst 10)</p>
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Project URL *
+                            Projekt-URL *
                         </label>
                         <div className="relative">
                             <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400" />
@@ -450,13 +450,13 @@ export default function ShowcaseSubmit() {
                             />
                         </div>
                         {url && !isValidUrl(url) && (
-                            <p className="text-xs text-red-500 mt-1">Please enter a valid URL</p>
+                            <p className="text-xs text-red-500 mt-1">Ange en giltig URL</p>
                         )}
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Category *
+                            Kategori *
                         </label>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             {CATEGORY_OPTIONS.map((cat) => (
@@ -484,7 +484,7 @@ export default function ShowcaseSubmit() {
                             disabled={!canProceedStep1}
                             className="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
-                            Continue
+                            Fortsätt
                         </button>
                     </div>
                 </div>
@@ -495,24 +495,24 @@ export default function ShowcaseSubmit() {
                 <div className="space-y-6">
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Full Description *
+                            Fullständig beskrivning *
                         </label>
                         <p className="text-xs text-surface-500 mb-3">
-                            Tell us about your project. What does it do? What problems does it solve?
+                            Berätta om ditt projekt. Vad gör det? Vilka problem löser det?
                         </p>
                         <RichTextEditor
                             value={description}
                             onChange={setDescription}
-                            placeholder="Describe your project in detail..."
+                            placeholder="Beskriv ditt projekt i detalj..."
                         />
                         <p className="text-xs text-surface-500 mt-1">
-                            {description.replace(/<[^>]*>/g, '').length} characters (min 50)
+                            {description.replace(/<[^>]*>/g, '').length} tecken (minst 50)
                         </p>
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Tech Stack
+                            Teknikstack
                         </label>
                         <div className="flex gap-2 mb-3">
                             <input
@@ -553,14 +553,14 @@ export default function ShowcaseSubmit() {
                             onClick={() => setStep(1)}
                             className="px-6 py-2.5 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg font-medium transition-colors"
                         >
-                            Back
+                            Tillbaka
                         </button>
                         <button
                             onClick={() => setStep(3)}
                             disabled={!canProceedStep2}
                             className="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
-                            Continue
+                            Fortsätt
                         </button>
                     </div>
                 </div>
@@ -572,10 +572,10 @@ export default function ShowcaseSubmit() {
                     {/* Thumbnail */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Thumbnail
+                            Miniatyrbild
                         </label>
                         <p className="text-xs text-surface-500 mb-3">
-                            Featured image for your project (recommended: 1200x630)
+                            Utvald bild för ditt projekt (rekommenderat: 1200x630)
                         </p>
                         <div
                             {...thumbnailDropzone.getRootProps()}
@@ -594,7 +594,7 @@ export default function ShowcaseSubmit() {
                                 <div className="relative inline-block">
                                     <img
                                         src={thumbnailUrl}
-                                        alt="Thumbnail"
+                                        alt="Miniatyrbild"
                                         className="max-h-48 rounded-lg mx-auto"
                                     />
                                     <button
@@ -611,7 +611,7 @@ export default function ShowcaseSubmit() {
                                 <>
                                     <Upload className="w-8 h-8 mx-auto text-surface-400 mb-2" />
                                     <p className="text-surface-600 dark:text-surface-400">
-                                        Drop image here or click to upload
+                                        Släpp en bild här eller klicka för att ladda upp
                                     </p>
                                 </>
                             )}
@@ -621,10 +621,10 @@ export default function ShowcaseSubmit() {
                     {/* Screenshots */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Screenshots
+                            Skärmbilder
                         </label>
                         <p className="text-xs text-surface-500 mb-3">
-                            Add up to 5 screenshots to showcase your project
+                            Lägg till upp till 5 skärmbilder som visar upp ditt projekt
                         </p>
                         <div
                             {...imagesDropzone.getRootProps()}
@@ -641,7 +641,7 @@ export default function ShowcaseSubmit() {
                                 <Loader2 className="w-6 h-6 mx-auto animate-spin text-primary-600" />
                             ) : (
                                 <p className="text-sm text-surface-600 dark:text-surface-400">
-                                    Drop images here or click to upload
+                                    Släpp bilder här eller klicka för att ladda upp
                                 </p>
                             )}
                         </div>
@@ -649,7 +649,7 @@ export default function ShowcaseSubmit() {
                             <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
                                 {imageUrls.map((img, index) => (
                                     <div key={index} className="relative aspect-video rounded-lg overflow-hidden group">
-                                        <img src={img} alt={`Screenshot ${index + 1}`} className="w-full h-full object-cover" />
+                                        <img src={img} alt={`Skärmbild ${index + 1}`} className="w-full h-full object-cover" />
                                         <button
                                             onClick={() => removeImage(index)}
                                             className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
@@ -665,7 +665,7 @@ export default function ShowcaseSubmit() {
                     {/* Tags */}
                     <div>
                         <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
-                            Tags
+                            Taggar
                         </label>
                         <div className="flex flex-wrap gap-2">
                             {availableTags.map((tag) => {
@@ -695,10 +695,10 @@ export default function ShowcaseSubmit() {
                     <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
                         <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                         <div className="text-sm text-blue-800 dark:text-blue-300">
-                            <p className="font-medium">Review Process</p>
+                            <p className="font-medium">Granskningsprocess</p>
                             <p className="mt-1 text-blue-700 dark:text-blue-400">
-                                Your submission will be reviewed by our team before it appears on the showcase.
-                                This usually takes 24-48 hours.
+                                Ditt bidrag granskas av vårt team innan det visas bland projekten.
+                                Det tar vanligtvis 24–48 timmar.
                             </p>
                         </div>
                     </div>
@@ -708,7 +708,7 @@ export default function ShowcaseSubmit() {
                             onClick={() => setStep(2)}
                             className="px-6 py-2.5 text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg font-medium transition-colors"
                         >
-                            Back
+                            Tillbaka
                         </button>
                         <button
                             onClick={handleSubmit}
@@ -716,7 +716,7 @@ export default function ShowcaseSubmit() {
                             className="px-6 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50 transition-colors flex items-center gap-2"
                         >
                             {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                            Submit for Review
+                            Skicka in för granskning
                         </button>
                     </div>
                 </div>

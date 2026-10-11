@@ -18,7 +18,7 @@ export interface RateLimitOptions {
 }
 
 const DEFAULT_OPTIONS: Partial<RateLimitOptions> = {
-  message: 'Too many requests, please try again later.',
+  message: 'För många förfrågningar. Försök igen senare.',
   keyGenerator: (req: Request) => req.ip || 'unknown',
   skipFailedRequests: false,
   category: 'default',
@@ -130,7 +130,7 @@ export function createRedisRateLimiter(options: RateLimitOptions) {
 export const apiRateLimiter = createRedisRateLimiter({
   windowMs: 15 * 60 * 1000,
   max: 300,
-  message: 'Too many requests from this IP, please try again later.',
+  message: 'För många förfrågningar från den här IP-adressen. Försök igen senare.',
   category: 'api',
 });
 
@@ -147,7 +147,7 @@ export function createAdminRateLimiter() {
   return createRedisRateLimiter({
     windowMs: 1 * 60 * 1000,
     max: 30,
-    message: 'Too many admin requests, please try again later.',
+    message: 'För många administratörsförfrågningar. Försök igen senare.',
     category: 'admin',
     keyGenerator: extractUserIdFromToken,
   });
@@ -157,7 +157,7 @@ export function createAdminRateLimiter() {
 export const authRateLimiter = createRedisRateLimiter({
   windowMs: 15 * 60 * 1000,
   max: 10,
-  message: 'Too many authentication attempts, please try again later.',
+  message: 'För många inloggningsförsök. Försök igen senare.',
   category: 'auth',
 });
 

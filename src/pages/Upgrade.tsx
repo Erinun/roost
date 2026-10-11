@@ -17,7 +17,7 @@ export default function Upgrade() {
             const url = await subscriptionService.createCheckoutSession();
             window.location.href = url;
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to start checkout');
+            setError(err instanceof Error ? err.message : 'Det gick inte att starta betalningen');
             setIsLoading(false);
         }
     };
@@ -25,33 +25,33 @@ export default function Upgrade() {
     const premiumFeatures = [
         {
             icon: MessageSquare,
-            title: 'Direct Messaging',
-            description: 'Send private messages to any community member',
+            title: 'Direktmeddelanden',
+            description: 'Skicka privata meddelanden till vilken medlem som helst i communityt',
         },
         {
             icon: Users,
-            title: 'Premium Groups',
-            description: 'Access exclusive premium-only classrooms and content',
+            title: 'Premiumklassrum',
+            description: 'Få åtkomst till exklusiva klassrum och innehåll endast för premium',
         },
         {
             icon: Calendar,
-            title: 'Priority Events',
-            description: 'Early access to events and exclusive workshops',
+            title: 'Prioriterade evenemang',
+            description: 'Tidig åtkomst till evenemang och exklusiva workshoppar',
         },
         {
             icon: Star,
-            title: 'Premium Badge',
-            description: 'Stand out with a premium badge on your profile',
+            title: 'Premiummärke',
+            description: 'Stick ut med ett premiummärke på din profil',
         },
     ];
 
     const benefits = [
-        'Unlimited direct messaging',
-        'Access to all premium classrooms',
-        'Priority support from the team',
-        'Exclusive content and resources',
-        'Early access to new features',
-        'Premium profile badge',
+        'Obegränsade direktmeddelanden',
+        'Åtkomst till alla premiumklassrum',
+        'Prioriterad support från teamet',
+        'Exklusivt innehåll och resurser',
+        'Tidig åtkomst till nya funktioner',
+        'Premiummärke på profilen',
     ];
 
     // If user is already premium, show a different message
@@ -63,17 +63,17 @@ export default function Upgrade() {
                         <Crown className="w-10 h-10 text-white" />
                     </div>
                     <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-100 mb-2">
-                        You're Already Premium!
+                        Du är redan premium!
                     </h1>
                     <p className="text-surface-500 dark:text-surface-400 mb-6">
-                        Thank you for being a premium member. You have full access to all features.
+                        Tack för att du är premiummedlem. Du har full åtkomst till alla funktioner.
                     </p>
                     <Link
                         to="/"
                         className="btn-primary inline-flex items-center gap-2"
                     >
                         <ArrowLeft className="w-4 h-4" />
-                        <span>Back to Community</span>
+                        <span>Tillbaka till communityt</span>
                     </Link>
                 </div>
             </div>
@@ -88,10 +88,10 @@ export default function Upgrade() {
                     <Crown className="w-10 h-10 text-white" />
                 </div>
                 <h1 className="text-4xl font-bold text-surface-900 dark:text-surface-100 mb-3">
-                    Upgrade to Premium
+                    Uppgradera till premium
                 </h1>
                 <p className="text-lg text-surface-500 dark:text-surface-400 max-w-xl mx-auto">
-                    Unlock all features and get the most out of {APP_CONFIG.name}
+                    Lås upp alla funktioner och få ut det mesta av {APP_CONFIG.name}
                 </p>
             </div>
 
@@ -121,7 +121,7 @@ export default function Upgrade() {
                     {/* Benefits List */}
                     <div>
                         <h2 className="text-xl font-bold text-surface-900 dark:text-surface-100 mb-4">
-                            Everything you get with Premium:
+                            Allt du får med premium:
                         </h2>
                         <ul className="space-y-3">
                             {benefits.map((benefit, index) => (
@@ -137,11 +137,11 @@ export default function Upgrade() {
                     <div className="text-center">
                         <div className="bg-white dark:bg-surface-800 rounded-xl p-6 border border-surface-200 dark:border-surface-700">
                             <p className="text-sm text-surface-500 dark:text-surface-400 mb-2">
-                                Premium Membership
+                                Premiummedlemskap
                             </p>
                             <div className="mb-4">
                                 <span className="text-4xl font-bold text-surface-900 dark:text-surface-100">
-                                    Join Now
+                                    Gå med nu
                                 </span>
                             </div>
 
@@ -159,17 +159,17 @@ export default function Upgrade() {
                                 {isLoading ? (
                                     <>
                                         <Loader2 className="w-5 h-5 animate-spin" />
-                                        <span>Redirecting to checkout...</span>
+                                        <span>Omdirigerar till betalning...</span>
                                     </>
                                 ) : (
                                     <>
-                                        <span>Get Premium Access</span>
+                                        <span>Skaffa premium</span>
                                         <ArrowRight className="w-5 h-5" />
                                     </>
                                 )}
                             </button>
                             <p className="text-xs text-surface-400 dark:text-surface-500 mt-4">
-                                Secure checkout via Stripe
+                                Säker betalning via Stripe
                             </p>
                         </div>
                     </div>
@@ -180,10 +180,10 @@ export default function Upgrade() {
             {profile && (
                 <div className="mt-8 text-center">
                     <p className="text-sm text-surface-500 dark:text-surface-400">
-                        Signed in as <span className="font-medium">{profile.display_name}</span>
+                        Inloggad som <span className="font-medium">{profile.display_name}</span>
                     </p>
                     <p className="text-xs text-surface-400 dark:text-surface-500 mt-1">
-                        Your account will be automatically upgraded after purchase
+                        Ditt konto uppgraderas automatiskt efter köpet
                     </p>
                 </div>
             )}
@@ -195,7 +195,7 @@ export default function Upgrade() {
                     className="inline-flex items-center gap-2 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-300 transition-colors"
                 >
                     <ArrowLeft className="w-4 h-4" />
-                    <span>Back to Community</span>
+                    <span>Tillbaka till communityt</span>
                 </Link>
             </div>
         </div>

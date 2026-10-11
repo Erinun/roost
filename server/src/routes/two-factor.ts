@@ -18,23 +18,23 @@ const setup2FASchema = z.object({
 
 // Verify 2FA schema
 const verify2FASchema = z.object({
-  code: z.string().length(6, 'Code must be 6 digits'),
+  code: z.string().length(6, 'Koden måste bestå av 6 siffror'),
 });
 
 // Disable 2FA schema
 const disable2FASchema = z.object({
-  code: z.string().length(6, 'Code must be 6 digits'),
+  code: z.string().length(6, 'Koden måste bestå av 6 siffror'),
 });
 
 // Verify backup code schema
 const verifyBackupCodeSchema = z.object({
-  code: z.string().min(1, 'Backup code is required'),
+  code: z.string().min(1, 'Reservkod krävs'),
 });
 
 // Check 2FA required for login schema
 const check2FARequiredSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().email('Ogiltig e-postadress'),
+  password: z.string().min(1, 'Lösenord krävs'),
 });
 
 /**
@@ -66,7 +66,7 @@ router.post('/check-required', async (req: Request, res: Response) => {
     const validation = check2FARequiredSchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -83,19 +83,19 @@ router.post('/check-required', async (req: Request, res: Response) => {
       // Check if it's an email confirmation error
       if (signInError.message?.toLowerCase().includes('email not confirmed')) {
         return res.status(403).json({
-          error: 'Email not confirmed',
+          error: 'E-postadressen är inte verifierad',
           code: 'EMAIL_NOT_CONFIRMED',
           email: email,
         });
       }
       return res.status(401).json({
-        error: 'Invalid email or password',
+        error: 'Fel e-postadress eller lösenord',
       });
     }
 
     if (!signInData.user) {
       return res.status(401).json({
-        error: 'Invalid email or password',
+        error: 'Fel e-postadress eller lösenord',
       });
     }
 
@@ -136,7 +136,7 @@ router.post('/check-required', async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error in check-required:', error);
     return res.status(500).json({
-      error: 'Internal server error',
+      error: 'Internt serverfel',
     });
   }
 });
@@ -156,7 +156,7 @@ router.post('/verify-login', async (req: Request, res: Response) => {
     const validation = schema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -171,7 +171,7 @@ router.post('/verify-login', async (req: Request, res: Response) => {
 
     if (signInError || !signInData.user) {
       return res.status(401).json({
-        error: 'Invalid credentials',
+        error: 'Felaktiga inloggningsuppgifter',
       });
     }
 
@@ -198,7 +198,7 @@ router.post('/verify-login', async (req: Request, res: Response) => {
       await supabaseAdmin.auth.admin.signOut(signInData.session.access_token);
 
       return res.status(400).json({
-        error: 'Invalid verification code',
+        error: 'Ogiltig verifieringskod',
       });
     }
 
@@ -210,7 +210,7 @@ router.post('/verify-login', async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error in verify-login:', error);
     return res.status(500).json({
-      error: 'Internal server error',
+      error: 'Internt serverfel',
     });
   }
 });
@@ -230,7 +230,7 @@ router.post('/verify-login-backup', async (req: Request, res: Response) => {
     const validation = schema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -245,7 +245,7 @@ router.post('/verify-login-backup', async (req: Request, res: Response) => {
 
     if (signInError || !signInData.user) {
       return res.status(401).json({
-        error: 'Invalid credentials',
+        error: 'Felaktiga inloggningsuppgifter',
       });
     }
 
@@ -265,7 +265,7 @@ router.post('/verify-login-backup', async (req: Request, res: Response) => {
       await supabaseAdmin.auth.admin.signOut(signInData.session.access_token);
 
       return res.status(400).json({
-        error: 'Invalid or already used backup code',
+        error: 'Ogiltig eller redan använd reservkod',
       });
     }
 
@@ -285,7 +285,7 @@ router.post('/verify-login-backup', async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error in verify-login-backup:', error);
     return res.status(500).json({
-      error: 'Internal server error',
+      error: 'Internt serverfel',
     });
   }
 });
@@ -298,7 +298,7 @@ router.get('/status', async (req: Request, res: Response) => {
   try {
     const user = await getUserFromAuth(req);
     if (!user) {
-      return res.status(401).json({ error: 'Authentication required' });
+      return res.status(401).json({ error: 'Inloggning krävs' });
     }
 
     // Get profile with 2FA status
@@ -310,7 +310,7 @@ router.get('/status', async (req: Request, res: Response) => {
 
     if (error) {
       console.error('Error fetching 2FA status:', error);
-      return res.status(500).json({ error: 'Failed to fetch 2FA status' });
+      return res.status(500).json({ error: 'Det gick inte att hämta status för tvåfaktorsautentisering' });
     }
 
     return res.json({
@@ -319,7 +319,7 @@ router.get('/status', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error in 2FA status:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internt serverfel' });
   }
 });
 
@@ -331,7 +331,7 @@ router.post('/setup', async (req: Request, res: Response) => {
   try {
     const user = await getUserFromAuth(req);
     if (!user) {
-      return res.status(401).json({ error: 'Authentication required' });
+      return res.status(401).json({ error: 'Inloggning krävs' });
     }
 
     // Check if 2FA is already enabled
@@ -342,7 +342,7 @@ router.post('/setup', async (req: Request, res: Response) => {
       .single();
 
     if (profile?.two_factor_enabled) {
-      return res.status(400).json({ error: '2FA is already enabled' });
+      return res.status(400).json({ error: 'Tvåfaktorsautentisering är redan aktiverad' });
     }
 
     // Generate new secret
@@ -360,17 +360,17 @@ router.post('/setup', async (req: Request, res: Response) => {
 
     if (updateError) {
       console.error('Error storing 2FA secret:', updateError);
-      return res.status(500).json({ error: 'Failed to setup 2FA' });
+      return res.status(500).json({ error: 'Det gick inte att konfigurera tvåfaktorsautentisering' });
     }
 
     return res.json({
       secret,
       otpauthUri,
-      message: 'Scan the QR code with your authenticator app, then verify with a code',
+      message: 'Skanna QR-koden med din autentiseringsapp och verifiera sedan med en kod',
     });
   } catch (error) {
     console.error('Error in 2FA setup:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internt serverfel' });
   }
 });
 
@@ -382,13 +382,13 @@ router.post('/verify', async (req: Request, res: Response) => {
   try {
     const user = await getUserFromAuth(req);
     if (!user) {
-      return res.status(401).json({ error: 'Authentication required' });
+      return res.status(401).json({ error: 'Inloggning krävs' });
     }
 
     const validation = verify2FASchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -403,18 +403,18 @@ router.post('/verify', async (req: Request, res: Response) => {
       .single();
 
     if (profileError || !profile?.two_factor_secret) {
-      return res.status(400).json({ error: 'Please setup 2FA first' });
+      return res.status(400).json({ error: 'Konfigurera tvåfaktorsautentisering först' });
     }
 
     if (profile.two_factor_enabled) {
-      return res.status(400).json({ error: '2FA is already enabled' });
+      return res.status(400).json({ error: 'Tvåfaktorsautentisering är redan aktiverad' });
     }
 
     // Verify the code
     const isValid = verifyTOTP(profile.two_factor_secret, code);
 
     if (!isValid) {
-      return res.status(400).json({ error: 'Invalid verification code' });
+      return res.status(400).json({ error: 'Ogiltig verifieringskod' });
     }
 
     // Generate backup codes
@@ -439,7 +439,7 @@ router.post('/verify', async (req: Request, res: Response) => {
 
     if (backupError) {
       console.error('Error storing backup codes:', backupError);
-      return res.status(500).json({ error: 'Failed to generate backup codes' });
+      return res.status(500).json({ error: 'Det gick inte att generera reservkoder' });
     }
 
     // Enable 2FA
@@ -453,7 +453,7 @@ router.post('/verify', async (req: Request, res: Response) => {
 
     if (enableError) {
       console.error('Error enabling 2FA:', enableError);
-      return res.status(500).json({ error: 'Failed to enable 2FA' });
+      return res.status(500).json({ error: 'Det gick inte att aktivera tvåfaktorsautentisering' });
     }
 
     console.log(`2FA enabled for user: ${user.id}`);
@@ -461,11 +461,11 @@ router.post('/verify', async (req: Request, res: Response) => {
     return res.json({
       success: true,
       backupCodes,
-      message: '2FA has been enabled. Please save your backup codes securely.',
+      message: 'Tvåfaktorsautentisering har aktiverats. Spara dina reservkoder på ett säkert ställe.',
     });
   } catch (error) {
     console.error('Error in 2FA verify:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internt serverfel' });
   }
 });
 
@@ -477,13 +477,13 @@ router.post('/disable', async (req: Request, res: Response) => {
   try {
     const user = await getUserFromAuth(req);
     if (!user) {
-      return res.status(401).json({ error: 'Authentication required' });
+      return res.status(401).json({ error: 'Inloggning krävs' });
     }
 
     const validation = disable2FASchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -498,14 +498,14 @@ router.post('/disable', async (req: Request, res: Response) => {
       .single();
 
     if (profileError || !profile?.two_factor_enabled) {
-      return res.status(400).json({ error: '2FA is not enabled' });
+      return res.status(400).json({ error: 'Tvåfaktorsautentisering är inte aktiverad' });
     }
 
     // Verify the code
     const isValid = verifyTOTP(profile.two_factor_secret!, code);
 
     if (!isValid) {
-      return res.status(400).json({ error: 'Invalid verification code' });
+      return res.status(400).json({ error: 'Ogiltig verifieringskod' });
     }
 
     // Disable 2FA and clear secret
@@ -520,7 +520,7 @@ router.post('/disable', async (req: Request, res: Response) => {
 
     if (disableError) {
       console.error('Error disabling 2FA:', disableError);
-      return res.status(500).json({ error: 'Failed to disable 2FA' });
+      return res.status(500).json({ error: 'Det gick inte att inaktivera tvåfaktorsautentisering' });
     }
 
     // Delete backup codes
@@ -533,11 +533,11 @@ router.post('/disable', async (req: Request, res: Response) => {
 
     return res.json({
       success: true,
-      message: '2FA has been disabled',
+      message: 'Tvåfaktorsautentisering har inaktiverats',
     });
   } catch (error) {
     console.error('Error in 2FA disable:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internt serverfel' });
   }
 });
 
@@ -549,13 +549,13 @@ router.post('/validate', async (req: Request, res: Response) => {
   try {
     const user = await getUserFromAuth(req);
     if (!user) {
-      return res.status(401).json({ error: 'Authentication required' });
+      return res.status(401).json({ error: 'Inloggning krävs' });
     }
 
     const validation = verify2FASchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -570,23 +570,23 @@ router.post('/validate', async (req: Request, res: Response) => {
       .single();
 
     if (profileError || !profile?.two_factor_enabled || !profile?.two_factor_secret) {
-      return res.status(400).json({ error: '2FA is not enabled for this account' });
+      return res.status(400).json({ error: 'Tvåfaktorsautentisering är inte aktiverad för det här kontot' });
     }
 
     // Verify the code
     const isValid = verifyTOTP(profile.two_factor_secret, code);
 
     if (!isValid) {
-      return res.status(400).json({ error: 'Invalid verification code' });
+      return res.status(400).json({ error: 'Ogiltig verifieringskod' });
     }
 
     return res.json({
       success: true,
-      message: '2FA code verified',
+      message: 'Koden har verifierats',
     });
   } catch (error) {
     console.error('Error in 2FA validate:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internt serverfel' });
   }
 });
 
@@ -598,13 +598,13 @@ router.post('/backup', async (req: Request, res: Response) => {
   try {
     const user = await getUserFromAuth(req);
     if (!user) {
-      return res.status(401).json({ error: 'Authentication required' });
+      return res.status(401).json({ error: 'Inloggning krävs' });
     }
 
     const validation = verifyBackupCodeSchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -622,7 +622,7 @@ router.post('/backup', async (req: Request, res: Response) => {
       .single();
 
     if (findError || !backupCode) {
-      return res.status(400).json({ error: 'Invalid or already used backup code' });
+      return res.status(400).json({ error: 'Ogiltig eller redan använd reservkod' });
     }
 
     // Mark as used
@@ -633,18 +633,18 @@ router.post('/backup', async (req: Request, res: Response) => {
 
     if (updateError) {
       console.error('Error marking backup code as used:', updateError);
-      return res.status(500).json({ error: 'Failed to use backup code' });
+      return res.status(500).json({ error: 'Det gick inte att använda reservkoden' });
     }
 
     console.log(`Backup code used for user: ${user.id}`);
 
     return res.json({
       success: true,
-      message: 'Backup code verified',
+      message: 'Reservkoden har verifierats',
     });
   } catch (error) {
     console.error('Error in backup code verification:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internt serverfel' });
   }
 });
 
@@ -656,13 +656,13 @@ router.post('/regenerate-backup', async (req: Request, res: Response) => {
   try {
     const user = await getUserFromAuth(req);
     if (!user) {
-      return res.status(401).json({ error: 'Authentication required' });
+      return res.status(401).json({ error: 'Inloggning krävs' });
     }
 
     const validation = verify2FASchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -677,14 +677,14 @@ router.post('/regenerate-backup', async (req: Request, res: Response) => {
       .single();
 
     if (profileError || !profile?.two_factor_enabled || !profile?.two_factor_secret) {
-      return res.status(400).json({ error: '2FA is not enabled' });
+      return res.status(400).json({ error: 'Tvåfaktorsautentisering är inte aktiverad' });
     }
 
     // Verify the code
     const isValid = verifyTOTP(profile.two_factor_secret, code);
 
     if (!isValid) {
-      return res.status(400).json({ error: 'Invalid verification code' });
+      return res.status(400).json({ error: 'Ogiltig verifieringskod' });
     }
 
     // Generate new backup codes
@@ -708,7 +708,7 @@ router.post('/regenerate-backup', async (req: Request, res: Response) => {
 
     if (insertError) {
       console.error('Error storing new backup codes:', insertError);
-      return res.status(500).json({ error: 'Failed to regenerate backup codes' });
+      return res.status(500).json({ error: 'Det gick inte att generera nya reservkoder' });
     }
 
     console.log(`Backup codes regenerated for user: ${user.id}`);
@@ -716,11 +716,11 @@ router.post('/regenerate-backup', async (req: Request, res: Response) => {
     return res.json({
       success: true,
       backupCodes,
-      message: 'New backup codes generated. Please save them securely.',
+      message: 'Nya reservkoder har genererats. Spara dem på ett säkert ställe.',
     });
   } catch (error) {
     console.error('Error in regenerate backup codes:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internt serverfel' });
   }
 });
 

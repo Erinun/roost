@@ -71,17 +71,17 @@ router.post('/signup', async (req: Request, res: Response) => {
     const { email, password, metadata } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ error: { message: 'Email and password required' } });
+      return res.status(400).json({ error: { message: 'E-post och lösenord krävs' } });
     }
 
     if (password.length < 8) {
-      return res.status(400).json({ error: { message: 'Password must be at least 8 characters' } });
+      return res.status(400).json({ error: { message: 'Lösenordet måste vara minst 8 tecken' } });
     }
 
     // Check existing user
     const existing = await prisma.profile.findUnique({ where: { email } });
     if (existing) {
-      return res.status(409).json({ error: { message: 'Email already registered' } });
+      return res.status(409).json({ error: { message: 'E-postadressen är redan registrerad' } });
     }
 
     // Hash password
@@ -125,7 +125,7 @@ router.post('/signup', async (req: Request, res: Response) => {
       error: null,
     });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Signup failed';
+    const message = error instanceof Error ? error.message : 'Registreringen misslyckades';
     return res.status(500).json({ error: { message } });
   }
 });
@@ -136,17 +136,17 @@ router.post('/login', async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ error: { message: 'Email and password required' } });
+      return res.status(400).json({ error: { message: 'E-post och lösenord krävs' } });
     }
 
     const user = await prisma.profile.findUnique({ where: { email } });
     if (!user) {
-      return res.status(401).json({ error: { message: 'Invalid credentials' } });
+      return res.status(401).json({ error: { message: 'Felaktiga inloggningsuppgifter' } });
     }
 
     const valid = await bcrypt.compare(password, user.password_hash);
     if (!valid) {
-      return res.status(401).json({ error: { message: 'Invalid credentials' } });
+      return res.status(401).json({ error: { message: 'Felaktiga inloggningsuppgifter' } });
     }
 
     // Check ban
@@ -160,7 +160,7 @@ router.post('/login', async (req: Request, res: Response) => {
       } else {
         return res.status(403).json({
           error: {
-            message: 'Account banned',
+            message: 'Kontot är avstängt',
             code: 'BANNED',
             details: user.ban_reason || undefined,
           },
@@ -198,7 +198,7 @@ router.post('/login', async (req: Request, res: Response) => {
       error: null,
     });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Login failed';
+    const message = error instanceof Error ? error.message : 'Inloggningen misslyckades';
     return res.status(500).json({ error: { message } });
   }
 });
@@ -232,7 +232,7 @@ router.get('/session', async (req: Request, res: Response) => {
     const user = await prisma.profile.findUnique({ where: { id: decoded.sub } });
 
     if (!user) {
-      return res.json({ user: null, session: null, error: { message: 'User not found' } });
+      return res.json({ user: null, session: null, error: { message: 'Användaren hittades inte' } });
     }
 
     return res.json({
@@ -259,7 +259,7 @@ router.get('/session', async (req: Request, res: Response) => {
       error: null,
     });
   } catch {
-    return res.json({ user: null, session: null, error: { message: 'Invalid token' } });
+    return res.json({ user: null, session: null, error: { message: 'Ogiltig token' } });
   }
 });
 
@@ -277,7 +277,7 @@ router.post('/reset-password', async (req: Request, res: Response) => {
     // TODO: Generate reset token, send email via SMTP
     return res.json({ error: null });
   } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Reset failed';
+    const message = error instanceof Error ? error.message : 'Återställningen misslyckades';
     return res.status(500).json({ error: { message } });
   }
 });
@@ -287,14 +287,14 @@ router.post('/update-password', async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     if (!token) {
-      return res.status(401).json({ error: { message: 'Not authenticated' } });
+      return res.status(401).json({ error: { message: 'Inte inloggad' } });
     }
 
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
     const { password } = req.body;
 
     if (!password || password.length < 8) {
-      return res.status(400).json({ error: { message: 'Password must be at least 8 characters' } });
+      return res.status(400).json({ error: { message: 'Lösenordet måste vara minst 8 tecken' } });
     }
 
     const password_hash = await bcrypt.hash(password, 12);
@@ -305,7 +305,7 @@ router.post('/update-password', async (req: Request, res: Response) => {
 
     return res.json({ error: null });
   } catch {
-    return res.status(401).json({ error: { message: 'Invalid token' } });
+    return res.status(401).json({ error: { message: 'Ogiltig token' } });
   }
 });
 
@@ -314,7 +314,7 @@ router.post('/update-user', async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     if (!token) {
-      return res.status(401).json({ error: { message: 'Not authenticated' } });
+      return res.status(401).json({ error: { message: 'Inte inloggad' } });
     }
 
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
@@ -342,7 +342,7 @@ router.post('/update-user', async (req: Request, res: Response) => {
       error: null,
     });
   } catch {
-    return res.status(401).json({ error: { message: 'Invalid token' } });
+    return res.status(401).json({ error: { message: 'Ogiltig token' } });
   }
 });
 

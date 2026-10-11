@@ -9,29 +9,29 @@ const router = Router();
 
 // Request password reset schema
 const requestResetSchema = z.object({
-  email: z.string().email('Invalid email address'),
+  email: z.string().email('Ogiltig e-postadress'),
 });
 
 // Reset password schema
 const resetPasswordSchema = z.object({
-  token: z.string().min(1, 'Token is required'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  token: z.string().min(1, 'Token krävs'),
+  password: z.string().min(8, 'Lösenordet måste vara minst 8 tecken'),
 });
 
 // Validate token schema
 const validateTokenSchema = z.object({
-  token: z.string().min(1, 'Token is required'),
+  token: z.string().min(1, 'Token krävs'),
 });
 
 // Verify current password schema (for logged-in user changing password)
 const verifyPasswordSchema = z.object({
-  currentPassword: z.string().min(1, 'Current password is required'),
+  currentPassword: z.string().min(1, 'Nuvarande lösenord krävs'),
 });
 
 // Change password schema (for logged-in user)
 const changePasswordSchema = z.object({
-  currentPassword: z.string().min(1, 'Current password is required'),
-  newPassword: z.string().min(8, 'Password must be at least 8 characters'),
+  currentPassword: z.string().min(1, 'Nuvarande lösenord krävs'),
+  newPassword: z.string().min(8, 'Lösenordet måste vara minst 8 tecken'),
 });
 
 /**
@@ -58,7 +58,7 @@ router.post('/request-reset', async (req: Request, res: Response) => {
     const validation = requestResetSchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -77,7 +77,7 @@ router.post('/request-reset', async (req: Request, res: Response) => {
       console.log(`Password reset requested for non-existent email: ${normalizedEmail}`);
       return res.json({
         success: true,
-        message: 'If an account exists with this email, a reset link has been sent.',
+        message: 'Om det finns ett konto med den här e-postadressen har en återställningslänk skickats.',
       });
     }
 
@@ -90,7 +90,7 @@ router.post('/request-reset', async (req: Request, res: Response) => {
       .eq('id', userId)
       .single();
 
-    const displayName = profile?.display_name || profile?.username || 'there';
+    const displayName = profile?.display_name || profile?.username || 'där';
 
     // Invalidate any existing tokens for this user
     await supabaseAdmin
@@ -115,7 +115,7 @@ router.post('/request-reset', async (req: Request, res: Response) => {
     if (insertError) {
       console.error('Error storing reset token:', insertError);
       return res.status(500).json({
-        error: 'Failed to create reset token',
+        error: 'Det gick inte att skapa en återställningslänk',
       });
     }
 
@@ -139,12 +139,12 @@ router.post('/request-reset', async (req: Request, res: Response) => {
 
     return res.json({
       success: true,
-      message: 'If an account exists with this email, a reset link has been sent.',
+      message: 'Om det finns ett konto med den här e-postadressen har en återställningslänk skickats.',
     });
   } catch (error) {
     console.error('Error in request-reset:', error);
     return res.status(500).json({
-      error: 'Internal server error',
+      error: 'Internt serverfel',
     });
   }
 });
@@ -160,7 +160,7 @@ router.post('/validate-token', async (req: Request, res: Response) => {
     if (!validation.success) {
       return res.status(400).json({
         valid: false,
-        error: 'Invalid token format',
+        error: 'Ogiltigt tokenformat',
       });
     }
 
@@ -179,7 +179,7 @@ router.post('/validate-token', async (req: Request, res: Response) => {
     if (tokenError || !tokenData) {
       return res.json({
         valid: false,
-        error: 'Invalid or expired reset link',
+        error: 'Ogiltig eller utgången återställningslänk',
       });
     }
 
@@ -190,7 +190,7 @@ router.post('/validate-token', async (req: Request, res: Response) => {
     console.error('Error in validate-token:', error);
     return res.status(500).json({
       valid: false,
-      error: 'Internal server error',
+      error: 'Internt serverfel',
     });
   }
 });
@@ -205,7 +205,7 @@ router.post('/reset-password', async (req: Request, res: Response) => {
     const validation = resetPasswordSchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -224,7 +224,7 @@ router.post('/reset-password', async (req: Request, res: Response) => {
 
     if (tokenError || !tokenData) {
       return res.status(400).json({
-        error: 'Invalid or expired reset link. Please request a new one.',
+        error: 'Ogiltig eller utgången återställningslänk. Begär en ny.',
       });
     }
 
@@ -241,7 +241,7 @@ router.post('/reset-password', async (req: Request, res: Response) => {
     if (updateError) {
       console.error('Error updating password:', updateError);
       return res.status(500).json({
-        error: 'Failed to update password. Please try again.',
+        error: 'Det gick inte att uppdatera lösenordet. Försök igen.',
       });
     }
 
@@ -255,12 +255,12 @@ router.post('/reset-password', async (req: Request, res: Response) => {
 
     return res.json({
       success: true,
-      message: 'Password has been reset successfully.',
+      message: 'Lösenordet har återställts.',
     });
   } catch (error) {
     console.error('Error in reset-password:', error);
     return res.status(500).json({
-      error: 'Internal server error',
+      error: 'Internt serverfel',
     });
   }
 });
@@ -276,7 +276,7 @@ router.post('/verify-password', async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({
-        error: 'Authentication required',
+        error: 'Inloggning krävs',
       });
     }
 
@@ -286,7 +286,7 @@ router.post('/verify-password', async (req: Request, res: Response) => {
     const validation = verifyPasswordSchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -298,7 +298,7 @@ router.post('/verify-password', async (req: Request, res: Response) => {
 
     if (userError || !user) {
       return res.status(401).json({
-        error: 'Invalid or expired session',
+        error: 'Ogiltig eller utgången session',
       });
     }
 
@@ -310,18 +310,18 @@ router.post('/verify-password', async (req: Request, res: Response) => {
 
     if (signInError) {
       return res.status(400).json({
-        error: 'Current password is incorrect',
+        error: 'Nuvarande lösenord är felaktigt',
       });
     }
 
     return res.json({
       success: true,
-      message: 'Password verified',
+      message: 'Lösenordet har verifierats',
     });
   } catch (error) {
     console.error('Error in verify-password:', error);
     return res.status(500).json({
-      error: 'Internal server error',
+      error: 'Internt serverfel',
     });
   }
 });
@@ -337,7 +337,7 @@ router.post('/change-password', async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return res.status(401).json({
-        error: 'Authentication required',
+        error: 'Inloggning krävs',
       });
     }
 
@@ -347,7 +347,7 @@ router.post('/change-password', async (req: Request, res: Response) => {
     const validation = changePasswordSchema.safeParse(req.body);
     if (!validation.success) {
       return res.status(400).json({
-        error: 'Validation failed',
+        error: 'Valideringen misslyckades',
         details: validation.error.errors,
       });
     }
@@ -359,7 +359,7 @@ router.post('/change-password', async (req: Request, res: Response) => {
 
     if (userError || !user) {
       return res.status(401).json({
-        error: 'Invalid or expired session',
+        error: 'Ogiltig eller utgången session',
       });
     }
 
@@ -371,7 +371,7 @@ router.post('/change-password', async (req: Request, res: Response) => {
 
     if (signInError) {
       return res.status(400).json({
-        error: 'Current password is incorrect',
+        error: 'Nuvarande lösenord är felaktigt',
       });
     }
 
@@ -384,7 +384,7 @@ router.post('/change-password', async (req: Request, res: Response) => {
     if (updateError) {
       console.error('Error updating password:', updateError);
       return res.status(500).json({
-        error: 'Failed to update password. Please try again.',
+        error: 'Det gick inte att uppdatera lösenordet. Försök igen.',
       });
     }
 
@@ -392,12 +392,12 @@ router.post('/change-password', async (req: Request, res: Response) => {
 
     return res.json({
       success: true,
-      message: 'Password has been changed successfully.',
+      message: 'Lösenordet har ändrats.',
     });
   } catch (error) {
     console.error('Error in change-password:', error);
     return res.status(500).json({
-      error: 'Internal server error',
+      error: 'Internt serverfel',
     });
   }
 });

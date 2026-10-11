@@ -84,21 +84,21 @@ export interface ShowcaseStats {
 
 // Category display info
 export const SHOWCASE_CATEGORY_INFO: Record<ShowcaseCategory, { label: string; icon: string; color: string }> = {
-    web_app: { label: 'Web App', icon: 'Globe', color: '#3B82F6' },
-    mobile_app: { label: 'Mobile App', icon: 'Smartphone', color: '#8B5CF6' },
+    web_app: { label: 'Webbapp', icon: 'Globe', color: '#3B82F6' },
+    mobile_app: { label: 'Mobilapp', icon: 'Smartphone', color: '#8B5CF6' },
     saas: { label: 'SaaS', icon: 'Cloud', color: '#06B6D4' },
-    tool: { label: 'Tool', icon: 'Wrench', color: '#F59E0B' },
+    tool: { label: 'Verktyg', icon: 'Wrench', color: '#F59E0B' },
     api: { label: 'API', icon: 'Code', color: '#10B981' },
-    website: { label: 'Website', icon: 'Layout', color: '#EC4899' },
-    game: { label: 'Game', icon: 'Gamepad2', color: '#EF4444' },
-    extension: { label: 'Extension', icon: 'Puzzle', color: '#84CC16' },
-    other: { label: 'Other', icon: 'Package', color: '#6B7280' },
+    website: { label: 'Webbplats', icon: 'Layout', color: '#EC4899' },
+    game: { label: 'Spel', icon: 'Gamepad2', color: '#EF4444' },
+    extension: { label: 'Tillägg', icon: 'Puzzle', color: '#84CC16' },
+    other: { label: 'Övrigt', icon: 'Package', color: '#6B7280' },
 };
 
 // Status display info
 export const SHOWCASE_STATUS_INFO: Record<ShowcaseStatus, { label: string; color: string; bgColor: string }> = {
-    pending: { label: 'Pending Review', color: 'text-yellow-600', bgColor: 'bg-yellow-100' },
-    approved: { label: 'Approved', color: 'text-green-600', bgColor: 'bg-green-100' },
-    rejected: { label: 'Rejected', color: 'text-red-600', bgColor: 'bg-red-100' },
-    featured: { label: 'Featured', color: 'text-purple-600', bgColor: 'bg-purple-100' },
+    pending: { label: 'Väntar på granskning', color: 'text-yellow-600', bgColor: 'bg-yellow-100' },
+    approved: { label: 'Godkänt', color: 'text-green-600', bgColor: 'bg-green-100' },
+    rejected: { label: 'Avvisat', color: 'text-red-600', bgColor: 'bg-red-100' },
+    featured: { label: 'Utvalt', color: 'text-purple-600', bgColor: 'bg-purple-100' },
 };

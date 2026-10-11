@@ -216,7 +216,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     // Update profile
     const updateProfile = async (updates: Partial<Profile>) => {
-        if (!user) throw new Error('No user logged in');
+        if (!user) throw new Error('Ingen användare är inloggad');
 
         const { error } = await supabase
             .from('profiles')

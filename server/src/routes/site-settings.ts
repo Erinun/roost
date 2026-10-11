@@ -38,7 +38,7 @@ const upload = multer({
     if (allowed.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error('Only image files (PNG, JPG, SVG, WebP, ICO) are allowed'));
+      cb(new Error('Endast bildfiler (PNG, JPG, SVG, WebP, ICO) tillåts'));
     }
   },
   storage: multer.memoryStorage(),
@@ -48,14 +48,14 @@ const upload = multer({
 async function requireSuperadmin(req: Request, res: Response, next: () => void) {
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Missing authorization token' });
+    return res.status(401).json({ error: 'Autentiseringstoken saknas' });
   }
 
   const token = authHeader.substring(7);
   try {
     const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
     if (error || !user) {
-      return res.status(401).json({ error: 'Invalid token' });
+      return res.status(401).json({ error: 'Ogiltig token' });
     }
 
     const profile = await getCachedUserProfile(user.id, async () => {
@@ -68,12 +68,12 @@ async function requireSuperadmin(req: Request, res: Response, next: () => void) 
     });
 
     if (!profile || profile.role !== 'superadmin') {
-      return res.status(403).json({ error: 'Superadmin access required' });
+      return res.status(403).json({ error: 'Superadminbehörighet krävs' });
     }
 
     next();
   } catch {
-    res.status(500).json({ error: 'Authorization failed' });
+    res.status(500).json({ error: 'Behörighetskontrollen misslyckades' });
   }
 }
 
@@ -129,7 +129,7 @@ siteSettingsRouter.get('/', async (_req: Request, res: Response) => {
     res.json(settings);
   } catch (error) {
     console.error('Error fetching site settings:', error);
-    res.status(500).json({ error: 'Failed to fetch site settings' });
+    res.status(500).json({ error: 'Det gick inte att hämta webbplatsinställningarna' });
   }
 });
 
@@ -154,7 +154,7 @@ siteSettingsRouter.put('/', requireSuperadmin, async (req: Request, res: Respons
       }));
 
     if (updates.length === 0) {
-      return res.status(400).json({ error: 'No valid settings provided' });
+      return res.status(400).json({ error: 'Inga giltiga inställningar angavs' });
     }
 
     for (const update of updates) {
@@ -166,7 +166,7 @@ siteSettingsRouter.put('/', requireSuperadmin, async (req: Request, res: Respons
     res.json({ success: true, updated: updates.length });
   } catch (error) {
     console.error('Error updating site settings:', error);
-    res.status(500).json({ error: 'Failed to update site settings' });
+    res.status(500).json({ error: 'Det gick inte att uppdatera webbplatsinställningarna' });
   }
 });
 
@@ -175,12 +175,12 @@ siteSettingsRouter.post('/upload', requireSuperadmin, upload.single('file'), asy
   try {
     const file = req.file;
     if (!file) {
-      return res.status(400).json({ error: 'No file provided' });
+      return res.status(400).json({ error: 'Ingen fil angavs' });
     }
 
     const type = req.body.type as string; // 'logo', 'logo_dark', 'favicon'
     if (!['logo', 'logo_dark', 'favicon'].includes(type)) {
-      return res.status(400).json({ error: 'Invalid upload type. Must be: logo, logo_dark, or favicon' });
+      return res.status(400).json({ error: 'Ogiltig uppladdningstyp. Måste vara: logo, logo_dark eller favicon' });
     }
 
     const ext = path.extname(file.originalname) || '.png';
@@ -234,6 +234,6 @@ siteSettingsRouter.post('/upload', requireSuperadmin, upload.single('file'), asy
     res.json({ success: true, url: fileUrl, key: settingKey });
   } catch (error) {
     console.error('Error uploading branding asset:', error);
-    res.status(500).json({ error: 'Failed to upload file' });
+    res.status(500).json({ error: 'Det gick inte att ladda upp filen' });
   }
 });

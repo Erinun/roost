@@ -94,12 +94,12 @@ const updateSessionSchema = z.object({
  */
 liveRoomRouter.post('/sessions', async (req: Request, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
-  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Admin access required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
+  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Administratörsbehörighet krävs' });
 
   const parsed = createSessionSchema.safeParse(req.body);
   if (!parsed.success) {
-    return res.status(400).json({ error: 'Invalid request', details: parsed.error.errors });
+    return res.status(400).json({ error: 'Ogiltig förfrågan', details: parsed.error.errors });
   }
 
   const { title, description, youtube_embed_url, scheduled_at, visibility } = parsed.data;
@@ -121,13 +121,13 @@ liveRoomRouter.post('/sessions', async (req: Request, res: Response) => {
 
     if (error) {
       console.error('[LiveRoom] Create session error:', error);
-      return res.status(500).json({ error: 'Failed to create session' });
+      return res.status(500).json({ error: 'Det gick inte att skapa sessionen' });
     }
 
     res.json({ session });
   } catch (error) {
     console.error('[LiveRoom] Create session error:', error);
-    res.status(500).json({ error: 'Failed to create session' });
+    res.status(500).json({ error: 'Det gick inte att skapa sessionen' });
   }
 });
 
@@ -137,12 +137,12 @@ liveRoomRouter.post('/sessions', async (req: Request, res: Response) => {
  */
 liveRoomRouter.put('/sessions/:id', async (req: Request<{ id: string }>, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
-  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Admin access required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
+  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Administratörsbehörighet krävs' });
 
   const parsed = updateSessionSchema.safeParse(req.body);
   if (!parsed.success) {
-    return res.status(400).json({ error: 'Invalid request', details: parsed.error.errors });
+    return res.status(400).json({ error: 'Ogiltig förfrågan', details: parsed.error.errors });
   }
 
   const sessionId = req.params.id;
@@ -181,13 +181,13 @@ liveRoomRouter.put('/sessions/:id', async (req: Request<{ id: string }>, res: Re
 
     if (error) {
       console.error('[LiveRoom] Update session error:', error);
-      return res.status(500).json({ error: 'Failed to update session' });
+      return res.status(500).json({ error: 'Det gick inte att uppdatera sessionen' });
     }
 
     res.json({ session });
   } catch (error) {
     console.error('[LiveRoom] Update session error:', error);
-    res.status(500).json({ error: 'Failed to update session' });
+    res.status(500).json({ error: 'Det gick inte att uppdatera sessionen' });
   }
 });
 
@@ -197,8 +197,8 @@ liveRoomRouter.put('/sessions/:id', async (req: Request<{ id: string }>, res: Re
  */
 liveRoomRouter.delete('/sessions/:id', async (req: Request<{ id: string }>, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
-  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Admin access required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
+  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Administratörsbehörighet krävs' });
 
   try {
     const { error } = await supabaseAdmin
@@ -208,13 +208,13 @@ liveRoomRouter.delete('/sessions/:id', async (req: Request<{ id: string }>, res:
 
     if (error) {
       console.error('[LiveRoom] Delete session error:', error);
-      return res.status(500).json({ error: 'Failed to delete session' });
+      return res.status(500).json({ error: 'Det gick inte att ta bort sessionen' });
     }
 
     res.json({ success: true });
   } catch (error) {
     console.error('[LiveRoom] Delete session error:', error);
-    res.status(500).json({ error: 'Failed to delete session' });
+    res.status(500).json({ error: 'Det gick inte att ta bort sessionen' });
   }
 });
 
@@ -224,8 +224,8 @@ liveRoomRouter.delete('/sessions/:id', async (req: Request<{ id: string }>, res:
  */
 liveRoomRouter.get('/sessions', async (req: Request, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
-  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Admin access required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
+  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Administratörsbehörighet krävs' });
 
   try {
     const { data: sessions, error } = await supabaseAdmin
@@ -235,13 +235,13 @@ liveRoomRouter.get('/sessions', async (req: Request, res: Response) => {
 
     if (error) {
       console.error('[LiveRoom] List sessions error:', error);
-      return res.status(500).json({ error: 'Failed to list sessions' });
+      return res.status(500).json({ error: 'Det gick inte att hämta sessionerna' });
     }
 
     res.json({ sessions });
   } catch (error) {
     console.error('[LiveRoom] List sessions error:', error);
-    res.status(500).json({ error: 'Failed to list sessions' });
+    res.status(500).json({ error: 'Det gick inte att hämta sessionerna' });
   }
 });
 
@@ -251,8 +251,8 @@ liveRoomRouter.get('/sessions', async (req: Request, res: Response) => {
  */
 liveRoomRouter.get('/sessions/:id/rsvp-list', async (req: Request<{ id: string }>, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
-  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Admin access required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
+  if (!(await isAdmin(userId))) return res.status(403).json({ error: 'Administratörsbehörighet krävs' });
 
   try {
     const { data: rsvps, error } = await supabaseAdmin
@@ -263,13 +263,13 @@ liveRoomRouter.get('/sessions/:id/rsvp-list', async (req: Request<{ id: string }
 
     if (error) {
       console.error('[LiveRoom] RSVP list error:', error);
-      return res.status(500).json({ error: 'Failed to get RSVP list' });
+      return res.status(500).json({ error: 'Det gick inte att hämta OSA-listan' });
     }
 
     res.json({ rsvps: rsvps || [] });
   } catch (error) {
     console.error('[LiveRoom] RSVP list error:', error);
-    res.status(500).json({ error: 'Failed to get RSVP list' });
+    res.status(500).json({ error: 'Det gick inte att hämta OSA-listan' });
   }
 });
 
@@ -283,10 +283,10 @@ liveRoomRouter.get('/sessions/:id/rsvp-list', async (req: Request<{ id: string }
  */
 liveRoomRouter.get('/status', async (req: Request, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
 
   const hasAccess = await hasPremiumAccess(userId) || await isAdmin(userId);
-  if (!hasAccess) return res.status(403).json({ error: 'Premium access required' });
+  if (!hasAccess) return res.status(403).json({ error: 'Premiumåtkomst krävs' });
 
   try {
     const { data: liveSession } = await supabaseAdmin
@@ -319,7 +319,7 @@ liveRoomRouter.get('/status', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('[LiveRoom] Status error:', error);
-    res.status(500).json({ error: 'Failed to get live status' });
+    res.status(500).json({ error: 'Det gick inte att hämta livestatus' });
   }
 });
 
@@ -329,10 +329,10 @@ liveRoomRouter.get('/status', async (req: Request, res: Response) => {
  */
 liveRoomRouter.get('/recordings', async (req: Request, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
 
   const hasAccess = await hasPremiumAccess(userId) || await isAdmin(userId);
-  if (!hasAccess) return res.status(403).json({ error: 'Premium access required' });
+  if (!hasAccess) return res.status(403).json({ error: 'Premiumåtkomst krävs' });
 
   try {
     const { data: sessions, error } = await supabaseAdmin
@@ -344,7 +344,7 @@ liveRoomRouter.get('/recordings', async (req: Request, res: Response) => {
 
     if (error) {
       console.error('[LiveRoom] List recordings error:', error);
-      return res.status(500).json({ error: 'Failed to list recordings' });
+      return res.status(500).json({ error: 'Det gick inte att hämta inspelningarna' });
     }
 
     const recordings = (sessions || []).map((session) => ({
@@ -360,7 +360,7 @@ liveRoomRouter.get('/recordings', async (req: Request, res: Response) => {
     res.json({ recordings });
   } catch (error) {
     console.error('[LiveRoom] List recordings error:', error);
-    res.status(500).json({ error: 'Failed to list recordings' });
+    res.status(500).json({ error: 'Det gick inte att hämta inspelningarna' });
   }
 });
 
@@ -370,10 +370,10 @@ liveRoomRouter.get('/recordings', async (req: Request, res: Response) => {
  */
 liveRoomRouter.get('/upcoming', async (req: Request, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
 
   const hasAccess = await hasPremiumAccess(userId) || await isAdmin(userId);
-  if (!hasAccess) return res.status(403).json({ error: 'Premium access required' });
+  if (!hasAccess) return res.status(403).json({ error: 'Premiumåtkomst krävs' });
 
   try {
     const { data: sessions, error } = await supabaseAdmin
@@ -386,13 +386,13 @@ liveRoomRouter.get('/upcoming', async (req: Request, res: Response) => {
 
     if (error) {
       console.error('[LiveRoom] Upcoming sessions error:', error);
-      return res.status(500).json({ error: 'Failed to get upcoming sessions' });
+      return res.status(500).json({ error: 'Det gick inte att hämta kommande sessioner' });
     }
 
     res.json({ sessions: sessions || [] });
   } catch (error) {
     console.error('[LiveRoom] Upcoming sessions error:', error);
-    res.status(500).json({ error: 'Failed to get upcoming sessions' });
+    res.status(500).json({ error: 'Det gick inte att hämta kommande sessioner' });
   }
 });
 
@@ -406,10 +406,10 @@ liveRoomRouter.get('/upcoming', async (req: Request, res: Response) => {
  */
 liveRoomRouter.post('/sessions/:id/rsvp', async (req: Request<{ id: string }>, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
 
   const hasAccess = await hasPremiumAccess(userId) || await isAdmin(userId);
-  if (!hasAccess) return res.status(403).json({ error: 'Premium access required' });
+  if (!hasAccess) return res.status(403).json({ error: 'Premiumåtkomst krävs' });
 
   try {
     // Get session to check RSVP eligibility
@@ -420,11 +420,11 @@ liveRoomRouter.post('/sessions/:id/rsvp', async (req: Request<{ id: string }>, r
       .single();
 
     if (!session) {
-      return res.status(404).json({ error: 'Session not found' });
+      return res.status(404).json({ error: 'Sessionen hittades inte' });
     }
 
     if (session.status === 'ended') {
-      return res.status(400).json({ error: 'Session has already ended' });
+      return res.status(400).json({ error: 'Sessionen har redan avslutats' });
     }
 
     // Check 1-hour cutoff before scheduled time
@@ -432,14 +432,14 @@ liveRoomRouter.post('/sessions/:id/rsvp', async (req: Request<{ id: string }>, r
       const scheduledTime = new Date(session.scheduled_at).getTime();
       const cutoffTime = scheduledTime - 60 * 60 * 1000;
       if (Date.now() > cutoffTime) {
-        return res.status(400).json({ error: 'RSVP has closed (1 hour before the session)' });
+        return res.status(400).json({ error: 'Anmälan har stängt (1 timme före sessionen)' });
       }
     }
 
     // Get user email and display name
     const { data: { user } } = await supabaseAdmin.auth.admin.getUserById(userId);
     if (!user?.email) {
-      return res.status(400).json({ error: 'User email not found' });
+      return res.status(400).json({ error: 'Användarens e-postadress hittades inte' });
     }
 
     const { data: profile } = await supabaseAdmin
@@ -460,13 +460,13 @@ liveRoomRouter.post('/sessions/:id/rsvp', async (req: Request<{ id: string }>, r
 
     if (error) {
       console.error('[LiveRoom] RSVP error:', error);
-      return res.status(500).json({ error: 'Failed to RSVP' });
+      return res.status(500).json({ error: 'Det gick inte att anmäla dig' });
     }
 
     res.json({ success: true });
   } catch (error) {
     console.error('[LiveRoom] RSVP error:', error);
-    res.status(500).json({ error: 'Failed to RSVP' });
+    res.status(500).json({ error: 'Det gick inte att anmäla dig' });
   }
 });
 
@@ -476,7 +476,7 @@ liveRoomRouter.post('/sessions/:id/rsvp', async (req: Request<{ id: string }>, r
  */
 liveRoomRouter.delete('/sessions/:id/rsvp', async (req: Request<{ id: string }>, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
 
   try {
     const { error } = await supabaseAdmin
@@ -487,13 +487,13 @@ liveRoomRouter.delete('/sessions/:id/rsvp', async (req: Request<{ id: string }>,
 
     if (error) {
       console.error('[LiveRoom] Cancel RSVP error:', error);
-      return res.status(500).json({ error: 'Failed to cancel RSVP' });
+      return res.status(500).json({ error: 'Det gick inte att avboka din anmälan' });
     }
 
     res.json({ success: true });
   } catch (error) {
     console.error('[LiveRoom] Cancel RSVP error:', error);
-    res.status(500).json({ error: 'Failed to cancel RSVP' });
+    res.status(500).json({ error: 'Det gick inte att avboka din anmälan' });
   }
 });
 
@@ -503,7 +503,7 @@ liveRoomRouter.delete('/sessions/:id/rsvp', async (req: Request<{ id: string }>,
  */
 liveRoomRouter.get('/sessions/:id/rsvp', async (req: Request<{ id: string }>, res: Response) => {
   const userId = await authenticateUser(req);
-  if (!userId) return res.status(401).json({ error: 'Authentication required' });
+  if (!userId) return res.status(401).json({ error: 'Inloggning krävs' });
 
   try {
     const { data: rsvp } = await supabaseAdmin
@@ -516,6 +516,6 @@ liveRoomRouter.get('/sessions/:id/rsvp', async (req: Request<{ id: string }>, re
     res.json({ hasRsvp: !!rsvp, rsvp });
   } catch (error) {
     console.error('[LiveRoom] Check RSVP error:', error);
-    res.status(500).json({ error: 'Failed to check RSVP status' });
+    res.status(500).json({ error: 'Det gick inte att kontrollera din anmälan' });
   }
 });

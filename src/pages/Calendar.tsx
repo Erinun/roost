@@ -160,13 +160,13 @@ export default function Calendar() {
                             <h2 className="font-semibold text-gray-900 dark:text-gray-100">Filter</h2>
                         </div>
                         <div>
-                            <label className="block text-sm text-gray-600 dark:text-gray-400 mb-1">Grupp</label>
+                            <label className="block text-sm text-gray-600 dark:text-gray-400 mb-1">Klassrum</label>
                             <select
                                 value={selectedGroup || ''}
                                 onChange={(e) => setSelectedGroup(e.target.value || undefined)}
                                 className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500"
                             >
-                                <option value="">Alla grupper</option>
+                                <option value="">Alla klassrum</option>
                                 {userGroups.map((group) => (
                                     <option key={group.id} value={group.id}>
                                         {group.name}

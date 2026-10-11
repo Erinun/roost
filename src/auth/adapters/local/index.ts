@@ -223,12 +223,12 @@ export class LocalAuthAdapter implements AuthAdapter {
     const payload = decodeJwt(token);
     if (!payload) {
       this.clearTokens();
-      return { user: null, session: null, error: { message: 'Invalid token' } };
+      return { user: null, session: null, error: { message: 'Ogiltig session' } };
     }
 
     if (isTokenExpired(payload)) {
       this.clearTokens();
-      return { user: null, session: null, error: { message: 'Token expired' } };
+      return { user: null, session: null, error: { message: 'Sessionen har gått ut' } };
     }
 
     const session = tokenToSession(token, payload);
@@ -243,7 +243,7 @@ export class LocalAuthAdapter implements AuthAdapter {
 
     const payload = decodeJwt(token);
     if (!payload || isTokenExpired(payload)) {
-      return { user: null, error: { message: 'Invalid or expired token' } };
+      return { user: null, error: { message: 'Ogiltig eller utgången session' } };
     }
 
     return { user: payloadToUser(payload), error: null };

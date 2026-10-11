@@ -105,7 +105,7 @@ router.get('/status', async (req: Request, res: Response) => {
     // Verify authorization (Bearer token from Supabase)
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ error: 'Unauthorized' });
+        return res.status(401).json({ error: 'Obehörig' });
     }
 
     const token = authHeader.substring(7);
@@ -115,7 +115,7 @@ router.get('/status', async (req: Request, res: Response) => {
         const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(token);
 
         if (authError || !user) {
-            return res.status(401).json({ error: 'Invalid token' });
+            return res.status(401).json({ error: 'Ogiltig token' });
         }
 
         // Check if user is admin
@@ -126,7 +126,7 @@ router.get('/status', async (req: Request, res: Response) => {
             .single();
 
         if (profileError || !profile || !['admin', 'superadmin'].includes(profile.role)) {
-            return res.status(403).json({ error: 'Admin access required' });
+            return res.status(403).json({ error: 'Administratörsbehörighet krävs' });
         }
 
         // Get pending email count
@@ -150,7 +150,7 @@ router.get('/status', async (req: Request, res: Response) => {
         });
     } catch (err) {
         console.error('Error in notifications status endpoint:', err);
-        return res.status(500).json({ error: 'Internal server error' });
+        return res.status(500).json({ error: 'Internt serverfel' });
     }
 });
 

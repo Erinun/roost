@@ -29,15 +29,15 @@ export default function GroupSettings() {
             setError(null);
             const data = await getGroupBySlug(slug, user?.id);
             if (!data) {
-                setError('Classroom not found');
+                setError('Klassrummet hittades inte');
             } else if (!hasPermission(data.user_role, 'edit_settings')) {
-                setError('You do not have permission to edit this classroom');
+                setError('Du har inte behörighet att redigera det här klassrummet');
             } else {
                 setGroup(data);
             }
         } catch (err) {
             console.error('Error fetching group:', err);
-            setError('Failed to load classroom');
+            setError('Det gick inte att ladda klassrummet');
         } finally {
             setIsLoading(false);
         }
@@ -64,7 +64,7 @@ export default function GroupSettings() {
             fetchGroup();
         } catch (err) {
             console.error('Error updating layout:', err);
-            alert('Failed to update layout');
+            alert('Det gick inte att uppdatera layouten');
         } finally {
             setIsUpdatingLayout(false);
         }
@@ -79,7 +79,7 @@ export default function GroupSettings() {
             fetchGroup();
         } catch (err) {
             console.error('Error updating access type:', err);
-            alert('Failed to update access type');
+            alert('Det gick inte att uppdatera åtkomsttypen');
         } finally {
             setIsUpdatingAccess(false);
         }
@@ -94,7 +94,7 @@ export default function GroupSettings() {
             navigate('/classrooms', { replace: true });
         } catch (err) {
             console.error('Error deleting group:', err);
-            alert('Failed to delete classroom');
+            alert('Det gick inte att ta bort klassrummet');
         } finally {
             setIsDeleting(false);
         }
@@ -113,13 +113,13 @@ export default function GroupSettings() {
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="text-center py-12">
                     <h2 className="text-xl font-semibold text-surface-900 mb-2">
-                        {error || 'Classroom not found'}
+                        {error || 'Klassrummet hittades inte'}
                     </h2>
                     <button
                         onClick={() => navigate('/classrooms')}
                         className="mt-4 px-4 py-2 text-primary-600 font-medium hover:bg-primary-50 rounded-lg transition-colors"
                     >
-                        Browse Classrooms
+                        Bläddra bland klassrum
                     </button>
                 </div>
             </div>
@@ -139,7 +139,7 @@ export default function GroupSettings() {
                     <ArrowLeft className="w-5 h-5 text-surface-600" />
                 </button>
                 <div>
-                    <h1 className="text-2xl font-bold text-surface-900">Classroom Settings</h1>
+                    <h1 className="text-2xl font-bold text-surface-900">Klassrumsinställningar</h1>
                     <p className="text-surface-500">{group.name}</p>
                 </div>
             </div>
@@ -148,9 +148,9 @@ export default function GroupSettings() {
                 {/* General Settings */}
                 <section className="card">
                     <div className="p-6 border-b border-surface-100 dark:border-surface-700">
-                        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">General</h2>
+                        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">Allmänt</h2>
                         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                            Manage your classroom's basic information
+                            Hantera klassrummets grundläggande information
                         </p>
                     </div>
                     <div className="p-6">
@@ -170,7 +170,7 @@ export default function GroupSettings() {
                             <div className="flex-1">
                                 <h3 className="font-medium text-surface-900 dark:text-surface-100">{group.name}</h3>
                                 <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                                    {group.description || 'No description'}
+                                    {group.description || 'Ingen beskrivning'}
                                 </p>
                                 <p className="text-sm text-surface-400 dark:text-surface-500 mt-2">
                                     /classrooms/{group.slug}
@@ -180,7 +180,7 @@ export default function GroupSettings() {
                                 onClick={() => setShowEditModal(true)}
                                 className="px-4 py-2 bg-surface-100 dark:bg-surface-700 text-surface-700 dark:text-surface-200 rounded-lg font-medium hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors"
                             >
-                                Edit
+                                Redigera
                             </button>
                         </div>
                     </div>
@@ -191,7 +191,7 @@ export default function GroupSettings() {
                     <div className="p-6 border-b border-surface-100 dark:border-surface-700">
                         <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">Layout</h2>
                         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                            Choose the classroom detail page layout
+                            Välj layout för klassrummets sida
                         </p>
                     </div>
                     <div className="p-6">
@@ -213,10 +213,10 @@ export default function GroupSettings() {
                                     <LayoutGrid className={`w-5 h-5 mt-0.5 ${group.layout_mode === 'default' ? 'text-primary-600 dark:text-primary-400' : 'text-surface-400 dark:text-surface-500'}`} />
                                     <div>
                                         <h3 className={`font-medium ${group.layout_mode === 'default' ? 'text-primary-900 dark:text-primary-100' : 'text-surface-900 dark:text-surface-100'}`}>
-                                            Default Layout
+                                            Standardlayout
                                         </h3>
                                         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                                            Header at top, tabs below, content in grid
+                                            Sidhuvud överst, flikar under, innehåll i rutnät
                                         </p>
                                     </div>
                                 </div>
@@ -246,10 +246,10 @@ export default function GroupSettings() {
                                     <SidebarIcon className={`w-5 h-5 mt-0.5 ${group.layout_mode === 'sidebar' ? 'text-primary-600 dark:text-primary-400' : 'text-surface-400 dark:text-surface-500'}`} />
                                     <div>
                                         <h3 className={`font-medium ${group.layout_mode === 'sidebar' ? 'text-primary-900 dark:text-primary-100' : 'text-surface-900 dark:text-surface-100'}`}>
-                                            Sidebar Layout
+                                            Layout med sidopanel
                                         </h3>
                                         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                                            Header in right sidebar, tabs inline with content
+                                            Sidhuvud i höger sidopanel, flikar i linje med innehållet
                                         </p>
                                     </div>
                                 </div>
@@ -279,10 +279,10 @@ export default function GroupSettings() {
                                     <GraduationCap className={`w-5 h-5 mt-0.5 ${group.layout_mode === 'learn' ? 'text-primary-600 dark:text-primary-400' : 'text-surface-400 dark:text-surface-500'}`} />
                                     <div>
                                         <h3 className={`font-medium ${group.layout_mode === 'learn' ? 'text-primary-900 dark:text-primary-100' : 'text-surface-900 dark:text-surface-100'}`}>
-                                            Learn Mode
+                                            Lärläge
                                         </h3>
                                         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                                            Course-like layout with modules, lessons, and progress tracking
+                                            Kursliknande layout med moduler, lektioner och framstegsspårning
                                         </p>
                                     </div>
                                 </div>
@@ -301,9 +301,9 @@ export default function GroupSettings() {
                 {/* Access Type Settings */}
                 <section className="card">
                     <div className="p-6 border-b border-surface-100 dark:border-surface-700">
-                        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">Access Type</h2>
+                        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">Åtkomsttyp</h2>
                         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                            Control who can access this classroom
+                            Styr vem som kan komma åt det här klassrummet
                         </p>
                     </div>
                     <div className="p-6">
@@ -325,10 +325,10 @@ export default function GroupSettings() {
                                     <Users className={`w-5 h-5 mt-0.5 ${!group.is_premium ? 'text-primary-600 dark:text-primary-400' : 'text-surface-400 dark:text-surface-500'}`} />
                                     <div>
                                         <h3 className={`font-medium ${!group.is_premium ? 'text-primary-900 dark:text-primary-100' : 'text-surface-900 dark:text-surface-100'}`}>
-                                            Free Access
+                                            Fri åtkomst
                                         </h3>
                                         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                                            All members can join this classroom
+                                            Alla medlemmar kan gå med i det här klassrummet
                                         </p>
                                     </div>
                                 </div>
@@ -358,10 +358,10 @@ export default function GroupSettings() {
                                     <Crown className={`w-5 h-5 mt-0.5 ${group.is_premium ? 'text-amber-600 dark:text-amber-400' : 'text-surface-400 dark:text-surface-500'}`} />
                                     <div>
                                         <h3 className={`font-medium ${group.is_premium ? 'text-amber-900 dark:text-amber-100' : 'text-surface-900 dark:text-surface-100'}`}>
-                                            Premium Only
+                                            Endast premium
                                         </h3>
                                         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                                            Only premium members can access
+                                            Endast premiummedlemmar har åtkomst
                                         </p>
                                     </div>
                                 </div>
@@ -380,9 +380,9 @@ export default function GroupSettings() {
                 {/* Members Management */}
                 <section>
                     <div className="mb-4">
-                        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">Members</h2>
+                        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">Medlemmar</h2>
                         <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                            Manage classroom members and their roles
+                            Hantera klassrummets medlemmar och deras roller
                         </p>
                     </div>
                     <GroupMembers
@@ -400,15 +400,15 @@ export default function GroupSettings() {
                         <div className="p-6 border-b border-red-100 dark:border-red-900 bg-red-50/50 dark:bg-red-900/20">
                             <h2 className="text-lg font-semibold text-red-900 dark:text-red-400 flex items-center gap-2">
                                 <AlertTriangle className="w-5 h-5" />
-                                Danger Zone
+                                Farozon
                             </h2>
                         </div>
                         <div className="p-6">
                             <div className="flex items-start justify-between gap-4">
                                 <div>
-                                    <h3 className="font-medium text-surface-900 dark:text-surface-100">Delete this classroom</h3>
+                                    <h3 className="font-medium text-surface-900 dark:text-surface-100">Ta bort det här klassrummet</h3>
                                     <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                                        Once you delete a classroom, there is no going back. All posts, comments, and member data will be permanently deleted.
+                                        När du tar bort ett klassrum går det inte att ångra. Alla inlägg, kommentarer och medlemsdata raderas permanent.
                                     </p>
                                 </div>
                                 <button
@@ -416,7 +416,7 @@ export default function GroupSettings() {
                                     className="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors flex items-center gap-2 flex-shrink-0"
                                 >
                                     <Trash2 className="w-4 h-4" />
-                                    Delete Classroom
+                                    Ta bort klassrum
                                 </button>
                             </div>
                         </div>
@@ -438,15 +438,15 @@ export default function GroupSettings() {
                     <div className="bg-white rounded-xl w-full max-w-md p-6">
                         <div className="flex items-center gap-3 text-red-600 mb-4">
                             <AlertTriangle className="w-6 h-6" />
-                            <h2 className="text-xl font-semibold">Delete Classroom</h2>
+                            <h2 className="text-xl font-semibold">Ta bort klassrum</h2>
                         </div>
                         <p className="text-surface-600 mb-4">
-                            This action cannot be undone. This will permanently delete the
+                            Den här åtgärden kan inte ångras. Detta raderar permanent klassrummet
                             <strong> {group.name} </strong>
-                            classroom and all of its content.
+                            och allt dess innehåll.
                         </p>
                         <p className="text-surface-600 mb-4">
-                            Please type <strong>{group.name}</strong> to confirm.
+                            Skriv <strong>{group.name}</strong> för att bekräfta.
                         </p>
                         <input
                             type="text"
@@ -463,7 +463,7 @@ export default function GroupSettings() {
                                 }}
                                 className="flex-1 px-4 py-2.5 border border-surface-200 rounded-lg text-surface-700 font-medium hover:bg-surface-50 transition-colors"
                             >
-                                Cancel
+                                Avbryt
                             </button>
                             <button
                                 onClick={handleDelete}
@@ -471,7 +471,7 @@ export default function GroupSettings() {
                                 className="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
                                 {isDeleting && <Loader2 className="w-4 h-4 animate-spin" />}
-                                Delete Classroom
+                                Ta bort klassrum
                             </button>
                         </div>
                     </div>

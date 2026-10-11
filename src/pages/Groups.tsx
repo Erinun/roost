@@ -180,7 +180,7 @@ export default function Groups() {
                             : 'text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100'
                             }`}
                     >
-                        Discover
+                        Upptäck
                     </button>
                     <button
                         onClick={() => setActiveTab('my-groups')}
@@ -189,7 +189,7 @@ export default function Groups() {
                             : 'text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100'
                             }`}
                     >
-                        My Classrooms ({myGroups.length})
+                        Mina klassrum ({myGroups.length})
                     </button>
                 </div>
             </div>
@@ -205,21 +205,21 @@ export default function Groups() {
                         <Search className="w-8 h-8 text-surface-400 dark:text-surface-500" />
                     </div>
                     <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-1">
-                        {activeTab === 'my-groups' ? 'No classrooms yet' : 'No classrooms found'}
+                        {activeTab === 'my-groups' ? 'Inga klassrum ännu' : 'Inga klassrum hittades'}
                     </h3>
                     <p className="text-surface-500 dark:text-surface-400">
                         {activeTab === 'my-groups'
-                            ? "You haven't joined any classrooms yet. Discover classrooms to get started!"
+                            ? 'Du har inte gått med i några klassrum ännu. Upptäck klassrum för att komma igång!'
                             : searchQuery
-                                ? 'Try adjusting your search query'
-                                : 'Be the first to create a classroom!'}
+                                ? 'Prova att ändra din sökning'
+                                : 'Bli först med att skapa ett klassrum!'}
                     </p>
                     {activeTab === 'my-groups' && (
                         <button
                             onClick={() => setActiveTab('discover')}
                             className="mt-4 px-4 py-2 text-primary-600 dark:text-primary-400 font-medium hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-lg transition-colors"
                         >
-                            Discover Classrooms
+                            Upptäck klassrum
                         </button>
                     )}
                 </div>
@@ -243,11 +243,11 @@ export default function Groups() {
                             {loadingMore ? (
                                 <div className="flex items-center justify-center gap-2 text-surface-500 dark:text-surface-400">
                                     <Loader2 className="w-5 h-5 animate-spin" />
-                                    <span className="text-sm">Loading more classrooms...</span>
+                                    <span className="text-sm">Laddar fler klassrum...</span>
                                 </div>
                             ) : (
                                 <span className="text-sm text-surface-400 dark:text-surface-500">
-                                    Scroll for more
+                                    Skrolla för fler
                                 </span>
                             )}
                         </div>

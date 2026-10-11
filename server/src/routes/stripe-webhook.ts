@@ -214,8 +214,8 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription): Pro
       .insert({
         user_id: userId,
         type: 'new_message',
-        title: 'Subscription Cancelled',
-        message: 'Your subscription has been cancelled. You can resubscribe at any time to regain premium access.',
+        title: 'Prenumeration uppsagd',
+        message: 'Din prenumeration har sagts upp. Du kan teckna den igen när som helst för att återfå premiumåtkomst.',
       });
   }
 
@@ -250,8 +250,8 @@ async function handlePaymentFailed(invoice: Stripe.Invoice): Promise<void> {
     .insert({
       user_id: userId,
       type: 'new_message',
-      title: 'Payment Failed',
-      message: 'Your subscription payment failed. Please update your payment method to keep your premium access.',
+      title: 'Betalning misslyckades',
+      message: 'Betalningen för din prenumeration misslyckades. Uppdatera din betalningsmetod för att behålla din premiumåtkomst.',
     });
 
   await invalidateWebhookRelatedCaches(userId);

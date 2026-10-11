@@ -26,7 +26,7 @@ async function requireAdmin(req: Request, res: Response, next: () => void) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Missing authorization token' });
+    return res.status(401).json({ error: 'Autentiseringstoken saknas' });
   }
 
   const token = authHeader.substring(7);
@@ -35,7 +35,7 @@ async function requireAdmin(req: Request, res: Response, next: () => void) {
     const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
 
     if (error || !user) {
-      return res.status(401).json({ error: 'Invalid token' });
+      return res.status(401).json({ error: 'Ogiltig token' });
     }
 
     const profile = await getCachedUserProfile(user.id, async () => {
@@ -48,16 +48,16 @@ async function requireAdmin(req: Request, res: Response, next: () => void) {
     });
 
     if (!profile || !['admin', 'superadmin'].includes(profile.role)) {
-      return res.status(403).json({ error: 'Admin access required' });
+      return res.status(403).json({ error: 'Administratörsbehörighet krävs' });
     }
 
     if (profile.is_banned) {
-      return res.status(403).json({ error: 'Account is banned' });
+      return res.status(403).json({ error: 'Kontot är avstängt' });
     }
 
     next();
   } catch {
-    res.status(500).json({ error: 'Authorization failed' });
+    res.status(500).json({ error: 'Behörighetskontrollen misslyckades' });
   }
 }
 
@@ -66,7 +66,7 @@ stripeApiRouter.get('/subscription-status', async (req: Request, res: Response) 
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Missing authorization token' });
+    return res.status(401).json({ error: 'Autentiseringstoken saknas' });
   }
 
   const token = authHeader.substring(7);
@@ -75,7 +75,7 @@ stripeApiRouter.get('/subscription-status', async (req: Request, res: Response) 
     const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
 
     if (error || !user) {
-      return res.status(401).json({ error: 'Invalid token' });
+      return res.status(401).json({ error: 'Ogiltig token' });
     }
 
     const status = await getCachedSubscriptionStatus(user.id, async (): Promise<SubscriptionStatus> => {
@@ -85,7 +85,7 @@ stripeApiRouter.get('/subscription-status', async (req: Request, res: Response) 
     res.json(status);
   } catch (error) {
     console.error('Error getting subscription status:', error);
-    res.status(500).json({ error: 'Failed to get subscription status' });
+    res.status(500).json({ error: 'Det gick inte att hämta prenumerationsstatus' });
   }
 });
 
@@ -94,7 +94,7 @@ stripeApiRouter.post('/create-checkout-session', async (req: Request, res: Respo
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Missing authorization token' });
+    return res.status(401).json({ error: 'Autentiseringstoken saknas' });
   }
 
   const token = authHeader.substring(7);
@@ -103,7 +103,7 @@ stripeApiRouter.post('/create-checkout-session', async (req: Request, res: Respo
     const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
 
     if (error || !user) {
-      return res.status(401).json({ error: 'Invalid token' });
+      return res.status(401).json({ error: 'Ogiltig token' });
     }
 
     const priceId = req.body.priceId || STRIPE_PRICE_ID;
@@ -127,7 +127,7 @@ stripeApiRouter.post('/create-checkout-session', async (req: Request, res: Respo
     res.json({ url });
   } catch (error) {
     console.error('Error creating checkout session:', error);
-    res.status(500).json({ error: 'Failed to create checkout session' });
+    res.status(500).json({ error: 'Det gick inte att skapa betalningssessionen' });
   }
 });
 
@@ -136,7 +136,7 @@ stripeApiRouter.post('/create-portal-session', async (req: Request, res: Respons
   const authHeader = req.headers.authorization;
 
   if (!authHeader?.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Missing authorization token' });
+    return res.status(401).json({ error: 'Autentiseringstoken saknas' });
   }
 
   const token = authHeader.substring(7);
@@ -145,7 +145,7 @@ stripeApiRouter.post('/create-portal-session', async (req: Request, res: Respons
     const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
 
     if (error || !user) {
-      return res.status(401).json({ error: 'Invalid token' });
+      return res.status(401).json({ error: 'Ogiltig token' });
     }
 
     const frontendUrl = FRONTEND_URL;
@@ -155,10 +155,10 @@ stripeApiRouter.post('/create-portal-session', async (req: Request, res: Respons
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     if (message.includes('No Stripe customer found')) {
-      return res.status(404).json({ error: 'No subscription found. Subscribe first to manage your subscription.' });
+      return res.status(404).json({ error: 'Ingen prenumeration hittades. Teckna en prenumeration först för att kunna hantera den.' });
     }
     console.error('Error creating portal session:', error);
-    res.status(500).json({ error: 'Failed to create portal session' });
+    res.status(500).json({ error: 'Det gick inte att öppna prenumerationsportalen' });
   }
 });
 
@@ -218,7 +218,7 @@ stripeApiRouter.get('/stats', requireAdmin, async (_req: Request, res: Response)
     res.json(stats);
   } catch (error) {
     console.error('Stats error:', error);
-    res.status(500).json({ error: 'Failed to get stats' });
+    res.status(500).json({ error: 'Det gick inte att hämta statistik' });
   }
 });
 
@@ -233,7 +233,7 @@ stripeApiRouter.post('/cleanup', requireAdmin, async (_req: Request, res: Respon
       .lt('current_period_end', new Date().toISOString());
 
     if (!expiredSubs || expiredSubs.length === 0) {
-      return res.json({ message: 'No expired subscriptions to process' });
+      return res.json({ message: 'Inga utgångna prenumerationer att behandla' });
     }
 
     let processed = 0;
@@ -265,8 +265,8 @@ stripeApiRouter.post('/cleanup', requireAdmin, async (_req: Request, res: Respon
           .insert({
             user_id: sub.user_id,
             type: 'new_message',
-            title: 'Subscription Expired',
-            message: 'Your subscription has expired. Please renew to regain premium access.',
+            title: 'Prenumeration utgången',
+            message: 'Din prenumeration har gått ut. Förnya den för att återfå premiumåtkomst.',
           });
       }
 
@@ -277,10 +277,10 @@ stripeApiRouter.post('/cleanup', requireAdmin, async (_req: Request, res: Respon
 
     res.json({
       success: true,
-      message: `Processed ${processed} expired subscriptions`,
+      message: `${processed} utgångna prenumerationer har behandlats`,
     });
   } catch (error) {
     console.error('Cleanup error:', error);
-    res.status(500).json({ error: 'Failed to run cleanup' });
+    res.status(500).json({ error: 'Det gick inte att köra rensningen' });
   }
 });

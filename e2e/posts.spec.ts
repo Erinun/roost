@@ -12,9 +12,9 @@ test.describe('Post Creation and Interaction Flow', () => {
     await page.goto('/login');
 
     // Fill in login form
-    await page.getByPlaceholder(/email/i).fill(TEST_USER.email);
-    await page.getByPlaceholder(/password/i).fill(TEST_USER.password);
-    await page.getByRole('button', { name: /sign in|log in/i }).click();
+    await page.getByPlaceholder(/exempel|email/i).fill(TEST_USER.email);
+    await page.getByPlaceholder(/lösenord/i).fill(TEST_USER.password);
+    await page.getByRole('button', { name: /logga in|sign in/i }).click();
 
     // Wait for redirect to home/dashboard
     await page.waitForURL('/', { timeout: 10000 }).catch(() => {
@@ -25,32 +25,32 @@ test.describe('Post Creation and Interaction Flow', () => {
 
   test('should display the community feed', async ({ page }) => {
     // Check for feed elements
-    await expect(page.getByText(/community|feed|posts/i).first()).toBeVisible();
+    await expect(page.getByText(/community|flöde|inlägg/i).first()).toBeVisible();
   });
 
   test('should open post creation modal', async ({ page }) => {
     // Look for "Write something" or post creation trigger
-    const postTrigger = page.getByText(/write something|create post|new post/i).first();
+    const postTrigger = page.getByText(/skriv något|skapa inlägg|nytt inlägg/i).first();
 
     if (await postTrigger.isVisible()) {
       await postTrigger.click();
 
       // Check for post creation modal/form
       await expect(
-        page.getByRole('dialog').or(page.getByRole('textbox', { name: /content|body|write/i }))
+        page.getByRole('dialog').or(page.getByRole('textbox', { name: /vad vill du dela|rubrik|skriv/i }))
       ).toBeVisible();
     }
   });
 
   test('should create a new post', async ({ page }) => {
     // Open post creation
-    const postTrigger = page.getByText(/write something|create post|new post/i).first();
+    const postTrigger = page.getByText(/skriv något|skapa inlägg|nytt inlägg/i).first();
 
     if (await postTrigger.isVisible()) {
       await postTrigger.click();
 
       // Fill in post content
-      const titleInput = page.getByPlaceholder(/title/i).or(page.getByLabel(/title/i));
+      const titleInput = page.getByPlaceholder(/rubrik/i).or(page.getByLabel(/rubrik/i));
       if (await titleInput.isVisible()) {
         await titleInput.fill('Test Post from E2E');
       }
@@ -67,7 +67,7 @@ test.describe('Post Creation and Interaction Flow', () => {
       }
 
       // Submit the post
-      const submitButton = page.getByRole('button', { name: /post|submit|publish/i });
+      const submitButton = page.getByRole('button', { name: /publicera|publish/i });
       if (await submitButton.isVisible()) {
         await submitButton.click();
 
@@ -87,7 +87,7 @@ test.describe('Post Creation and Interaction Flow', () => {
     if (await postCard.isVisible()) {
       // Find like/reaction button
       const likeButton = postCard
-        .getByRole('button', { name: /like|react/i })
+        .getByRole('button', { name: /reagera|gilla/i })
         .or(postCard.locator('[data-testid="like-button"]'))
         .or(postCard.locator('.like-button'));
 
@@ -107,7 +107,7 @@ test.describe('Post Creation and Interaction Flow', () => {
     if (await postCard.isVisible()) {
       // Find comment button or expand comments
       const commentButton = postCard
-        .getByRole('button', { name: /comment|reply/i })
+        .getByRole('button', { name: /kommentera|svara/i })
         .or(postCard.locator('[data-testid="comment-button"]'));
 
       if (await commentButton.isVisible()) {
@@ -115,7 +115,7 @@ test.describe('Post Creation and Interaction Flow', () => {
 
         // Find comment input
         const commentInput = page
-          .getByPlaceholder(/write a comment|add a comment/i)
+          .getByPlaceholder(/skriv en kommentar/i)
           .or(page.locator('[data-testid="comment-input"]'))
           .first();
 
@@ -123,7 +123,7 @@ test.describe('Post Creation and Interaction Flow', () => {
           await commentInput.fill('Test comment from E2E');
 
           // Submit comment
-          const submitComment = page.getByRole('button', { name: /send|post|submit/i });
+          const submitComment = page.getByRole('button', { name: /skicka|send/i });
           if (await submitComment.isVisible()) {
             await submitComment.click();
 
@@ -140,15 +140,15 @@ test.describe('Post Creation and Interaction Flow', () => {
 test.describe('Post Navigation', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/login');
-    await page.getByPlaceholder(/email/i).fill(TEST_USER.email);
-    await page.getByPlaceholder(/password/i).fill(TEST_USER.password);
-    await page.getByRole('button', { name: /sign in|log in/i }).click();
+    await page.getByPlaceholder(/exempel|email/i).fill(TEST_USER.email);
+    await page.getByPlaceholder(/lösenord/i).fill(TEST_USER.password);
+    await page.getByRole('button', { name: /logga in|sign in/i }).click();
     await page.waitForURL('/', { timeout: 10000 }).catch(() => test.skip());
   });
 
   test('should filter posts by category', async ({ page }) => {
     // Find category filter buttons
-    const categoryButtons = page.getByRole('button').filter({ hasText: /general|youtube|all/i });
+    const categoryButtons = page.getByRole('button').filter({ hasText: /alla ämnen|general|youtube/i });
 
     if ((await categoryButtons.count()) > 0) {
       await categoryButtons.first().click();

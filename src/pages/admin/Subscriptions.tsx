@@ -14,12 +14,12 @@ import {
 // Helper to format event type for display
 function formatEventType(eventType: string): { label: string; color: string } {
     const map: Record<string, { label: string; color: string }> = {
-        'checkout.session.completed': { label: 'Checkout', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
-        'customer.subscription.created': { label: 'New Sub', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
-        'customer.subscription.updated': { label: 'Updated', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' },
-        'customer.subscription.deleted': { label: 'Cancelled', color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' },
-        'invoice.payment_succeeded': { label: 'Payment OK', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
-        'invoice.payment_failed': { label: 'Payment Failed', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' },
+        'checkout.session.completed': { label: 'Kassa', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
+        'customer.subscription.created': { label: 'Ny prenumeration', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
+        'customer.subscription.updated': { label: 'Uppdaterad', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' },
+        'customer.subscription.deleted': { label: 'Uppsagd', color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' },
+        'invoice.payment_succeeded': { label: 'Betalning OK', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
+        'invoice.payment_failed': { label: 'Betalning misslyckades', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' },
     };
 
     return map[eventType] || { label: eventType, color: 'bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-400' };
@@ -68,7 +68,7 @@ function WebhookLogItem({ webhook }: { webhook: WebhookLog }) {
                     </div>
                 </div>
                 <div className="text-xs text-surface-500 dark:text-surface-400 whitespace-nowrap">
-                    {new Date(webhook.created_at).toLocaleString()}
+                    {new Date(webhook.created_at).toLocaleString('sv-SE')}
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@ export default function AdminSubscriptions() {
             const data = await stripeAdminService.getStats();
             setStats(data);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to fetch stats');
+            setError(err instanceof Error ? err.message : 'Det gick inte att hämta statistik');
         } finally {
             setIsLoading(false);
             setIsRefreshing(false);
@@ -106,7 +106,7 @@ export default function AdminSubscriptions() {
     };
 
     const handleCleanup = async () => {
-        if (!confirm('This will expire cancelled subscriptions past their period end and downgrade affected users. Continue?')) {
+        if (!confirm('Detta avslutar uppsagda prenumerationer vars period har löpt ut och nedgraderar berörda användare. Vill du fortsätta?')) {
             return;
         }
 
@@ -117,7 +117,7 @@ export default function AdminSubscriptions() {
             setCleanupMessage(result.message);
             await fetchStats();
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Cleanup failed');
+            setError(err instanceof Error ? err.message : 'Rensningen misslyckades');
         } finally {
             setIsCleaningUp(false);
         }
@@ -136,9 +136,9 @@ export default function AdminSubscriptions() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Subscriptions</h1>
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Prenumerationer</h1>
                     <p className="text-sm text-surface-500 dark:text-surface-400 mt-1">
-                        Manage Stripe subscription payments and view webhook activity
+                        Hantera Stripe-prenumerationsbetalningar och se webhook-aktivitet
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ export default function AdminSubscriptions() {
                         className="inline-flex items-center gap-2 px-3 py-2 text-sm bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors disabled:opacity-50"
                     >
                         <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-                        Refresh
+                        Uppdatera
                     </button>
                 </div>
             </div>
@@ -180,7 +180,7 @@ export default function AdminSubscriptions() {
                             </div>
                             <div>
                                 <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{stats.customers}</p>
-                                <p className="text-xs text-surface-500 dark:text-surface-400">Customers</p>
+                                <p className="text-xs text-surface-500 dark:text-surface-400">Kunder</p>
                             </div>
                         </div>
                     </div>
@@ -191,7 +191,7 @@ export default function AdminSubscriptions() {
                             </div>
                             <div>
                                 <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{stats.subscriptions.active}</p>
-                                <p className="text-xs text-surface-500 dark:text-surface-400">Active</p>
+                                <p className="text-xs text-surface-500 dark:text-surface-400">Aktiva</p>
                             </div>
                         </div>
                     </div>
@@ -202,7 +202,7 @@ export default function AdminSubscriptions() {
                             </div>
                             <div>
                                 <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{stats.subscriptions.cancelled}</p>
-                                <p className="text-xs text-surface-500 dark:text-surface-400">Cancelled</p>
+                                <p className="text-xs text-surface-500 dark:text-surface-400">Uppsagda</p>
                             </div>
                         </div>
                     </div>
@@ -213,7 +213,7 @@ export default function AdminSubscriptions() {
                             </div>
                             <div>
                                 <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{stats.webhooks.total}</p>
-                                <p className="text-xs text-surface-500 dark:text-surface-400">Webhooks ({stats.webhooks.failed} failed)</p>
+                                <p className="text-xs text-surface-500 dark:text-surface-400">Webhooks ({stats.webhooks.failed} misslyckade)</p>
                             </div>
                         </div>
                     </div>
@@ -222,7 +222,7 @@ export default function AdminSubscriptions() {
 
             {/* Actions */}
             <div className="card p-4">
-                <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-3">Actions</h2>
+                <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-3">Åtgärder</h2>
                 <div className="flex flex-wrap gap-3">
                     <button
                         onClick={handleCleanup}
@@ -230,14 +230,14 @@ export default function AdminSubscriptions() {
                         className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-amber-100 dark:bg-amber-900/30 hover:bg-amber-200 dark:hover:bg-amber-900/50 text-amber-700 dark:text-amber-400 rounded-lg transition-colors disabled:opacity-50"
                     >
                         <Trash2 className={`w-4 h-4 ${isCleaningUp ? 'animate-spin' : ''}`} />
-                        {isCleaningUp ? 'Running...' : 'Cleanup Expired'}
+                        {isCleaningUp ? 'Kör...' : 'Rensa utgångna'}
                     </button>
                 </div>
                 {cleanupMessage && (
                     <p className="text-sm text-green-600 dark:text-green-400 mt-2">{cleanupMessage}</p>
                 )}
                 <p className="text-xs text-surface-500 dark:text-surface-400 mt-2">
-                    Products and prices are managed in the{' '}
+                    Produkter och priser hanteras i{' '}
                     <a
                         href="https://dashboard.stripe.com/products"
                         target="_blank"
@@ -252,7 +252,7 @@ export default function AdminSubscriptions() {
             {/* Recent Webhooks */}
             {stats && stats.webhooks.recent.length > 0 && (
                 <div className="card p-4">
-                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-3">Recent Webhooks</h2>
+                    <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-3">Senaste webhooks</h2>
                     <div className="space-y-3">
                         {stats.webhooks.recent.map((webhook) => (
                             <WebhookLogItem key={webhook.id} webhook={webhook} />

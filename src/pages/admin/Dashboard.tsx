@@ -147,7 +147,7 @@ export default function AdminDashboard() {
             {/* Secondary Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <StatsCard
-                    title="Aktiva grupper"
+                    title="Aktiva klassrum"
                     value={`${stats?.active_groups || 0} / ${stats?.total_groups || 0}`}
                     icon={TrendingUp}
                     color="indigo"
