@@ -97,5 +97,6 @@ backups/
 *.pid
 *.seed
 *.pid.lock
-# Docs
-docs/
+# Docs (utom redesign-underlaget som ska versioneras)
+docs/*
+!docs/redesign/
