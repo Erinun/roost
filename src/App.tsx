@@ -31,6 +31,7 @@ const FeatureRequestDetail = lazy(() => import('./pages/FeatureRequestDetail'));
 const Activations = lazy(() => import('./pages/Activations'));
 const LiveRoom = lazy(() => import('./pages/LiveRoom'));
 const Upgrade = lazy(() => import('./pages/Upgrade'));
+const Styleguide = lazy(() => import('./pages/Styleguide'));
 
 // Lazy-loaded Auth Pages
 const Login = lazy(() => import('./pages/auth/Login'));
@@ -86,6 +87,9 @@ function App() {
 
                 {/* Upgrade page - accessible when authenticated but not premium */}
                 <Route path="/upgrade" element={<Upgrade />} />
+
+                {/* Internal styleguide - design tokens and base components */}
+                <Route path="/styleguide" element={<Styleguide />} />
 
                 {/* Admin routes */}
                 <Route

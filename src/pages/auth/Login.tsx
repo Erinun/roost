@@ -148,20 +148,20 @@ export default function Login() {
         <div className="flex bg-surface-100 dark:bg-surface-800 rounded-xl p-1 mb-8">
             <Link
                 to="/login"
-                className={`flex-1 py-2.5 text-center text-sm font-medium rounded-lg transition-all duration-200 ${
+                className={`flex-1 flex items-center justify-center min-h-11 text-center text-sm font-semibold rounded-lg transition-all duration-200 ${
                     active === 'login'
-                        ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 shadow-sm'
-                        : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'
+                        ? 'bg-white dark:bg-surface-700 text-primary-700 dark:text-surface-50 border border-surface-200 dark:border-surface-600'
+                        : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-200'
                 }`}
             >
                 Logga in
             </Link>
             <Link
                 to="/signup"
-                className={`flex-1 py-2.5 text-center text-sm font-medium rounded-lg transition-all duration-200 ${
+                className={`flex-1 flex items-center justify-center min-h-11 text-center text-sm font-semibold rounded-lg transition-all duration-200 ${
                     active === 'signup'
-                        ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 shadow-sm'
-                        : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'
+                        ? 'bg-white dark:bg-surface-700 text-primary-700 dark:text-surface-50 border border-surface-200 dark:border-surface-600'
+                        : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-200'
                 }`}
             >
                 Skapa konto
@@ -175,30 +175,30 @@ export default function Login() {
             <div className="animate-fade-in">
                 {/* Header */}
                 <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Mail className="w-8 h-8 text-amber-600 dark:text-amber-400" />
+                    <div className="w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Mail className="w-8 h-8 text-surface-900" />
                     </div>
-                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">
+                    <h1 className="text-2xl text-surface-900 dark:text-surface-50">
                         E-postadressen är inte bekräftad
                     </h1>
-                    <p className="text-surface-500 dark:text-surface-400 mt-2 text-sm">
+                    <p className="text-surface-600 dark:text-surface-300 mt-2 text-sm">
                         Bekräfta din e-postadress för att fortsätta
                     </p>
                 </div>
 
                 {/* Email display */}
                 <div className="bg-surface-100 dark:bg-surface-800 rounded-lg px-4 py-3 mb-6 text-center">
-                    <p className="font-medium text-surface-900 dark:text-white text-sm">
+                    <p className="font-bold text-surface-900 dark:text-surface-50 text-sm">
                         {unconfirmedEmail}
                     </p>
                 </div>
 
                 {/* Instructions */}
-                <div className="bg-surface-50 dark:bg-surface-800/50 rounded-lg p-4 mb-6">
-                    <p className="text-sm text-surface-600 dark:text-surface-400 mb-3">
+                <div className="bg-surface-50 dark:bg-surface-800/50 rounded-lg p-4 mb-6 border border-surface-200 dark:border-surface-700">
+                    <p className="text-sm text-surface-600 dark:text-surface-300 mb-3">
                         Vi har skickat en bekräftelselänk till din e-post. Gör så här:
                     </p>
-                    <ol className="text-sm text-surface-600 dark:text-surface-400 space-y-2 list-decimal list-inside">
+                    <ol className="text-sm text-surface-600 dark:text-surface-300 space-y-2 list-decimal list-inside">
                         <li>Kolla din inkorg (och skräpposten)</li>
                         <li>Klicka på bekräftelselänken</li>
                         <li>Kom tillbaka hit och försök logga in igen</li>
@@ -207,14 +207,14 @@ export default function Login() {
 
                 {/* Resend status messages */}
                 {resendStatus === 'sent' && (
-                    <div className="flex items-center justify-center gap-2 text-green-600 dark:text-green-400 mb-4">
+                    <div className="flex items-center justify-center gap-2 bg-success/15 dark:bg-success/20 text-surface-900 dark:text-success rounded-lg p-3 mb-4">
                         <CheckCircle className="w-5 h-5" />
-                        <span className="text-sm">Bekräftelsemejl skickat!</span>
+                        <span className="text-sm font-semibold">Bekräftelsemejl skickat!</span>
                     </div>
                 )}
 
                 {error && resendStatus === 'error' && (
-                    <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg text-sm">
+                    <div className="mb-4 p-3 bg-error/10 dark:bg-error/20 border border-error/60 text-surface-900 dark:text-error-soft rounded-lg text-sm">
                         {error}
                     </div>
                 )}
@@ -224,7 +224,7 @@ export default function Login() {
                     <button
                         onClick={handleResendConfirmation}
                         disabled={resendStatus === 'sending' || resendStatus === 'sent'}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white rounded-lg font-medium transition-colors text-sm"
+                        className="btn-primary w-full"
                     >
                         {resendStatus === 'sending' ? (
                             <>
@@ -246,14 +246,14 @@ export default function Login() {
 
                     <button
                         onClick={handleBackToCredentials}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-surface-100 hover:bg-surface-200 dark:bg-surface-800 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300 rounded-lg font-medium transition-colors text-sm"
+                        className="btn-secondary w-full"
                     >
                         Tillbaka till inloggning
                     </button>
                 </div>
 
                 {/* Help text */}
-                <p className="text-xs text-surface-500 mt-6 text-center">
+                <p className="text-xs text-surface-500 dark:text-surface-400 mt-6 text-center">
                     Fick du inget mejl? Kolla din skräppost eller försök skicka igen.
                 </p>
             </div>
@@ -269,13 +269,13 @@ export default function Login() {
 
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Välkommen tillbaka</h1>
-                    <p className="text-surface-500 dark:text-surface-400 mt-1 text-sm">Logga in på ditt konto för att fortsätta</p>
+                    <h1 className="text-2xl text-surface-900 dark:text-surface-50">Välkommen tillbaka</h1>
+                    <p className="text-surface-600 dark:text-surface-300 mt-1 text-sm">Logga in på ditt konto för att fortsätta</p>
                 </div>
 
                 {/* Error message */}
                 {error && (
-                    <div className="mb-6 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg text-sm">
+                    <div className="mb-6 p-3 bg-error/10 dark:bg-error/20 border border-error/60 text-surface-900 dark:text-error-soft rounded-lg text-sm">
                         {error}
                     </div>
                 )}
@@ -284,7 +284,7 @@ export default function Login() {
                 <form onSubmit={handleCredentialsSubmit} className="space-y-5">
                     {/* Email field */}
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
+                        <label htmlFor="email" className="label">
                             E-post
                         </label>
                         <input
@@ -301,7 +301,7 @@ export default function Login() {
 
                     {/* Password field */}
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
+                        <label htmlFor="password" className="label">
                             Lösenord
                         </label>
                         <div className="relative">
@@ -318,7 +318,7 @@ export default function Login() {
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 transition-colors"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 transition-colors"
                             >
                                 {showPassword ? (
                                     <EyeOff className="w-4 h-4" />
@@ -333,7 +333,7 @@ export default function Login() {
                     <div className="flex justify-end">
                         <Link
                             to="/forgot-password"
-                            className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium"
+                            className="link text-sm"
                         >
                             Glömt lösenordet?
                         </Link>
@@ -343,7 +343,7 @@ export default function Login() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="btn-primary w-full py-2.5"
+                        className="btn-primary w-full"
                     >
                         {isLoading ? (
                             <>
@@ -364,13 +364,13 @@ export default function Login() {
         <div className="animate-fade-in">
             {/* Header */}
             <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Shield className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Shield className="w-8 h-8 text-primary-600 dark:text-primary-300" />
                 </div>
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">
+                <h1 className="text-2xl text-surface-900 dark:text-surface-50">
                     Tvåfaktorsautentisering
                 </h1>
-                <p className="text-surface-500 dark:text-surface-400 mt-2 text-sm">
+                <p className="text-surface-600 dark:text-surface-300 mt-2 text-sm">
                     {useBackupCode
                         ? 'Ange en av dina reservkoder'
                         : 'Ange den 6-siffriga koden från din autentiseringsapp'
@@ -380,7 +380,7 @@ export default function Login() {
 
             {/* Error message */}
             {error && (
-                <div className="mb-6 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg text-sm">
+                <div className="mb-6 p-3 bg-error/10 dark:bg-error/20 border border-error/60 text-surface-900 dark:text-error-soft rounded-lg text-sm">
                     {error}
                 </div>
             )}
@@ -389,11 +389,11 @@ export default function Login() {
             <form onSubmit={handle2FASubmit} className="space-y-5">
                 {useBackupCode ? (
                     <div>
-                        <label htmlFor="backupCode" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
+                        <label htmlFor="backupCode" className="label">
                             Reservkod
                         </label>
                         <div className="relative">
-                            <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
+                            <Key className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500 dark:text-surface-400" />
                             <input
                                 id="backupCode"
                                 type="text"
@@ -409,7 +409,7 @@ export default function Login() {
                     </div>
                 ) : (
                     <div>
-                        <label htmlFor="twoFactorCode" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
+                        <label htmlFor="twoFactorCode" className="label">
                             Verifieringskod
                         </label>
                         <input
@@ -434,7 +434,7 @@ export default function Login() {
                 <button
                     type="submit"
                     disabled={isLoading || (useBackupCode ? !backupCode : twoFactorCode.length !== 6)}
-                    className="btn-primary w-full py-2.5"
+                    className="btn-primary w-full"
                 >
                     {isLoading ? (
                         <>
@@ -457,7 +457,7 @@ export default function Login() {
                         setTwoFactorCode('');
                         setBackupCode('');
                     }}
-                    className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
+                    className="link text-sm"
                 >
                     {useBackupCode
                         ? 'Använd autentiseringsapp istället'
@@ -471,7 +471,7 @@ export default function Login() {
                 <button
                     type="button"
                     onClick={handleBackToCredentials}
-                    className="text-sm text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200"
+                    className="text-sm font-semibold text-surface-600 hover:text-surface-900 dark:text-surface-300 dark:hover:text-surface-50 transition-colors"
                 >
                     &larr; Tillbaka till inloggning
                 </button>

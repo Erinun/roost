@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+// =============================================================================
+// Designtokens – Aktiespararnas grafiska profil 2023
+// Se docs/redesign/designsystem.md för namnsättning, roller och kontrastregler.
+// =============================================================================
 export default {
     darkMode: 'class',
     content: [
@@ -7,74 +11,123 @@ export default {
     ],
     theme: {
         extend: {
-            // Skool-inspired color palette
             colors: {
-                // Primary brand colors
+                // Primärskala (mekanism för körtidstema via SiteSettingsContext).
+                // Fallbackar genererade runt profilens primärblå #185DA9 (ankare på 600).
                 primary: {
-                    50: 'var(--color-primary-50, #f0f9ff)',
-                    100: 'var(--color-primary-100, #e0f2fe)',
-                    200: 'var(--color-primary-200, #bae6fd)',
-                    300: 'var(--color-primary-300, #7dd3fc)',
-                    400: 'var(--color-primary-400, #38bdf8)',
-                    500: 'var(--color-primary-500, #0ea5e9)',
-                    600: 'var(--color-primary-600, #0284c7)',
-                    700: 'var(--color-primary-700, #0369a1)',
-                    800: 'var(--color-primary-800, #075985)',
-                    900: 'var(--color-primary-900, #0c4a6e)',
-                    950: 'var(--color-primary-950, #082f49)',
+                    50: 'var(--color-primary-50, #F1F7FD)',
+                    100: 'var(--color-primary-100, #E0EDFB)',
+                    200: 'var(--color-primary-200, #BDD8F4)',
+                    300: 'var(--color-primary-300, #8EBBEB)',
+                    400: 'var(--color-primary-400, #5497DE)',
+                    500: 'var(--color-primary-500, #2275CE)',
+                    600: 'var(--color-primary-600, #185DA9)',
+                    700: 'var(--color-primary-700, #134D8B)',
+                    800: 'var(--color-primary-800, #113D6F)',
+                    900: 'var(--color-primary-900, #0F2E52)',
+                    950: 'var(--color-primary-950, #0A1D33)',
                 },
-                // Neutral grays (matching Skool's clean aesthetic)
+                // Profilens nio färger. CSS-variabler definieras i src/index.css.
+                // Mappning mot profilens namn:
+                //   brand-blue   = primary-blue-400   #185DA9
+                //   brand-sky    = secondary-blue-400 #159EDA
+                //   brand-teal   = green-400          #32D7CD
+                //   brand-purple = purple-700         #652FA0
+                //   brand-plum   = purple-400         #973B8E
+                //   brand-pink   = pink-600           #EE0181
+                //   brand-red    = red-500            #EC5345
+                //   brand-orange = orange-400         #F5A118
+                //   brand-yellow = yellow-500         #FBC231
+                brand: {
+                    blue: 'var(--brand-blue, #185DA9)',
+                    sky: 'var(--brand-sky, #159EDA)',
+                    teal: 'var(--brand-teal, #32D7CD)',
+                    purple: 'var(--brand-purple, #652FA0)',
+                    plum: 'var(--brand-plum, #973B8E)',
+                    pink: 'var(--brand-pink, #EE0181)',
+                    red: 'var(--brand-red, #EC5345)',
+                    orange: 'var(--brand-orange, #F5A118)',
+                    yellow: 'var(--brand-yellow, #FBC231)',
+                },
+                // Neutraler härledda ur profilens mörkblå #0E2A4D.
+                // Namnen behålls (surface-*) så att befintlig kod fortsätter fungera;
+                // endast värdena är utbytta (tidigare rena grå).
+                //   50  = tonad yta (#F3F7FC i profilen)
+                //   200 = linjer (#D5E1EE i profilen)
+                //   600 = dämpad text (#4A5B73 i profilen)
+                //   900 = text / mörk kortbotten (#0E2A4D i profilen)
                 surface: {
-                    50: '#fafafa',
-                    100: '#f5f5f5',
-                    200: '#e5e5e5',
-                    300: '#d4d4d4',
-                    400: '#a3a3a3',
-                    500: '#737373',
-                    600: '#525252',
-                    700: '#404040',
-                    800: '#262626',
-                    900: '#171717',
-                    950: '#0a0a0a',
+                    50: '#F3F7FC',
+                    100: '#E8EFF7',
+                    200: '#D5E1EE',
+                    300: '#B9C9DE',
+                    400: '#8CA0BC',
+                    500: '#5C7190',
+                    600: '#4A5B73',
+                    700: '#334862',
+                    800: '#1D3754',
+                    900: '#0E2A4D',
+                    950: '#081E3A',
                 },
-                // Accent colors for reactions and badges
+                // Accentfärger för reaktioner och märken (mappade mot profilen)
                 accent: {
-                    fire: '#f97316',
-                    love: '#ef4444',
-                    clap: '#eab308',
-                    think: '#8b5cf6',
+                    fire: '#F5A118',
+                    love: '#EC5345',
+                    clap: '#FBC231',
+                    think: '#973B8E',
                 },
-                // Status colors
-                success: '#22c55e',
-                warning: '#f59e0b',
-                error: '#ef4444',
-                info: '#3b82f6',
+                // Statusfärger (mappade mot profilen).
+                // error.strong är en mörkare härledning av brand-red för vit text
+                // i liten storlek (4,5:1); error.soft är en ljusare härledning för
+                // feltext i mörkt läge. Se designsystem.md, avsnitt Avvikelser.
+                success: '#32D7CD',
+                warning: '#F5A118',
+                error: {
+                    DEFAULT: '#EC5345',
+                    strong: '#B23327',
+                    soft: '#F49B92',
+                },
+                info: '#159EDA',
             },
-            // Typography
+            // Profilens tre övertoningar som bakgrundstokens.
+            // Definieras som CSS-variabler i src/index.css (en källa).
+            backgroundImage: {
+                'gradient-blue': 'var(--gradient-blue)',
+                'gradient-purple': 'var(--gradient-purple)',
+                'gradient-warm': 'var(--gradient-warm)',
+            },
+            // Typografi
+            //   sans    = PT Sans (hela gränssnittet)
+            //   heading = var(--font-heading): Ciutadella → Barlow → PT Sans
+            //   serif   = PT Serif (citat, längre löptext)
             fontFamily: {
-                sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                sans: ['PT Sans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                heading: ['var(--font-heading)'],
+                serif: ['PT Serif', 'Georgia', 'serif'],
                 mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
             },
-            // Spacing scale extensions
+            // Avståndsskala (utökningar)
             spacing: {
                 '18': '4.5rem',
                 '88': '22rem',
                 '128': '32rem',
             },
-            // Border radius
+            // Radier
             borderRadius: {
                 '4xl': '2rem',
             },
-            // Box shadows
+            // Skuggor – blåtonade från #0E2A4D (rgba 14,42,77).
+            // Obs: kort (.card) använder ALDRIG skugga, endast border.
+            // Skuggor är reserverade för flytande lager (dropdown, modal).
             boxShadow: {
-                'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-                'card': '0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)',
-                'elevated': '0 10px 40px -10px rgba(0, 0, 0, 0.2)',
+                'soft': '0 2px 15px -3px rgba(14, 42, 77, 0.08), 0 10px 20px -2px rgba(14, 42, 77, 0.05)',
+                'card': '0 0 0 1px rgba(14, 42, 77, 0.06), 0 1px 3px rgba(14, 42, 77, 0.10)',
+                'elevated': '0 10px 40px -10px rgba(14, 42, 77, 0.25)',
                 'soft-dark': '0 2px 15px -3px rgba(0, 0, 0, 0.3), 0 10px 20px -2px rgba(0, 0, 0, 0.2)',
                 'card-dark': '0 0 0 1px rgba(255, 255, 255, 0.05), 0 1px 3px rgba(0, 0, 0, 0.3)',
                 'elevated-dark': '0 10px 40px -10px rgba(0, 0, 0, 0.5)',
             },
-            // Custom animations
+            // Animationer
             animation: {
                 'fade-in': 'fadeIn 0.2s ease-out',
                 'slide-up': 'slideUp 0.3s ease-out',
@@ -109,7 +162,7 @@ export default {
                     '100%': { transform: 'translateX(0)' },
                 },
             },
-            // Container sizes
+            // Containerstorlekar
             maxWidth: {
                 '8xl': '88rem',
                 '9xl': '96rem',
