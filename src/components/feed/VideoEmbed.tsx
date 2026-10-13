@@ -10,7 +10,7 @@ export default function VideoEmbed({ url }: VideoEmbedProps) {
     if (!embedUrl) return null;
 
     return (
-        <div className="mt-4 relative aspect-video rounded-xl overflow-hidden border border-surface-200 bg-black shadow-sm">
+        <div className="mt-4 relative aspect-video rounded-xl overflow-hidden border border-surface-200 dark:border-surface-700 bg-surface-950">
             <iframe
                 src={embedUrl}
                 className="absolute inset-0 w-full h-full"

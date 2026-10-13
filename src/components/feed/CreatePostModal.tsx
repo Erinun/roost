@@ -210,11 +210,11 @@ export default function CreatePostModal({
     return createPortal(
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <div
-                className="absolute inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm"
+                className="absolute inset-0 bg-surface-950/60 dark:bg-surface-950/80 backdrop-blur-sm"
                 onClick={onClose}
             />
 
-            <div className="relative bg-white dark:bg-surface-900 rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden animate-fade-in flex flex-col">
+            <div className="relative bg-white dark:bg-surface-900 rounded-2xl border border-surface-200 dark:border-surface-700 shadow-elevated dark:shadow-elevated-dark w-full max-w-2xl max-h-[90vh] overflow-hidden animate-fade-in flex flex-col">
                 <div className="flex items-center justify-between p-4 border-b border-surface-200 dark:border-surface-700">
                     <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">
                         {editingPost ? 'Redigera inlägg' : 'Skapa inlägg'}
@@ -231,7 +231,7 @@ export default function CreatePostModal({
                     <input {...getInputProps()} />
 
                     {error && (
-                        <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg text-sm">
+                        <div className="alert-error">
                             {error}
                         </div>
                     )}
@@ -264,7 +264,7 @@ export default function CreatePostModal({
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             placeholder="Lägg till en rubrik (valfritt)"
-                            className="w-full px-4 py-3 text-lg font-medium text-surface-900 dark:text-surface-100 placeholder-surface-400 dark:placeholder-surface-500 bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                            className="input rounded-xl py-3 text-lg font-medium"
                         />
                     </div>
 
@@ -287,7 +287,7 @@ export default function CreatePostModal({
                             border-2 border-dashed rounded-xl p-6 text-center cursor-pointer
                             transition-all duration-200
                             ${isDragActive
-                                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900'
                                 : 'border-surface-300 dark:border-surface-600 hover:border-primary-400 hover:bg-surface-50 dark:hover:bg-surface-800'
                             }
                         `}
@@ -295,19 +295,19 @@ export default function CreatePostModal({
                         <div className="flex flex-col items-center gap-2">
                             {isUploading ? (
                                 <>
-                                    <Loader2 className="w-8 h-8 text-primary-500 animate-spin" />
-                                    <p className="text-sm text-surface-600 dark:text-surface-400">
+                                    <Loader2 className="w-8 h-8 text-primary-600 dark:text-primary-300 animate-spin" />
+                                    <p className="text-sm text-surface-600 dark:text-surface-300">
                                         Laddar upp... {uploadProgress}%
                                     </p>
                                 </>
                             ) : (
                                 <>
-                                    <Upload className={`w-8 h-8 ${isDragActive ? 'text-primary-500' : 'text-surface-400 dark:text-surface-500'}`} />
+                                    <Upload className={`w-8 h-8 ${isDragActive ? 'text-primary-600 dark:text-primary-300' : 'text-surface-400'}`} />
                                     <div>
-                                        <p className="text-sm font-medium text-surface-700 dark:text-surface-300">
+                                        <p className="text-sm font-medium text-surface-700 dark:text-surface-200">
                                             {isDragActive ? 'Släpp bilderna här' : 'Dra och släpp bilder, eller klicka för att välja'}
                                         </p>
-                                        <p className="text-xs text-surface-400 dark:text-surface-500 mt-1">
+                                        <p className="text-xs text-surface-500 dark:text-surface-400 mt-1">
                                             PNG, JPG, GIF, WebP upp till 10 MB per fil
                                         </p>
                                     </div>
@@ -331,7 +331,7 @@ export default function CreatePostModal({
                                             e.stopPropagation();
                                             handleRemoveAsset(asset);
                                         }}
-                                        className="absolute top-1 right-1 p-1.5 bg-black/50 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
+                                        className="absolute top-1 right-1 p-1.5 bg-surface-950/60 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-surface-950/80"
                                     >
                                         <Trash2 className="w-4 h-4" />
                                     </button>
@@ -342,7 +342,7 @@ export default function CreatePostModal({
 
                     {categories.length > 0 && (
                         <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-sm text-surface-500 dark:text-surface-400">Kategori:</span>
+                            <span className="text-sm text-surface-600 dark:text-surface-300">Kategori:</span>
                             {categories.map((cat) => (
                                 <button
                                     key={cat.id}
@@ -351,8 +351,8 @@ export default function CreatePostModal({
                                         px-3 py-1 rounded-full text-xs font-medium
                                         transition-all duration-200
                                         ${categoryId === cat.id
-                                            ? 'text-white'
-                                            : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700'
+                                            ? cat.color ? 'text-white' : 'bg-primary-600 text-white'
+                                            : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'
                                         }
                                     `}
                                     style={{
@@ -371,7 +371,7 @@ export default function CreatePostModal({
                         <button
                             onClick={open}
                             disabled={isUploading}
-                            className="p-2 hover:bg-surface-200 dark:hover:bg-surface-700 rounded-full transition-colors text-surface-500 dark:text-surface-400 disabled:opacity-50"
+                            className="p-2 hover:bg-surface-200 dark:hover:bg-surface-700 rounded-full transition-colors text-surface-600 dark:text-surface-300 disabled:opacity-50"
                             title="Lägg till bilder"
                         >
                             {isUploading ? (
@@ -381,13 +381,13 @@ export default function CreatePostModal({
                             )}
                         </button>
                         <button
-                            className="p-2 hover:bg-surface-200 dark:hover:bg-surface-700 rounded-full transition-colors text-surface-500 dark:text-surface-400"
+                            className="p-2 hover:bg-surface-200 dark:hover:bg-surface-700 rounded-full transition-colors text-surface-600 dark:text-surface-300"
                             title="Lägg till länk"
                         >
                             <LinkIcon className="w-5 h-5" />
                         </button>
                         {assets.length > 0 && (
-                            <span className="text-xs text-surface-500 dark:text-surface-400 ml-2">
+                            <span className="text-xs text-surface-600 dark:text-surface-300 ml-2">
                                 {assets.length} bild{assets.length !== 1 ? 'er' : ''} bifogad{assets.length !== 1 ? 'e' : ''}
                             </span>
                         )}

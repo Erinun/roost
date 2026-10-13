@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext';
 
 // Loading component for suspense fallback
 const PageLoader = () => (
@@ -10,6 +11,7 @@ const PageLoader = () => (
 
 // Lazy-loaded Pages
 const Home = lazy(() => import('./pages/Home'));
+const Landing = lazy(() => import('./pages/Landing'));
 const Explore = lazy(() => import('./pages/Explore'));
 const Profile = lazy(() => import('./pages/Profile'));
 const Settings = lazy(() => import('./pages/Settings'));
@@ -64,6 +66,17 @@ import AdminLayout from './layouts/AdminLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import AdminRoute from './components/auth/AdminRoute';
 
+// Växel för "/": utloggade besökare ser den publika landningssidan,
+// inloggade får exakt dagens skyddade beteende (ProtectedRoute → MainLayout → Home).
+// Medan auth-läget laddar visas appens vanliga laddindikator (PageLoader).
+const RootGate = () => {
+    const { isAuthenticated, isLoading } = useAuth();
+
+    if (isLoading) return <PageLoader />;
+    if (!isAuthenticated) return <Landing />;
+    return <ProtectedRoute />;
+};
+
 function App() {
     return (
         <Suspense fallback={<PageLoader />}>
@@ -113,10 +126,17 @@ function App() {
                     <Route path="site-settings" element={<AdminSiteSettings />} />
                 </Route>
 
+                {/* Root route: public landing for logged-out visitors,
+                    protected Home (unchanged behavior) for logged-in users */}
+                <Route element={<RootGate />}>
+                    <Route element={<MainLayout />}>
+                        <Route path="/" element={<Home />} />
+                    </Route>
+                </Route>
+
                 {/* Protected routes - available to all authenticated users */}
                 <Route element={<ProtectedRoute />}>
                     <Route element={<MainLayout />}>
-                        <Route path="/" element={<Home />} />
                         <Route path="/explore" element={<Explore />} />
                         <Route path="/classrooms" element={<Classrooms />} />
                         <Route path="/classrooms/:slug" element={<ClassroomDetail />} />

@@ -105,20 +105,20 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
         <>
             {/* Backdrop */}
             <div
-                className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 z-40"
+                className="modal-overlay z-40"
                 onClick={onClose}
             />
 
             {/* Modal */}
-            <div className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl md:max-h-[90vh] bg-white dark:bg-surface-900 rounded-lg shadow-2xl z-50 flex flex-col">
+            <div className="modal-content fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl md:max-h-[90vh] z-50 flex flex-col">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-surface-700">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                <div className="flex items-center justify-between p-6 border-b border-surface-200 dark:border-surface-700">
+                    <h2 className="text-2xl font-bold text-surface-900 dark:text-surface-50">
                         {initialData ? 'Redigera evenemang' : 'Skapa nytt evenemang'}
                     </h2>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-surface-800 rounded-lg transition-colors text-gray-600 dark:text-gray-400"
+                        className="min-h-11 min-w-11 flex items-center justify-center hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors text-surface-600 dark:text-surface-300"
                     >
                         <X size={24} />
                     </button>
@@ -128,13 +128,13 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                 <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-4">
                     {/* Group Selection */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        <label className="label">
                             Klassrum (valfritt)
                         </label>
                         <select
                             value={formData.group_id || ''}
                             onChange={(e) => handleChange('group_id', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="input"
                         >
                             <option value="">Allmänt (community-evenemang)</option>
                             {userGroups.map((group) => (
@@ -143,36 +143,36 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                                 </option>
                             ))}
                         </select>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <p className="text-xs text-surface-500 dark:text-surface-400 mt-1">
                             Välj "Allmänt" för evenemang som gäller hela communityt, eller välj ett specifikt klassrum.
                         </p>
                     </div>
 
                     {/* Title */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Evenemangets titel <span className="text-red-500">*</span>
+                        <label className="label">
+                            Evenemangets titel <span className="text-error-strong dark:text-error-soft">*</span>
                         </label>
                         <input
                             type="text"
                             required
                             value={formData.title}
                             onChange={(e) => handleChange('title', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="input"
                             placeholder="Månatlig teamträff"
                         />
                     </div>
 
                     {/* Description */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        <label className="label">
                             Beskrivning
                         </label>
                         <textarea
                             value={formData.description}
                             onChange={(e) => handleChange('description', e.target.value)}
                             rows={4}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                            className="input"
                             placeholder="Berätta för deltagarna vad de kan förvänta sig..."
                         />
                     </div>
@@ -180,41 +180,41 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                     {/* Date & Time */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Startdatum och -tid <span className="text-red-500">*</span>
+                            <label className="label">
+                                Startdatum och -tid <span className="text-error-strong dark:text-error-soft">*</span>
                             </label>
                             <input
                                 type="datetime-local"
                                 required
                                 value={formData.start_time}
                                 onChange={(e) => handleChange('start_time', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                className="input"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                Slutdatum och -tid <span className="text-red-500">*</span>
+                            <label className="label">
+                                Slutdatum och -tid <span className="text-error-strong dark:text-error-soft">*</span>
                             </label>
                             <input
                                 type="datetime-local"
                                 required
                                 value={formData.end_time}
                                 onChange={(e) => handleChange('end_time', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                className="input"
                             />
                         </div>
                     </div>
 
                     {/* Virtual Toggle */}
-                    <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-surface-800 rounded-lg">
+                    <div className="flex items-center gap-3 p-4 bg-surface-50 dark:bg-surface-800 rounded-lg">
                         <input
                             type="checkbox"
                             id="is_virtual"
                             checked={formData.is_virtual}
                             onChange={(e) => handleChange('is_virtual', e.target.checked)}
-                            className="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500"
+                            className="w-5 h-5 accent-primary-600 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
                         />
-                        <label htmlFor="is_virtual" className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer">
+                        <label htmlFor="is_virtual" className="text-sm font-medium text-surface-700 dark:text-surface-200 cursor-pointer">
                             Det här är ett virtuellt evenemang
                         </label>
                     </div>
@@ -222,30 +222,30 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                     {/* Location OR Meeting URL */}
                     {formData.is_virtual ? (
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            <label className="label">
                                 Mötes-URL
                             </label>
                             <input
                                 type="url"
                                 value={formData.meeting_url}
                                 onChange={(e) => handleChange('meeting_url', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                className="input"
                                 placeholder="https://zoom.us/j/123456789"
                             />
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            <p className="text-xs text-surface-500 dark:text-surface-400 mt-1">
                                 Valfritt: Lägg till efter att evenemanget skapats eller närmare evenemangsdatumet
                             </p>
                         </div>
                     ) : (
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            <label className="label">
                                 Plats
                             </label>
                             <input
                                 type="text"
                                 value={formData.location}
                                 onChange={(e) => handleChange('location', e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                className="input"
                                 placeholder="Storgatan 1, Stockholm"
                             />
                         </div>
@@ -253,18 +253,18 @@ export default function EventForm({ isOpen, onClose, onSubmit, initialData, grou
                 </form>
 
                 {/* Footer */}
-                <div className="p-6 border-t border-gray-200 dark:border-surface-700 flex gap-3 justify-end">
+                <div className="p-6 border-t border-surface-200 dark:border-surface-700 flex gap-3 justify-end">
                     <button
                         type="button"
                         onClick={onClose}
-                        className="px-4 py-2 border border-gray-300 dark:border-surface-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-800 transition-colors"
+                        className="btn-secondary"
                     >
                         Avbryt
                     </button>
                     <button
                         onClick={handleSubmit}
                         disabled={loading}
-                        className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+                        className="btn-primary"
                     >
                         {loading ? 'Sparar...' : initialData ? 'Uppdatera evenemang' : 'Skapa evenemang'}
                     </button>

@@ -42,12 +42,12 @@ interface CommentItemProps {
 }
 
 const reactionIcons: Record<ReactionType, { icon: typeof Heart; label: string; color: string; bgColor: string }> = {
-    like: { icon: ThumbsUp, label: 'Gilla', color: 'text-blue-500', bgColor: 'hover:bg-blue-50 dark:hover:bg-blue-900/30' },
-    love: { icon: Heart, label: 'Älska', color: 'text-red-500', bgColor: 'hover:bg-red-50 dark:hover:bg-red-900/30' },
-    fire: { icon: Flame, label: 'Eld', color: 'text-orange-500', bgColor: 'hover:bg-orange-50 dark:hover:bg-orange-900/30' },
-    clap: { icon: Hand, label: 'Applåd', color: 'text-yellow-500', bgColor: 'hover:bg-yellow-50 dark:hover:bg-yellow-900/30' },
-    think: { icon: Brain, label: 'Tänkvärt', color: 'text-purple-500', bgColor: 'hover:bg-purple-50 dark:hover:bg-purple-900/30' },
-    haha: { icon: Laugh, label: 'Haha', color: 'text-green-500', bgColor: 'hover:bg-green-50 dark:hover:bg-green-900/30' },
+    like: { icon: ThumbsUp, label: 'Gilla', color: 'text-primary-600 dark:text-primary-300', bgColor: 'hover:bg-primary-50 dark:hover:bg-primary-900' },
+    love: { icon: Heart, label: 'Älska', color: 'text-accent-love', bgColor: 'hover:bg-accent-love/10 dark:hover:bg-accent-love/20' },
+    fire: { icon: Flame, label: 'Eld', color: 'text-accent-fire', bgColor: 'hover:bg-accent-fire/10 dark:hover:bg-accent-fire/20' },
+    clap: { icon: Hand, label: 'Applåd', color: 'text-accent-clap', bgColor: 'hover:bg-accent-clap/15 dark:hover:bg-accent-clap/20' },
+    think: { icon: Brain, label: 'Tänkvärt', color: 'text-accent-think', bgColor: 'hover:bg-accent-think/10 dark:hover:bg-accent-think/20' },
+    haha: { icon: Laugh, label: 'Haha', color: 'text-success', bgColor: 'hover:bg-success/10 dark:hover:bg-success/20' },
 };
 
 const DEFAULT_REACTION_COUNTS: ReactionCounts = { like: 0, love: 0, fire: 0, clap: 0, think: 0, haha: 0, total: 0 };
@@ -255,7 +255,7 @@ function CommentItem({
     }, []);
 
     return (
-        <div className={`${depth > 0 ? 'ml-8 pl-4 border-l-2 border-surface-100 dark:border-surface-800' : ''}`}>
+        <div className={`${depth > 0 ? 'ml-8 pl-4 border-l-2 border-surface-200 dark:border-surface-700' : ''}`}>
             <div className="py-3">
                 {/* Comment Header */}
                 <div className="flex items-start justify-between">
@@ -277,14 +277,14 @@ function CommentItem({
                             </div>
                         )}
                         <div>
-                            <span className="font-medium text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors text-sm">
+                            <span className="font-medium text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors text-sm">
                                 {comment.author.display_name}
                             </span>
                             {comment.author.role && ['admin', 'superadmin', 'moderator'].includes(comment.author.role)
                                 ? <RoleBadge role={comment.author.role} size="xs" className="ml-1.5" />
                                 : comment.author.membership_type === 'premium' && <ProBadge size="xs" className="ml-1.5" />
                             }
-                            <span className="text-xs text-surface-400 dark:text-surface-500 ml-2">
+                            <span className="text-xs text-surface-500 dark:text-surface-400 ml-2">
                                 {formatDistanceToNow(new Date(comment.created_at || Date.now()), { addSuffix: true, locale: sv })}
                                 {comment.is_edited && <span className="ml-1">(redigerad)</span>}
                             </span>
@@ -302,13 +302,13 @@ function CommentItem({
                             </button>
 
                             {showMenu && (
-                                <div className="absolute right-0 top-full mt-1 w-32 bg-white dark:bg-surface-800 rounded-lg shadow-lg border border-surface-200 dark:border-surface-700 py-1 z-10">
+                                <div className="dropdown-menu right-0 top-full mt-1 w-32 min-w-0">
                                     <button
                                         onClick={() => {
                                             setIsEditing(true);
                                             setShowMenu(false);
                                         }}
-                                        className="w-full flex items-center gap-2 px-3 py-2 text-sm text-surface-700 dark:text-surface-200 hover:bg-surface-50 dark:hover:bg-surface-700"
+                                        className="dropdown-item"
                                     >
                                         <Edit2 className="w-3.5 h-3.5" />
                                         Redigera
@@ -318,7 +318,7 @@ function CommentItem({
                                             handleDelete();
                                             setShowMenu(false);
                                         }}
-                                        className="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                                        className="flex w-full items-center gap-2 rounded-md px-3 py-2 min-h-11 text-sm text-error-strong dark:text-error-soft hover:bg-error/10 dark:hover:bg-error/20 transition-colors"
                                     >
                                         <Trash2 className="w-3.5 h-3.5" />
                                         Ta bort
@@ -367,7 +367,7 @@ function CommentItem({
                                 );
                             })}
                         </div>
-                        <span className="text-xs text-surface-400 group-hover:text-surface-600 dark:group-hover:text-surface-300 transition-colors">
+                        <span className="text-xs text-surface-500 dark:text-surface-400 group-hover:text-surface-700 dark:group-hover:text-surface-200 transition-colors">
                             {reactionCounts.total}
                         </span>
                     </button>
@@ -391,17 +391,19 @@ function CommentItem({
                                 className={`flex items-center gap-1 text-xs transition-colors
                                     ${currentReaction
                                         ? `${reactionIcons[currentReaction].color}`
-                                        : 'text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'
+                                        : 'text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-50'
                                     }`}
                             >
                                 <ReactionIcon className="w-4 h-4" />
-                                <span>{currentReaction ? reactionIcons[currentReaction].label : 'Reagera'}</span>
+                                <span className={currentReaction ? 'text-surface-700 dark:text-surface-200' : ''}>
+                                    {currentReaction ? reactionIcons[currentReaction].label : 'Reagera'}
+                                </span>
                             </button>
 
                             {/* Reaction picker popup */}
                             {showReactions && (
                                 <div className="absolute bottom-full left-0 mb-0 pb-1 z-20">
-                                    <div className="flex gap-0.5 bg-white dark:bg-surface-800 rounded-full shadow-xl border border-surface-200 dark:border-surface-700 p-1.5">
+                                    <div className="flex gap-0.5 bg-white dark:bg-surface-800 rounded-full shadow-elevated dark:shadow-elevated-dark border border-surface-200 dark:border-surface-700 p-1.5">
                                         {(Object.entries(reactionIcons) as [ReactionType, typeof reactionIcons[ReactionType]][]).map(([type, { icon: Icon, label, color, bgColor }]) => {
                                             const count = reactionCounts[type] || 0;
                                             return (
@@ -435,7 +437,7 @@ function CommentItem({
                                 disabled={isVoting}
                                 className={`p-0.5 rounded transition-colors ${
                                     currentVote === 'up'
-                                        ? 'text-green-500'
+                                        ? 'text-success'
                                         : 'text-surface-400 hover:text-surface-600 dark:hover:text-surface-300'
                                 }`}
                                 title="Rösta upp"
@@ -444,8 +446,8 @@ function CommentItem({
                             </button>
                             {(voteCounts.score !== 0) && (
                                 <span className={`text-xs font-medium min-w-[1rem] text-center ${
-                                    voteCounts.score > 0 ? 'text-green-600 dark:text-green-400' :
-                                    voteCounts.score < 0 ? 'text-red-500 dark:text-red-400' :
+                                    voteCounts.score > 0 ? 'text-primary-700 dark:text-primary-300' :
+                                    voteCounts.score < 0 ? 'text-error-strong dark:text-error-soft' :
                                     'text-surface-400'
                                 }`}>
                                     {voteCounts.score}
@@ -456,7 +458,7 @@ function CommentItem({
                                 disabled={isVoting}
                                 className={`p-0.5 rounded transition-colors ${
                                     currentVote === 'down'
-                                        ? 'text-red-500'
+                                        ? 'text-error'
                                         : 'text-surface-400 hover:text-surface-600 dark:hover:text-surface-300'
                                 }`}
                                 title="Rösta ner"
@@ -468,7 +470,7 @@ function CommentItem({
                         {canReply && (
                             <button
                                 onClick={() => setIsReplying(!isReplying)}
-                                className="flex items-center gap-1 text-xs text-surface-500 hover:text-surface-700 dark:hover:text-surface-300 transition-colors"
+                                className="flex items-center gap-1 text-xs text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-50 transition-colors"
                             >
                                 <MessageCircle className="w-4 h-4" />
                                 Svara
@@ -478,7 +480,7 @@ function CommentItem({
                         {hasReplies && (
                             <button
                                 onClick={() => setShowReplies(!showReplies)}
-                                className="flex items-center gap-1 text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+                                className="flex items-center gap-1 text-xs text-primary-600 dark:text-primary-300 hover:text-primary-700 dark:hover:text-primary-200 transition-colors"
                             >
                                 {showReplies ? (
                                     <>

@@ -41,21 +41,21 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
     return (
         <Link
             to={linkTo}
-            className={`card p-6 hover:shadow-elevated transition-all duration-200 group block relative ${!canAccess ? 'opacity-90' : ''}`}
+            className={`card-hover p-6 group block relative ${!canAccess ? 'opacity-90' : ''}`}
         >
             {/* Premium badge */}
             {isPremiumGroup && (
-                <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-xs px-2.5 py-1 rounded-full flex items-center gap-1 shadow-md">
+                <span className="badge-premium absolute top-3 right-3 z-10">
                     <Crown className="w-3 h-3" />
-                    <span className="font-medium">Premium</span>
-                </div>
+                    Premium
+                </span>
             )}
 
             {/* Premium lock overlay for free users */}
             {isPremiumGroup && !userIsPremium && (
-                <div className="absolute inset-0 bg-surface-900/40 dark:bg-surface-900/60 rounded-xl flex items-center justify-center z-10">
-                    <div className="text-center text-white bg-surface-900/80 px-4 py-3 rounded-lg">
-                        <Crown className="w-8 h-8 mx-auto mb-2 text-amber-400" />
+                <div className="absolute inset-0 bg-surface-950/40 dark:bg-surface-950/60 rounded-xl flex items-center justify-center z-10">
+                    <div className="text-center text-white bg-surface-900/90 px-4 py-3 rounded-lg">
+                        <Crown className="w-8 h-8 mx-auto mb-2 text-brand-yellow" />
                         <p className="text-sm font-medium">Endast Premium</p>
                         <p className="text-xs text-surface-300 mt-1">Uppgradera för att få åtkomst</p>
                     </div>
@@ -70,7 +70,7 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
                         alt=""
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-surface-950/30 to-transparent" />
                 </div>
             )}
 
@@ -83,7 +83,7 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
                         className="w-14 h-14 rounded-xl object-cover flex-shrink-0"
                     />
                 ) : (
-                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-white text-xl font-bold flex-shrink-0 ${isPremiumGroup ? 'bg-gradient-to-br from-amber-400 to-orange-500' : 'bg-gradient-to-br from-primary-400 to-primary-600'}`}>
+                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-xl font-bold flex-shrink-0 ${isPremiumGroup ? 'bg-gradient-warm text-surface-900' : 'bg-gradient-to-br from-primary-400 to-primary-600 text-white'}`}>
                         {group.name.charAt(0).toUpperCase()}
                     </div>
                 )}
@@ -91,7 +91,7 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
                 <div className="flex-1 min-w-0">
                     {/* Name and privacy indicator */}
                     <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-surface-900 dark:text-surface-100 truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                        <h3 className="font-semibold text-surface-900 dark:text-surface-100 truncate group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors">
                             {group.name}
                         </h3>
                         {group.is_private ? (
@@ -115,12 +115,11 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
                             <span>{group.member_count} medlemmar</span>
                         </div>
                         {group.is_member && group.user_role && (
-                            <span className={`
-                                text-xs px-2 py-0.5 rounded-full font-medium
-                                ${group.user_role === 'admin' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400' :
-                                    group.user_role === 'moderator' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' :
-                                        'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400'}
-                            `}>
+                            <span className={
+                                group.user_role === 'admin' ? 'badge-primary' :
+                                    group.user_role === 'moderator' ? 'badge-warning' :
+                                        'badge bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300'
+                            }>
                                 {roleLabels[group.user_role] ?? group.user_role}
                             </span>
                         )}
@@ -132,12 +131,7 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
             {!group.is_private && canAccess && (
                 <button
                     onClick={handleAction}
-                    className={`
-                        w-full mt-4 py-2 px-4 rounded-lg font-medium text-sm transition-colors
-                        ${group.is_member
-                            ? 'bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'
-                            : 'bg-primary-600 text-white hover:bg-primary-700'}
-                    `}
+                    className={group.is_member ? 'btn-secondary w-full mt-4' : 'btn-primary w-full mt-4'}
                 >
                     {group.is_member ? 'Lämna klassrummet' : 'Gå med i klassrummet'}
                 </button>
@@ -145,7 +139,7 @@ export default function GroupCard({ group, onJoin, onLeave, userIsPremium = true
 
             {/* Upgrade button for premium groups */}
             {isPremiumGroup && !userIsPremium && (
-                <div className="mt-4 py-2 px-4 rounded-lg font-medium text-sm text-center bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                <div className="mt-4 min-h-11 px-4 rounded-lg font-semibold text-sm flex items-center justify-center bg-gradient-warm text-surface-900">
                     Uppgradera för att gå med
                 </div>
             )}

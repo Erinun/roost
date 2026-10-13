@@ -59,11 +59,11 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
         return (
             <div className="space-y-2">
                 {[...Array(3)].map((_, i) => (
-                    <div key={i} className="flex items-center gap-3 animate-pulse">
-                        <div className="w-10 h-10 bg-gray-200 dark:bg-surface-700 rounded-full" />
+                    <div key={i} className="flex items-center gap-3">
+                        <div className="skeleton w-10 h-10 rounded-full" />
                         <div className="flex-1">
-                            <div className="h-4 bg-gray-200 dark:bg-surface-700 rounded w-32 mb-1" />
-                            <div className="h-3 bg-gray-200 dark:bg-surface-700 rounded w-24" />
+                            <div className="skeleton h-4 w-32 mb-1" />
+                            <div className="skeleton h-3 w-24" />
                         </div>
                     </div>
                 ))}
@@ -74,7 +74,7 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
     return (
         <div>
             {/* Filter tabs */}
-            <div className="flex gap-2 mb-4 flex-wrap">
+            <div className="tabs mb-4">
                 {[
                     { key: 'all', label: 'Alla', count: statusCounts.all },
                     { key: 'going', label: 'Deltar', count: statusCounts.going },
@@ -84,13 +84,7 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
                     <button
                         key={key}
                         onClick={() => setActiveFilter(key as typeof activeFilter)}
-                        className={`
-                            px-4 py-2 rounded-lg text-sm font-medium transition-colors
-                            ${activeFilter === key
-                                ? 'bg-purple-600 text-white'
-                                : 'bg-gray-100 dark:bg-surface-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-surface-700'
-                            }
-                        `}
+                        className={activeFilter === key ? 'tab-active' : 'tab'}
                     >
                         {label} ({count})
                     </button>
@@ -99,7 +93,7 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
 
             {/* Attendee list */}
             {filteredAttendees.length === 0 ? (
-                <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                <div className="text-center py-8 text-surface-500 dark:text-surface-400">
                     <Users size={48} className="mx-auto mb-2 opacity-20" />
                     <p>Inga deltagare i den här kategorin ännu</p>
                 </div>
@@ -108,33 +102,33 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
                     {filteredAttendees.map((attendee) => (
                         <div
                             key={attendee.id}
-                            className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-surface-800 rounded-lg hover:bg-gray-100 dark:hover:bg-surface-700 transition-colors"
+                            className="flex items-center gap-3 p-3 bg-surface-50 dark:bg-surface-800 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
                         >
                             {/* Avatar */}
                             {attendee.user?.avatar_url ? (
                                 <img
                                     src={attendee.user.avatar_url}
                                     alt={attendee.user.display_name}
-                                    className="w-10 h-10 rounded-full object-cover"
+                                    className="avatar-md object-cover"
                                 />
                             ) : (
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
-                                    <User size={20} className="text-white" />
+                                <div className="avatar-md">
+                                    <User size={20} />
                                 </div>
                             )}
 
                             {/* User info */}
                             <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2">
-                                    <p className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                                    <p className="font-medium text-surface-900 dark:text-surface-50 truncate">
                                         {attendee.user?.display_name || 'Okänd användare'}
                                     </p>
                                     {attendee.user?.is_online && (
-                                        <div className="w-2 h-2 bg-green-500 rounded-full" title="Online" />
+                                        <div className="w-2 h-2 bg-success rounded-full" title="Online" />
                                     )}
                                 </div>
                                 {attendee.user?.username && (
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    <p className="text-sm text-surface-500 dark:text-surface-400">
                                         @{attendee.user.username}
                                     </p>
                                 )}
@@ -142,10 +136,9 @@ export default function AttendeeList({ eventId, filterStatus = 'all' }: Attendee
 
                             {/* Status badge */}
                             <div className={`
-                                px-2 py-1 rounded-full text-xs font-semibold
-                                ${attendee.status === 'going' ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : ''}
-                                ${attendee.status === 'maybe' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400' : ''}
-                                ${attendee.status === 'not_going' ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' : ''}
+                                ${attendee.status === 'going' ? 'badge-success' : ''}
+                                ${attendee.status === 'maybe' ? 'badge-warning' : ''}
+                                ${attendee.status === 'not_going' ? 'badge-error' : ''}
                             `}>
                                 {attendee.status === 'going' && 'Deltar'}
                                 {attendee.status === 'maybe' && 'Kanske'}

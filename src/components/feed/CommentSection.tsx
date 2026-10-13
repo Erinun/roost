@@ -231,11 +231,11 @@ export default function CommentSection({
     };
 
     return (
-        <div className="border-t border-surface-100 dark:border-surface-800 mt-4 pt-4">
+        <div className="border-t border-surface-200 dark:border-surface-700 mt-4 pt-4">
             {/* Toggle Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 text-sm font-medium text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 transition-colors mb-4"
+                className="flex items-center gap-2 min-h-11 text-sm font-medium text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-50 transition-colors mb-4"
             >
                 <MessageCircle className="w-5 h-5" />
                 <span>
@@ -279,7 +279,7 @@ export default function CommentSection({
 
                     {/* Comments List */}
                     {!isLoading && comments.length === 0 && (
-                        <div className="text-center py-8 text-surface-400 dark:text-surface-500">
+                        <div className="text-center py-8 text-surface-600 dark:text-surface-300">
                             <MessageCircle className="w-8 h-8 mx-auto mb-2 opacity-50" />
                             <p className="text-sm">Inga kommentarer än. Bli först med att kommentera!</p>
                         </div>
@@ -304,7 +304,7 @@ export default function CommentSection({
                             {hasMoreComments && (
                                 <button
                                     onClick={() => loadComments(false, 0)}
-                                    className="w-full py-2 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors"
+                                    className="w-full py-2 min-h-11 text-sm text-primary-600 dark:text-primary-300 hover:text-primary-700 dark:hover:text-primary-200 font-medium transition-colors"
                                 >
                                     Ladda alla kommentarer
                                 </button>

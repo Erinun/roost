@@ -22,9 +22,9 @@ export default function ConversationItem({ conversation, isSelected, onClick }: 
   return (
     <button
       onClick={onClick}
-      className={`w-full flex items-center gap-3 p-4 transition-colors ${isSelected
-          ? 'bg-primary-50 dark:bg-primary-900/30 border-l-4 border-primary-600'
-          : 'hover:bg-surface-50 dark:hover:bg-surface-800 border-l-4 border-transparent'
+      className={`w-full flex items-center gap-3 p-4 min-h-11 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-600 ${isSelected
+          ? 'bg-primary-100 dark:bg-primary-900 border-l-4 border-primary-600'
+          : 'hover:bg-surface-100 dark:hover:bg-surface-800 border-l-4 border-transparent'
         }`}
     >
       {/* Avatar with online indicator */}
@@ -36,7 +36,7 @@ export default function ConversationItem({ conversation, isSelected, onClick }: 
             className="w-12 h-12 rounded-full object-cover"
           />
         ) : (
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white font-semibold">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-semibold">
             {otherUser.display_name.charAt(0).toUpperCase()}
           </div>
         )}
@@ -51,17 +51,17 @@ export default function ConversationItem({ conversation, isSelected, onClick }: 
       <div className="flex-1 min-w-0 text-left">
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-1.5 min-w-0">
-            <h3 className={`font-medium truncate ${isSelected ? 'text-primary-700 dark:text-primary-400' : 'text-surface-900 dark:text-surface-100'}`}>
+            <h3 className={`font-medium truncate ${isSelected ? 'text-primary-700 dark:text-primary-300' : 'text-surface-900 dark:text-surface-50'}`}>
               {otherUser.display_name}
             </h3>
             {otherUser.membership_type === 'premium' && <ProBadge size="xs" />}
           </div>
-          <span className="text-xs text-surface-400 dark:text-surface-500 flex-shrink-0 ml-2">
+          <span className="text-xs text-surface-500 dark:text-surface-400 flex-shrink-0 ml-2">
             {formatDistanceToNow(new Date(lastMessageAt), { addSuffix: true, locale: sv })}
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <p className={`text-sm truncate ${unreadCount > 0 ? 'font-medium text-surface-900 dark:text-surface-100' : 'text-surface-500 dark:text-surface-400'}`}>
+          <p className={`text-sm truncate ${unreadCount > 0 ? 'font-semibold text-surface-900 dark:text-surface-50' : 'text-surface-600 dark:text-surface-300'}`}>
             {truncateContent(lastMessage.content)}
           </p>
           {unreadCount > 0 && (

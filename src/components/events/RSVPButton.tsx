@@ -63,16 +63,19 @@ export default function RSVPButton({
         <div className="flex flex-wrap gap-2">
             {buttons.map(({ status, icon: Icon, label, color, count }) => {
                 const isActive = currentStatus === status;
+                // Statusfärger enligt profilen: tonad yta + mörk text i ljust läge,
+                // tonad yta + accentfärg i mörkt läge (fel använder error-soft).
+                // Teal/orange/röd används aldrig som liten textfärg på ljus botten.
                 const colorClasses = {
                     green: isActive
-                        ? 'bg-green-600 text-white border-green-600'
-                        : 'bg-white dark:bg-surface-800 text-green-700 dark:text-green-400 border-green-300 dark:border-green-700 hover:bg-green-50 dark:hover:bg-green-900/20',
+                        ? 'bg-success/15 text-surface-900 border-success dark:bg-success/20 dark:text-success'
+                        : 'bg-white dark:bg-surface-800 text-surface-700 dark:text-surface-200 border-surface-300 dark:border-surface-600 hover:bg-success/10 dark:hover:bg-success/15',
                     yellow: isActive
-                        ? 'bg-yellow-600 text-white border-yellow-600'
-                        : 'bg-white dark:bg-surface-800 text-yellow-700 dark:text-yellow-400 border-yellow-300 dark:border-yellow-700 hover:bg-yellow-50 dark:hover:bg-yellow-900/20',
+                        ? 'bg-warning/20 text-surface-900 border-warning dark:bg-warning/20 dark:text-warning'
+                        : 'bg-white dark:bg-surface-800 text-surface-700 dark:text-surface-200 border-surface-300 dark:border-surface-600 hover:bg-warning/10 dark:hover:bg-warning/15',
                     red: isActive
-                        ? 'bg-red-600 text-white border-red-600'
-                        : 'bg-white dark:bg-surface-800 text-red-700 dark:text-red-400 border-red-300 dark:border-red-700 hover:bg-red-50 dark:hover:bg-red-900/20',
+                        ? 'bg-error/15 text-surface-900 border-error dark:bg-error/20 dark:text-error-soft'
+                        : 'bg-white dark:bg-surface-800 text-surface-700 dark:text-surface-200 border-surface-300 dark:border-surface-600 hover:bg-error/10 dark:hover:bg-error/15',
                 };
 
                 return (
@@ -81,15 +84,16 @@ export default function RSVPButton({
                         onClick={() => handleRSVP(status)}
                         disabled={loading || disabled}
                         className={`
-                            flex items-center gap-2 px-4 py-2 border-2 rounded-lg font-medium
-                            transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed
+                            inline-flex items-center gap-2 px-4 py-2 min-h-11 border rounded-lg text-sm font-semibold
+                            transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed
+                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-900
                             ${colorClasses[color as keyof typeof colorClasses]}
                         `}
                     >
                         <Icon size={18} />
                         <span>{label}</span>
                         {count > 0 && (
-                            <span className="ml-1 px-2 py-0.5 bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-10 rounded-full text-xs font-semibold">
+                            <span className="ml-1 px-2 py-0.5 bg-surface-900/10 dark:bg-white/10 rounded-full text-xs font-semibold">
                                 {count}
                             </span>
                         )}

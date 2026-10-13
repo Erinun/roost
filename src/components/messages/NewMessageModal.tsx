@@ -21,18 +21,18 @@ export default function NewMessageModal({ isOpen, onClose, onUserSelect }: NewMe
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-surface-950/60 dark:bg-surface-950/80 backdrop-blur-sm"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md">
+      <div className="modal-content relative w-full max-w-md">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-surface-200">
-          <h2 className="text-lg font-semibold text-surface-900">Nytt meddelande</h2>
+        <div className="flex items-center justify-between p-4 border-b border-surface-200 dark:border-surface-700">
+          <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">Nytt meddelande</h2>
           <button
             onClick={onClose}
-            className="p-1 text-surface-400 hover:text-surface-600 hover:bg-surface-100 rounded-lg transition-colors"
+            className="w-11 h-11 -my-2 -mr-2 flex items-center justify-center text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
           >
             <X className="w-5 h-5" />
           </button>
@@ -40,7 +40,7 @@ export default function NewMessageModal({ isOpen, onClose, onUserSelect }: NewMe
 
         {/* Content */}
         <div className="p-4">
-          <label className="block text-sm font-medium text-surface-700 mb-2">
+          <label className="label mb-2">
             Sök efter en användare att skicka meddelande till
           </label>
           <UserSearchInput
@@ -50,8 +50,8 @@ export default function NewMessageModal({ isOpen, onClose, onUserSelect }: NewMe
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-surface-200 bg-surface-50 rounded-b-2xl">
-          <p className="text-xs text-surface-500 text-center">
+        <div className="p-4 border-t border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-800 rounded-b-xl">
+          <p className="text-xs text-surface-500 dark:text-surface-400 text-center">
             Börja skriva för att söka efter användare i communityt
           </p>
         </div>

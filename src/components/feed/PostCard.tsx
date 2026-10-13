@@ -52,12 +52,12 @@ interface PostCardProps {
 }
 
 const reactionIcons: Record<ReactionType, { icon: typeof Heart; label: string; color: string; bgColor: string }> = {
-    like: { icon: ThumbsUp, label: 'Gilla', color: 'text-blue-500', bgColor: 'hover:bg-blue-50 dark:hover:bg-blue-900/30' },
-    love: { icon: Heart, label: 'Älska', color: 'text-red-500', bgColor: 'hover:bg-red-50 dark:hover:bg-red-900/30' },
-    fire: { icon: Flame, label: 'Eld', color: 'text-orange-500', bgColor: 'hover:bg-orange-50 dark:hover:bg-orange-900/30' },
-    clap: { icon: Hand, label: 'Applåd', color: 'text-yellow-500', bgColor: 'hover:bg-yellow-50 dark:hover:bg-yellow-900/30' },
-    think: { icon: Brain, label: 'Tänkvärt', color: 'text-purple-500', bgColor: 'hover:bg-purple-50 dark:hover:bg-purple-900/30' },
-    haha: { icon: Laugh, label: 'Haha', color: 'text-green-500', bgColor: 'hover:bg-green-50 dark:hover:bg-green-900/30' },
+    like: { icon: ThumbsUp, label: 'Gilla', color: 'text-primary-600 dark:text-primary-300', bgColor: 'hover:bg-primary-50 dark:hover:bg-primary-900' },
+    love: { icon: Heart, label: 'Älska', color: 'text-accent-love', bgColor: 'hover:bg-accent-love/10 dark:hover:bg-accent-love/20' },
+    fire: { icon: Flame, label: 'Eld', color: 'text-accent-fire', bgColor: 'hover:bg-accent-fire/10 dark:hover:bg-accent-fire/20' },
+    clap: { icon: Hand, label: 'Applåd', color: 'text-accent-clap', bgColor: 'hover:bg-accent-clap/15 dark:hover:bg-accent-clap/20' },
+    think: { icon: Brain, label: 'Tänkvärt', color: 'text-accent-think', bgColor: 'hover:bg-accent-think/10 dark:hover:bg-accent-think/20' },
+    haha: { icon: Laugh, label: 'Haha', color: 'text-success', bgColor: 'hover:bg-success/10 dark:hover:bg-success/20' },
 };
 
 function PostCard({
@@ -231,12 +231,14 @@ function PostCard({
     const ReactionIcon = currentReaction ? reactionIcons[currentReaction].icon : ThumbsUp;
 
     return (
-        <article className="card p-6 shadow-none hover:shadow-elevated transition-shadow duration-200 relative">
+        <article className="card-hover p-6 relative">
             {/* Pinned indicator */}
             {post.is_pinned && (
-                <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 mb-3">
-                    <Pin className="w-3 h-3" />
-                    <span className="font-medium">Fäst</span>
+                <div className="mb-3">
+                    <span className="badge-primary">
+                        <Pin className="w-3 h-3" />
+                        Fäst
+                    </span>
                 </div>
             )}
 
@@ -266,7 +268,7 @@ function PostCard({
                     </div>
                     <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                            <p className="font-medium text-sm sm:text-base text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors truncate">
+                            <p className="font-medium text-sm sm:text-base text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors truncate">
                                 {post.author.display_name}
                             </p>
                             {post.author.role && ['admin', 'superadmin', 'moderator'].includes(post.author.role)
@@ -282,8 +284,8 @@ function PostCard({
                                     }}
                                     className={`ml-0.5 px-2.5 py-0.5 rounded-full text-xs font-medium transition-all ${
                                         isFollowingAuthor
-                                            ? 'text-surface-500 dark:text-surface-400 bg-surface-100 dark:bg-surface-800 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-900/20 dark:hover:text-red-400'
-                                            : 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-800/40'
+                                            ? 'text-surface-600 dark:text-surface-300 bg-surface-100 dark:bg-surface-800 hover:bg-error/10 hover:text-error-strong dark:hover:bg-error/20 dark:hover:text-error-soft'
+                                            : 'text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900 hover:bg-primary-100 dark:hover:bg-primary-800'
                                     }`}
                                 >
                                     {isFollowingAuthor ? 'Följer' : 'Följ'}
@@ -325,14 +327,14 @@ function PostCard({
                             </button>
 
                             {showMenu && (
-                                <div className="absolute right-0 top-full mt-1 w-40 bg-white dark:bg-surface-800 rounded-lg shadow-lg border border-surface-200 dark:border-surface-700 py-1 z-10">
+                                <div className="dropdown-menu right-0 top-full mt-1 w-40">
                                     {isAdmin && (
                                         <button
                                             onClick={() => {
                                                 onPin?.(post.id);
                                                 setShowMenu(false);
                                             }}
-                                            className="w-full flex items-center gap-2 px-4 py-2 text-sm text-surface-700 dark:text-surface-200 hover:bg-surface-50 dark:hover:bg-surface-700"
+                                            className="dropdown-item"
                                         >
                                             <Pin className="w-4 h-4" />
                                             {post.is_pinned ? 'Lossa' : 'Fäst'}
@@ -345,7 +347,7 @@ function PostCard({
                                                     onEdit?.(post);
                                                     setShowMenu(false);
                                                 }}
-                                                className="w-full flex items-center gap-2 px-4 py-2 text-sm text-surface-700 dark:text-surface-200 hover:bg-surface-50 dark:hover:bg-surface-700"
+                                                className="dropdown-item"
                                             >
                                                 <Edit2 className="w-4 h-4" />
                                                 Redigera
@@ -355,7 +357,7 @@ function PostCard({
                                                     onDelete?.(post.id);
                                                     setShowMenu(false);
                                                 }}
-                                                className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                                                className="flex w-full items-center gap-2 rounded-md px-3 py-2 min-h-11 text-sm text-error-strong dark:text-error-soft hover:bg-error/10 dark:hover:bg-error/20 transition-colors"
                                             >
                                                 <Trash2 className="w-4 h-4" />
                                                 Ta bort
@@ -373,8 +375,10 @@ function PostCard({
             {post.category && (
                 <div className="mb-3">
                     <span
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium text-white"
-                        style={{ backgroundColor: post.category.color ?? '#gray' }}
+                        className={post.category.color
+                            ? 'inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium text-white'
+                            : 'badge-primary'}
+                        style={post.category.color ? { backgroundColor: post.category.color } : undefined}
                     >
                         {post.category.name}
                     </span>
@@ -400,7 +404,7 @@ function PostCard({
                 {isContentOverflowing && (
                     <button
                         onClick={() => setIsContentExpanded(!isContentExpanded)}
-                        className="mt-1 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+                        className="mt-1 text-sm font-medium text-primary-600 dark:text-primary-300 hover:text-primary-700 dark:hover:text-primary-200 transition-colors"
                     >
                         {isContentExpanded ? 'Visa mindre' : 'Visa mer'}
                     </button>
@@ -443,7 +447,7 @@ function PostCard({
             )}
 
             {/* Actions bar */}
-            <div className="flex items-center gap-4 pt-4 border-t border-surface-100 dark:border-surface-800 mt-4">
+            <div className="flex items-center gap-4 pt-4 border-t border-surface-200 dark:border-surface-700 mt-4">
                 {/* Reaction button with picker */}
                 <div
                     className="relative"
@@ -456,23 +460,25 @@ function PostCard({
                         onTouchEnd={handleTouchEnd}
                         onTouchCancel={handleTouchEnd}
                         className={`
-                            flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+                            flex items-center gap-2 px-4 py-2 min-h-11 rounded-full text-sm font-medium
                             transition-all duration-200 border
                             ${currentReaction
                                 ? `${reactionIcons[currentReaction].color} bg-surface-50 dark:bg-surface-800 border-surface-200 dark:border-surface-700`
-                                : 'text-surface-500 border-surface-200 dark:border-surface-700 hover:bg-surface-50 dark:hover:bg-surface-800'
+                                : 'text-surface-600 dark:text-surface-300 border-surface-200 dark:border-surface-700 hover:bg-surface-50 dark:hover:bg-surface-800'
                             }
                         `}
                         disabled={isReacting}
                     >
                         <ReactionIcon className="w-5 h-5" />
-                        <span>{reactionCounts.total > 0 ? reactionCounts.total : 'Reagera'}</span>
+                        <span className={currentReaction ? 'text-surface-900 dark:text-surface-50' : ''}>
+                            {reactionCounts.total > 0 ? reactionCounts.total : 'Reagera'}
+                        </span>
                     </button>
 
                     {/* Reaction picker popup */}
                     {showReactions && (
                         <div className="absolute bottom-full left-0 mb-0 pb-2">
-                            <div className="flex gap-1 bg-white dark:bg-surface-800 rounded-full shadow-xl border border-surface-200 dark:border-surface-700 p-2">
+                            <div className="flex gap-1 bg-white dark:bg-surface-800 rounded-full shadow-elevated dark:shadow-elevated-dark border border-surface-200 dark:border-surface-700 p-2">
                                 {Object.entries(reactionIcons).map(([type, { icon: Icon, label, color, bgColor }]) => {
                                     const count = reactionCounts[type as ReactionType] || 0;
                                     return (
@@ -502,10 +508,10 @@ function PostCard({
                 {/* Comment button */}
                 <button
                     onClick={() => setShowComments(!showComments)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition-colors
+                    className={`flex items-center gap-2 px-4 py-2 min-h-11 rounded-full text-sm font-medium border transition-colors
                         ${showComments
-                            ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30 border-primary-200 dark:border-primary-800'
-                            : 'text-surface-500 border-surface-200 dark:border-surface-700 hover:bg-surface-50 dark:hover:bg-surface-800'
+                            ? 'text-primary-700 dark:text-primary-300 bg-primary-50 dark:bg-primary-900 border-primary-200 dark:border-primary-800'
+                            : 'text-surface-600 dark:text-surface-300 border-surface-200 dark:border-surface-700 hover:bg-surface-50 dark:hover:bg-surface-800'
                         }`}
                 >
                     <MessageCircle className="w-5 h-5" />
@@ -539,8 +545,8 @@ function PostCard({
                 .post-content p { margin-bottom: 0.5rem; }
                 .post-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 0.5rem; }
                 .post-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 0.5rem; }
-                .post-content a { color: #2563eb; text-decoration: underline; }
-                .dark .post-content a { color: #60a5fa; }
+                .post-content a { color: var(--color-primary-600, #185DA9); text-decoration: underline; }
+                .dark .post-content a { color: var(--color-primary-300, #8EBBEB); }
             `}</style>
         </article>
     );

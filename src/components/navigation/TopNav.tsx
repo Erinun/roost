@@ -159,7 +159,7 @@ function TopNav() {
                         {/* Search button - Mobile */}
                         <button
                             onClick={() => setIsSearchOpen(!isSearchOpen)}
-                            className="md:hidden p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800"
+                            className="md:hidden inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
                         >
                             <Search className="w-5 h-5" />
                         </button>
@@ -167,9 +167,9 @@ function TopNav() {
                         {/* Messages */}
                         <Link
                             to={isPremium ? "/messages" : "/upgrade"}
-                            className={`p-2 rounded-lg relative ${isPremium
-                                ? 'text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800'
-                                : 'text-surface-400 dark:text-surface-500 hover:bg-amber-50 dark:hover:bg-amber-900/20'
+                            className={`inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg relative transition-colors ${isPremium
+                                ? 'text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800'
+                                : 'text-surface-400 dark:text-surface-500 hover:bg-warning/10 dark:hover:bg-warning/20'
                             }`}
                             title={isPremium ? "Meddelanden" : "Meddelanden (Premium)"}
                         >
@@ -177,8 +177,8 @@ function TopNav() {
                             {isPremium ? (
                                 <NotificationBadge count={unreadMessages} />
                             ) : (
-                                <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full flex items-center justify-center">
-                                    <Crown className="w-2.5 h-2.5 text-white" />
+                                <span className="absolute top-1 right-1 w-4 h-4 bg-brand-yellow rounded-full flex items-center justify-center">
+                                    <Crown className="w-2.5 h-2.5 text-surface-900" />
                                 </span>
                             )}
                         </Link>
@@ -187,7 +187,7 @@ function TopNav() {
                         <div className="relative">
                             <button
                                 onClick={() => setIsNotificationCenterOpen(!isNotificationCenterOpen)}
-                                className="p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 relative"
+                                className="inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors relative"
                             >
                                 <Bell className="w-5 h-5" />
                                 <NotificationBadge count={unreadNotifications} />
@@ -206,7 +206,7 @@ function TopNav() {
                         {isLive && (
                             <Link
                                 to="/live"
-                                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-semibold transition-colors animate-pulse"
+                                className="flex items-center gap-1.5 px-2.5 min-h-11 rounded-lg bg-error-strong hover:bg-error-strong/90 text-white text-xs font-semibold transition-colors animate-pulse"
                                 title="En live-session pågår just nu!"
                             >
                                 <span className="relative flex h-2 w-2">
@@ -220,7 +220,7 @@ function TopNav() {
                         {/* Dark mode toggle */}
                         <button
                             onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-                            className="p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800"
+                            className="inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
                             title={resolvedTheme === 'dark' ? 'Byt till ljust läge' : 'Byt till mörkt läge'}
                         >
                             {resolvedTheme === 'dark' ? (
@@ -234,9 +234,9 @@ function TopNav() {
                         <div className="relative">
                             <button
                                 onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                                className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-800"
+                                className="flex items-center gap-2 p-1.5 min-h-11 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
                             >
-                                <div className="avatar-sm bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 font-medium">
+                                <div className="avatar-sm bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300 font-medium">
                                     {profile?.avatar_url ? (
                                         <img
                                             src={profile.avatar_url}
@@ -258,7 +258,7 @@ function TopNav() {
                                         onClick={() => setIsProfileMenuOpen(false)}
                                     />
                                     <div className="dropdown-menu right-0 top-full mt-2 w-[250px] z-50">
-                                        <div className="px-3 py-2 border-b border-surface-100 dark:border-surface-700">
+                                        <div className="px-3 py-2 border-b border-surface-200 dark:border-surface-700">
                                             {isPremium && <ProBadge size="xs" />}
                                             <div className="flex items-center gap-2">
                                                 <p className="font-medium text-surface-900 dark:text-surface-50">
@@ -297,7 +297,7 @@ function TopNav() {
                                             {profile?.role && ['admin', 'superadmin', 'moderator'].includes(profile.role) && (
                                                 <Link
                                                     to="/admin"
-                                                    className="dropdown-item text-purple-600 dark:text-purple-400"
+                                                    className="dropdown-item text-primary-600 dark:text-primary-300"
                                                     onClick={() => setIsProfileMenuOpen(false)}
                                                 >
                                                     <Shield className="w-4 h-4" />
@@ -305,10 +305,10 @@ function TopNav() {
                                                 </Link>
                                             )}
                                         </div>
-                                        <div className="border-t border-surface-100 dark:border-surface-700 py-1">
+                                        <div className="border-t border-surface-200 dark:border-surface-700 py-1">
                                             <button
                                                 onClick={handleSignOut}
-                                                className="dropdown-item text-error w-full"
+                                                className="dropdown-item text-error-strong dark:text-error-soft w-full"
                                             >
                                                 <LogOut className="w-4 h-4" />
                                                 <span>Logga ut</span>
@@ -322,7 +322,7 @@ function TopNav() {
                         {/* Mobile menu button */}
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="lg:hidden p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800"
+                            className="lg:hidden inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
                         >
                             {isMobileMenuOpen ? (
                                 <X className="w-5 h-5" />
@@ -335,7 +335,7 @@ function TopNav() {
 
                 {/* Mobile search bar */}
                 {isSearchOpen && (
-                    <div className="md:hidden py-3 border-t border-surface-100 dark:border-surface-700">
+                    <div className="md:hidden py-3 border-t border-surface-200 dark:border-surface-700">
                         <GlobalSearch
                             className="w-full"
                             placeholder="Sök medlemmar, inlägg, klassrum..."
@@ -347,7 +347,7 @@ function TopNav() {
 
                 {/* Mobile navigation menu */}
                 {isMobileMenuOpen && (
-                    <nav className="lg:hidden py-3 border-t border-surface-100 dark:border-surface-700">
+                    <nav className="lg:hidden py-3 border-t border-surface-200 dark:border-surface-700">
                         <div className="flex flex-col gap-1">
                             {navTabs.map((tab) => {
                                 const isActive = location.pathname === tab.href;
@@ -360,11 +360,11 @@ function TopNav() {
                                             key={tab.name}
                                             to="/upgrade"
                                             onClick={() => setIsMobileMenuOpen(false)}
-                                            className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-surface-400 dark:text-surface-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:text-amber-600 dark:hover:text-amber-400"
+                                            className="flex items-center gap-2 px-3 py-2.5 min-h-11 rounded-lg text-sm font-medium transition-colors text-surface-400 dark:text-surface-500 hover:bg-warning/10 dark:hover:bg-warning/20 hover:text-surface-900 dark:hover:text-surface-50"
                                         >
                                             <tab.icon className="w-5 h-5" />
                                             <span className="flex-1">{tab.name}</span>
-                                            <Crown className="w-4 h-4 text-amber-500" />
+                                            <Crown className="w-4 h-4 text-warning" />
                                         </Link>
                                     );
                                 }
@@ -375,10 +375,10 @@ function TopNav() {
                                         to={tab.href}
                                         onClick={() => setIsMobileMenuOpen(false)}
                                         className={`
-                      flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
+                      flex items-center gap-2 px-3 py-2.5 min-h-11 rounded-lg text-sm font-medium transition-colors
                       ${isActive
-                                                ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                                                : 'text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-100'
+                                                ? 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300'
+                                                : 'text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-50'
                                             }
                     `}
                                     >

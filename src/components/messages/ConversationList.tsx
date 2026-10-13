@@ -100,10 +100,10 @@ export default function ConversationList({
     return (
       <div className="flex flex-col items-center justify-center h-full bg-white dark:bg-surface-900 border-r border-surface-200 dark:border-surface-700 p-4">
         <MessageSquareOff className="w-12 h-12 text-error mb-2" />
-        <p className="text-sm text-error text-center">{error}</p>
+        <p className="text-sm font-semibold text-surface-700 dark:text-error-soft text-center">{error}</p>
         <button
           onClick={() => loadConversations()}
-          className="btn btn-secondary mt-4"
+          className="btn-secondary mt-4"
         >
           Försök igen
         </button>
@@ -115,10 +115,10 @@ export default function ConversationList({
     <div className="flex flex-col h-full bg-white dark:bg-surface-900 border-r border-surface-200 dark:border-surface-700">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-surface-200 dark:border-surface-700">
-        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Meddelanden</h2>
+        <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-50">Meddelanden</h2>
         <button
           onClick={onNewMessage}
-          className="p-2 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-lg transition-colors"
+          className="w-11 h-11 -my-2 flex items-center justify-center text-primary-600 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-surface-800 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
           title="Nytt meddelande"
         >
           <Plus className="w-5 h-5" />
@@ -129,12 +129,12 @@ export default function ConversationList({
       <div className="flex-1 overflow-y-auto">
         {conversations.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full p-4 text-center">
-            <MessageSquareOff className="w-12 h-12 text-surface-300 dark:text-surface-600 mb-3" />
-            <p className="text-sm text-surface-500 dark:text-surface-400 mb-1">Inga konversationer än</p>
-            <p className="text-xs text-surface-400 dark:text-surface-500 mb-4">
+            <MessageSquareOff className="w-12 h-12 text-surface-400 dark:text-surface-500 mb-3" />
+            <p className="text-sm text-surface-600 dark:text-surface-300 mb-1">Inga konversationer än</p>
+            <p className="text-xs text-surface-500 dark:text-surface-400 mb-4">
               Starta en ny konversation för att börja chatta
             </p>
-            <button onClick={onNewMessage} className="btn btn-primary">
+            <button onClick={onNewMessage} className="btn-primary">
               <Plus className="w-4 h-4" />
               Nytt meddelande
             </button>

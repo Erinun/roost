@@ -110,8 +110,8 @@ export default function ResetPassword() {
     if (isValidating) {
         return (
             <div className="card p-8 animate-fade-in text-center max-w-md w-full mx-auto">
-                <Loader2 className="w-8 h-8 animate-spin text-primary-600 mx-auto mb-4" />
-                <p className="text-surface-500 dark:text-surface-400">Verifierar återställningslänken...</p>
+                <Loader2 className="w-8 h-8 animate-spin text-primary-600 dark:text-primary-300 mx-auto mb-4" />
+                <p className="text-surface-600 dark:text-surface-300">Verifierar återställningslänken...</p>
             </div>
         );
     }
@@ -120,14 +120,14 @@ export default function ResetPassword() {
     if (isValidToken === false) {
         return (
             <div className="card p-8 animate-fade-in text-center max-w-md w-full mx-auto">
-                <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
+                <div className="w-16 h-16 bg-error/10 dark:bg-error/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <AlertCircle className="w-8 h-8 text-error-strong dark:text-error-soft" />
                 </div>
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">Ogiltig eller utgången länk</h1>
-                <p className="text-surface-500 dark:text-surface-400 mb-6">
+                <h1 className="text-2xl text-surface-900 dark:text-surface-50 mb-2">Ogiltig eller utgången länk</h1>
+                <p className="text-surface-600 dark:text-surface-300 text-sm mb-6">
                     Den här återställningslänken är ogiltig eller har gått ut. Begär en ny.
                 </p>
-                <Link to="/forgot-password" className="btn-primary w-full py-2.5">
+                <Link to="/forgot-password" className="btn-primary w-full">
                     Begär ny länk
                 </Link>
             </div>
@@ -138,14 +138,14 @@ export default function ResetPassword() {
     if (success) {
         return (
             <div className="card p-8 animate-fade-in text-center max-w-md w-full mx-auto">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Check className="w-8 h-8 text-green-600 dark:text-green-400" />
+                <div className="w-16 h-16 bg-success/15 dark:bg-success/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Check className="w-8 h-8 text-surface-900 dark:text-success" />
                 </div>
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">Lösenordet är återställt!</h1>
-                <p className="text-surface-500 dark:text-surface-400 mb-6">
+                <h1 className="text-2xl text-surface-900 dark:text-surface-50 mb-2">Lösenordet är återställt!</h1>
+                <p className="text-surface-600 dark:text-surface-300 text-sm mb-6">
                     Ditt lösenord har återställts. Du skickas vidare till inloggningssidan...
                 </p>
-                <Link to="/login" className="btn-primary w-full py-2.5">
+                <Link to="/login" className="btn-primary w-full">
                     Gå till inloggning
                 </Link>
             </div>
@@ -156,14 +156,17 @@ export default function ResetPassword() {
         <div className="card p-8 animate-fade-in max-w-md w-full mx-auto">
             {/* Header */}
             <div className="text-center mb-8">
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Återställ lösenord</h1>
-                <p className="text-surface-500 dark:text-surface-400 mt-2">Ange ditt nya lösenord nedan</p>
+                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Lock className="w-8 h-8 text-primary-600 dark:text-primary-300" />
+                </div>
+                <h1 className="text-2xl text-surface-900 dark:text-surface-50">Återställ lösenord</h1>
+                <p className="text-surface-600 dark:text-surface-300 mt-2 text-sm">Ange ditt nya lösenord nedan</p>
             </div>
 
             {/* Error message */}
             {error && (
-                <div className="mb-6 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg text-sm flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                <div className="alert-error mb-6">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                     <span>{error}</span>
                 </div>
             )}
@@ -176,7 +179,7 @@ export default function ResetPassword() {
                         Nytt lösenord
                     </label>
                     <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
+                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500 dark:text-surface-400" />
                         <input
                             id="password"
                             type={showPassword ? 'text' : 'password'}
@@ -190,7 +193,7 @@ export default function ResetPassword() {
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 transition-colors"
                         >
                             {showPassword ? (
                                 <EyeOff className="w-4 h-4" />
@@ -207,14 +210,14 @@ export default function ResetPassword() {
                             return (
                                 <div
                                     key={index}
-                                    className={`flex items-center gap-2 text-xs ${isMet ? 'text-green-600 dark:text-green-400' : 'text-surface-400 dark:text-surface-500'
+                                    className={`flex items-center gap-2 text-xs ${isMet ? 'text-surface-700 dark:text-surface-200' : 'text-surface-500 dark:text-surface-400'
                                         }`}
                                 >
                                     <div
-                                        className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${isMet ? 'bg-green-600 border-green-600' : 'border-surface-300 dark:border-surface-600'
+                                        className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${isMet ? 'bg-success border-success' : 'border-surface-300 dark:border-surface-600'
                                             }`}
                                     >
-                                        {isMet && <Check className="w-2.5 h-2.5 text-white" />}
+                                        {isMet && <Check className="w-2.5 h-2.5 text-surface-900" />}
                                     </div>
                                     <span>{req.label}</span>
                                 </div>
@@ -229,7 +232,7 @@ export default function ResetPassword() {
                         Bekräfta nytt lösenord
                     </label>
                     <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
+                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500 dark:text-surface-400" />
                         <input
                             id="confirmPassword"
                             type={showPassword ? 'text' : 'password'}
@@ -247,7 +250,7 @@ export default function ResetPassword() {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="btn-primary w-full py-2.5"
+                    className="btn-primary w-full"
                 >
                     {isLoading ? (
                         <>

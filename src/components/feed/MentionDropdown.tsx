@@ -78,9 +78,9 @@ export default function MentionDropdown({ query, onSelect, onClose }: MentionDro
                         <button
                             key={user.id}
                             onClick={() => onSelect(user)}
-                            className={`w-full flex items-center gap-3 px-3 py-2 text-left transition-colors ${
+                            className={`w-full flex items-center gap-3 px-3 py-2 min-h-11 text-left transition-colors ${
                                 index === selectedIndex
-                                    ? 'bg-primary-50 dark:bg-primary-900/20'
+                                    ? 'bg-primary-50 dark:bg-primary-900'
                                     : 'hover:bg-surface-50 dark:hover:bg-surface-700'
                             }`}
                         >

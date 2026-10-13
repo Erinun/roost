@@ -20,11 +20,11 @@ export default function OnlineIndicator({
             <div
                 className={`
           ${sizeClasses[size]} rounded-full
-          ${isOnline ? 'bg-green-500' : 'bg-surface-300 dark:bg-surface-600'}
+          ${isOnline ? 'bg-success' : 'bg-surface-300 dark:bg-surface-600'}
         `}
             />
             {showLabel && (
-                <span className={`text-xs ${isOnline ? 'text-green-600 dark:text-green-400' : 'text-surface-400 dark:text-surface-500'}`}>
+                <span className={`text-xs ${isOnline ? 'text-surface-600 dark:text-success' : 'text-surface-500 dark:text-surface-400'}`}>
                     {isOnline ? 'Online' : 'Offline'}
                 </span>
             )}

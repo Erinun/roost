@@ -23,18 +23,20 @@ export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBo
     render() {
         if (this.state.error) {
             return (
-                <div className="min-h-screen flex items-center justify-center bg-surface-50 dark:bg-surface-900 p-4">
-                    <div className="max-w-md w-full bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl p-6 text-center space-y-4">
-                        <AlertTriangle className="w-10 h-10 text-amber-500 mx-auto" />
-                        <h1 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
+                <div className="min-h-screen flex items-center justify-center bg-surface-50 dark:bg-surface-950 p-4">
+                    <div className="card max-w-md w-full p-6 text-center space-y-4">
+                        <div className="w-16 h-16 rounded-full bg-warning/20 flex items-center justify-center mx-auto">
+                            <AlertTriangle className="w-8 h-8 text-warning" />
+                        </div>
+                        <h1 className="text-lg font-semibold text-surface-900 dark:text-surface-50">
                             Något gick fel
                         </h1>
-                        <p className="text-sm text-surface-600 dark:text-surface-400">
+                        <p className="text-sm text-surface-600 dark:text-surface-300">
                             Ett oväntat fel inträffade. Ladda om sidan för att försöka igen.
                         </p>
                         <button
                             onClick={() => window.location.reload()}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-lg"
+                            className="btn-primary"
                         >
                             <RefreshCw className="w-4 h-4" />
                             Ladda om sidan

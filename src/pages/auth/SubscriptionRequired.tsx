@@ -108,35 +108,33 @@ export default function SubscriptionRequired() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-surface-50 dark:bg-surface-950 px-4">
+        <div className="min-h-screen flex items-center justify-center bg-surface-50 dark:bg-surface-950 px-4 py-8">
             <div className="max-w-md w-full">
-                <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 overflow-hidden">
-                    {/* Header */}
-                    <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-8 text-center">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 mb-4">
-                            <CreditCard className="w-8 h-8 text-white" />
+                <div className="card p-8 animate-fade-in">
+                    {/* Header – premiumgult med mörk ikon */}
+                    <div className="text-center mb-6">
+                        <div className="w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4">
+                            <CreditCard className="w-8 h-8 text-surface-900" />
                         </div>
-                        <h1 className="text-2xl font-bold text-white">Prenumeration krävs</h1>
-                        <p className="text-primary-100 mt-2">Åtkomst till communityt kräver en aktiv prenumeration</p>
+                        <h1 className="text-2xl text-surface-900 dark:text-surface-50">Prenumeration krävs</h1>
+                        <p className="text-surface-600 dark:text-surface-300 mt-2 text-sm">Åtkomst till communityt kräver en aktiv prenumeration</p>
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 space-y-6">
+                    <div className="space-y-6">
                         {/* Grace Period Notice */}
                         {subscription?.inGracePeriod && subscription.currentPeriodEnd && (
-                            <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-                                <div className="flex items-start gap-3">
-                                    <Clock className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" />
-                                    <div>
-                                        <p className="text-sm font-medium text-amber-800 dark:text-amber-300">Respitperiod aktiv</p>
-                                        <p className="text-sm text-amber-700 dark:text-amber-400 mt-1">
-                                            Din prenumeration har avslutats, men du har fortfarande åtkomst fram till{' '}
-                                            <strong>{formatDate(subscription.currentPeriodEnd)}</strong>.
-                                        </p>
-                                        <p className="text-sm text-amber-600 dark:text-amber-500 mt-1 font-medium">
-                                            {getTimeRemaining(subscription.currentPeriodEnd)}
-                                        </p>
-                                    </div>
+                            <div className="alert-warning">
+                                <Clock className="w-5 h-5 text-surface-700 dark:text-warning mt-0.5 flex-shrink-0" />
+                                <div>
+                                    <p className="text-sm font-semibold">Respitperiod aktiv</p>
+                                    <p className="text-sm mt-1">
+                                        Din prenumeration har avslutats, men du har fortfarande åtkomst fram till{' '}
+                                        <strong>{formatDate(subscription.currentPeriodEnd)}</strong>.
+                                    </p>
+                                    <p className="text-sm mt-1 font-semibold">
+                                        {getTimeRemaining(subscription.currentPeriodEnd)}
+                                    </p>
                                 </div>
                             </div>
                         )}
@@ -145,10 +143,10 @@ export default function SubscriptionRequired() {
                         {!subscription?.hasSubscription && (
                             <div className="bg-surface-50 dark:bg-surface-800 rounded-lg p-4">
                                 <div className="flex items-start gap-3">
-                                    <AlertCircle className="w-5 h-5 text-surface-400 dark:text-surface-500 mt-0.5 flex-shrink-0" />
+                                    <AlertCircle className="w-5 h-5 text-surface-500 dark:text-surface-400 mt-0.5 flex-shrink-0" />
                                     <div>
-                                        <p className="text-sm font-medium text-surface-700 dark:text-surface-300">Ingen aktiv prenumeration</p>
-                                        <p className="text-sm text-surface-600 dark:text-surface-400 mt-1">
+                                        <p className="text-sm font-semibold text-surface-700 dark:text-surface-200">Ingen aktiv prenumeration</p>
+                                        <p className="text-sm text-surface-600 dark:text-surface-300 mt-1">
                                             Du har ingen aktiv prenumeration. Köp ett medlemskap för att få åtkomst till communityt.
                                         </p>
                                     </div>
@@ -160,10 +158,10 @@ export default function SubscriptionRequired() {
                         {subscription?.status === 'expired' && (
                             <div className="bg-surface-50 dark:bg-surface-800 rounded-lg p-4">
                                 <div className="flex items-start gap-3">
-                                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                                    <AlertCircle className="w-5 h-5 text-error-strong dark:text-error-soft mt-0.5 flex-shrink-0" />
                                     <div>
-                                        <p className="text-sm font-medium text-surface-700 dark:text-surface-300">Prenumerationen har gått ut</p>
-                                        <p className="text-sm text-surface-600 dark:text-surface-400 mt-1">
+                                        <p className="text-sm font-semibold text-surface-700 dark:text-surface-200">Prenumerationen har gått ut</p>
+                                        <p className="text-sm text-surface-600 dark:text-surface-300 mt-1">
                                             Din prenumeration har gått ut. Förnya för att fortsätta ha åtkomst till communityt.
                                         </p>
                                     </div>
@@ -173,21 +171,21 @@ export default function SubscriptionRequired() {
 
                         {/* Failed Payment */}
                         {subscription?.status === 'failed_payment' && (
-                            <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg p-4">
-                                <div className="flex items-start gap-3">
-                                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                                    <div>
-                                        <p className="text-sm font-medium text-red-800 dark:text-red-300">Betalningen misslyckades</p>
-                                        <p className="text-sm text-red-700 dark:text-red-400 mt-1">
-                                            Det uppstod ett problem när din betalning behandlades. Uppdatera din betalningsmetod.
-                                        </p>
-                                    </div>
+                            <div className="alert-error">
+                                <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                                <div>
+                                    <p className="text-sm font-semibold">Betalningen misslyckades</p>
+                                    <p className="text-sm mt-1">
+                                        Det uppstod ett problem när din betalning behandlades. Uppdatera din betalningsmetod.
+                                    </p>
                                 </div>
                             </div>
                         )}
 
                         {error && (
-                            <p className="text-sm text-red-600 dark:text-red-400 text-center">{error}</p>
+                            <div className="alert-error">
+                                {error}
+                            </div>
                         )}
 
                         {/* Action Buttons */}
@@ -196,7 +194,7 @@ export default function SubscriptionRequired() {
                             <button
                                 onClick={handleCheckout}
                                 disabled={isCheckoutLoading}
-                                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-colors disabled:opacity-50"
+                                className="btn-primary w-full"
                             >
                                 {isCheckoutLoading ? (
                                     <>
@@ -216,7 +214,7 @@ export default function SubscriptionRequired() {
                                 <button
                                     onClick={handleManageSubscription}
                                     disabled={isPortalLoading}
-                                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300 rounded-lg font-medium transition-colors disabled:opacity-50"
+                                    className="btn-secondary w-full"
                                 >
                                     {isPortalLoading ? (
                                         <>
@@ -236,7 +234,7 @@ export default function SubscriptionRequired() {
                             <button
                                 onClick={handleRefresh}
                                 disabled={isRefreshing}
-                                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-700 text-surface-700 dark:text-surface-300 rounded-lg font-medium transition-colors disabled:opacity-50"
+                                className="btn-secondary w-full"
                             >
                                 <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                                 {isRefreshing ? 'Kontrollerar...' : 'Kontrollera prenumerationsstatus'}
@@ -255,7 +253,7 @@ export default function SubscriptionRequired() {
                         {/* Sign out button */}
                         <button
                             onClick={handleSignOut}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-3 text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-800 rounded-lg font-medium transition-colors"
+                            className="btn-ghost w-full"
                         >
                             <LogOut className="w-4 h-4" />
                             Logga ut

@@ -107,7 +107,7 @@ export default function SideNav() {
                 {!isCollapsed && (
                     <button
                         onClick={toggleSidebar}
-                        className="p-1.5 rounded-lg text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-600 dark:hover:text-surface-300 transition-colors"
+                        className="inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-600 dark:hover:text-surface-300 transition-colors"
                         title="Fäll ihop sidopanelen"
                     >
                         <ChevronLeft className="w-5 h-5" />
@@ -117,10 +117,10 @@ export default function SideNav() {
 
             {/* Expand button when collapsed */}
             {isCollapsed && (
-                <div className="px-2 py-3 border-b border-surface-100 dark:border-surface-800">
+                <div className="px-2 py-3 border-b border-surface-200 dark:border-surface-700">
                     <button
                         onClick={toggleSidebar}
-                        className="w-full p-2 rounded-lg text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-600 dark:hover:text-surface-300 transition-colors flex items-center justify-center"
+                        className="w-full min-h-11 rounded-lg text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-600 dark:hover:text-surface-300 transition-colors flex items-center justify-center"
                         title="Fäll ut sidopanelen"
                     >
                         <ChevronRight className="w-5 h-5" />
@@ -144,16 +144,16 @@ export default function SideNav() {
                                     to="/upgrade"
                                     title={isCollapsed ? `${item.name} (Premium)` : undefined}
                                     className={`
-                                        flex items-center rounded-lg text-sm font-medium transition-all
+                                        flex items-center min-h-11 rounded-lg text-sm font-medium transition-all
                                         ${isCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'}
-                                        text-surface-400 dark:text-surface-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 hover:text-amber-600 dark:hover:text-amber-400
+                                        text-surface-400 dark:text-surface-500 hover:bg-warning/10 dark:hover:bg-warning/20 hover:text-surface-900 dark:hover:text-surface-50
                                     `}
                                 >
                                     <item.icon className="w-5 h-5 flex-shrink-0" />
                                     {!isCollapsed && (
                                         <>
                                             <span className="flex-1">{item.name}</span>
-                                            <Crown className="w-4 h-4 text-amber-500" />
+                                            <Crown className="w-4 h-4 text-warning" />
                                         </>
                                     )}
                                 </Link>
@@ -166,15 +166,15 @@ export default function SideNav() {
                                 to={item.href}
                                 title={isCollapsed ? item.name : undefined}
                                 className={`
-                                    flex items-center rounded-lg text-sm font-medium transition-all
+                                    flex items-center min-h-11 rounded-lg text-sm font-medium transition-all
                                     ${isCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'}
                                     ${isActive
-                                        ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                                        : 'text-surface-600 dark:text-surface-400 hover:bg-surface-50 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-100'
+                                        ? 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300'
+                                        : 'text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-50'
                                     }
                                 `}
                             >
-                                <item.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-primary-600 dark:text-primary-400' : ''}`} />
+                                <item.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-primary-600 dark:text-primary-300' : ''}`} />
                                 {!isCollapsed && <span>{item.name}</span>}
                             </Link>
                         );
@@ -183,9 +183,9 @@ export default function SideNav() {
 
                 {/* Admin section */}
                 {profile?.role && ['admin', 'superadmin', 'moderator'].includes(profile.role) && (
-                    <div className={`mt-6 pt-6 border-t border-surface-100 dark:border-surface-800 ${isCollapsed ? '' : ''}`}>
+                    <div className={`mt-6 pt-6 border-t border-surface-200 dark:border-surface-700 ${isCollapsed ? '' : ''}`}>
                         {!isCollapsed && (
-                            <p className="px-3 mb-2 text-xs font-semibold text-surface-400 uppercase tracking-wider">
+                            <p className="px-3 mb-2 text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider">
                                 Admin
                             </p>
                         )}
@@ -193,11 +193,11 @@ export default function SideNav() {
                             to="/admin"
                             title={isCollapsed ? 'Adminpanel' : undefined}
                             className={`
-                                flex items-center rounded-lg text-sm font-medium transition-all
+                                flex items-center min-h-11 rounded-lg text-sm font-medium transition-all
                                 ${isCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'}
                                 ${location.pathname.startsWith('/admin')
-                                    ? 'bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
-                                    : 'text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20'
+                                    ? 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-300'
+                                    : 'text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-50'
                                 }
                             `}
                         >
@@ -216,7 +216,7 @@ export default function SideNav() {
                         <Link
                             to="/profile"
                             title={profile?.display_name || 'Profil'}
-                            className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center overflow-hidden hover:ring-2 hover:ring-primary-200 dark:hover:ring-primary-700 transition-all"
+                            className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center overflow-hidden hover:ring-2 hover:ring-primary-200 dark:hover:ring-primary-700 transition-all"
                         >
                             {profile?.avatar_url ? (
                                 <img
@@ -225,7 +225,7 @@ export default function SideNav() {
                                     className="w-full h-full object-cover"
                                 />
                             ) : (
-                                <span className="text-primary-600 dark:text-primary-400 font-medium">
+                                <span className="text-primary-600 dark:text-primary-300 font-medium">
                                     {profile?.display_name?.charAt(0) || user?.email?.charAt(0) || '?'}
                                 </span>
                             )}
@@ -233,14 +233,14 @@ export default function SideNav() {
                         <Link
                             to="/settings"
                             title="Inställningar"
-                            className="p-2 rounded-lg text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
+                            className="inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors"
                         >
                             <Settings className="w-4 h-4" />
                         </Link>
                         <button
                             onClick={handleSignOut}
                             title="Logga ut"
-                            className="p-2 rounded-lg text-error hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                            className="inline-flex items-center justify-center min-w-11 min-h-11 rounded-lg text-error-strong dark:text-error-soft hover:bg-error/10 dark:hover:bg-error/20 transition-colors"
                         >
                             <LogOut className="w-4 h-4" />
                         </button>
@@ -248,9 +248,9 @@ export default function SideNav() {
                 ) : (
                     // Expanded: full profile section
                     <>
-                        <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors">
+                        <div className="flex items-center gap-3 p-2 min-h-11 rounded-lg hover:bg-surface-100 dark:hover:bg-surface-800 transition-colors">
                             <Link to="/profile" className="flex items-center gap-3 flex-1 min-w-0">
-                                <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                                <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center flex-shrink-0 overflow-hidden">
                                     {profile?.avatar_url ? (
                                         <img
                                             src={profile.avatar_url}
@@ -258,7 +258,7 @@ export default function SideNav() {
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
-                                        <span className="text-primary-600 dark:text-primary-400 font-medium">
+                                        <span className="text-primary-600 dark:text-primary-300 font-medium">
                                             {profile?.display_name?.charAt(0) || user?.email?.charAt(0) || '?'}
                                         </span>
                                     )}

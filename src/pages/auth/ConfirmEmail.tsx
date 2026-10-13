@@ -53,37 +53,37 @@ export default function ConfirmEmail() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-surface-50 dark:bg-surface-900 px-4">
+        <div className="min-h-screen flex items-center justify-center bg-surface-50 dark:bg-surface-950 px-4">
             <div className="max-w-md w-full">
-                <div className="bg-white dark:bg-surface-800 rounded-xl shadow-lg p-8 text-center">
+                <div className="card p-8 text-center animate-fade-in">
                     {/* Icon */}
-                    <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <Mail className="w-8 h-8 text-primary-600 dark:text-primary-400" />
+                    <div className="w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Mail className="w-8 h-8 text-surface-900" />
                     </div>
 
                     {/* Title */}
-                    <h1 className="text-2xl font-bold text-surface-900 dark:text-white mb-2">
+                    <h1 className="text-2xl text-surface-900 dark:text-surface-50 mb-2">
                         Bekräfta din e-post
                     </h1>
 
                     {/* Description */}
-                    <p className="text-surface-600 dark:text-surface-400 mb-6">
+                    <p className="text-surface-600 dark:text-surface-300 text-sm mb-6">
                         Vi har skickat en bekräftelselänk till:
                     </p>
 
                     {/* Email display */}
-                    <div className="bg-surface-100 dark:bg-surface-700 rounded-lg px-4 py-3 mb-6">
-                        <p className="font-medium text-surface-900 dark:text-white">
+                    <div className="bg-surface-100 dark:bg-surface-800 rounded-lg px-4 py-3 mb-6">
+                        <p className="font-bold text-surface-900 dark:text-surface-50 text-sm break-all">
                             {user?.email}
                         </p>
                     </div>
 
                     {/* Instructions */}
-                    <div className="text-left bg-surface-50 dark:bg-surface-700/50 rounded-lg p-4 mb-6">
-                        <p className="text-sm text-surface-600 dark:text-surface-400 mb-3">
+                    <div className="text-left bg-surface-50 dark:bg-surface-800/50 rounded-lg p-4 mb-6 border border-surface-200 dark:border-surface-700">
+                        <p className="text-sm text-surface-600 dark:text-surface-300 mb-3">
                             Kolla din inkorg och:
                         </p>
-                        <ol className="text-sm text-surface-600 dark:text-surface-400 space-y-2 list-decimal list-inside">
+                        <ol className="text-sm text-surface-600 dark:text-surface-300 space-y-2 list-decimal list-inside">
                             <li>Öppna e-postmeddelandet från {APP_CONFIG.name}</li>
                             <li>Klicka på bekräftelselänken</li>
                             <li>Kom tillbaka hit och ladda om sidan</li>
@@ -92,14 +92,14 @@ export default function ConfirmEmail() {
 
                     {/* Resend status messages */}
                     {resendStatus === 'sent' && (
-                        <div className="flex items-center justify-center gap-2 text-green-600 dark:text-green-400 mb-4">
+                        <div className="flex items-center justify-center gap-2 bg-success/15 dark:bg-success/20 text-surface-900 dark:text-success rounded-lg p-3 mb-4">
                             <CheckCircle className="w-5 h-5" />
-                            <span className="text-sm">Bekräftelsemejl skickat!</span>
+                            <span className="text-sm font-semibold">Bekräftelsemejl skickat!</span>
                         </div>
                     )}
 
                     {resendStatus === 'error' && (
-                        <div className="text-red-600 dark:text-red-400 text-sm mb-4">
+                        <div className="alert-error mb-4 text-left">
                             {errorMessage || 'Det gick inte att skicka e-postmeddelandet igen. Försök igen.'}
                         </div>
                     )}
@@ -109,21 +109,21 @@ export default function ConfirmEmail() {
                         <button
                             onClick={handleResendEmail}
                             disabled={resendStatus === 'sending' || resendStatus === 'sent'}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white rounded-lg font-medium transition-colors"
+                            className="btn-primary w-full"
                         >
                             {resendStatus === 'sending' ? (
                                 <>
-                                    <RefreshCw className="w-5 h-5 animate-spin" />
+                                    <RefreshCw className="w-4 h-4 animate-spin" />
                                     Skickar...
                                 </>
                             ) : resendStatus === 'sent' ? (
                                 <>
-                                    <CheckCircle className="w-5 h-5" />
+                                    <CheckCircle className="w-4 h-4" />
                                     E-post skickad
                                 </>
                             ) : (
                                 <>
-                                    <RefreshCw className="w-5 h-5" />
+                                    <RefreshCw className="w-4 h-4" />
                                     Skicka bekräftelsemejl igen
                                 </>
                             )}
@@ -131,23 +131,23 @@ export default function ConfirmEmail() {
 
                         <button
                             onClick={() => window.location.reload()}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-surface-100 hover:bg-surface-200 dark:bg-surface-700 dark:hover:bg-surface-600 text-surface-700 dark:text-surface-300 rounded-lg font-medium transition-colors"
+                            className="btn-secondary w-full"
                         >
-                            <RefreshCw className="w-5 h-5" />
+                            <RefreshCw className="w-4 h-4" />
                             Jag har bekräftat – ladda om
                         </button>
 
                         <button
                             onClick={handleSignOut}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-white transition-colors"
+                            className="btn-ghost w-full"
                         >
-                            <LogOut className="w-5 h-5" />
+                            <LogOut className="w-4 h-4" />
                             Logga ut
                         </button>
                     </div>
 
                     {/* Help text */}
-                    <p className="text-xs text-surface-500 dark:text-surface-500 mt-6">
+                    <p className="text-xs text-surface-500 dark:text-surface-400 mt-6">
                         Fick du inget mejl? Kolla din skräppost eller försök skicka igen.
                     </p>
                 </div>

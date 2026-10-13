@@ -102,12 +102,12 @@ export default function GroupDetail() {
                     <h2 className="text-xl font-semibold text-surface-900 dark:text-surface-50 mb-2">
                         {error || 'Klassrummet hittades inte'}
                     </h2>
-                    <p className="text-surface-500 dark:text-surface-400 mb-4">
+                    <p className="text-surface-600 dark:text-surface-300 mb-4">
                         Klassrummet du letar efter finns inte eller så har du inte åtkomst.
                     </p>
                     <button
                         onClick={() => navigate('/classrooms')}
-                        className="px-4 py-2 text-primary-600 dark:text-primary-400 font-medium hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors"
+                        className="btn-secondary"
                     >
                         Bläddra bland klassrum
                     </button>
@@ -125,22 +125,22 @@ export default function GroupDetail() {
         return (
             <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="card p-8 text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <Crown className="w-10 h-10 text-white" />
+                    <div className="w-20 h-20 bg-gradient-warm rounded-full flex items-center justify-center mx-auto mb-6">
+                        <Crown className="w-10 h-10 text-surface-900" />
                     </div>
-                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-50 mb-2">
                         Premiumklassrum
                     </h1>
-                    <p className="text-surface-500 dark:text-surface-400 mb-2">
-                        <span className="font-semibold text-surface-700 dark:text-surface-300">{group.name}</span> är ett klassrum endast för premiummedlemmar.
+                    <p className="text-surface-600 dark:text-surface-300 mb-2">
+                        <span className="font-semibold text-surface-700 dark:text-surface-200">{group.name}</span> är ett klassrum endast för premiummedlemmar.
                     </p>
-                    <p className="text-surface-500 dark:text-surface-400 mb-6">
+                    <p className="text-surface-600 dark:text-surface-300 mb-6">
                         Uppgradera till premium för att få åtkomst till det här klassrummet och allt dess innehåll.
                     </p>
 
                     {group.description && (
                         <div className="bg-surface-50 dark:bg-surface-800 rounded-lg p-4 mb-6 text-left">
-                            <p className="text-sm text-surface-600 dark:text-surface-400">
+                            <p className="text-sm text-surface-600 dark:text-surface-300">
                                 {group.description}
                             </p>
                         </div>
@@ -149,14 +149,14 @@ export default function GroupDetail() {
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <Link
                             to="/upgrade"
-                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold rounded-lg transition-all"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3 min-h-11 bg-gradient-warm text-surface-900 font-semibold rounded-lg hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-900"
                         >
                             <Crown className="w-5 h-5" />
                             <span>Uppgradera till premium</span>
                         </Link>
                         <button
                             onClick={() => navigate('/classrooms')}
-                            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 font-medium rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
+                            className="btn-ghost px-6"
                         >
                             <ArrowLeft className="w-5 h-5" />
                             <span>Tillbaka till klassrum</span>

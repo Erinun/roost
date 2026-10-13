@@ -34,7 +34,7 @@ export default function MessageBubble({ message, isSent, showTimestamp = true }:
         <div
           className={`rounded-2xl px-4 py-2 ${isSent
             ? 'bg-primary-600 text-white'
-            : 'bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100'
+            : 'bg-surface-100 dark:bg-surface-800 text-surface-900 dark:text-surface-50'
             }`}
         >
           {/* Message content */}
@@ -48,7 +48,7 @@ export default function MessageBubble({ message, isSent, showTimestamp = true }:
                   {asset.asset_type === 'image' ? (
                     <button
                       onClick={() => setSelectedImage(asset.file_url)}
-                      className="block rounded-lg overflow-hidden hover:opacity-90 transition-opacity"
+                      className="block rounded-lg overflow-hidden hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-900"
                     >
                       <img
                         src={asset.file_url}
@@ -61,8 +61,8 @@ export default function MessageBubble({ message, isSent, showTimestamp = true }:
                       href={asset.file_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center gap-2 p-2 rounded-lg ${isSent ? 'bg-primary-700' : 'bg-surface-50 dark:bg-surface-700'
-                        } hover:opacity-80 transition-opacity`}
+                      className={`flex items-center gap-2 p-2 rounded-lg ${isSent ? 'bg-primary-700 text-white' : 'bg-surface-200 dark:bg-surface-700'
+                        } hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600`}
                     >
                       <ImageIcon className="w-4 h-4" />
                       <span className="text-xs truncate">{asset.filename ?? 'Fil'}</span>
@@ -76,7 +76,7 @@ export default function MessageBubble({ message, isSent, showTimestamp = true }:
 
         {/* Timestamp */}
         {showTimestamp && (
-          <span className="text-xs text-surface-400 dark:text-surface-500 px-1">
+          <span className="text-xs text-surface-500 dark:text-surface-400 px-1">
             {formatMessageTime(message.created_at || new Date().toISOString())}
           </span>
         )}
@@ -85,7 +85,7 @@ export default function MessageBubble({ message, isSent, showTimestamp = true }:
       {/* Lightbox for images */}
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-surface-950/90 flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
           <img

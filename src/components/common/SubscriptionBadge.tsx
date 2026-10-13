@@ -11,14 +11,14 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
 
     if (isLoading) {
         return (
-            <div className={`animate-pulse bg-surface-200 rounded-lg h-10 w-32 ${className}`} />
+            <div className={`skeleton rounded-lg h-10 w-32 ${className}`} />
         );
     }
 
     // No subscription
     if (!subscription?.hasSubscription) {
         return (
-            <div className={`inline-flex items-center gap-2 px-3 py-1.5 bg-surface-100 text-surface-600 rounded-lg ${className}`}>
+            <div className={`inline-flex items-center gap-2 px-3 py-1.5 bg-surface-100 text-surface-600 dark:bg-surface-800 dark:text-surface-300 rounded-lg ${className}`}>
                 <XCircle className="w-4 h-4" />
                 <span className="text-sm font-medium">Ingen prenumeration</span>
             </div>
@@ -29,14 +29,14 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
     if (isActive && !inGracePeriod) {
         const periodEnd = subscription.currentPeriodEnd ? new Date(subscription.currentPeriodEnd) : null;
         return (
-            <div className={`${showDetails ? 'p-4 rounded-xl border' : 'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg'} bg-green-50 border-green-200 ${className}`}>
+            <div className={`${showDetails ? 'p-4 rounded-xl border' : 'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg'} bg-success/10 border-success/40 dark:bg-success/15 ${className}`}>
                 <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span className="text-sm font-medium text-green-700">Aktiv</span>
+                    <CheckCircle className="w-4 h-4 text-surface-900 dark:text-success" />
+                    <span className="text-sm font-medium text-surface-900 dark:text-surface-50">Aktiv</span>
                 </div>
                 {showDetails && periodEnd && (
                     <div className="mt-2 space-y-1">
-                        <p className="text-xs text-green-600">
+                        <p className="text-xs text-surface-600 dark:text-surface-300">
                             {subscription.cancelAtPeriodEnd
                                 ? `Avslutas: ${periodEnd.toLocaleDateString('sv-SE')}`
                                 : `Förnyas: ${periodEnd.toLocaleDateString('sv-SE')}`}
@@ -55,23 +55,23 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
             : null;
 
         return (
-            <div className={`${showDetails ? 'p-4 rounded-xl border' : 'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg'} bg-amber-50 border-amber-200 ${className}`}>
+            <div className={`${showDetails ? 'p-4 rounded-xl border' : 'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg'} bg-warning/10 border-warning/50 dark:bg-warning/15 ${className}`}>
                 <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-amber-600" />
-                    <span className="text-sm font-medium text-amber-700">Respitperiod</span>
+                    <Clock className="w-4 h-4 text-surface-900 dark:text-warning" />
+                    <span className="text-sm font-medium text-surface-900 dark:text-surface-50">Respitperiod</span>
                     {daysRemaining !== null && !showDetails && (
-                        <span className="text-sm text-amber-600">
+                        <span className="text-sm text-surface-600 dark:text-surface-300">
                             - {daysRemaining} dag{daysRemaining !== 1 ? 'ar' : ''} kvar
                         </span>
                     )}
                 </div>
                 {showDetails && (
                     <div className="mt-2 space-y-1">
-                        <p className="text-sm text-amber-700">
+                        <p className="text-sm text-surface-900 dark:text-surface-50">
                             Din prenumeration har avslutats men du har fortfarande åtkomst.
                         </p>
                         {endsAt && (
-                            <p className="text-xs text-amber-600">
+                            <p className="text-xs text-surface-600 dark:text-surface-300">
                                 Åtkomsten upphör: {endsAt.toLocaleDateString('sv-SE')}
                                 {daysRemaining !== null && ` (${daysRemaining} dag${daysRemaining !== 1 ? 'ar' : ''} kvar)`}
                             </p>
@@ -85,30 +85,30 @@ export default function SubscriptionBadge({ showDetails = false, className = '' 
     // Expired or other status
     const statusConfig: Record<string, { bg: string; border: string; text: string; icon: typeof AlertCircle; label: string }> = {
         expired: {
-            bg: 'bg-red-50',
-            border: 'border-red-200',
-            text: 'text-red-700',
+            bg: 'bg-error/10 dark:bg-error/20',
+            border: 'border-error/60',
+            text: 'text-surface-900 dark:text-error-soft',
             icon: XCircle,
             label: 'Utgången',
         },
         cancelled: {
-            bg: 'bg-surface-100',
-            border: 'border-surface-200',
-            text: 'text-surface-600',
+            bg: 'bg-surface-100 dark:bg-surface-800',
+            border: 'border-surface-200 dark:border-surface-700',
+            text: 'text-surface-600 dark:text-surface-300',
             icon: XCircle,
             label: 'Avslutad',
         },
         failed_payment: {
-            bg: 'bg-red-50',
-            border: 'border-red-200',
-            text: 'text-red-700',
+            bg: 'bg-error/10 dark:bg-error/20',
+            border: 'border-error/60',
+            text: 'text-surface-900 dark:text-error-soft',
             icon: AlertCircle,
             label: 'Betalning misslyckades',
         },
         refunded: {
-            bg: 'bg-surface-100',
-            border: 'border-surface-200',
-            text: 'text-surface-600',
+            bg: 'bg-surface-100 dark:bg-surface-800',
+            border: 'border-surface-200 dark:border-surface-700',
+            text: 'text-surface-600 dark:text-surface-300',
             icon: XCircle,
             label: 'Återbetald',
         },

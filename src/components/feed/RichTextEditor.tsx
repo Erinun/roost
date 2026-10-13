@@ -129,62 +129,42 @@ export default function RichTextEditor({
                 </>
             )}
 
-            <ReactQuill
-                ref={quillRef}
-                theme="snow"
-                value={value || ''}
-                onChange={onChange}
-                modules={modules}
-                formats={formats}
-                placeholder={placeholder}
-                className="bg-white dark:bg-surface-900 rounded-xl overflow-hidden"
-            />
+            {/* Ljust läge: färger via tokens (arbitrary variants, gäller endast utan .dark).
+                Mörkt läge sköts i src/index.css. */}
+            <div
+                className="[html:not(.dark)_&_.ql-toolbar.ql-snow]:border-surface-200 [html:not(.dark)_&_.ql-toolbar.ql-snow]:bg-surface-50
+                           [html:not(.dark)_&_.ql-container.ql-snow]:border-surface-200 [html:not(.dark)_&_.ql-container.ql-snow]:bg-white
+                           [html:not(.dark)_&_.ql-editor]:text-surface-900
+                           [html:not(.dark)_&_.ql-editor.ql-blank::before]:text-surface-500"
+            >
+                <ReactQuill
+                    ref={quillRef}
+                    theme="snow"
+                    value={value || ''}
+                    onChange={onChange}
+                    modules={modules}
+                    formats={formats}
+                    placeholder={placeholder}
+                    className="bg-white dark:bg-surface-900 rounded-xl overflow-hidden"
+                />
+            </div>
             <style>{`
         .rich-text-editor .ql-toolbar.ql-snow {
           border-top-left-radius: 0.75rem;
           border-top-right-radius: 0.75rem;
-          border-color: #e2e8f0;
-          background-color: #f8fafc;
-        }
-        .dark .rich-text-editor .ql-toolbar.ql-snow {
-          border-color: #404040;
-          background-color: #262626;
         }
         .rich-text-editor .ql-container.ql-snow {
           border-bottom-left-radius: 0.75rem;
           border-bottom-right-radius: 0.75rem;
-          border-color: #e2e8f0;
           min-height: 200px;
           font-family: inherit;
           font-size: 1rem;
-          background-color: #ffffff;
-        }
-        .dark .rich-text-editor .ql-container.ql-snow {
-          border-color: #404040;
-          background-color: #171717;
         }
         .rich-text-editor .ql-editor {
           min-height: 200px;
-          color: #0f172a;
-        }
-        .dark .rich-text-editor .ql-editor {
-          color: #fafafa;
         }
         .rich-text-editor .ql-editor.ql-blank::before {
-          color: #94a3b8;
           font-style: normal;
-        }
-        .dark .rich-text-editor .ql-editor.ql-blank::before {
-          color: #64748b;
-        }
-        .dark .rich-text-editor .ql-toolbar .ql-stroke {
-          stroke: #a3a3a3;
-        }
-        .dark .rich-text-editor .ql-toolbar .ql-fill {
-          fill: #a3a3a3;
-        }
-        .dark .rich-text-editor .ql-toolbar .ql-picker-label {
-          color: #a3a3a3;
         }
       `}</style>
         </div>

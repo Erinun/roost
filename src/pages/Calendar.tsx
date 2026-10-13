@@ -111,7 +111,7 @@ export default function Calendar() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600" />
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
             </div>
         );
     }
@@ -121,15 +121,15 @@ export default function Calendar() {
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Kalender</h1>
-                    <p className="text-gray-600 dark:text-gray-400 mt-1">Evenemang och aktiviteter i communityt</p>
+                    <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-50">Kalender</h1>
+                    <p className="text-surface-600 dark:text-surface-300 mt-1">Evenemang och aktiviteter i communityt</p>
                 </div>
                 <button
                     onClick={() => {
                         setSelectedSlot(null);
                         setIsCreateOpen(true);
                     }}
-                    className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                    className="btn-primary"
                 >
                     <Plus size={20} />
                     <span>Skapa evenemang</span>
@@ -154,17 +154,17 @@ export default function Calendar() {
                 {/* Sidebar */}
                 <div className="space-y-6">
                     {/* Filters */}
-                    <div className="bg-white dark:bg-surface-900 rounded-lg shadow-sm dark:shadow-none dark:border dark:border-surface-700 p-4">
+                    <div className="card p-4">
                         <div className="flex items-center gap-2 mb-3">
-                            <Filter size={18} className="text-gray-600 dark:text-gray-400" />
-                            <h2 className="font-semibold text-gray-900 dark:text-gray-100">Filter</h2>
+                            <Filter size={18} className="text-surface-600 dark:text-surface-300" />
+                            <h2 className="font-semibold text-surface-900 dark:text-surface-50">Filter</h2>
                         </div>
                         <div>
-                            <label className="block text-sm text-gray-600 dark:text-gray-400 mb-1">Klassrum</label>
+                            <label className="label">Klassrum</label>
                             <select
                                 value={selectedGroup || ''}
                                 onChange={(e) => setSelectedGroup(e.target.value || undefined)}
-                                className="w-full px-3 py-2 border border-gray-300 dark:border-surface-600 bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-purple-500"
+                                className="input"
                             >
                                 <option value="">Alla klassrum</option>
                                 {userGroups.map((group) => (
@@ -177,10 +177,10 @@ export default function Calendar() {
                     </div>
 
                     {/* Upcoming Events */}
-                    <div className="bg-white dark:bg-surface-900 rounded-lg shadow-sm dark:shadow-none dark:border dark:border-surface-700 p-4">
-                        <h2 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Kommande evenemang</h2>
+                    <div className="card p-4">
+                        <h2 className="font-semibold text-surface-900 dark:text-surface-50 mb-4">Kommande evenemang</h2>
                         {upcomingEvents.length === 0 ? (
-                            <p className="text-gray-500 dark:text-gray-400 text-sm text-center py-4">
+                            <p className="text-surface-500 dark:text-surface-400 text-sm text-center py-4">
                                 Inga kommande evenemang
                             </p>
                         ) : (

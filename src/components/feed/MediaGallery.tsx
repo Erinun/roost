@@ -66,7 +66,7 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
                 {assets.slice(0, 6).map((asset, index) => (
                     <div
                         key={asset.id}
-                        className={`relative rounded-xl overflow-hidden cursor-pointer bg-surface-100 border border-surface-200 
+                        className={`relative rounded-xl overflow-hidden cursor-pointer bg-surface-100 dark:bg-surface-800 border border-surface-200 dark:border-surface-700
                             hover:opacity-90 hover:scale-[1.02] transition-all duration-200
                             ${assets.length === 1 ? 'aspect-auto max-h-[500px]' : 'aspect-square'}
                             ${index === 5 && assets.length > 6 ? 'relative' : ''}`}
@@ -88,14 +88,14 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
                                     preload="metadata"
                                 />
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                    <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white shadow-lg hover:bg-white/30 transition-colors">
+                                    <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
                                         <Play className="w-6 h-6 ml-1" fill="currentColor" />
                                     </div>
                                 </div>
                             </div>
                         ) : (
-                            <div className="w-full h-full flex items-center justify-center p-4 bg-surface-50">
-                                <span className="text-xs text-surface-500 text-center truncate px-2">
+                            <div className="w-full h-full flex items-center justify-center p-4 bg-surface-50 dark:bg-surface-800">
+                                <span className="text-xs text-surface-600 dark:text-surface-300 text-center truncate px-2">
                                     {asset.filename}
                                 </span>
                             </div>
@@ -103,7 +103,7 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
 
                         {/* Show "+N more" overlay on last visible item if there are more */}
                         {index === 5 && assets.length > 6 && (
-                            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                            <div className="absolute inset-0 bg-surface-950/60 flex items-center justify-center">
                                 <span className="text-white text-xl font-semibold">
                                     +{assets.length - 6} till
                                 </span>
@@ -116,7 +116,7 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
             {/* Lightbox / Modal */}
             {selectedIndex !== null && (
                 <div
-                    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-sm animate-fadeIn"
+                    className="fixed inset-0 z-[100] flex items-center justify-center bg-surface-950/95 backdrop-blur-sm animate-fadeIn"
                     onClick={closeLightbox}
                 >
                     {/* Close button */}
@@ -157,14 +157,14 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
                             <img
                                 src={assets[selectedIndex].file_url}
                                 alt={assets[selectedIndex].filename}
-                                className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl animate-scaleIn"
+                                className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-elevated animate-scaleIn"
                             />
                         ) : (
                             <video
                                 src={assets[selectedIndex].file_url}
                                 controls
                                 autoPlay
-                                className="max-w-full max-h-[85vh] rounded-lg shadow-2xl"
+                                className="max-w-full max-h-[85vh] rounded-lg shadow-elevated"
                             />
                         )}
                     </div>
@@ -181,7 +181,7 @@ export default function MediaGallery({ assets }: MediaGalleryProps) {
 
                     {/* Thumbnail strip for multiple images */}
                     {assets.length > 1 && (
-                        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-2 p-2 bg-black/50 rounded-lg backdrop-blur-sm max-w-[80vw] overflow-x-auto">
+                        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-2 p-2 bg-surface-950/60 rounded-lg backdrop-blur-sm max-w-[80vw] overflow-x-auto">
                             {assets.map((asset, idx) => (
                                 <button
                                     key={asset.id}

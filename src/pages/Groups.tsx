@@ -142,14 +142,14 @@ export default function Groups() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
                     <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-50">Klassrum</h1>
-                    <p className="text-surface-500 dark:text-surface-400 mt-1">
+                    <p className="text-surface-600 dark:text-surface-300 mt-1">
                         Gå med i klassrum och knyt kontakt med likasinnade
                     </p>
                 </div>
                 {isPlatformAdmin && (
                     <button
                         onClick={() => setShowCreateModal(true)}
-                        className="flex items-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
+                        className="btn-primary"
                     >
                         <Plus className="w-5 h-5" />
                         Skapa klassrum
@@ -167,7 +167,7 @@ export default function Groups() {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Sök klassrum..."
-                        className="w-full pl-10 pr-4 py-2.5 border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="input pl-10"
                     />
                 </div>
 
@@ -175,18 +175,18 @@ export default function Groups() {
                 <div className="flex bg-surface-100 dark:bg-surface-800 rounded-lg p-1">
                     <button
                         onClick={() => setActiveTab('discover')}
-                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'discover'
-                            ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 shadow-sm'
-                            : 'text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100'
+                        className={`px-4 py-2 min-h-11 rounded-md text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 ${activeTab === 'discover'
+                            ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-50 border border-surface-200 dark:border-surface-600'
+                            : 'text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-50'
                             }`}
                     >
                         Upptäck
                     </button>
                     <button
                         onClick={() => setActiveTab('my-groups')}
-                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'my-groups'
-                            ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 shadow-sm'
-                            : 'text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100'
+                        className={`px-4 py-2 min-h-11 rounded-md text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 ${activeTab === 'my-groups'
+                            ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-50 border border-surface-200 dark:border-surface-600'
+                            : 'text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-50'
                             }`}
                     >
                         Mina klassrum ({myGroups.length})
@@ -196,18 +196,29 @@ export default function Groups() {
 
             {/* Groups grid */}
             {isLoading ? (
-                <div className="flex items-center justify-center py-12">
-                    <Loader2 className="w-8 h-8 text-primary-600 animate-spin" />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[...Array(6)].map((_, i) => (
+                        <div key={i} className="card p-6">
+                            <div className="flex items-start gap-4">
+                                <div className="skeleton w-14 h-14 rounded-xl flex-shrink-0" />
+                                <div className="flex-1 space-y-2">
+                                    <div className="skeleton h-4 w-3/4" />
+                                    <div className="skeleton h-3 w-full" />
+                                    <div className="skeleton h-3 w-1/2" />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             ) : displayedGroups.length === 0 ? (
                 <div className="text-center py-12">
                     <div className="w-16 h-16 mx-auto mb-4 bg-surface-100 dark:bg-surface-800 rounded-full flex items-center justify-center">
                         <Search className="w-8 h-8 text-surface-400 dark:text-surface-500" />
                     </div>
-                    <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-1">
+                    <h3 className="text-lg font-medium text-surface-900 dark:text-surface-50 mb-1">
                         {activeTab === 'my-groups' ? 'Inga klassrum ännu' : 'Inga klassrum hittades'}
                     </h3>
-                    <p className="text-surface-500 dark:text-surface-400">
+                    <p className="text-surface-600 dark:text-surface-300">
                         {activeTab === 'my-groups'
                             ? 'Du har inte gått med i några klassrum ännu. Upptäck klassrum för att komma igång!'
                             : searchQuery
@@ -217,7 +228,7 @@ export default function Groups() {
                     {activeTab === 'my-groups' && (
                         <button
                             onClick={() => setActiveTab('discover')}
-                            className="mt-4 px-4 py-2 text-primary-600 dark:text-primary-400 font-medium hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-lg transition-colors"
+                            className="btn-secondary mt-4"
                         >
                             Upptäck klassrum
                         </button>
@@ -241,12 +252,12 @@ export default function Groups() {
                     {activeTab === 'discover' && hasMore && (
                         <div ref={observerTarget} className="py-8 text-center">
                             {loadingMore ? (
-                                <div className="flex items-center justify-center gap-2 text-surface-500 dark:text-surface-400">
+                                <div className="flex items-center justify-center gap-2 text-surface-600 dark:text-surface-300">
                                     <Loader2 className="w-5 h-5 animate-spin" />
                                     <span className="text-sm">Laddar fler klassrum...</span>
                                 </div>
                             ) : (
-                                <span className="text-sm text-surface-400 dark:text-surface-500">
+                                <span className="text-sm text-surface-500 dark:text-surface-400">
                                     Skrolla för fler
                                 </span>
                             )}

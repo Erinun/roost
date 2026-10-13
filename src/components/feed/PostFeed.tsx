@@ -426,17 +426,17 @@ export default function PostFeed({
                     onSortChange={handleSortChange}
                 />
                 {[1, 2, 3].map((i) => (
-                    <div key={i} className="card p-6 animate-pulse shadow-none">
+                    <div key={i} className="card p-6">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 bg-surface-200 rounded-full" />
+                            <div className="skeleton w-10 h-10 rounded-full" />
                             <div className="space-y-2">
-                                <div className="w-24 h-4 bg-surface-200 rounded" />
-                                <div className="w-16 h-3 bg-surface-200 rounded" />
+                                <div className="skeleton w-24 h-4" />
+                                <div className="skeleton w-16 h-3" />
                             </div>
                         </div>
                         <div className="space-y-2">
-                            <div className="w-full h-4 bg-surface-200 rounded" />
-                            <div className="w-3/4 h-4 bg-surface-200 rounded" />
+                            <div className="skeleton w-full h-4" />
+                            <div className="skeleton w-3/4 h-4" />
                         </div>
                     </div>
                 ))}
@@ -447,7 +447,7 @@ export default function PostFeed({
     return (
         <div className="space-y-6">
             {/* Create post trigger */}
-            <div className="card p-4 shadow-none">
+            <div className="card p-4">
                 <div className="flex items-center gap-3">
                     {profile?.avatar_url ? (
                         <img
@@ -466,7 +466,7 @@ export default function PostFeed({
                     </div>
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="flex-1 text-left px-4 py-2.5 bg-surface-100 dark:bg-surface-800 rounded-lg text-surface-400 dark:text-surface-500 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
+                        className="flex-1 text-left px-4 py-2.5 min-h-11 bg-surface-100 dark:bg-surface-800 rounded-lg text-surface-500 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
                     >
                         Skriv något...
                     </button>
@@ -490,8 +490,8 @@ export default function PostFeed({
             {pendingPosts.length > 0 && (
                 <button
                     onClick={showPendingPosts}
-                    className="w-full py-3 px-4 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400
-                        text-sm font-medium rounded-xl hover:bg-primary-100 dark:hover:bg-primary-900/30
+                    className="w-full py-3 px-4 min-h-11 bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300
+                        text-sm font-medium rounded-xl hover:bg-primary-100 dark:hover:bg-primary-800
                         transition-colors flex items-center justify-center gap-2 border border-primary-200 dark:border-primary-800"
                 >
                     <ChevronUp className="w-4 h-4" />
@@ -520,7 +520,7 @@ export default function PostFeed({
                         {pinnedPosts.length > 0 && (
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-2 text-sm font-medium text-surface-500 dark:text-surface-400">
+                                    <div className="flex items-center gap-2 text-sm font-medium text-surface-600 dark:text-surface-300">
                                         <Pin className="w-4 h-4" />
                                         <span>Fästa inlägg</span>
                                     </div>
@@ -529,17 +529,17 @@ export default function PostFeed({
                                             <button
                                                 onClick={() => setPinnedSlide(Math.max(0, currentSlide - 1))}
                                                 disabled={currentSlide === 0}
-                                                className="p-1 rounded-full border border-surface-200 dark:border-surface-700 text-surface-500 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                                                className="p-1 rounded-full border border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                                             >
                                                 <ChevronLeft className="w-4 h-4" />
                                             </button>
-                                            <span className="text-xs text-surface-400 dark:text-surface-500 tabular-nums">
+                                            <span className="text-xs text-surface-500 dark:text-surface-400 tabular-nums">
                                                 {currentSlide + 1} / {totalSlides}
                                             </span>
                                             <button
                                                 onClick={() => setPinnedSlide(Math.min(totalSlides - 1, currentSlide + 1))}
                                                 disabled={currentSlide >= totalSlides - 1}
-                                                className="p-1 rounded-full border border-surface-200 dark:border-surface-700 text-surface-500 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                                                className="p-1 rounded-full border border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                                             >
                                                 <ChevronRight className="w-4 h-4" />
                                             </button>
@@ -579,25 +579,25 @@ export default function PostFeed({
                         {/* Regular posts */}
                         {allEmpty ? (
                             feedMode === 'home' ? (
-                                <div className="card p-12 text-center shadow-none">
-                                    <div className="w-16 h-16 bg-primary-50 dark:bg-primary-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <UserPlus className="w-8 h-8 text-primary-500" />
+                                <div className="card p-12 text-center">
+                                    <div className="w-16 h-16 bg-primary-50 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <UserPlus className="w-8 h-8 text-primary-600 dark:text-primary-300" />
                                     </div>
-                                    <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">Ditt flöde är tomt</h3>
-                                    <p className="text-surface-500 dark:text-surface-400 mb-4">
+                                    <h3 className="text-lg font-medium text-surface-900 dark:text-surface-50 mb-2">Ditt flöde är tomt</h3>
+                                    <p className="text-surface-600 dark:text-surface-300 mb-4">
                                         Följ medlemmar i communityn för att se deras inlägg här. Inlägg från administratörer och moderatorer visas alltid.
                                     </p>
                                     <Link
                                         to="/explore"
-                                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+                                        className="btn-primary"
                                     >
                                         <Compass className="w-4 h-4" />
                                         Utforska inlägg
                                     </Link>
                                 </div>
                             ) : (
-                                <div className="card p-12 text-center shadow-none">
-                                    <div className="w-16 h-16 bg-surface-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <div className="card p-12 text-center">
+                                    <div className="w-16 h-16 bg-surface-100 dark:bg-surface-800 rounded-full flex items-center justify-center mx-auto mb-4">
                                         <svg
                                             className="w-8 h-8 text-surface-400"
                                             fill="none"
@@ -612,8 +612,8 @@ export default function PostFeed({
                                             />
                                         </svg>
                                     </div>
-                                    <h3 className="text-lg font-medium text-surface-900 mb-2">Inga inlägg än</h3>
-                                    <p className="text-surface-500 mb-4">
+                                    <h3 className="text-lg font-medium text-surface-900 dark:text-surface-50 mb-2">Inga inlägg än</h3>
+                                    <p className="text-surface-600 dark:text-surface-300 mb-4">
                                         Bli först med att dela något med communityn!
                                     </p>
                                 </div>

@@ -10,7 +10,7 @@ interface ProBadgeProps {
 
 /**
  * Pro member badge component
- * Shows a golden badge with crown icon for premium members
+ * Gul premiumetikett enligt badge-premium-mönstret: brand-yellow med mörk text i båda lägena
  */
 export function ProBadge({ size = 'sm', className = '', absolute = false }: ProBadgeProps) {
     const sizeClasses = {
@@ -29,8 +29,7 @@ export function ProBadge({ size = 'sm', className = '', absolute = false }: ProB
         <span
             className={`
                 ${absolute ? 'absolute top-2 right-2' : ''} inline-flex items-center font-semibold rounded-full
-                bg-gradient-to-r from-amber-400 to-yellow-500
-                text-amber-900 shadow-sm
+                bg-brand-yellow text-surface-900
                 ${sizeClasses[size]}
                 ${className}
             `}
@@ -50,9 +49,9 @@ interface RoleBadgeProps {
 }
 
 const roleConfig = {
-    superadmin: { label: 'Admin', icon: ShieldCheck, gradient: 'from-red-500 to-rose-600', text: 'text-white' },
-    admin: { label: 'Admin', icon: ShieldCheck, gradient: 'from-red-500 to-rose-600', text: 'text-white' },
-    moderator: { label: 'Mod', icon: Shield, gradient: 'from-blue-500 to-indigo-600', text: 'text-white' },
+    superadmin: { label: 'Admin', icon: ShieldCheck, bg: 'bg-error-strong', text: 'text-white' },
+    admin: { label: 'Admin', icon: ShieldCheck, bg: 'bg-error-strong', text: 'text-white' },
+    moderator: { label: 'Mod', icon: Shield, bg: 'bg-primary-600', text: 'text-white' },
 } as const;
 
 export function RoleBadge({ role, size = 'sm', className = '' }: RoleBadgeProps) {
@@ -77,8 +76,7 @@ export function RoleBadge({ role, size = 'sm', className = '' }: RoleBadgeProps)
         <span
             className={`
                 inline-flex items-center font-semibold rounded-full
-                bg-gradient-to-r ${config.gradient}
-                ${config.text} shadow-sm
+                ${config.bg} ${config.text}
                 ${sizeClasses[size]}
                 ${className}
             `}

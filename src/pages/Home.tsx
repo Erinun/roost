@@ -40,21 +40,21 @@ export default function Home() {
     return (
         <>
             {/* Fixed Right Sidebar - hidden on mobile */}
-            <div className="hidden lg:block fixed top-16 right-0 w-80 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-thin p-4 space-y-6 bg-white dark:bg-surface-900 border-l border-surface-200 dark:border-surface-800">
+            <div className="hidden lg:block fixed top-16 right-0 w-80 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-thin p-4 space-y-6 bg-white dark:bg-surface-900 border-l border-surface-200 dark:border-surface-700">
                 {/* About card */}
-                <div className="card p-6 shadow-none">
-                    <h2 className="font-semibold text-surface-900 dark:text-surface-100 mb-4">Om</h2>
-                    <p className="text-surface-600 dark:text-surface-400 text-sm mb-4">
+                <div className="card p-6">
+                    <h2 className="font-semibold text-surface-900 dark:text-surface-50 mb-4">Om</h2>
+                    <p className="text-surface-600 dark:text-surface-300 text-sm mb-4">
                         Välkommen till {APP_CONFIG.name}! {APP_CONFIG.description}
                     </p>
                     <div className="flex items-center gap-6 text-sm">
                         <div className="flex items-center gap-2">
-                            <Users className="w-4 h-4 text-surface-400 dark:text-surface-500" />
-                            <span className="text-surface-600 dark:text-surface-400">{membersCount} medlem{membersCount !== 1 ? 'mar' : ''}</span>
+                            <Users className="w-4 h-4 text-surface-400" />
+                            <span className="text-surface-600 dark:text-surface-300">{membersCount} medlem{membersCount !== 1 ? 'mar' : ''}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                            <span className="text-surface-600 dark:text-surface-400">{onlineCount} online</span>
+                            <div className="w-2 h-2 bg-success rounded-full animate-pulse" />
+                            <span className="text-surface-600 dark:text-surface-300">{onlineCount} online</span>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ export default function Home() {
                 {isLive && liveSession && (
                     <Link
                         to="/live"
-                        className="block mx-4 sm:mx-6 lg:mx-8 mt-4 p-4 rounded-xl bg-gradient-to-r from-red-600 to-red-500 text-white hover:from-red-700 hover:to-red-600 transition-all shadow-lg shadow-red-500/20"
+                        className="block mx-4 sm:mx-6 lg:mx-8 mt-4 p-4 rounded-xl bg-error-strong text-white hover:bg-error-strong/90 transition-all"
                     >
                         <div className="flex items-center gap-3">
                             <div className="flex-shrink-0 p-2 bg-white/20 rounded-lg">
@@ -93,7 +93,7 @@ export default function Home() {
                                     {liveSession.title}
                                 </p>
                             </div>
-                            <span className="flex-shrink-0 px-3 py-1.5 bg-white text-red-600 text-sm font-semibold rounded-lg">
+                            <span className="flex-shrink-0 px-3 py-1.5 bg-white text-error-strong text-sm font-semibold rounded-lg">
                                 Gå med
                             </span>
                         </div>
@@ -102,11 +102,11 @@ export default function Home() {
 
                 <div className="py-8 px-4 sm:px-6 lg:px-8 space-y-6">
                     {/* Welcome message */}
-                    <div className="card p-6 shadow-none">
-                        <h1 className="text-md md:text-lg font-semibold text-surface-900 dark:text-surface-100">
+                    <div className="card p-6">
+                        <h1 className="text-md md:text-lg font-semibold text-surface-900 dark:text-surface-50">
                             Välkommen tillbaka, {profile?.display_name || 'du'}! 👋
                         </h1>
-                        <p className="text-surface-500 dark:text-surface-400 mt-1 text-xs   md:text-base">
+                        <p className="text-surface-600 dark:text-surface-300 mt-1 text-xs   md:text-base">
                             Vad vill du dela med communityt idag?
                         </p>
                     </div>

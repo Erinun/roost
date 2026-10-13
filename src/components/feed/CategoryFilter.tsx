@@ -60,11 +60,11 @@ export default function CategoryFilter({
                 <button
                     onClick={() => { setTopicOpen(!topicOpen); setSortOpen(false); }}
                     className={`
-                        flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+                        flex items-center gap-2 px-4 py-2 min-h-11 rounded-full text-sm font-medium
                         transition-all duration-200
                         ${selectedCategoryId
-                            ? 'bg-primary-600 text-white shadow-md'
-                            : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700'
+                            ? 'bg-primary-600 text-white'
+                            : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'
                         }
                     `}
                 >
@@ -77,10 +77,10 @@ export default function CategoryFilter({
                     <div className="absolute top-full left-0 mt-1 w-56 bg-white dark:bg-surface-800 rounded-xl shadow-elevated dark:shadow-elevated-dark border border-surface-200 dark:border-surface-700 z-50 overflow-hidden py-1">
                         <button
                             onClick={() => { onSelectCategory(null); setTopicOpen(false); }}
-                            className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                            className={`w-full text-left px-4 py-2.5 min-h-11 text-sm transition-colors ${
                                 selectedCategoryId === null && !adminOnly
-                                    ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 font-medium'
-                                    : 'text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700'
+                                    ? 'bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 font-medium'
+                                    : 'text-surface-700 dark:text-surface-200 hover:bg-surface-50 dark:hover:bg-surface-700'
                             }`}
                         >
                             Alla ämnen
@@ -89,10 +89,10 @@ export default function CategoryFilter({
                             <button
                                 key={category.id}
                                 onClick={() => { onSelectCategory(category.id); setTopicOpen(false); }}
-                                className={`w-full text-left px-4 py-2.5 text-sm transition-colors flex items-center gap-2 ${
+                                className={`w-full text-left px-4 py-2.5 min-h-11 text-sm transition-colors flex items-center gap-2 ${
                                     selectedCategoryId === category.id && !adminOnly
-                                        ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 font-medium'
-                                        : 'text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700'
+                                        ? 'bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 font-medium'
+                                        : 'text-surface-700 dark:text-surface-200 hover:bg-surface-50 dark:hover:bg-surface-700'
                                 }`}
                             >
                                 {category.icon && <span>{category.icon}</span>}
@@ -115,11 +115,11 @@ export default function CategoryFilter({
                     <button
                         onClick={() => { setSortOpen(!sortOpen); setTopicOpen(false); }}
                         className={`
-                            flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+                            flex items-center gap-2 px-4 py-2 min-h-11 rounded-full text-sm font-medium
                             transition-all duration-200
                             ${sortBy !== 'newest'
-                                ? 'bg-primary-600 text-white shadow-md'
-                                : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700'
+                                ? 'bg-primary-600 text-white'
+                                : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'
                             }
                         `}
                     >
@@ -134,14 +134,14 @@ export default function CategoryFilter({
                                 <button
                                     key={option}
                                     onClick={() => { onSortChange(option); setSortOpen(false); }}
-                                    className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                                    className={`w-full text-left px-4 py-2.5 min-h-11 text-sm transition-colors ${
                                         sortBy === option
-                                            ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 font-medium'
-                                            : 'text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700'
+                                            ? 'bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300 font-medium'
+                                            : 'text-surface-700 dark:text-surface-200 hover:bg-surface-50 dark:hover:bg-surface-700'
                                     }`}
                                 >
                                     {SORT_LABELS[option]}
-                                    <span className="block text-xs text-surface-400 dark:text-surface-500 mt-0.5">
+                                    <span className="block text-xs text-surface-500 dark:text-surface-400 mt-0.5">
                                         {option === 'newest' && 'Senaste inläggen'}
                                         {option === 'popular' && 'Flest reaktioner'}
                                         {option === 'trending' && 'Flest kommentarer'}
@@ -158,11 +158,11 @@ export default function CategoryFilter({
                 <button
                     onClick={onToggleAdminOnly}
                     className={`
-                        px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap
+                        px-4 py-2 min-h-11 rounded-full text-sm font-medium whitespace-nowrap
                         transition-all duration-200 flex items-center gap-1.5
                         ${adminOnly
-                            ? 'bg-amber-500 text-white shadow-md'
-                            : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700'
+                            ? 'bg-primary-600 text-white'
+                            : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700'
                         }
                     `}
                 >

@@ -42,23 +42,23 @@ export default function ForgotPassword() {
     // Success state
     if (success) {
         return (
-            <div className='max-w-md w-full mx-auto'>
+            <div className="max-w-md w-full mx-auto">
                 <div className="card p-8 animate-fade-in text-center">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Check className="w-8 h-8 text-green-600 dark:text-green-400" />
+                    <div className="w-16 h-16 bg-success/15 dark:bg-success/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Check className="w-8 h-8 text-surface-900 dark:text-success" />
+                    </div>
+                    <h1 className="text-2xl text-surface-900 dark:text-surface-50 mb-2">Kolla din e-post</h1>
+                    <p className="text-surface-600 dark:text-surface-300 text-sm mb-6">
+                        Om det finns ett konto med <strong>{email}</strong> har vi skickat en länk för att återställa lösenordet.
+                        Länken upphör att gälla om 1 timme.
+                    </p>
+                    <p className="text-surface-500 dark:text-surface-400 text-sm mb-6">
+                        Ser du inget mejl? Kolla din skräppost.
+                    </p>
+                    <Link to="/login" className="btn-primary w-full">
+                        Tillbaka till inloggning
+                    </Link>
                 </div>
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100 mb-2">Kolla din e-post</h1>
-                <p className="text-surface-500 dark:text-surface-400 mb-6">
-                    Om det finns ett konto med <strong>{email}</strong> har vi skickat en länk för att återställa lösenordet.
-                    Länken upphör att gälla om 1 timme.
-                </p>
-                <p className="text-surface-400 dark:text-surface-500 text-sm mb-6">
-                    Ser du inget mejl? Kolla din skräppost.
-                </p>
-                <Link to="/login" className="btn-primary w-full py-2.5">
-                    Tillbaka till inloggning
-                </Link>
-            </div>
             </div>
         );
     }
@@ -68,7 +68,7 @@ export default function ForgotPassword() {
             {/* Back link */}
             <Link
                 to="/login"
-                className="inline-flex items-center gap-1 text-sm text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300 mb-6"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-surface-600 hover:text-surface-900 dark:text-surface-300 dark:hover:text-surface-50 transition-colors mb-6"
             >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Tillbaka till inloggning</span>
@@ -76,15 +76,18 @@ export default function ForgotPassword() {
 
             {/* Header */}
             <div className="text-center mb-8">
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Glömt lösenordet?</h1>
-                <p className="text-surface-500 dark:text-surface-400 mt-2">
+                <div className="w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Mail className="w-8 h-8 text-surface-900" />
+                </div>
+                <h1 className="text-2xl text-surface-900 dark:text-surface-50">Glömt lösenordet?</h1>
+                <p className="text-surface-600 dark:text-surface-300 mt-2 text-sm">
                     Ingen fara, vi skickar instruktioner för återställning
                 </p>
             </div>
 
             {/* Error message */}
             {error && (
-                <div className="mb-6 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg text-sm">
+                <div className="alert-error mb-6">
                     {error}
                 </div>
             )}
@@ -97,7 +100,7 @@ export default function ForgotPassword() {
                         E-postadress
                     </label>
                     <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
+                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-500 dark:text-surface-400" />
                         <input
                             id="email"
                             type="email"
@@ -115,7 +118,7 @@ export default function ForgotPassword() {
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="btn-primary w-full py-2.5"
+                    className="btn-primary w-full"
                 >
                     {isLoading ? (
                         <>

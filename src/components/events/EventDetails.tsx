@@ -54,27 +54,27 @@ export default function EventDetails({
         <>
             {/* Backdrop */}
             <div
-                className="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 z-40"
+                className="modal-overlay z-40"
                 onClick={onClose}
             />
 
             {/* Modal */}
-            <div className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl md:max-h-[90vh] bg-white dark:bg-surface-900 rounded-lg shadow-2xl z-50 flex flex-col">
+            <div className="modal-content fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl md:max-h-[90vh] z-50 flex flex-col">
                 {/* Header */}
-                <div className="flex items-start justify-between p-6 border-b border-gray-200 dark:border-surface-700">
+                <div className="flex items-start justify-between p-6 border-b border-surface-200 dark:border-surface-700">
                     <div className="flex-1">
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+                        <h2 className="text-2xl font-bold text-surface-900 dark:text-surface-50 mb-2">
                             {event.title}
                         </h2>
                         {event.group && (
-                            <p className="text-purple-600 dark:text-purple-400 font-medium">
+                            <p className="text-brand-purple dark:text-primary-300 font-medium">
                                 {event.group.name}
                             </p>
                         )}
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-surface-800 rounded-lg transition-colors text-gray-600 dark:text-gray-400"
+                        className="min-h-11 min-w-11 flex items-center justify-center hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors text-surface-600 dark:text-surface-300"
                     >
                         <X size={24} />
                     </button>
@@ -84,11 +84,11 @@ export default function EventDetails({
                 <div className="flex-1 overflow-y-auto p-6 space-y-6">
                     {/* Date & Time */}
                     <div>
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
+                        <div className="flex items-center gap-2 text-surface-600 dark:text-surface-300 mb-2">
                             <Calendar size={20} />
                             <span className="font-semibold">Datum och tid</span>
                         </div>
-                        <p className="text-gray-900 dark:text-gray-100 ml-7">
+                        <p className="text-surface-900 dark:text-surface-50 ml-7">
                             {format(startDate, 'EEEE d MMMM yyyy', { locale: sv })}
                             <br />
                             {format(startDate, 'HH:mm', { locale: sv })} - {format(endDate, 'HH:mm', { locale: sv })}
@@ -97,7 +97,7 @@ export default function EventDetails({
 
                     {/* Location */}
                     <div>
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
+                        <div className="flex items-center gap-2 text-surface-600 dark:text-surface-300 mb-2">
                             {event.is_virtual ? <Video size={20} /> : <MapPin size={20} />}
                             <span className="font-semibold">
                                 {event.is_virtual ? 'Virtuellt möte' : 'Plats'}
@@ -109,22 +109,22 @@ export default function EventDetails({
                                     href={event.meeting_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 underline ml-7"
+                                    className="link ml-7"
                                 >
                                     Gå med i mötet
                                 </a>
                             ) : (
-                                <p className="text-gray-500 dark:text-gray-400 ml-7 italic">Möteslänken delas närmare evenemanget</p>
+                                <p className="text-surface-500 dark:text-surface-400 ml-7 italic">Möteslänken delas närmare evenemanget</p>
                             )
                         ) : (
-                            <p className="text-gray-900 dark:text-gray-100 ml-7">{event.location || 'Meddelas senare'}</p>
+                            <p className="text-surface-900 dark:text-surface-50 ml-7">{event.location || 'Meddelas senare'}</p>
                         )}
                     </div>
 
                     {/* Creator */}
                     {event.creator && (
                         <div>
-                            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
+                            <div className="flex items-center gap-2 text-surface-600 dark:text-surface-300 mb-2">
                                 <User size={20} />
                                 <span className="font-semibold">Arrangeras av</span>
                             </div>
@@ -133,12 +133,12 @@ export default function EventDetails({
                                     <img
                                         src={event.creator.avatar_url}
                                         alt={event.creator.display_name}
-                                        className="w-8 h-8 rounded-full"
+                                        className="avatar-sm object-cover"
                                     />
                                 )}
                                 <div>
-                                    <p className="font-medium text-gray-900 dark:text-gray-100">{event.creator.display_name}</p>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">@{event.creator.username}</p>
+                                    <p className="font-medium text-surface-900 dark:text-surface-50">{event.creator.display_name}</p>
+                                    <p className="text-sm text-surface-500 dark:text-surface-400">@{event.creator.username}</p>
                                 </div>
                             </div>
                         </div>
@@ -147,15 +147,15 @@ export default function EventDetails({
                     {/* Description */}
                     {event.description && (
                         <div>
-                            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Om evenemanget</h3>
-                            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{event.description}</p>
+                            <h3 className="font-semibold text-surface-900 dark:text-surface-50 mb-2">Om evenemanget</h3>
+                            <p className="text-surface-700 dark:text-surface-200 whitespace-pre-wrap">{event.description}</p>
                         </div>
                     )}
 
                     {/* RSVP Section */}
                     {onRSVP && !isPast && (
                         <div>
-                            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Ditt svar</h3>
+                            <h3 className="font-semibold text-surface-900 dark:text-surface-50 mb-3">Ditt svar</h3>
                             <RSVPButton
                                 eventId={event.id}
                                 currentStatus={event.userRSVP || null}
@@ -169,7 +169,7 @@ export default function EventDetails({
                     <div>
                         <button
                             onClick={() => setShowAttendees(!showAttendees)}
-                            className="font-semibold text-gray-900 dark:text-gray-100 mb-3 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                            className="min-h-11 font-semibold text-surface-900 dark:text-surface-50 mb-3 hover:text-primary-600 dark:hover:text-primary-300 transition-colors"
                         >
                             {showAttendees ? '▼' : '▶'} Deltagare
                             {event.attendeeCount && ` (${event.attendeeCount.going + event.attendeeCount.maybe})`}
@@ -180,11 +180,11 @@ export default function EventDetails({
 
                 {/* Footer with action buttons */}
                 {isCreator && (
-                    <div className="p-6 border-t border-gray-200 dark:border-surface-700 flex gap-3">
+                    <div className="p-6 border-t border-surface-200 dark:border-surface-700 flex gap-3">
                         {onEdit && (
                             <button
                                 onClick={onEdit}
-                                className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                                className="btn-primary"
                             >
                                 <Edit size={18} />
                                 Redigera evenemang
@@ -194,7 +194,7 @@ export default function EventDetails({
                             <button
                                 onClick={handleDelete}
                                 disabled={deleting}
-                                className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
+                                className="btn-danger"
                             >
                                 <Trash2 size={18} />
                                 {deleting ? 'Tar bort...' : 'Ta bort evenemang'}

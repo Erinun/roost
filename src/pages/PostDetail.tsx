@@ -62,21 +62,21 @@ export default function PostDetail() {
         return (
             <div className="lg:mr-80">
                 <div className="py-8 px-4 sm:px-6 lg:px-8">
-                    <div className="animate-pulse space-y-6">
-                        <div className="h-8 bg-surface-200 dark:bg-surface-700 rounded w-32" />
-                        <div className="card p-6 shadow-none space-y-4">
+                    <div className="space-y-6">
+                        <div className="skeleton h-8 w-32" />
+                        <div className="card p-6 space-y-4">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-surface-200 dark:bg-surface-700 rounded-full" />
+                                <div className="skeleton w-10 h-10 rounded-full" />
                                 <div className="space-y-2">
-                                    <div className="h-4 bg-surface-200 dark:bg-surface-700 rounded w-32" />
-                                    <div className="h-3 bg-surface-200 dark:bg-surface-700 rounded w-24" />
+                                    <div className="skeleton h-4 w-32" />
+                                    <div className="skeleton h-3 w-24" />
                                 </div>
                             </div>
-                            <div className="h-6 bg-surface-200 dark:bg-surface-700 rounded w-3/4" />
+                            <div className="skeleton h-6 w-3/4" />
                             <div className="space-y-2">
-                                <div className="h-4 bg-surface-200 dark:bg-surface-700 rounded w-full" />
-                                <div className="h-4 bg-surface-200 dark:bg-surface-700 rounded w-full" />
-                                <div className="h-4 bg-surface-200 dark:bg-surface-700 rounded w-2/3" />
+                                <div className="skeleton h-4 w-full" />
+                                <div className="skeleton h-4 w-full" />
+                                <div className="skeleton h-4 w-2/3" />
                             </div>
                         </div>
                     </div>
@@ -91,18 +91,18 @@ export default function PostDetail() {
                 <div className="py-8 px-4 sm:px-6 lg:px-8">
                     <button
                         onClick={() => navigate(-1)}
-                        className="flex items-center gap-2 text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 mb-6 transition-colors"
+                        className="flex items-center gap-2 min-h-11 text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-50 mb-6 transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
                         <span>Gå tillbaka</span>
                     </button>
-                    <div className="card p-8 shadow-none text-center">
-                        <p className="text-surface-500 dark:text-surface-400 text-lg">
+                    <div className="card p-8 text-center">
+                        <p className="text-surface-600 dark:text-surface-300 text-lg">
                             {error || 'Inlägget hittades inte'}
                         </p>
                         <button
                             onClick={() => navigate('/')}
-                            className="mt-4 text-primary-600 dark:text-primary-400 hover:underline"
+                            className="link mt-4"
                         >
                             Tillbaka till flödet
                         </button>
@@ -115,10 +115,10 @@ export default function PostDetail() {
     return (
         <>
             {/* Fixed Right Sidebar - hidden on mobile */}
-            <div className="hidden lg:block fixed top-16 right-0 w-80 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-thin p-4 space-y-6 bg-white dark:bg-surface-900 border-l border-surface-200 dark:border-surface-800">
+            <div className="hidden lg:block fixed top-16 right-0 w-80 h-[calc(100vh-4rem)] overflow-y-auto scrollbar-thin p-4 space-y-6 bg-white dark:bg-surface-900 border-l border-surface-200 dark:border-surface-700">
                 {/* Author card */}
-                <div className="card p-6 shadow-none">
-                    <h3 className="font-semibold text-surface-900 dark:text-surface-100 mb-4">Publicerat av</h3>
+                <div className="card p-6">
+                    <h3 className="font-semibold text-surface-900 dark:text-surface-50 mb-4">Publicerat av</h3>
                     <Link
                         to={`/profile/${post.author.username}`}
                         className="flex items-center gap-3 group"
@@ -135,7 +135,7 @@ export default function PostDetail() {
                             </div>
                         )}
                         <div>
-                            <p className="font-medium text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                            <p className="font-medium text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors">
                                 {post.author.display_name}
                             </p>
                             <p className="text-sm text-surface-500 dark:text-surface-400">
@@ -145,17 +145,17 @@ export default function PostDetail() {
                     </Link>
                     <Link
                         to={`/profile/${post.author.username}`}
-                        className="mt-4 block w-full text-center px-4 py-2 bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors text-sm font-medium"
+                        className="mt-4 flex items-center justify-center w-full min-h-11 px-4 py-2 bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-200 rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors text-sm font-medium"
                     >
                         Visa profil
                     </Link>
                 </div>
 
                 {/* Post info card */}
-                <div className="card p-6 shadow-none">
-                    <h3 className="font-semibold text-surface-900 dark:text-surface-100 mb-4">Inläggsinfo</h3>
+                <div className="card p-6">
+                    <h3 className="font-semibold text-surface-900 dark:text-surface-50 mb-4">Inläggsinfo</h3>
                     <div className="space-y-3 text-sm">
-                        <div className="flex items-center gap-2 text-surface-600 dark:text-surface-400">
+                        <div className="flex items-center gap-2 text-surface-600 dark:text-surface-300">
                             <Calendar className="w-4 h-4" />
                             <span>
                                 {formatDistanceToNow(new Date(post.created_at || Date.now()), { addSuffix: true, locale: sv })}
@@ -164,18 +164,20 @@ export default function PostDetail() {
                         {post.category && (
                             <div className="flex items-center gap-2">
                                 <span
-                                    className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium text-white"
-                                    style={{ backgroundColor: post.category.color ?? '#gray' }}
+                                    className={post.category.color
+                                        ? 'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium text-white'
+                                        : 'badge-primary'}
+                                    style={post.category.color ? { backgroundColor: post.category.color } : undefined}
                                 >
                                     {post.category.name}
                                 </span>
                             </div>
                         )}
-                        <div className="flex items-center gap-2 text-surface-600 dark:text-surface-400">
+                        <div className="flex items-center gap-2 text-surface-600 dark:text-surface-300">
                             <MessageCircle className="w-4 h-4" />
                             <span>{post.comment_count} {post.comment_count === 1 ? 'kommentar' : 'kommentarer'}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-surface-600 dark:text-surface-400">
+                        <div className="flex items-center gap-2 text-surface-600 dark:text-surface-300">
                             <Users className="w-4 h-4" />
                             <span>{post.reaction_counts.total} {post.reaction_counts.total === 1 ? 'reaktion' : 'reaktioner'}</span>
                         </div>
@@ -195,7 +197,7 @@ export default function PostDetail() {
                     {/* Back navigation */}
                     <button
                         onClick={() => navigate(-1)}
-                        className="flex items-center gap-2 text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100 transition-colors"
+                        className="flex items-center gap-2 min-h-11 text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-surface-50 transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
                         <span>Tillbaka</span>

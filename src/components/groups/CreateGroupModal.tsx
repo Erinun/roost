@@ -173,16 +173,16 @@ export default function CreateGroupModal({
     if (!isOpen) return null;
 
     return createPortal(
-        <div className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-surface-900 rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <div className="modal-overlay flex items-center justify-center p-4">
+            <div className="modal-content w-full max-w-lg max-h-[90vh] overflow-y-auto">
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-surface-100 dark:border-surface-700">
+                <div className="flex items-center justify-between p-6 border-b border-surface-200 dark:border-surface-700">
                     <h2 className="text-xl font-semibold text-surface-900 dark:text-surface-50">
                         {isEditing ? 'Redigera klassrum' : 'Skapa nytt klassrum'}
                     </h2>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
+                        className="p-2 min-h-11 min-w-11 flex items-center justify-center hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
                     >
                         <X className="w-5 h-5 text-surface-500 dark:text-surface-400" />
                     </button>
@@ -191,7 +191,7 @@ export default function CreateGroupModal({
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="p-6 space-y-6">
                     {error && (
-                        <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-400 text-sm">
+                        <div className="alert-error">
                             {error}
                         </div>
                     )}

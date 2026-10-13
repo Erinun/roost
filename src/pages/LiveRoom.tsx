@@ -196,17 +196,18 @@ export default function LiveRoom() {
                         <div className="flex items-center gap-3">
                             {status?.isLive && (
                                 <>
-                                    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-sm font-medium">
+                                    {/* LIVE-indikator: error-strong med vit text (4,5:1-säkrad) */}
+                                    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-error-strong text-white text-sm font-medium">
                                         <span className="relative flex h-2.5 w-2.5">
-                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
                                         </span>
                                         LIVE NU
                                     </span>
                                     {/* Mobile chat toggle */}
                                     <button
                                         onClick={() => setShowChat(!showChat)}
-                                        className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800"
+                                        className="lg:hidden flex items-center gap-1.5 px-3 py-1.5 min-h-11 rounded-lg text-sm font-medium transition-colors text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800"
                                     >
                                         <MessageSquare className="w-4 h-4" />
                                         Chatt
@@ -218,11 +219,11 @@ export default function LiveRoom() {
 
                     {/* Live Stream Player */}
                     {status?.isLive && status.playerUrl ? (
-                        <div className="bg-white dark:bg-surface-900 rounded-2xl border border-surface-200 dark:border-surface-700 overflow-hidden">
+                        <div className="card overflow-hidden">
                             <div className="p-4 border-b border-surface-200 dark:border-surface-700">
                                 <div className="flex items-center gap-3">
-                                    <div className="p-2 rounded-lg bg-red-100 dark:bg-red-900/30">
-                                        <Radio className="w-5 h-5 text-red-600 dark:text-red-400" />
+                                    <div className="p-2 rounded-lg bg-error/15 dark:bg-error/20">
+                                        <Radio className="w-5 h-5 text-error-strong dark:text-error-soft" />
                                     </div>
                                     <div>
                                         <h2 className="font-semibold text-surface-900 dark:text-surface-50">
@@ -244,7 +245,7 @@ export default function LiveRoom() {
                             </div>
                             {status.visibility === 'private' ? (
                                 <div className="p-8 text-center flex flex-col items-center justify-center min-h-[300px]">
-                                    <Lock className="w-12 h-12 text-amber-400 dark:text-amber-500 mb-4" />
+                                    <Lock className="w-12 h-12 text-warning mb-4" />
                                     <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-50 mb-2">
                                         Privat sändning
                                     </h3>
@@ -255,14 +256,14 @@ export default function LiveRoom() {
                                         href={`https://www.youtube.com/watch?v=${extractVideoId(status.playerUrl)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors"
+                                        className="btn-danger px-6"
                                     >
                                         <ExternalLink className="w-4 h-4" />
                                         Titta på YouTube
                                     </a>
                                 </div>
                             ) : (
-                                <div className="relative aspect-video bg-black overflow-hidden">
+                                <div className="relative aspect-video bg-surface-950 overflow-hidden">
                                     <iframe
                                         src={`${status.playerUrl}${status.playerUrl.includes('?') ? '&' : '?'}autoplay=1&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3`}
                                         className="absolute inset-0 w-full h-full"
@@ -274,7 +275,7 @@ export default function LiveRoom() {
                             )}
                         </div>
                     ) : (
-                        <div className="bg-white dark:bg-surface-900 rounded-2xl border border-surface-200 dark:border-surface-700 p-12 text-center">
+                        <div className="card p-12 text-center">
                             <VideoOff className="w-16 h-16 mx-auto text-surface-300 dark:text-surface-600" />
                             <h2 className="mt-4 text-xl font-semibold text-surface-900 dark:text-surface-50">
                                 Ingen livesession
@@ -299,12 +300,12 @@ export default function LiveRoom() {
                                     return (
                                         <div
                                             key={session.id}
-                                            className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-4"
+                                            className="card p-4"
                                         >
                                             <div className="flex items-start justify-between gap-4">
                                                 <div className="flex items-start gap-3 flex-1 min-w-0">
-                                                    <div className="p-2 rounded-lg bg-primary-100 dark:bg-primary-900/30 mt-0.5">
-                                                        <CalendarCheck className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+                                                    <div className="p-2 rounded-lg bg-primary-100 dark:bg-primary-900 mt-0.5">
+                                                        <CalendarCheck className="w-4 h-4 text-primary-600 dark:text-primary-300" />
                                                     </div>
                                                     <div className="flex-1 min-w-0">
                                                         <h3 className="font-medium text-surface-900 dark:text-surface-50">

@@ -10,6 +10,51 @@ import { rsvpToEvent, deleteEvent, updateEvent } from '../../services';
 import type { RSVPStatus } from '../../types/database';
 import EventForm, { type EventFormData } from '../events/EventForm';
 
+// =============================================================================
+// Tokentabell för react-big-calendar (tredjepartsbibliotek som kräver
+// färgsträngar i CSS-överlagringar och inline-stilar). Detta är filens ENDA
+// ställe med färgvärden och de speglar designsystemets tokens exakt
+// (docs/redesign/designsystem.md). Tokens som har CSS-variabler läses via
+// var(--token) med profilens hex som fallback; surface-skalan saknar
+// CSS-variabler och anges därför med sina tokenhex.
+// =============================================================================
+const RBC = {
+    /** surface-50 – ljus brödtext i mörkt läge */
+    surface50: '#F3F7FC',
+    /** surface-300 – dämpad text i mörkt läge */
+    surface300: '#B9C9DE',
+    /** surface-400 – datumtext/dekor i mörkt läge */
+    surface400: '#8CA0BC',
+    /** surface-500 – förflutna evenemang (vit text 5,0:1) */
+    surface500: '#5C7190',
+    /** surface-600 – nedtonad text (utanför perioden) i mörkt läge */
+    surface600: '#4A5B73',
+    /** surface-700 – linjer i mörkt läge */
+    surface700: '#334862',
+    /** surface-800 – upphöjda ytor/hover i mörkt läge */
+    surface800: '#1D3754',
+    /** surface-900 – kortbakgrund i mörkt läge; mörk text på teal/orange */
+    surface900: '#0E2A4D',
+    /** surface-950 – dagar utanför perioden i mörkt läge */
+    surface950: '#081E3A',
+    /** brand-purple – evenemang/kampanj (standardfärg, vit text 8,5:1) */
+    brandPurple: 'var(--brand-purple, #652FA0)',
+    /** success = brand-teal – "deltar", alltid mörk text */
+    success: 'var(--brand-teal, #32D7CD)',
+    /** warning = brand-orange – "kanske", alltid mörk text */
+    warning: 'var(--brand-orange, #F5A118)',
+    /** primary-200 – länk-hover i mörkt läge */
+    primary200: 'var(--color-primary-200, #BDD8F4)',
+    /** primary-300 – länkar/accent i mörkt läge */
+    primary300: 'var(--color-primary-300, #8EBBEB)',
+    /** primary-400 – aktiv markering/tidsindikator i mörkt läge */
+    primary400: 'var(--color-primary-400, #5497DE)',
+    /** primary-900 – markering av dagens datum i mörkt läge */
+    primary900: 'var(--color-primary-900, #0F2E52)',
+    /** vit text – endast på blå/lila ytor (kontrastregel) */
+    white: '#FFFFFF',
+};
+
 const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -95,29 +140,36 @@ export default function CalendarView({ events, onCreateEvent, onRefresh }: Calen
         if (onRefresh) onRefresh();
     };
 
-    // Event styling based on user RSVP status
+    // Evenemangens färger utifrån RSVP-status. Samma semantik som tidigare,
+    // mappad till profilens tokens:
+    //   standard = brand-purple (evenemang/kampanj), deltar = success (mörk text),
+    //   kanske = warning (mörk text), förflutet = dämpad neutral.
     const eventStyleGetter = (event: CalendarEvent) => {
         const userRSVP = event.resource.userRSVP;
         const isPast = new Date(event.resource.end_time) < new Date();
 
-        let backgroundColor = '#9333ea'; // default purple
-        let borderColor = '#9333ea';
+        let backgroundColor = RBC.brandPurple;
+        let borderColor = RBC.brandPurple;
+        let color = RBC.white;
 
         if (isPast) {
-            backgroundColor = '#9ca3af';
-            borderColor = '#9ca3af';
+            backgroundColor = RBC.surface500;
+            borderColor = RBC.surface500;
         } else if (userRSVP === 'going') {
-            backgroundColor = '#10b981';
-            borderColor = '#059669';
+            backgroundColor = RBC.success;
+            borderColor = RBC.success;
+            color = RBC.surface900; // mörk text på teal – alltid
         } else if (userRSVP === 'maybe') {
-            backgroundColor = '#f59e0b';
-            borderColor = '#d97706';
+            backgroundColor = RBC.warning;
+            borderColor = RBC.warning;
+            color = RBC.surface900; // mörk text på orange – alltid
         }
 
         return {
             style: {
                 backgroundColor,
                 borderColor,
+                color,
                 borderLeft: `4px solid ${borderColor}`,
                 opacity: isPast ? 0.6 : 1,
             },
@@ -125,70 +177,71 @@ export default function CalendarView({ events, onCreateEvent, onRefresh }: Calen
     };
 
     return (
-        <div className="h-full bg-white dark:bg-surface-900 rounded-lg shadow-sm dark:shadow-none dark:border dark:border-surface-700 p-4 calendar-container">
+        <div className="h-full card p-4 calendar-container">
             <style>{`
-                /* Dark mode styles for react-big-calendar */
+                /* Mörkt läge för react-big-calendar – surface-neutraler och
+                   primary-accenter ur tokentabellen ovan. */
                 .dark .calendar-container .rbc-calendar {
-                    color: #fafafa;
+                    color: ${RBC.surface50};
                 }
 
-                /* Toolbar */
+                /* Verktygsrad */
                 .dark .calendar-container .rbc-toolbar {
-                    color: #fafafa;
+                    color: ${RBC.surface50};
                 }
 
                 .dark .calendar-container .rbc-toolbar button {
-                    color: #d4d4d8;
+                    color: ${RBC.surface300};
                     background-color: transparent;
-                    border: 1px solid #404040;
+                    border: 1px solid ${RBC.surface700};
                 }
 
                 .dark .calendar-container .rbc-toolbar button:hover,
                 .dark .calendar-container .rbc-toolbar button:focus {
-                    background-color: #262626;
-                    border-color: #525252;
+                    background-color: ${RBC.surface800};
+                    border-color: ${RBC.surface600};
                 }
 
                 .dark .calendar-container .rbc-toolbar button.rbc-active {
-                    background-color: #262626;
-                    border-color: #9333ea;
-                    color: #fafafa;
+                    background-color: ${RBC.surface800};
+                    border-color: ${RBC.primary400};
+                    color: ${RBC.surface50};
                 }
 
-                /* Month view */
+                /* Månadsvy */
                 .dark .calendar-container .rbc-month-view {
-                    background-color: #171717;
-                    border-color: #404040;
+                    background-color: ${RBC.surface900};
+                    border-color: ${RBC.surface700};
                 }
 
                 .dark .calendar-container .rbc-header {
-                    background-color: #262626;
-                    border-color: #404040;
-                    color: #fafafa;
+                    background-color: ${RBC.surface800};
+                    border-color: ${RBC.surface700};
+                    color: ${RBC.surface50};
                 }
 
                 .dark .calendar-container .rbc-day-bg {
-                    background-color: #171717;
-                    border-color: #404040;
+                    background-color: ${RBC.surface900};
+                    border-color: ${RBC.surface700};
                 }
 
                 .dark .calendar-container .rbc-off-range-bg {
-                    background-color: #0a0a0a;
+                    background-color: ${RBC.surface950};
                 }
 
                 .dark .calendar-container .rbc-today {
-                    background-color: #1e1b4b;
+                    background-color: ${RBC.primary900};
                 }
 
                 .dark .calendar-container .rbc-date-cell {
-                    color: #a3a3a3;
+                    color: ${RBC.surface400};
                 }
 
                 .dark .calendar-container .rbc-off-range .rbc-date-cell {
-                    color: #525252;
+                    color: ${RBC.surface600};
                 }
 
-                /* Events */
+                /* Evenemang (färg sätts per evenemang via eventPropGetter) */
                 .calendar-container .rbc-event {
                     font-size: 0.7rem;
                     line-height: 1.1;
@@ -198,81 +251,73 @@ export default function CalendarView({ events, onCreateEvent, onRefresh }: Calen
                     text-overflow: ellipsis;
                 }
 
-                .dark .calendar-container .rbc-event {
-                    color: #ffffff;
-                }
-
                 .calendar-container .rbc-event-content {
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
 
-                .dark .calendar-container .rbc-event-label {
-                    color: #e5e5e5;
-                }
-
-                /* Agenda view */
+                /* Agendavy */
                 .dark .calendar-container .rbc-agenda-view {
-                    background-color: #171717;
+                    background-color: ${RBC.surface900};
                 }
 
                 .dark .calendar-container .rbc-agenda-view table {
-                    border-color: #404040;
+                    border-color: ${RBC.surface700};
                 }
 
                 .dark .calendar-container .rbc-agenda-view table.rbc-agenda-table thead > tr > th {
-                    background-color: #262626;
-                    border-color: #404040;
-                    color: #fafafa;
+                    background-color: ${RBC.surface800};
+                    border-color: ${RBC.surface700};
+                    color: ${RBC.surface50};
                 }
 
                 .dark .calendar-container .rbc-agenda-view table.rbc-agenda-table tbody > tr > td {
-                    border-color: #404040;
-                    color: #d4d4d8;
+                    border-color: ${RBC.surface700};
+                    color: ${RBC.surface300};
                 }
 
                 .dark .calendar-container .rbc-agenda-date-cell,
                 .dark .calendar-container .rbc-agenda-time-cell {
-                    color: #a3a3a3;
+                    color: ${RBC.surface400};
                 }
 
-                /* Week/Day view */
+                /* Vecko-/dagsvy */
                 .dark .calendar-container .rbc-time-view {
-                    background-color: #171717;
-                    border-color: #404040;
+                    background-color: ${RBC.surface900};
+                    border-color: ${RBC.surface700};
                 }
 
                 .dark .calendar-container .rbc-time-header-content {
-                    border-color: #404040;
+                    border-color: ${RBC.surface700};
                 }
 
                 .dark .calendar-container .rbc-time-content {
-                    border-color: #404040;
+                    border-color: ${RBC.surface700};
                 }
 
                 .dark .calendar-container .rbc-time-slot {
-                    border-color: #404040;
+                    border-color: ${RBC.surface700};
                 }
 
                 .dark .calendar-container .rbc-day-slot .rbc-time-slot {
-                    border-color: #262626;
+                    border-color: ${RBC.surface800};
                 }
 
                 .dark .calendar-container .rbc-timeslot-group {
-                    border-color: #404040;
+                    border-color: ${RBC.surface700};
                 }
 
                 .dark .calendar-container .rbc-current-time-indicator {
-                    background-color: #9333ea;
+                    background-color: ${RBC.primary400};
                 }
 
-                /* Show more link */
+                /* "+N till"-länk */
                 .dark .calendar-container .rbc-show-more {
-                    color: #a78bfa;
+                    color: ${RBC.primary300};
                 }
 
                 .dark .calendar-container .rbc-show-more:hover {
-                    color: #c4b5fd;
+                    color: ${RBC.primary200};
                 }
             `}</style>
             <BigCalendar

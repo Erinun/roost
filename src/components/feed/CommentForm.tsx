@@ -143,9 +143,9 @@ export default function CommentForm({
                             placeholder={placeholder}
                             autoFocus={autoFocus}
                             rows={isReply ? 2 : 3}
-                            className="w-full px-4 py-3 pr-12 bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl
-                                       text-surface-900 dark:text-surface-100 placeholder-surface-400 dark:placeholder-surface-500
-                                       focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent
+                            className="w-full px-4 py-3 pr-12 bg-white dark:bg-surface-800 border border-surface-300 dark:border-surface-600 rounded-xl
+                                       text-surface-900 dark:text-surface-100 placeholder-surface-500 dark:placeholder-surface-400
+                                       focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600
                                        resize-none transition-all"
                         />
                         {/* Emoji Picker Button */}
@@ -186,7 +186,7 @@ export default function CommentForm({
                         )}
                     </div>
                     <div className="flex items-center justify-between mt-2">
-                        <span className="text-xs text-surface-400 dark:text-surface-500">
+                        <span className="text-xs text-surface-500 dark:text-surface-400">
                             Tryck Ctrl+Enter för att skicka | Skriv @ för att nämna någon
                         </span>
                         <div className="flex gap-2">
@@ -194,8 +194,7 @@ export default function CommentForm({
                                 <button
                                     type="button"
                                     onClick={onCancel}
-                                    className="px-4 py-2 text-sm font-medium text-surface-600 dark:text-surface-400
-                                               hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
+                                    className="btn-ghost"
                                 >
                                     Avbryt
                                 </button>
@@ -203,10 +202,7 @@ export default function CommentForm({
                             <button
                                 type="submit"
                                 disabled={!content.trim() || isSubmitting}
-                                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white
-                                           text-sm font-medium rounded-lg
-                                           hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed
-                                           transition-colors"
+                                className="btn-primary"
                             >
                                 {isSubmitting ? (
                                     <Loader2 className="w-4 h-4 animate-spin" />

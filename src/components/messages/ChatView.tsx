@@ -215,7 +215,7 @@ export default function ChatView({ conversation, onBack }: ChatViewProps) {
         {onBack && (
           <button
             onClick={onBack}
-            className="md:hidden p-2 -ml-2 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg"
+            className="md:hidden w-11 h-11 -ml-2 flex items-center justify-center flex-shrink-0 text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
@@ -229,7 +229,7 @@ export default function ChatView({ conversation, onBack }: ChatViewProps) {
               className="w-10 h-10 rounded-full object-cover"
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white font-semibold">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-semibold">
               {conversation.otherUser.display_name.charAt(0).toUpperCase()}
             </div>
           )}
@@ -243,7 +243,7 @@ export default function ChatView({ conversation, onBack }: ChatViewProps) {
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
-            <h2 className="font-semibold text-surface-900 dark:text-surface-100 truncate">
+            <h2 className="font-semibold text-surface-900 dark:text-surface-50 truncate">
               {conversation.otherUser.display_name}
             </h2>
             {conversation.otherUser.membership_type === 'premium' && <ProBadge size="xs" />}
@@ -256,7 +256,7 @@ export default function ChatView({ conversation, onBack }: ChatViewProps) {
 
       {/* Error message */}
       {error && (
-        <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 border-b border-red-200 dark:border-red-800 text-error text-sm">
+        <div className="flex items-center gap-2 p-3 bg-error/10 dark:bg-error/20 border-b border-error/60 text-surface-900 dark:text-error-soft text-sm">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span>{error}</span>
         </div>
@@ -276,7 +276,7 @@ export default function ChatView({ conversation, onBack }: ChatViewProps) {
           </div>
         ) : messages.length === 0 ? (
           <div className="flex items-center justify-center h-full text-center">
-            <p className="text-sm text-surface-500 dark:text-surface-400">
+            <p className="text-sm text-surface-600 dark:text-surface-300">
               Inga meddelanden än. Starta konversationen!
             </p>
           </div>

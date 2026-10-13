@@ -177,23 +177,23 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
     <>
       {/* Backdrop - transparent on desktop, dark overlay on mobile */}
       <div
-        className="fixed inset-0 z-40 md:bg-transparent bg-black/50 transition-opacity"
+        className="fixed inset-0 z-40 md:bg-transparent bg-surface-950/60 transition-opacity"
         onClick={onClose}
       />
 
       {/* Desktop: Dropdown | Mobile: Slide-in panel from right */}
       <div className="
-        fixed inset-y-0 right-0 w-full max-w-sm bg-white dark:bg-surface-900 shadow-elevated dark:shadow-elevated-dark border-l border-surface-200 dark:border-surface-700 z-50 flex flex-col animate-slide-in-right
+        fixed inset-y-0 right-0 w-full max-w-sm bg-white dark:bg-surface-800 shadow-elevated dark:shadow-elevated-dark border-l border-surface-200 dark:border-surface-700 z-50 flex flex-col animate-slide-in-right
         md:absolute md:inset-y-auto md:right-0 md:top-full md:mt-2 md:w-96 md:max-h-[600px] md:rounded-lg md:border md:animate-none
       ">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-surface-200 dark:border-surface-700">
-          <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Notiser</h3>
+        <div className="flex items-center justify-between px-4 py-2 border-b border-surface-200 dark:border-surface-700">
+          <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-50">Notiser</h3>
           <div className="flex items-center gap-2">
             {unreadCount > 0 && (
               <button
                 onClick={handleMarkAllRead}
-                className="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium flex items-center gap-1"
+                className="min-h-11 px-2 rounded-lg text-xs text-primary-600 dark:text-primary-300 hover:text-primary-700 dark:hover:text-primary-200 hover:bg-primary-50 dark:hover:bg-surface-700 font-medium flex items-center gap-1 transition-colors"
               >
                 <CheckCheck className="w-4 h-4" />
                 Markera alla som lästa
@@ -201,7 +201,7 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
             )}
             <button
               onClick={onClose}
-              className="p-1 text-surface-400 dark:text-surface-500 hover:text-surface-600 dark:hover:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
+              className="inline-flex items-center justify-center min-w-11 min-h-11 text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-700 rounded-lg transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -211,26 +211,36 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
         {/* Content */}
         <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
           {isLoading ? (
-            <div className="flex items-center justify-center p-8">
-              <Loader2 className="w-8 h-8 text-primary-600 animate-spin" />
+            <div className="p-4 space-y-4">
+              {[0, 1, 2, 3].map((i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <div className="skeleton w-10 h-10 rounded-full flex-shrink-0" />
+                  <div className="flex-1 space-y-2 pt-1">
+                    <div className="skeleton h-4 w-3/4" />
+                    <div className="skeleton h-3 w-1/2" />
+                  </div>
+                </div>
+              ))}
             </div>
           ) : error ? (
             <div className="flex flex-col items-center justify-center p-8 text-center">
-              <p className="text-sm text-error mb-2">{error}</p>
-              <button onClick={() => loadNotifications(true, true)} className="btn btn-secondary btn-sm">
+              <p className="text-sm text-error-strong dark:text-error-soft mb-2">{error}</p>
+              <button onClick={() => loadNotifications(true, true)} className="btn-secondary">
                 Försök igen
               </button>
             </div>
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center p-8 text-center">
-              <Bell className="w-12 h-12 text-surface-300 dark:text-surface-600 mb-3" />
-              <p className="text-sm text-surface-500 dark:text-surface-400">Inga notiser än</p>
-              <p className="text-xs text-surface-400 dark:text-surface-500 mt-1">
+              <div className="w-16 h-16 rounded-full bg-surface-100 dark:bg-surface-700 flex items-center justify-center mb-3">
+                <Bell className="w-8 h-8 text-surface-400 dark:text-surface-400" />
+              </div>
+              <p className="text-sm text-surface-600 dark:text-surface-300">Inga notiser än</p>
+              <p className="text-xs text-surface-500 dark:text-surface-400 mt-1">
                 Du får notiser om kommentarer, reaktioner och meddelanden
               </p>
             </div>
           ) : (
-            <div className="divide-y divide-surface-100 dark:divide-surface-800">
+            <div className="divide-y divide-surface-200 dark:divide-surface-700">
               {notifications.map((notification) => (
                 <NotificationItem
                   key={notification.id}
@@ -249,7 +259,7 @@ export default function NotificationCenter({ isOpen, onClose, onNavigate, onUnre
                       <span className="text-xs">Laddar fler...</span>
                     </div>
                   ) : (
-                    <span className="text-xs text-surface-400 dark:text-surface-500">Skrolla för fler</span>
+                    <span className="text-xs text-surface-500 dark:text-surface-400">Skrolla för fler</span>
                   )}
                 </div>
               )}

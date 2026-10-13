@@ -25,12 +25,13 @@ function calculatePasswordStrength(password: string): PasswordStrength {
     // Cap at 4
     score = Math.min(score, 4);
 
+    // Statusfärger som ytor (mätaren); text i mörk/dämpad ton enligt kontrastreglerna
     const strengths: PasswordStrength[] = [
-        { score: 0, label: 'För svagt', color: 'text-red-500', bgColor: 'bg-red-500' },
-        { score: 1, label: 'Svagt', color: 'text-orange-500', bgColor: 'bg-orange-500' },
-        { score: 2, label: 'Okej', color: 'text-yellow-500', bgColor: 'bg-yellow-500' },
-        { score: 3, label: 'Bra', color: 'text-lime-500', bgColor: 'bg-lime-500' },
-        { score: 4, label: 'Starkt', color: 'text-green-500', bgColor: 'bg-green-500' },
+        { score: 0, label: 'För svagt', color: 'text-error-strong dark:text-error-soft', bgColor: 'bg-error' },
+        { score: 1, label: 'Svagt', color: 'text-error-strong dark:text-error-soft', bgColor: 'bg-warning' },
+        { score: 2, label: 'Okej', color: 'text-surface-600 dark:text-surface-300', bgColor: 'bg-brand-yellow' },
+        { score: 3, label: 'Bra', color: 'text-surface-700 dark:text-surface-200', bgColor: 'bg-success' },
+        { score: 4, label: 'Starkt', color: 'text-surface-900 dark:text-success', bgColor: 'bg-success' },
     ];
 
     return strengths[score];
@@ -174,7 +175,7 @@ export default function Signup() {
 
         if (usernameStatus === 'checking') {
             return (
-                <div className="flex items-center gap-1 mt-1 text-surface-500 text-xs">
+                <div className="flex items-center gap-1 mt-1 text-surface-500 dark:text-surface-400 text-xs">
                     <Loader2 className="w-3 h-3 animate-spin" />
                     <span>Kontrollerar...</span>
                 </div>
@@ -183,16 +184,18 @@ export default function Signup() {
 
         if (usernameStatus === 'available') {
             return (
-                <div className="flex items-center gap-1 mt-1 text-green-600 dark:text-green-400 text-xs">
-                    <CheckCircle className="w-3 h-3" />
-                    <span>Tillgängligt</span>
+                <div className="mt-1.5">
+                    <span className="badge-success">
+                        <CheckCircle className="w-3 h-3" />
+                        Tillgängligt
+                    </span>
                 </div>
             );
         }
 
         if (usernameStatus === 'taken' || usernameStatus === 'invalid') {
             return (
-                <div className="flex items-center gap-1 mt-1 text-red-600 dark:text-red-400 text-xs">
+                <div className="flex items-center gap-1 mt-1 text-error-strong dark:text-error-soft text-xs">
                     <XCircle className="w-3 h-3" />
                     <span>{usernameError}</span>
                 </div>
@@ -239,20 +242,20 @@ export default function Signup() {
         <div className="flex bg-surface-100 dark:bg-surface-800 rounded-xl p-1 mb-8">
             <Link
                 to="/login"
-                className={`flex-1 py-2.5 text-center text-sm font-medium rounded-lg transition-all duration-200 ${
+                className={`flex-1 flex items-center justify-center min-h-11 text-center text-sm font-semibold rounded-lg transition-all duration-200 ${
                     active === 'login'
-                        ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 shadow-sm'
-                        : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'
+                        ? 'bg-white dark:bg-surface-700 text-primary-700 dark:text-surface-50 border border-surface-200 dark:border-surface-600'
+                        : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-200'
                 }`}
             >
                 Logga in
             </Link>
             <Link
                 to="/signup"
-                className={`flex-1 py-2.5 text-center text-sm font-medium rounded-lg transition-all duration-200 ${
+                className={`flex-1 flex items-center justify-center min-h-11 text-center text-sm font-semibold rounded-lg transition-all duration-200 ${
                     active === 'signup'
-                        ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 shadow-sm'
-                        : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-300'
+                        ? 'bg-white dark:bg-surface-700 text-primary-700 dark:text-surface-50 border border-surface-200 dark:border-surface-600'
+                        : 'text-surface-500 dark:text-surface-400 hover:text-surface-700 dark:hover:text-surface-200'
                 }`}
             >
                 Skapa konto
@@ -265,19 +268,26 @@ export default function Signup() {
         return (
             <div className="animate-fade-in">
                 <div className="text-center">
-                    <div className="w-14 h-14 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Mail className="w-7 h-7 text-green-600 dark:text-green-400" />
+                    {/* Header */}
+                    <div className="w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Mail className="w-8 h-8 text-surface-900" />
                     </div>
-                    <h1 className="text-xl font-bold text-surface-900 dark:text-surface-100 mb-2">
+                    <h1 className="text-2xl text-surface-900 dark:text-surface-50 mb-2">
                         Kolla din e-post
                     </h1>
-                    <p className="text-surface-600 dark:text-surface-400 text-sm mb-4">
+                    <p className="text-surface-600 dark:text-surface-300 text-sm mb-4">
                         Vi har skickat en bekräftelselänk till:
                     </p>
-                    <p className="font-medium text-surface-900 dark:text-surface-100 mb-6 break-all">
-                        {confirmationEmail}
-                    </p>
-                    <div className="bg-surface-50 dark:bg-surface-800 rounded-lg p-4 text-left text-sm text-surface-600 dark:text-surface-400 mb-6">
+
+                    {/* Email display */}
+                    <div className="bg-surface-100 dark:bg-surface-800 rounded-lg px-4 py-3 mb-6">
+                        <p className="font-bold text-surface-900 dark:text-surface-50 text-sm break-all">
+                            {confirmationEmail}
+                        </p>
+                    </div>
+
+                    {/* Instructions */}
+                    <div className="bg-surface-50 dark:bg-surface-800/50 rounded-lg p-4 mb-6 border border-surface-200 dark:border-surface-700 text-left text-sm text-surface-600 dark:text-surface-300">
                         <p className="mb-2">
                             <strong>Nästa steg:</strong>
                         </p>
@@ -287,18 +297,19 @@ export default function Signup() {
                             <li>Börja använda {APP_CONFIG.name}!</li>
                         </ol>
                     </div>
+
                     <p className="text-xs text-surface-500 dark:text-surface-400 mb-4">
                         Fick du inget mejl? Kolla din skräppost eller{' '}
                         <button
                             onClick={() => setEmailConfirmationSent(false)}
-                            className="text-primary-600 hover:text-primary-700 dark:text-primary-400 font-medium"
+                            className="link"
                         >
                             försök igen
                         </button>
                     </p>
                     <Link
                         to="/login"
-                        className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 font-medium"
+                        className="link text-sm"
                     >
                         Tillbaka till inloggning
                     </Link>
@@ -314,14 +325,14 @@ export default function Signup() {
 
             {/* Header */}
             <div className="text-center mb-6">
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Skapa ett konto</h1>
-                <p className="text-surface-500 dark:text-surface-400 mt-1 text-sm">
+                <h1 className="text-2xl text-surface-900 dark:text-surface-50">Skapa ett konto</h1>
+                <p className="text-surface-600 dark:text-surface-300 mt-1 text-sm">
                     Gå med i communityt och kom igång
                 </p>
             </div>
 
             {error && (
-                <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400 text-sm">
+                <div className="alert-error mb-4">
                     {error}
                 </div>
             )}
@@ -329,7 +340,7 @@ export default function Signup() {
             <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Display Name */}
                 <div>
-                    <label htmlFor="displayName" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
+                    <label htmlFor="displayName" className="label">
                         Fullständigt namn
                     </label>
                     <input
@@ -347,7 +358,7 @@ export default function Signup() {
 
                 {/* Username */}
                 <div>
-                    <label htmlFor="username" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
+                    <label htmlFor="username" className="label">
                         Användarnamn
                     </label>
                     <input
@@ -356,12 +367,12 @@ export default function Signup() {
                         name="username"
                         value={formData.username}
                         onChange={handleChange}
-                        className={`input w-full ${
-                            usernameStatus === 'available'
-                                ? 'border-green-500 focus:ring-green-500'
-                                : usernameStatus === 'taken' || usernameStatus === 'invalid'
-                                ? 'border-red-500 focus:ring-red-500'
-                                : ''
+                        className={`w-full ${
+                            usernameStatus === 'taken' || usernameStatus === 'invalid'
+                                ? 'input-error'
+                                : usernameStatus === 'available'
+                                ? 'input border-success focus:border-success focus:ring-success'
+                                : 'input'
                         }`}
                         placeholder="johndoe"
                         required
@@ -372,7 +383,7 @@ export default function Signup() {
 
                 {/* Email */}
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
+                    <label htmlFor="email" className="label">
                         E-post
                     </label>
                     <input
@@ -390,7 +401,7 @@ export default function Signup() {
 
                 {/* Password */}
                 <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
+                    <label htmlFor="password" className="label">
                         Lösenord
                     </label>
                     <div className="relative">
@@ -408,7 +419,7 @@ export default function Signup() {
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 transition-colors"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 transition-colors"
                         >
                             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
@@ -418,7 +429,7 @@ export default function Signup() {
 
                 {/* Confirm Password */}
                 <div>
-                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-surface-900 dark:text-surface-200 mb-1.5">
+                    <label htmlFor="confirmPassword" className="label">
                         Bekräfta lösenord
                     </label>
                     <div className="relative">
@@ -428,12 +439,12 @@ export default function Signup() {
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            className={`input w-full pr-10 ${
+                            className={`w-full pr-10 ${
                                 formData.confirmPassword && formData.password !== formData.confirmPassword
-                                    ? 'border-red-500 focus:ring-red-500'
+                                    ? 'input-error'
                                     : formData.confirmPassword && formData.password === formData.confirmPassword
-                                    ? 'border-green-500 focus:ring-green-500'
-                                    : ''
+                                    ? 'input border-success focus:border-success focus:ring-success'
+                                    : 'input'
                             }`}
                             placeholder="Bekräfta ditt lösenord"
                             required
@@ -442,13 +453,13 @@ export default function Signup() {
                         <button
                             type="button"
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 transition-colors"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-500 hover:text-surface-700 dark:text-surface-400 dark:hover:text-surface-200 transition-colors"
                         >
                             {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                         </button>
                     </div>
                     {formData.confirmPassword && formData.password !== formData.confirmPassword && (
-                        <div className="flex items-center gap-1 mt-1 text-red-600 dark:text-red-400 text-xs">
+                        <div className="flex items-center gap-1 mt-1 text-error-strong dark:text-error-soft text-xs">
                             <XCircle className="w-3 h-3" />
                             <span>Lösenorden matchar inte</span>
                         </div>
@@ -459,7 +470,7 @@ export default function Signup() {
                 <button
                     type="submit"
                     disabled={isLoading || usernameStatus === 'checking' || usernameStatus === 'taken' || usernameStatus === 'invalid'}
-                    className="btn-primary w-full py-2.5"
+                    className="btn-primary w-full"
                 >
                     {isLoading ? (
                         <>

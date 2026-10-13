@@ -62,7 +62,7 @@ export default function UserSearchInput({ onUserSelect, placeholder = 'S√∂k anv√
   return (
     <div className="relative">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400 pointer-events-none" />
         <input
           type="text"
           value={query}
@@ -72,7 +72,7 @@ export default function UserSearchInput({ onUserSelect, placeholder = 'S√∂k anv√
           }}
           onFocus={() => setShowResults(true)}
           placeholder={placeholder}
-          className="w-full pl-10 pr-10 py-2.5 bg-surface-50 border border-surface-200 rounded-lg text-sm text-surface-900 placeholder-surface-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="input pl-10 pr-10"
         />
         {query && (
           <button
@@ -81,7 +81,7 @@ export default function UserSearchInput({ onUserSelect, placeholder = 'S√∂k anv√
               setResults([]);
               setShowResults(false);
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-400 hover:text-surface-600"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-md text-surface-400 hover:text-surface-600 dark:hover:text-surface-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600"
           >
             <X className="w-5 h-5" />
           </button>
@@ -94,22 +94,22 @@ export default function UserSearchInput({ onUserSelect, placeholder = 'S√∂k anv√
           {/* Backdrop to close dropdown */}
           <div className="fixed inset-0 z-10" onClick={() => setShowResults(false)} />
 
-          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-surface-200 rounded-lg shadow-elevated z-20 max-h-80 overflow-y-auto">
+          <div className="dropdown-menu top-full left-0 right-0 mt-1 max-h-80 overflow-y-auto">
             {isSearching ? (
               <div className="flex items-center justify-center p-8">
                 <Loader2 className="w-6 h-6 text-primary-600 animate-spin" />
               </div>
             ) : results.length === 0 ? (
-              <div className="p-8 text-center text-sm text-surface-500">
+              <div className="p-8 text-center text-sm text-surface-500 dark:text-surface-400">
                 {query.length < 2 ? 'Skriv minst 2 tecken f√∂r att s√∂ka' : 'Inga anv√§ndare hittades'}
               </div>
             ) : (
-              <div className="py-1">
+              <div>
                 {results.map((user) => (
                   <button
                     key={user.id}
                     onClick={() => handleUserSelect(user)}
-                    className="w-full flex items-center gap-3 p-3 hover:bg-surface-50 transition-colors text-left"
+                    className="w-full flex items-center gap-3 p-3 min-h-11 rounded-md hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-600"
                   >
                     <div className="relative flex-shrink-0">
                       {user.avatar_url ? (
@@ -119,7 +119,7 @@ export default function UserSearchInput({ onUserSelect, placeholder = 'S√∂k anv√
                           className="w-10 h-10 rounded-full object-cover"
                         />
                       ) : (
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 flex items-center justify-center text-white font-semibold">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-semibold">
                           {user.display_name.charAt(0).toUpperCase()}
                         </div>
                       )}
@@ -128,10 +128,10 @@ export default function UserSearchInput({ onUserSelect, placeholder = 'S√∂k anv√
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-surface-900 truncate">
+                      <p className="font-medium text-surface-900 dark:text-surface-50 truncate">
                         {user.display_name}
                       </p>
-                      <p className="text-sm text-surface-500 truncate">
+                      <p className="text-sm text-surface-500 dark:text-surface-400 truncate">
                         @{user.username}
                       </p>
                     </div>

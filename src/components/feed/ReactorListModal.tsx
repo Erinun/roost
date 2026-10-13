@@ -14,12 +14,12 @@ interface ReactorListModalProps {
 }
 
 const reactionConfig: Record<ReactionType, { icon: typeof ThumbsUp; label: string; color: string; activeColor: string }> = {
-    like: { icon: ThumbsUp, label: 'Gilla', color: 'text-blue-500', activeColor: 'border-blue-500 text-blue-600 bg-blue-50 dark:bg-blue-900/30' },
-    love: { icon: Heart, label: 'Älska', color: 'text-red-500', activeColor: 'border-red-500 text-red-600 bg-red-50 dark:bg-red-900/30' },
-    fire: { icon: Flame, label: 'Eld', color: 'text-orange-500', activeColor: 'border-orange-500 text-orange-600 bg-orange-50 dark:bg-orange-900/30' },
-    clap: { icon: Hand, label: 'Applåd', color: 'text-yellow-500', activeColor: 'border-yellow-500 text-yellow-600 bg-yellow-50 dark:bg-yellow-900/30' },
-    think: { icon: Brain, label: 'Tänkvärt', color: 'text-purple-500', activeColor: 'border-purple-500 text-purple-600 bg-purple-50 dark:bg-purple-900/30' },
-    haha: { icon: Laugh, label: 'Haha', color: 'text-green-500', activeColor: 'border-green-500 text-green-600 bg-green-50 dark:bg-green-900/30' },
+    like: { icon: ThumbsUp, label: 'Gilla', color: 'text-primary-600 dark:text-primary-300', activeColor: 'border-primary-600 text-primary-700 bg-primary-100 dark:bg-primary-900 dark:text-primary-200' },
+    love: { icon: Heart, label: 'Älska', color: 'text-accent-love', activeColor: 'border-accent-love text-surface-900 bg-accent-love/15 dark:bg-accent-love/20 dark:text-surface-50' },
+    fire: { icon: Flame, label: 'Eld', color: 'text-accent-fire', activeColor: 'border-accent-fire text-surface-900 bg-accent-fire/15 dark:bg-accent-fire/20 dark:text-surface-50' },
+    clap: { icon: Hand, label: 'Applåd', color: 'text-accent-clap', activeColor: 'border-accent-clap text-surface-900 bg-accent-clap/20 dark:bg-accent-clap/20 dark:text-surface-50' },
+    think: { icon: Brain, label: 'Tänkvärt', color: 'text-accent-think', activeColor: 'border-accent-think text-surface-900 bg-accent-think/15 dark:bg-accent-think/20 dark:text-surface-50' },
+    haha: { icon: Laugh, label: 'Haha', color: 'text-success', activeColor: 'border-success text-surface-900 bg-success/15 dark:bg-success/20 dark:text-surface-50' },
 };
 
 type TabType = 'all' | ReactionType;
@@ -83,12 +83,12 @@ export default function ReactorListModal({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm"
+                className="absolute inset-0 bg-surface-950/60 dark:bg-surface-950/80 backdrop-blur-sm"
                 onClick={onClose}
             />
 
             {/* Modal */}
-            <div className="relative bg-white dark:bg-surface-900 rounded-2xl border border-surface-200 dark:border-surface-700 max-w-md w-full max-h-[70vh] flex flex-col animate-fade-in">
+            <div className="relative bg-white dark:bg-surface-900 rounded-2xl border border-surface-200 dark:border-surface-700 shadow-elevated dark:shadow-elevated-dark max-w-md w-full max-h-[70vh] flex flex-col animate-fade-in">
                 {/* Header */}
                 <div className="flex items-center justify-between px-5 pt-5 pb-3">
                     <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-50">
@@ -119,8 +119,8 @@ export default function ReactorListModal({
                                     ${isActive
                                         ? config
                                             ? config.activeColor
-                                            : 'border-primary-500 text-primary-600 bg-primary-50 dark:bg-primary-900/30'
-                                        : 'border-surface-200 dark:border-surface-700 text-surface-500 hover:bg-surface-50 dark:hover:bg-surface-800'
+                                            : 'border-primary-600 text-primary-700 bg-primary-100 dark:bg-primary-900 dark:text-primary-200'
+                                        : 'border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-800'
                                     }
                                 `}
                             >
@@ -133,7 +133,7 @@ export default function ReactorListModal({
                 </div>
 
                 {/* Divider */}
-                <div className="border-t border-surface-100 dark:border-surface-800" />
+                <div className="border-t border-surface-200 dark:border-surface-700" />
 
                 {/* Reactor List */}
                 <div className="flex-1 overflow-y-auto px-5 py-3">
@@ -142,7 +142,7 @@ export default function ReactorListModal({
                             <Loader2 className="w-6 h-6 animate-spin text-primary-600" />
                         </div>
                     ) : filteredReactors.length === 0 ? (
-                        <p className="text-center py-8 text-sm text-surface-400">Inga reaktioner än</p>
+                        <p className="text-center py-8 text-sm text-surface-600 dark:text-surface-300">Inga reaktioner än</p>
                     ) : (
                         <div className="space-y-1">
                             {filteredReactors.map((reactor) => {
