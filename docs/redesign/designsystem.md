@@ -188,6 +188,11 @@ Alla interaktiva komponenter har hover-, fokus- (synlig ring i `primary-600` =
 | `.dropdown-item` | Menyrad, 44 px, hover/fokus-tillstånd |
 | `.modal-overlay` | `surface-950/60` övertäckning |
 | `.modal-content` | Vit/mörkblå panel med border + skugga |
+| `.tabs` | Flikrad med bottenlinje; rullar vågrätt på smala skärmar |
+| `.tab` / `.tab-active` | Flik, 44 px, hover/fokus/inaktivt tillstånd; aktiv = primärblå text + kantlinje |
+| `.alert` | Basavisering (tonad yta, border, `text-sm`) |
+| `.alert-info` / `-success` / `-warning` / `-error` | Tonad statusyta + mörk text i ljust läge; fel använder `error-soft` som text i mörkt läge |
+| `.toast` | Flytande avisering: vit/mörkblå yta med border + skugga (flytande lager) |
 | `.table-header` / `.table-row` / `.table-cell` | Tabell: tonat huvud, linjerade rader med hover |
 | `.skeleton` | Pulserande platshållare i `surface-200`/`-700` |
 | `.avatar(-sm/-md/-lg/-xl)` | Rund avatar 32/40/48/64 px |
@@ -229,15 +234,14 @@ regelbrott). Skuggtokens (`shadow-soft/card/elevated`, nu blåtonade från
    och 44 px höjd; mörkare kanter över hela appen hade avvikit kraftigt från
    profilens ljusa linjefärg. `input-error`-kanten (`#EC5345`, 3,6:1) klarar
    kravet.
-6. **`SiteSettingsContext` har kvar `#0ea5e9` som standard-primärfärg** och
-   skriver över fallbackarna i körtid om databasen returnerar inställningar
-   utan/med gammal `primary_color`. Filen får inte röras i fas 1 – sätt
-   `primary_color = #185DA9` i webbplatsinställningarna, eller byt
-   standardvärdet i fas 2.
+6. **Dynamisk primärfärg:** standardvärdet `DEFAULT_SETTINGS.primary_color`
+   är bytt till `#185DA9` (beslut 4 – ren konstantändring, logiken orörd).
+   Ett sparat `primary_color` i databasen går fortfarande före (personalisering
+   behålls). Ligger en gammal färg kvar byts den i Admin →
+   Webbplatsinställningar.
 
 ## 11. Att göra i fas 2 (utanför denna fas)
 
 - Migrera ~2 300 `dark:`-instanser och alla sidor till komponentklasserna.
 - Ersätt kvarvarande `shadow-card`-användning på kortliknande ytor.
-- Byt `DEFAULT_SETTINGS.primary_color` till `#185DA9` (logikfil, rördes inte).
 - Eventuell lokal paketering av Noto Nastaliq Urdu för RTL.

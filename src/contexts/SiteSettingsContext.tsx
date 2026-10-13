@@ -26,7 +26,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   site_name: import.meta.env.VITE_APP_NAME || 'Roost',
   site_tagline: import.meta.env.VITE_APP_TAGLINE || 'Lär dig, bygg och väx tillsammans',
   site_description: import.meta.env.VITE_APP_DESCRIPTION || 'En communityplattform för att lära, bygga och växa tillsammans.',
-  primary_color: '#0ea5e9',
+  primary_color: '#185DA9',
   logo_url: '',
   logo_dark_url: '',
   favicon_url: '',

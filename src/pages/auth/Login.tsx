@@ -214,7 +214,7 @@ export default function Login() {
                 )}
 
                 {error && resendStatus === 'error' && (
-                    <div className="mb-4 p-3 bg-error/10 dark:bg-error/20 border border-error/60 text-surface-900 dark:text-error-soft rounded-lg text-sm">
+                    <div className="alert-error mb-4">
                         {error}
                     </div>
                 )}
@@ -275,7 +275,7 @@ export default function Login() {
 
                 {/* Error message */}
                 {error && (
-                    <div className="mb-6 p-3 bg-error/10 dark:bg-error/20 border border-error/60 text-surface-900 dark:text-error-soft rounded-lg text-sm">
+                    <div className="alert-error mb-6">
                         {error}
                     </div>
                 )}

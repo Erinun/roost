@@ -65,6 +65,7 @@ function SubHeading({ children }: { children: React.ReactNode }) {
 export default function Styleguide() {
     const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
     const [showModal, setShowModal] = useState(false);
+    const [activeTab, setActiveTab] = useState('oversikt');
 
     const toggleDark = () => {
         document.documentElement.classList.toggle('dark');
@@ -257,6 +258,81 @@ export default function Styleguide() {
                     <span className="badge-warning"><AlertTriangle className="w-3 h-3" />Varning</span>
                     <span className="badge-error"><X className="w-3 h-3" />Fel</span>
                     <span className="badge-premium"><Star className="w-3 h-3" />Premium</span>
+                </div>
+
+                {/* ============================= FLIKAR ============================= */}
+                <SectionHeading>Flikar</SectionHeading>
+                <p className="text-surface-600 dark:text-surface-300 mb-4">
+                    Aktiv flik markeras med primärblå text och kantlinje. Raden rullar vågrätt på smala skärmar.
+                </p>
+                <div className="card p-6">
+                    <div className="tabs" role="tablist">
+                        {[
+                            { id: 'oversikt', label: 'Översikt' },
+                            { id: 'medlemmar', label: 'Medlemmar' },
+                            { id: 'installningar', label: 'Inställningar' },
+                        ].map((t) => (
+                            <button
+                                key={t.id}
+                                type="button"
+                                role="tab"
+                                aria-selected={activeTab === t.id}
+                                onClick={() => setActiveTab(t.id)}
+                                className={activeTab === t.id ? 'tab-active' : 'tab'}
+                            >
+                                {t.label}
+                            </button>
+                        ))}
+                        <button type="button" role="tab" aria-selected={false} className="tab" disabled>
+                            Inaktiv
+                        </button>
+                    </div>
+                    <p className="text-sm text-surface-600 dark:text-surface-300 pt-4">
+                        Innehåll för fliken ”{activeTab === 'oversikt' ? 'Översikt' : activeTab === 'medlemmar' ? 'Medlemmar' : 'Inställningar'}”.
+                    </p>
+                </div>
+
+                {/* ============================= AVISERINGAR ============================= */}
+                <SectionHeading>Aviseringar</SectionHeading>
+                <p className="text-surface-600 dark:text-surface-300 mb-4">
+                    Tonad statusyta med mörk text i ljust läge. Flytande avisering (.toast) får ha skugga.
+                </p>
+                <div className="card p-6 space-y-3">
+                    <div className="alert-info">
+                        <Star className="w-5 h-5 text-info shrink-0" />
+                        <div>
+                            <p className="font-semibold">Information</p>
+                            <p>Ny funktion: du kan nu följa klassrum.</p>
+                        </div>
+                    </div>
+                    <div className="alert-success">
+                        <Check className="w-5 h-5 text-surface-900 dark:text-success shrink-0" />
+                        <div>
+                            <p className="font-semibold">Klart</p>
+                            <p>Dina ändringar har sparats.</p>
+                        </div>
+                    </div>
+                    <div className="alert-warning">
+                        <AlertTriangle className="w-5 h-5 text-surface-900 dark:text-warning shrink-0" />
+                        <div>
+                            <p className="font-semibold">Varning</p>
+                            <p>Din prenumeration löper ut om 3 dagar.</p>
+                        </div>
+                    </div>
+                    <div className="alert-error">
+                        <X className="w-5 h-5 shrink-0" />
+                        <div>
+                            <p className="font-semibold">Fel</p>
+                            <p>Det gick inte att spara. Försök igen.</p>
+                        </div>
+                    </div>
+                    <div className="toast max-w-sm">
+                        <Check className="w-5 h-5 text-surface-900 dark:text-success shrink-0" />
+                        <div>
+                            <p className="font-semibold">Flytande avisering (.toast)</p>
+                            <p className="text-surface-600 dark:text-surface-300">Visas ovanpå innehållet och får ha skugga.</p>
+                        </div>
+                    </div>
                 </div>
 
                 {/* ============================= MENY ============================= */}
