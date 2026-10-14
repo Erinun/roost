@@ -53,7 +53,7 @@ function StarRating({
                     <Star
                         className={`${sizeClasses[size]} ${
                             star <= (hoverRating || rating)
-                                ? 'text-amber-400 fill-current'
+                                ? 'text-brand-orange fill-brand-orange'
                                 : 'text-surface-300 dark:text-surface-600'
                         }`}
                     />
@@ -136,7 +136,7 @@ function ReviewItem({
                             className="w-10 h-10 rounded-full object-cover"
                         />
                     ) : (
-                        <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 font-medium">
+                        <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-400 font-medium">
                             {review.author.display_name?.charAt(0) || '?'}
                         </div>
                     )}
@@ -167,7 +167,7 @@ function ReviewItem({
                                 value={editContent}
                                 onChange={(e) => setEditContent(e.target.value)}
                                 rows={3}
-                                className="w-full px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                className="input"
                             />
                             <div className="flex gap-2">
                                 <button
@@ -210,7 +210,7 @@ function ReviewItem({
                                     <button
                                         onClick={handleDelete}
                                         disabled={isSubmitting}
-                                        className="flex items-center gap-1 text-xs text-red-500 hover:text-red-600"
+                                        className="flex items-center gap-1 text-xs text-error-strong dark:text-error-soft hover:opacity-80"
                                     >
                                         <Trash2 className="w-3 h-3" />
                                         Ta bort
@@ -249,7 +249,7 @@ function ReviewItem({
                                 onChange={(e) => setReplyContent(e.target.value)}
                                 placeholder="Skriv ditt svar..."
                                 rows={2}
-                                className="w-full px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+                                className="input"
                             />
                             <div className="flex gap-2">
                                 <button
@@ -355,7 +355,7 @@ export default function ShowcaseReviews({
     };
 
     return (
-        <div className="card shadow-none p-6">
+        <div className="card p-6">
             <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
                 Recensioner ({reviews.length})
             </h2>
@@ -379,7 +379,7 @@ export default function ShowcaseReviews({
                             onChange={(e) => setNewReviewContent(e.target.value)}
                             placeholder="Dela din upplevelse av det här projektet..."
                             rows={4}
-                            className="w-full px-4 py-3 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            className="input"
                         />
                     </div>
 

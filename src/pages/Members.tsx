@@ -85,15 +85,15 @@ export function Members() {
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg text-primary-600 dark:text-primary-400">
+                    <div className="p-2 bg-primary-100 dark:bg-primary-900 rounded-lg text-primary-600 dark:text-primary-400">
                         <Users className="w-6 h-6" />
                     </div>
                     <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-50">Medlemskatalog</h1>
                 </div>
                 <div className="flex gap-4 text-surface-500 dark:text-surface-400 text-sm">
                     <p>Totalt antal medlemmar: <span className="font-medium text-surface-900 dark:text-surface-100">{totalCount}</span></p>
-                    <p>•</p>
-                    <p>Online nu: <span className="font-medium text-green-500">{onlineCount}</span></p>
+                    <p>â€¢</p>
+                    <p className="flex items-center gap-1.5">Online nu: <span className="inline-block w-2 h-2 bg-success rounded-full" aria-hidden="true" /><span className="font-medium text-surface-900 dark:text-surface-100">{onlineCount}</span></p>
                 </div>
             </div>
 
@@ -114,7 +114,7 @@ export function Members() {
             {hasMore && !loading && (
                 <div ref={ref} className="py-8 flex justify-center">
                     {loadingMore && (
-                        <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+                        <div className="w-8 h-8 border-4 border-surface-200 dark:border-surface-700 border-t-primary-600 rounded-full animate-spin" />
                     )}
                 </div>
             )}

@@ -68,17 +68,17 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/50 dark:bg-black/70"
+                className="absolute inset-0 bg-surface-950/60 dark:bg-surface-950/80"
                 onClick={handleClose}
             />
 
-            {/* Modal */}
-            <div className="relative w-full max-w-md mx-4 bg-white dark:bg-surface-900 rounded-xl shadow-xl">
+            {/* Modal (flytande lager får ha skugga) */}
+            <div className="relative w-full max-w-md mx-4 modal-content">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-surface-200 dark:border-surface-700">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                            <ShieldOff className="w-5 h-5 text-red-600 dark:text-red-400" />
+                        <div className="p-2 bg-error/10 dark:bg-error/20 rounded-lg">
+                            <ShieldOff className="w-5 h-5 text-error-strong dark:text-error-soft" />
                         </div>
                         <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
                             Inaktivera tvåfaktorsautentisering
@@ -96,8 +96,8 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
                 {/* Content */}
                 <div className="p-6 space-y-5">
                     {/* Warning */}
-                    <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-                        <p className="text-sm text-yellow-700 dark:text-yellow-400">
+                    <div className="alert-warning">
+                        <p>
                             <strong>Varning:</strong> Om du inaktiverar 2FA blir ditt konto mindre säkert.
                             Du behöver då bara ditt lösenord för att logga in.
                         </p>
@@ -105,7 +105,7 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
 
                     {/* Error message */}
                     {error && (
-                        <div className="p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg flex items-center gap-3">
+                        <div className="alert-error items-center">
                             <AlertCircle className="w-5 h-5 flex-shrink-0" />
                             <span>{error}</span>
                         </div>
@@ -143,7 +143,7 @@ export default function TwoFactorDisableModal({ isOpen, onClose, onSuccess }: Tw
                         <button
                             onClick={handleDisable}
                             disabled={isLoading || verificationCode.length !== 6}
-                            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 btn-danger"
                         >
                             {isLoading ? (
                                 <>

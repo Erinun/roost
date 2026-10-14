@@ -78,7 +78,7 @@ export default function ShowcaseFilterSidebar({
             {/* Mobile overlay backdrop */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 bg-black/20 dark:bg-black/40 z-40 md:hidden"
+                    className="fixed inset-0 bg-surface-950/40 dark:bg-surface-950/60 z-40 md:hidden"
                     onClick={onToggle}
                 />
             )}

@@ -117,16 +117,16 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/50 dark:bg-black/70"
+                className="absolute inset-0 bg-surface-950/60 dark:bg-surface-950/80"
                 onClick={handleClose}
             />
 
-            {/* Modal */}
-            <div className="relative w-full max-w-md mx-4 bg-white dark:bg-surface-900 rounded-xl shadow-xl">
+            {/* Modal (flytande lager får ha skugga) */}
+            <div className="relative w-full max-w-md mx-4 modal-content">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-surface-200 dark:border-surface-700">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                        <div className="p-2 bg-primary-100 dark:bg-primary-900 rounded-lg">
                             <Lock className="w-5 h-5 text-primary-600 dark:text-primary-400" />
                         </div>
                         <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
@@ -146,7 +146,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
                 <form onSubmit={handleSubmit} className="p-6 space-y-5">
                     {/* Success message */}
                     {success && (
-                        <div className="p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-lg flex items-center gap-3">
+                        <div className="alert-success items-center">
                             <Check className="w-5 h-5 flex-shrink-0" />
                             <span>Lösenordet har bytts!</span>
                         </div>
@@ -154,7 +154,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
 
                     {/* Error message */}
                     {error && (
-                        <div className="p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg flex items-center gap-3">
+                        <div className="alert-error items-center">
                             <AlertCircle className="w-5 h-5 flex-shrink-0" />
                             <span>{error}</span>
                         </div>

@@ -228,7 +228,7 @@ export default function ShowcaseDetail() {
                                     {showcase.title}
                                 </h1>
                                 {showcase.is_featured && (
-                                    <span className="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-medium rounded-full">
+                                    <span className="px-2 py-0.5 bg-brand-purple text-white text-xs font-medium rounded-full">
                                         Utvald
                                     </span>
                                 )}
@@ -244,10 +244,8 @@ export default function ShowcaseDetail() {
 
                             {/* Category and Tags inline */}
                             <div className="flex items-center gap-2 flex-wrap text-sm">
-                                <span
-                                    className="px-2.5 py-1 rounded-md text-xs font-medium"
-                                    style={{ backgroundColor: `${categoryInfo.color}15`, color: categoryInfo.color }}
-                                >
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-200">
+                                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: categoryInfo.color }} aria-hidden="true" />
                                     {categoryInfo.label}
                                 </span>
                                 {showcase.tags && showcase.tags.slice(0, 3).map((tag) => (
@@ -320,7 +318,7 @@ export default function ShowcaseDetail() {
                                                     onClick={() => setCurrentImageIndex(index)}
                                                     className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all ${
                                                         currentImageIndex === index
-                                                            ? 'border-primary-500 ring-2 ring-primary-500/20'
+                                                            ? 'border-primary-600 dark:border-primary-300'
                                                             : 'border-transparent opacity-70 hover:opacity-100'
                                                     }`}
                                                 >
@@ -402,7 +400,7 @@ export default function ShowcaseDetail() {
                                             className="w-12 h-12 rounded-full object-cover"
                                         />
                                     ) : (
-                                        <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-400 font-semibold text-lg">
+                                        <div className="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-400 font-semibold text-lg">
                                             {showcase.author.display_name?.charAt(0) || '?'}
                                         </div>
                                     )}
@@ -497,7 +495,7 @@ export default function ShowcaseDetail() {
                                 )}
                                 {(showcase.average_rating ?? 0) > 0 && (
                                     <div className="flex items-center gap-3 text-sm">
-                                        <Star className="w-4 h-4 text-amber-500 fill-current flex-shrink-0" />
+                                        <Star className="w-4 h-4 text-brand-orange fill-brand-orange flex-shrink-0" />
                                         <span className="text-surface-600 dark:text-surface-400">
                                             {(showcase.average_rating ?? 0).toFixed(1)} ({showcase.review_count} recensioner)
                                         </span>
@@ -522,8 +520,8 @@ export default function ShowcaseDetail() {
                                     {showcase.tags.map((tag) => (
                                         <span
                                             key={tag.id}
-                                            className="px-2.5 py-1 rounded-md text-xs font-medium"
-                                            style={{ backgroundColor: `${tag.color ?? '#6b7280'}15`, color: tag.color ?? undefined }}
+                                            className="px-2.5 py-1 rounded-md text-xs font-medium bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-200"
+                                            style={tag.color ? { backgroundColor: `${tag.color}15`, color: tag.color } : undefined}
                                         >
                                             {tag.name}
                                         </span>
@@ -538,7 +536,7 @@ export default function ShowcaseDetail() {
             {/* Lightbox */}
             {lightboxOpen && (
                 <div
-                    className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+                    className="fixed inset-0 z-50 bg-surface-950/95 flex items-center justify-center"
                     onClick={closeLightbox}
                 >
                     <button
@@ -580,7 +578,7 @@ export default function ShowcaseDetail() {
 
                     {/* Thumbnails */}
                     {allImages.length > 1 && (
-                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 bg-black/50 p-2 rounded-lg">
+                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 bg-surface-950/50 p-2 rounded-lg">
                             {allImages.map((img, index) => (
                                 <button
                                     key={index}

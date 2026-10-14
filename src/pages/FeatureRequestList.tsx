@@ -269,7 +269,7 @@ export default function FeatureRequestList() {
                                 {count > 0 && (
                                     <span className={`ml-1.5 text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
                                         isActive
-                                            ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400'
+                                            ? 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400'
                                             : 'bg-surface-100 dark:bg-surface-800 text-surface-500 dark:text-surface-400'
                                     }`}>
                                         {count}

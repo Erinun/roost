@@ -101,7 +101,7 @@ export default function FeatureRequestDetailView({
                     disabled={isVoting}
                     className={`flex flex-col items-center justify-center px-3 py-2 rounded-xl border-2 transition-colors flex-shrink-0 min-w-[60px] ${
                         request.user_has_voted
-                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-400'
                             : 'border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-700 text-surface-500 dark:text-surface-400'
                     }`}
                 >
@@ -124,7 +124,7 @@ export default function FeatureRequestDetailView({
 
                         {/* Pinned */}
                         {request.is_pinned && (
-                            <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                            <Star className="w-4 h-4 text-brand-orange fill-brand-orange" />
                         )}
                     </div>
 
@@ -157,7 +157,7 @@ export default function FeatureRequestDetailView({
 
             {/* Admin response */}
             {request.admin_response && !isAdmin && (
-                <div className="mb-6 p-4 rounded-lg bg-primary-50 dark:bg-primary-900/10 border border-primary-200 dark:border-primary-800">
+                <div className="mb-6 p-4 rounded-lg bg-primary-50 dark:bg-primary-950 border border-primary-200 dark:border-primary-800">
                     <div className="flex items-center gap-2 mb-2">
                         <Shield className="w-4 h-4 text-primary-600 dark:text-primary-400" />
                         <span className="text-sm font-medium text-primary-700 dark:text-primary-300">
@@ -213,11 +213,11 @@ export default function FeatureRequestDetailView({
                         disabled={isTogglingPin}
                         className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                             request.is_pinned
-                                ? 'border-yellow-300 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400'
+                                ? 'border-warning bg-warning/20 text-surface-900 dark:bg-warning/20 dark:text-warning'
                                 : 'border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-700'
                         }`}
                     >
-                        <Star className={`w-3.5 h-3.5 ${request.is_pinned ? 'fill-yellow-500 text-yellow-500' : ''}`} />
+                        <Star className={`w-3.5 h-3.5 ${request.is_pinned ? 'fill-brand-orange text-brand-orange' : ''}`} />
                         {request.is_pinned ? 'Ta bort fästning' : 'Fäst'}
                     </button>
 

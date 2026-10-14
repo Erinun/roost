@@ -83,22 +83,26 @@ export interface ShowcaseStats {
 }
 
 // Category display info
+// Färgerna är profilens nio färger (Aktiespararnas grafiska profil 2023),
+// se docs/redesign/designsystem.md. "Övrigt" använder neutralen surface-600.
 export const SHOWCASE_CATEGORY_INFO: Record<ShowcaseCategory, { label: string; icon: string; color: string }> = {
-    web_app: { label: 'Webbapp', icon: 'Globe', color: '#3B82F6' },
-    mobile_app: { label: 'Mobilapp', icon: 'Smartphone', color: '#8B5CF6' },
-    saas: { label: 'SaaS', icon: 'Cloud', color: '#06B6D4' },
-    tool: { label: 'Verktyg', icon: 'Wrench', color: '#F59E0B' },
-    api: { label: 'API', icon: 'Code', color: '#10B981' },
-    website: { label: 'Webbplats', icon: 'Layout', color: '#EC4899' },
-    game: { label: 'Spel', icon: 'Gamepad2', color: '#EF4444' },
-    extension: { label: 'Tillägg', icon: 'Puzzle', color: '#84CC16' },
-    other: { label: 'Övrigt', icon: 'Package', color: '#6B7280' },
+    web_app: { label: 'Webbapp', icon: 'Globe', color: '#185DA9' },
+    mobile_app: { label: 'Mobilapp', icon: 'Smartphone', color: '#652FA0' },
+    saas: { label: 'SaaS', icon: 'Cloud', color: '#159EDA' },
+    tool: { label: 'Verktyg', icon: 'Wrench', color: '#F5A118' },
+    api: { label: 'API', icon: 'Code', color: '#32D7CD' },
+    website: { label: 'Webbplats', icon: 'Layout', color: '#EE0181' },
+    game: { label: 'Spel', icon: 'Gamepad2', color: '#EC5345' },
+    extension: { label: 'Tillägg', icon: 'Puzzle', color: '#FBC231' },
+    other: { label: 'Övrigt', icon: 'Package', color: '#4A5B73' },
 };
 
 // Status display info
+// Klasserna följer badge-mönstret i src/index.css: tonad statusyta + mörk text
+// i ljust läge, accentfärg i mörkt läge. "Utvalt" = brand-purple med vit text.
 export const SHOWCASE_STATUS_INFO: Record<ShowcaseStatus, { label: string; color: string; bgColor: string }> = {
-    pending: { label: 'Väntar på granskning', color: 'text-yellow-600', bgColor: 'bg-yellow-100' },
-    approved: { label: 'Godkänt', color: 'text-green-600', bgColor: 'bg-green-100' },
-    rejected: { label: 'Avvisat', color: 'text-red-600', bgColor: 'bg-red-100' },
-    featured: { label: 'Utvalt', color: 'text-purple-600', bgColor: 'bg-purple-100' },
+    pending: { label: 'Väntar på granskning', color: 'text-surface-900 dark:text-warning', bgColor: 'bg-warning/20 dark:bg-warning/20' },
+    approved: { label: 'Godkänt', color: 'text-surface-900 dark:text-success', bgColor: 'bg-success/15 dark:bg-success/20' },
+    rejected: { label: 'Avvisat', color: 'text-surface-900 dark:text-error-soft', bgColor: 'bg-error/15 dark:bg-error/20' },
+    featured: { label: 'Utvalt', color: 'text-white', bgColor: 'bg-brand-purple' },
 };

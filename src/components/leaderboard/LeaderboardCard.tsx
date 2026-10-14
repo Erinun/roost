@@ -36,26 +36,26 @@ export default function LeaderboardCard({
         }
     };
 
-    // Get medal icon for top 3
+    // Get medal icon for top 3 (dekorfärger ur profilen: guld/silver/brons)
     const getMedalIcon = (rank: number) => {
-        if (rank === 1) return <Trophy size={16} className="text-yellow-500" />;
-        if (rank === 2) return <Medal size={16} className="text-gray-400 dark:text-gray-500" />;
-        if (rank === 3) return <Medal size={16} className="text-orange-600 dark:text-orange-400" />;
+        if (rank === 1) return <Trophy size={16} className="text-brand-yellow" />;
+        if (rank === 2) return <Medal size={16} className="text-surface-400" />;
+        if (rank === 3) return <Medal size={16} className="text-brand-orange" />;
         return null;
     };
 
     if (loading) {
         return (
-            <div className="bg-white dark:bg-surface-900 rounded-lg border border-gray-200 dark:border-surface-700 p-4">
-                <div className="h-6 bg-gray-200 dark:bg-surface-700 rounded w-1/2 mb-4 animate-pulse" />
+            <div className="card p-4">
+                <div className="skeleton h-6 w-1/2 mb-4" />
                 <div className="space-y-3">
                     {[...Array(5)].map((_, i) => (
-                        <div key={i} className="flex items-center gap-3 animate-pulse">
-                            <div className="w-8 h-8 bg-gray-200 dark:bg-surface-700 rounded-full" />
+                        <div key={i} className="flex items-center gap-3">
+                            <div className="skeleton w-8 h-8 rounded-full" />
                             <div className="flex-1">
-                                <div className="h-4 bg-gray-200 dark:bg-surface-700 rounded w-3/4" />
+                                <div className="skeleton h-4 w-3/4" />
                             </div>
-                            <div className="h-4 bg-gray-200 dark:bg-surface-700 rounded w-12" />
+                            <div className="skeleton h-4 w-12" />
                         </div>
                     ))}
                 </div>
@@ -64,22 +64,22 @@ export default function LeaderboardCard({
     }
 
     return (
-        <div className="bg-white dark:bg-surface-900 rounded-lg border border-gray-200 dark:border-surface-700 overflow-hidden">
+        <div className="card overflow-hidden">
             {/* Header */}
-            <div className="px-4 py-3 border-b border-gray-200 dark:border-surface-700 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
+            <div className="px-4 py-3 border-b border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-800">
                 <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                        <Award size={20} className="text-purple-600 dark:text-purple-400" />
+                    <h3 className="font-semibold text-surface-900 dark:text-surface-50 flex items-center gap-2">
+                        <Award size={20} className="text-brand-purple dark:text-primary-300" />
                         {title}
                     </h3>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">{period} d</span>
+                    <span className="text-xs text-surface-600 dark:text-surface-300">{period} d</span>
                 </div>
             </div>
 
             {/* Leaderboard List */}
-            <div className="divide-y divide-gray-100 dark:divide-surface-800">
+            <div className="divide-y divide-surface-100 dark:divide-surface-800">
                 {leaderboard.length === 0 ? (
-                    <div className="px-4 py-8 text-center text-gray-500 dark:text-gray-400">
+                    <div className="px-4 py-8 text-center text-surface-500 dark:text-surface-400">
                         <Award size={32} className="mx-auto mb-2 opacity-20" />
                         <p className="text-sm">Ingen data ännu</p>
                     </div>
@@ -87,7 +87,7 @@ export default function LeaderboardCard({
                     leaderboard.map((entry) => (
                         <div
                             key={entry.id}
-                            className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-surface-800 transition-colors cursor-pointer group"
+                            className="px-4 py-3 hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors cursor-pointer group"
                         >
                             <div className="flex items-center gap-3">
                                 {/* Rank/Medal */}
@@ -95,7 +95,7 @@ export default function LeaderboardCard({
                                     {entry.rank <= 3 ? (
                                         getMedalIcon(entry.rank)
                                     ) : (
-                                        <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                                        <span className="text-sm font-medium text-surface-500 dark:text-surface-400">
                                             #{entry.rank}
                                         </span>
                                     )}
@@ -110,7 +110,7 @@ export default function LeaderboardCard({
                                             className="w-8 h-8 rounded-full object-cover"
                                         />
                                     ) : (
-                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-sm font-semibold">
+                                        <div className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-300 text-sm font-semibold">
                                             {entry.user?.display_name?.charAt(0).toUpperCase() || '?'}
                                         </div>
                                     )}
@@ -119,13 +119,13 @@ export default function LeaderboardCard({
                                 {/* Name */}
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-1.5">
-                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                                        <p className="text-sm font-medium text-surface-900 dark:text-surface-100 truncate group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors">
                                             {entry.user?.display_name || 'Okänd'}
                                         </p>
                                         {entry.user?.membership_type === 'premium' && <ProBadge size="xs" />}
                                     </div>
                                     {entry.user?.location && (
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                                        <p className="text-xs text-surface-500 dark:text-surface-400 truncate">
                                             {entry.user.location}
                                         </p>
                                     )}
@@ -133,10 +133,10 @@ export default function LeaderboardCard({
 
                                 {/* Points */}
                                 <div className="flex-shrink-0">
-                                    <span className="text-sm font-bold text-purple-600 dark:text-purple-400">
+                                    <span className="text-sm font-bold text-brand-purple dark:text-primary-300">
                                         {(entry.total_points || 0).toLocaleString()}
                                     </span>
-                                    <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">p</span>
+                                    <span className="text-xs text-surface-500 dark:text-surface-400 ml-1">p</span>
                                 </div>
                             </div>
                         </div>
@@ -146,10 +146,10 @@ export default function LeaderboardCard({
 
             {/* Footer Link */}
             {leaderboard.length > 0 && (
-                <div className="px-4 py-3 bg-gray-50 dark:bg-surface-800 border-t border-gray-200 dark:border-surface-700">
+                <div className="px-4 py-3 bg-surface-50 dark:bg-surface-800 border-t border-surface-200 dark:border-surface-700">
                     <a
                         href={groupId ? `/groups/${groupId}/leaderboard` : '/leaderboard'}
-                        className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-medium flex items-center justify-center gap-1 group"
+                        className="text-sm text-primary-600 dark:text-primary-300 hover:text-primary-700 dark:hover:text-primary-200 font-medium flex items-center justify-center gap-1 group"
                     >
                         Visa hela topplistan
                         <svg

@@ -331,13 +331,13 @@ export default function ShowcaseSubmit() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Draft Restored Notice */}
             {showDraftNotice && (
-                <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center justify-between">
-                    <p className="text-sm text-green-700 dark:text-green-400">
+                <div className="alert-success mb-6 items-center justify-between">
+                    <p className="text-sm">
                         Ditt tidigare utkast har återställts.
                     </p>
                     <button
                         onClick={() => setShowDraftNotice(false)}
-                        className="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+                        className="text-surface-900 dark:text-success hover:opacity-80"
                     >
                         <X className="w-4 h-4" />
                     </button>
@@ -397,7 +397,7 @@ export default function ShowcaseSubmit() {
 
             {/* Error Message */}
             {error && (
-                <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-400">
+                <div className="alert-error mb-6">
                     {error}
                 </div>
             )}
@@ -450,7 +450,7 @@ export default function ShowcaseSubmit() {
                             />
                         </div>
                         {url && !isValidUrl(url) && (
-                            <p className="text-xs text-red-500 mt-1">Ange en giltig URL</p>
+                            <p className="text-xs text-error-strong dark:text-error-soft mt-1">Ange en giltig URL</p>
                         )}
                     </div>
 
@@ -467,7 +467,7 @@ export default function ShowcaseSubmit() {
                                     className={`
                                         p-3 rounded-lg border text-sm font-medium transition-colors text-left
                                         ${category === cat.value
-                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
+                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
                                             : 'border-surface-200 dark:border-surface-700 hover:border-surface-300 text-surface-700 dark:text-surface-300'
                                         }
                                     `}
@@ -539,7 +539,7 @@ export default function ShowcaseSubmit() {
                                         className="inline-flex items-center gap-1 px-3 py-1 bg-surface-100 dark:bg-surface-700 text-surface-700 dark:text-surface-300 rounded-full text-sm"
                                     >
                                         {tech}
-                                        <button onClick={() => removeTech(tech)} className="hover:text-red-500">
+                                        <button onClick={() => removeTech(tech)} className="hover:text-error-strong dark:hover:text-error-soft">
                                             <X className="w-4 h-4" />
                                         </button>
                                     </span>
@@ -582,7 +582,7 @@ export default function ShowcaseSubmit() {
                             className={`
                                 border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors
                                 ${thumbnailDropzone.isDragActive
-                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900'
                                     : 'border-surface-300 dark:border-surface-600 hover:border-surface-400'
                                 }
                             `}
@@ -602,7 +602,7 @@ export default function ShowcaseSubmit() {
                                             e.stopPropagation();
                                             setThumbnailUrl(null);
                                         }}
-                                        className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
+                                        className="absolute -top-2 -right-2 p-1 bg-error-strong text-white rounded-full hover:bg-error-strong/90"
                                     >
                                         <X className="w-4 h-4" />
                                     </button>
@@ -631,7 +631,7 @@ export default function ShowcaseSubmit() {
                             className={`
                                 border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors mb-4
                                 ${imagesDropzone.isDragActive
-                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900'
                                     : 'border-surface-300 dark:border-surface-600 hover:border-surface-400'
                                 }
                             `}
@@ -652,7 +652,7 @@ export default function ShowcaseSubmit() {
                                         <img src={img} alt={`Skärmbild ${index + 1}`} className="w-full h-full object-cover" />
                                         <button
                                             onClick={() => removeImage(index)}
-                                            className="absolute top-1 right-1 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                                            className="absolute top-1 right-1 p-1 bg-error-strong text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                                         >
                                             <X className="w-3 h-3" />
                                         </button>
@@ -692,11 +692,11 @@ export default function ShowcaseSubmit() {
                     </div>
 
                     {/* Info Notice */}
-                    <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-                        <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                        <div className="text-sm text-blue-800 dark:text-blue-300">
+                    <div className="alert-info">
+                        <Info className="w-5 h-5 text-primary-600 dark:text-primary-300 flex-shrink-0 mt-0.5" />
+                        <div>
                             <p className="font-medium">Granskningsprocess</p>
-                            <p className="mt-1 text-blue-700 dark:text-blue-400">
+                            <p className="mt-1">
                                 Ditt bidrag granskas av vårt team innan det visas bland projekten.
                                 Det tar vanligtvis 24–48 timmar.
                             </p>

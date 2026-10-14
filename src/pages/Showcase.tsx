@@ -175,13 +175,13 @@ export default function Showcase() {
     const getStatusIcon = (status: Showcase['status']) => {
         switch (status) {
             case 'pending':
-                return <Clock className="w-4 h-4 text-yellow-500" />;
+                return <Clock className="w-4 h-4 text-surface-700 dark:text-warning" />;
             case 'approved':
-                return <CheckCircle className="w-4 h-4 text-green-500" />;
+                return <CheckCircle className="w-4 h-4 text-success" />;
             case 'rejected':
-                return <XCircle className="w-4 h-4 text-red-500" />;
+                return <XCircle className="w-4 h-4 text-error" />;
             case 'featured':
-                return <Star className="w-4 h-4 text-purple-500 fill-current" />;
+                return <Star className="w-4 h-4 text-brand-purple dark:text-primary-300 fill-current" />;
             default:
                 return null;
         }
@@ -194,16 +194,16 @@ export default function Showcase() {
                 <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
                     {/* Submit Success Message */}
                     {showSubmitSuccess && (
-                        <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center justify-between">
+                        <div className="alert-success mb-6 items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <CheckCircle className="w-5 h-5 text-green-600" />
-                                <p className="text-sm text-green-700 dark:text-green-400">
+                                <CheckCircle className="w-5 h-5 text-surface-900 dark:text-success flex-shrink-0" />
+                                <p className="text-sm">
                                     Ditt projekt har skickats in och väntar på granskning. Vi meddelar dig när det har godkänts!
                                 </p>
                             </div>
                             <button
                                 onClick={() => setShowSubmitSuccess(false)}
-                                className="text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
+                                className="text-surface-900 dark:text-success hover:opacity-80"
                             >
                                 <XCircle className="w-4 h-4" />
                             </button>
@@ -237,7 +237,7 @@ export default function Showcase() {
                                 >
                                     <FolderOpen className="w-5 h-5" />
                                     Mina bidrag
-                                    <span className="px-1.5 py-0.5 bg-primary-100 dark:bg-primary-900/50 text-primary-600 dark:text-primary-400 text-xs rounded-full">
+                                    <span className="px-1.5 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 text-xs rounded-full">
                                         {userShowcases.length}
                                     </span>
                                 </button>
@@ -256,10 +256,10 @@ export default function Showcase() {
                     {isSubmissionsSidebarOpen && (
                         <>
                             <div
-                                className="fixed inset-0 bg-black/20 dark:bg-black/40 z-40"
+                                className="fixed inset-0 bg-surface-950/40 dark:bg-surface-950/60 z-40"
                                 onClick={() => setIsSubmissionsSidebarOpen(false)}
                             />
-                            <aside className="fixed right-0 top-0 h-full w-80 bg-white dark:bg-surface-900 border-l border-surface-200 dark:border-surface-700 shadow-xl z-50 overflow-y-auto">
+                            <aside className="fixed right-0 top-0 h-full w-80 bg-white dark:bg-surface-900 border-l border-surface-200 dark:border-surface-700 shadow-elevated dark:shadow-elevated-dark z-50 overflow-y-auto">
                                 <div className="p-4">
                                     <div className="flex items-center justify-between mb-4">
                                         <h3 className="font-semibold text-surface-900 dark:text-surface-100">

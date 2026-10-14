@@ -48,7 +48,7 @@ export function CommunityMembersWidget() {
     }, [activeTab]);
 
     return (
-        <div className="card bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-700 rounded-xl overflow-hidden shadow-none">
+        <div className="card overflow-hidden">
             <div className="p-4 border-b border-surface-200 dark:border-surface-700 flex items-center justify-between">
                 <h3 className="font-semibold text-surface-900 dark:text-surface-100">Communityns medlemmar</h3>
                 <Link to="/members" className="text-xs text-primary-600 dark:text-primary-400 hover:underline">
@@ -99,7 +99,7 @@ export function CommunityMembersWidget() {
                             className="flex items-center gap-3 group"
                         >
                             <div className="relative">
-                                <div className="w-10 h-10 rounded-full overflow-hidden bg-surface-100 dark:bg-surface-800 ring-1 ring-surface-200 dark:ring-surface-700 group-hover:ring-primary-500/50 dark:group-hover:ring-primary-400/50 transition-all">
+                                <div className="w-10 h-10 rounded-full overflow-hidden bg-surface-100 dark:bg-surface-800 ring-1 ring-surface-200 dark:ring-surface-700 group-hover:ring-primary-300 dark:group-hover:ring-primary-700 transition-all">
                                     {member.avatar_url ? (
                                         <img
                                             src={member.avatar_url}
@@ -113,7 +113,7 @@ export function CommunityMembersWidget() {
                                     )}
                                 </div>
                                 {member.is_online && (
-                                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white dark:border-surface-900 rounded-full" />
+                                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-success border-2 border-white dark:border-surface-900 rounded-full" />
                                 )}
                             </div>
 

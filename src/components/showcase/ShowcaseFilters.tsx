@@ -109,7 +109,7 @@ export default function ShowcaseFilters({ filters, onFiltersChange }: ShowcaseFi
                     className={`
                         flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors
                         ${isTagsOpen || (filters.tagIds && filters.tagIds.length > 0)
-                            ? 'bg-primary-50 dark:bg-primary-900/30 border-primary-300 dark:border-primary-700 text-primary-600 dark:text-primary-400'
+                            ? 'bg-primary-50 dark:bg-primary-900 border-primary-300 dark:border-primary-700 text-primary-600 dark:text-primary-400'
                             : 'bg-white dark:bg-surface-800 border-surface-200 dark:border-surface-700 text-surface-700 dark:text-surface-300 hover:border-surface-300'
                         }
                     `}
@@ -143,14 +143,14 @@ export default function ShowcaseFilters({ filters, onFiltersChange }: ShowcaseFi
                         key={category.value}
                         onClick={() => handleCategoryChange(category.value)}
                         className={`
-                            px-3 py-1.5 rounded-full text-sm font-medium transition-colors
+                            inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors
                             ${filters.category === category.value
-                                ? 'text-white'
+                                ? 'bg-primary-600 text-white'
                                 : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700'
                             }
                         `}
-                        style={filters.category === category.value ? { backgroundColor: category.color } : undefined}
                     >
+                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: category.color }} aria-hidden="true" />
                         {category.label}
                     </button>
                 ))}

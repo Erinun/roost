@@ -348,7 +348,7 @@ export default function Settings() {
                                     className={`
                                         w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors
                                         ${isActive
-                                            ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400'
+                                            ? 'bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-400'
                                             : 'text-surface-600 dark:text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-800'
                                         }
                                     `}
@@ -365,7 +365,7 @@ export default function Settings() {
                 <div className="flex-1 min-w-0">
                     {/* Profile Tab */}
                     {activeTab === 'profile' && (
-                        <div className="card shadow-none p-6 sm:p-8">
+                        <div className="card p-6 sm:p-8">
                             <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
                                 Profilinformation
                             </h2>
@@ -375,7 +375,7 @@ export default function Settings() {
                                 <h3 className="font-medium text-surface-900 dark:text-surface-100 mb-3">
                                     Omslagsbild
                                 </h3>
-                                <div className="relative w-full h-48 rounded-xl overflow-hidden bg-gradient-to-br from-primary-400 to-primary-600">
+                                <div className="relative w-full h-48 rounded-xl overflow-hidden bg-gradient-blue">
                                     {coverUrl && (
                                         <img
                                             src={coverUrl}
@@ -384,7 +384,7 @@ export default function Settings() {
                                         />
                                     )}
                                     {isCoverUploading && (
-                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                        <div className="absolute inset-0 bg-surface-950/40 flex items-center justify-center">
                                             <Loader2 className="w-8 h-8 animate-spin text-white" />
                                         </div>
                                     )}
@@ -404,7 +404,7 @@ export default function Settings() {
                                             <button
                                                 onClick={handleRemoveCover}
                                                 disabled={isCoverUploading}
-                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-500/90 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition-colors"
+                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-error-strong text-white text-sm font-medium rounded-lg hover:bg-error-strong/90 transition-colors"
                                             >
                                                 <Trash2 className="w-4 h-4" />
                                                 <span>Ta bort</span>
@@ -440,7 +440,7 @@ export default function Settings() {
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 {/* Error message */}
                                 {error && (
-                                    <div className="p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg text-sm flex items-center gap-2">
+                                    <div className="alert-error items-center">
                                         <AlertCircle className="w-4 h-4 flex-shrink-0" />
                                         <span>{error}</span>
                                     </div>
@@ -448,7 +448,7 @@ export default function Settings() {
 
                                 {/* Success message */}
                                 {isSaved && (
-                                    <div className="p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-lg text-sm flex items-center gap-2">
+                                    <div className="alert-success items-center">
                                         <Check className="w-4 h-4" />
                                         <span>Profilen har sparats!</span>
                                     </div>
@@ -502,13 +502,13 @@ export default function Settings() {
                                                     <Loader2 className="w-4 h-4 animate-spin text-surface-400" />
                                                 )}
                                                 {usernameStatus === 'available' && (
-                                                    <Check className="w-4 h-4 text-green-500" />
+                                                    <Check className="w-4 h-4 text-success" />
                                                 )}
                                                 {usernameStatus === 'taken' && (
-                                                    <X className="w-4 h-4 text-red-500" />
+                                                    <X className="w-4 h-4 text-error" />
                                                 )}
                                                 {usernameStatus === 'invalid' && (
-                                                    <AlertCircle className="w-4 h-4 text-yellow-500" />
+                                                    <AlertCircle className="w-4 h-4 text-surface-700 dark:text-warning" />
                                                 )}
                                             </div>
                                         </div>
@@ -608,7 +608,7 @@ export default function Settings() {
                     {activeTab === 'account' && (
                         <div className="space-y-6">
                             {/* Email Section */}
-                            <div className="card shadow-none p-6 sm:p-8">
+                            <div className="card p-6 sm:p-8">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
                                     E-postadress
                                 </h2>
@@ -627,7 +627,7 @@ export default function Settings() {
                             </div>
 
                             {/* Security Section */}
-                            <div className="card shadow-none p-6 sm:p-8">
+                            <div className="card p-6 sm:p-8">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
                                     Säkerhet
                                 </h2>
@@ -651,8 +651,8 @@ export default function Settings() {
                                     <div className="flex items-center justify-between p-4 bg-surface-50 dark:bg-surface-800 rounded-lg">
                                         <div className="flex items-center gap-3">
                                             {is2FAEnabled ? (
-                                                <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                                                    <ShieldCheck className="w-5 h-5 text-green-600 dark:text-green-400" />
+                                                <div className="p-2 bg-success/15 dark:bg-success/20 rounded-lg">
+                                                    <ShieldCheck className="w-5 h-5 text-surface-900 dark:text-success" />
                                                 </div>
                                             ) : (
                                                 <div className="p-2 bg-surface-200 dark:bg-surface-700 rounded-lg">
@@ -676,14 +676,14 @@ export default function Settings() {
                                         ) : is2FAEnabled ? (
                                             <button
                                                 onClick={() => setIs2FADisableModalOpen(true)}
-                                                className="px-4 py-2 text-sm font-medium text-red-600 dark:text-red-400 border border-red-300 dark:border-red-800 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                                                className="px-4 py-2 min-h-11 text-sm font-medium text-error-strong dark:text-error-soft border border-error/60 rounded-lg hover:bg-error/10 dark:hover:bg-error/20 transition-colors"
                                             >
                                                 Inaktivera 2FA
                                             </button>
                                         ) : (
                                             <button
                                                 onClick={() => setIs2FASetupModalOpen(true)}
-                                                className="px-4 py-2 text-sm font-medium text-green-600 dark:text-green-400 border border-green-300 dark:border-green-800 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors"
+                                                className="px-4 py-2 min-h-11 text-sm font-medium text-surface-900 dark:text-success border border-success/60 rounded-lg hover:bg-success/10 dark:hover:bg-success/20 transition-colors"
                                             >
                                                 Aktivera 2FA
                                             </button>
@@ -693,14 +693,14 @@ export default function Settings() {
                             </div>
 
                             {/* Danger Zone */}
-                            <div className="card shadow-none p-6 sm:p-8 border-red-200 dark:border-red-900">
-                                <h2 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-4">
+                            <div className="card p-6 sm:p-8 border-error/60 dark:border-error/60">
+                                <h2 className="text-lg font-semibold text-error-strong dark:text-error-soft mb-4">
                                     Farozon
                                 </h2>
                                 <p className="text-sm text-surface-500 dark:text-surface-400 mb-4">
                                     När du har tagit bort ditt konto går det inte att ångra. Var helt säker.
                                 </p>
-                                <button className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors">
+                                <button className="btn-danger text-sm">
                                     Ta bort konto
                                 </button>
                             </div>
@@ -709,7 +709,7 @@ export default function Settings() {
 
                     {/* Subscription Tab */}
                     {activeTab === 'subscription' && (
-                        <div className="card shadow-none p-6 sm:p-8">
+                        <div className="card p-6 sm:p-8">
                             <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-6">
                                 Prenumerationsstatus
                             </h2>
@@ -731,7 +731,7 @@ export default function Settings() {
                                         'Prioriterad support',
                                     ].map((benefit, index) => (
                                         <li key={index} className="flex items-center gap-3 text-sm text-surface-600 dark:text-surface-400">
-                                            <Check className="w-4 h-4 text-green-500 flex-shrink-0" />
+                                            <Check className="w-4 h-4 text-success flex-shrink-0" />
                                             {benefit}
                                         </li>
                                     ))}
@@ -747,7 +747,7 @@ export default function Settings() {
                                         // User may not have a Stripe customer yet
                                     }
                                 }}
-                                className="mt-6 inline-flex items-center gap-2 px-4 py-2 text-sm bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors"
+                                className="mt-6 btn-primary text-sm"
                             >
                                 Hantera prenumeration
                             </button>
@@ -761,7 +761,7 @@ export default function Settings() {
                     {activeTab === 'notifications' && (
                         <div className="space-y-6">
                             {/* Email Notifications */}
-                            <div className="card shadow-none p-6 sm:p-8">
+                            <div className="card p-6 sm:p-8">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-2">
                                     E-postnotiser
                                 </h2>
@@ -777,7 +777,7 @@ export default function Settings() {
                                     <>
                                         {/* Error message */}
                                         {prefsError && (
-                                            <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg text-sm flex items-center gap-2">
+                                            <div className="alert-error mb-4 items-center">
                                                 <AlertCircle className="w-4 h-4 flex-shrink-0" />
                                                 <span>{prefsError}</span>
                                             </div>
@@ -785,7 +785,7 @@ export default function Settings() {
 
                                         {/* Success message */}
                                         {prefsSaved && (
-                                            <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-lg text-sm flex items-center gap-2">
+                                            <div className="alert-success mb-4 items-center">
                                                 <Check className="w-4 h-4" />
                                                 <span>Notisinställningarna har sparats!</span>
                                             </div>
@@ -825,7 +825,7 @@ export default function Settings() {
                             </div>
 
                             {/* In-App Notifications */}
-                            <div className="card shadow-none p-6 sm:p-8">
+                            <div className="card p-6 sm:p-8">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-2">
                                     Notiser i appen
                                 </h2>

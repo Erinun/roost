@@ -61,8 +61,8 @@ export default function ShowcaseVoteButton({
                 className={`
                     flex items-center w-full justify-center gap-2 px-8 py-3 rounded-lg font-medium transition-all whitespace-nowrap
                     ${localHasVoted
-                        ? 'bg-purple-600 text-white hover:bg-purple-700'
-                        : 'bg-orange-500 text-white hover:bg-orange-600'
+                        ? 'bg-brand-teal text-surface-900 hover:opacity-90'
+                        : 'bg-primary-600 text-white hover:bg-primary-700'
                     }
                     ${isVoting ? 'opacity-50 cursor-not-allowed' : ''}
                     ${!user ? 'opacity-50 cursor-not-allowed' : ''}
@@ -97,7 +97,7 @@ export default function ShowcaseVoteButton({
                 flex items-center w-full gap-2 rounded-lg border font-medium transition-all
                 ${sizeClasses[size]}
                 ${localHasVoted
-                    ? 'bg-primary-50 dark:bg-primary-900/30 border-primary-300 dark:border-primary-700 text-primary-600 dark:text-primary-400'
+                    ? 'bg-primary-50 dark:bg-primary-900 border-primary-300 dark:border-primary-700 text-primary-600 dark:text-primary-400'
                     : 'bg-white dark:bg-surface-800 border-surface-200 dark:border-surface-700 text-surface-700 dark:text-surface-300 hover:border-primary-300 dark:hover:border-primary-600 hover:text-primary-600 dark:hover:text-primary-400'
                 }
                 ${isVoting ? 'opacity-50 cursor-not-allowed' : ''}

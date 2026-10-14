@@ -21,7 +21,7 @@ export default function ShowcaseCard({ showcase, onVote, isVoting }: ShowcaseCar
     return (
         <Link
             to={`/showcase/${showcase.id}`}
-            className="card p-4 shadow-none hover:shadow-elevated transition-all duration-200 group block"
+            className="card-hover p-4 group block"
         >
             {/* Thumbnail */}
             <div className="relative aspect-video mb-4 rounded-lg overflow-hidden bg-surface-100 dark:bg-surface-800">
@@ -38,15 +38,14 @@ export default function ShowcaseCard({ showcase, onVote, isVoting }: ShowcaseCar
                 )}
                 {/* Featured badge */}
                 {showcase.is_featured && (
-                    <div className="absolute top-2 left-2 px-2 py-1 bg-purple-600 text-white text-xs font-medium rounded-full">
+                    <div className="absolute top-2 left-2 px-2 py-1 bg-brand-purple text-white text-xs font-medium rounded-full">
                         Utvald
                     </div>
                 )}
-                {/* Category badge */}
-                <div
-                    className="absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full backdrop-blur-sm"
-                    style={{ backgroundColor: categoryInfo.color, color: 'white' }}
-                >
+                {/* Category badge: ljus panel med mörk text + kategorifärg som dekorprick
+                    (kategorifärgerna får inte bära vit text – kontrastregel) */}
+                <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded-full backdrop-blur-sm bg-white/90 dark:bg-surface-900/90 text-surface-900 dark:text-surface-50">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: categoryInfo.color }} aria-hidden="true" />
                     {categoryInfo.label}
                 </div>
             </div>
@@ -68,8 +67,8 @@ export default function ShowcaseCard({ showcase, onVote, isVoting }: ShowcaseCar
                             {showcase.tags.slice(0, 3).map((tag) => (
                                 <span
                                     key={tag.id}
-                                    className="text-xs px-2 py-0.5 rounded-full"
-                                    style={{ backgroundColor: `${tag.color ?? '#6b7280'}20`, color: tag.color ?? undefined }}
+                                    className="text-xs px-2 py-0.5 rounded-full bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-200"
+                                    style={tag.color ? { backgroundColor: `${tag.color}20`, color: tag.color } : undefined}
                                 >
                                     {tag.name}
                                 </span>
@@ -91,7 +90,7 @@ export default function ShowcaseCard({ showcase, onVote, isVoting }: ShowcaseCar
                                     className="w-5 h-5 rounded-full object-cover"
                                 />
                             ) : (
-                                <div className="w-5 h-5 rounded-full bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-xs text-primary-600 dark:text-primary-400 font-medium">
+                                <div className="w-5 h-5 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-xs text-primary-600 dark:text-primary-400 font-medium">
                                     {showcase.author.display_name?.charAt(0) || '?'}
                                 </div>
                             )}
@@ -110,8 +109,8 @@ export default function ShowcaseCard({ showcase, onVote, isVoting }: ShowcaseCar
 
                         {/* Rating */}
                         {showcase.average_rating > 0 && (
-                            <div className="flex items-center gap-1 text-xs text-amber-500">
-                                <Star className="w-3.5 h-3.5 fill-current" />
+                            <div className="flex items-center gap-1 text-xs text-surface-600 dark:text-surface-300">
+                                <Star className="w-3.5 h-3.5 text-brand-orange fill-brand-orange" />
                                 <span>{showcase.average_rating.toFixed(1)}</span>
                             </div>
                         )}
@@ -125,7 +124,7 @@ export default function ShowcaseCard({ showcase, onVote, isVoting }: ShowcaseCar
                     className={`
                         flex flex-col items-center justify-center w-14 h-14 rounded-lg border transition-all flex-shrink-0
                         ${showcase.user_has_voted
-                            ? 'bg-primary-50 dark:bg-primary-900/30 border-primary-300 dark:border-primary-700 text-primary-600 dark:text-primary-400'
+                            ? 'bg-primary-50 dark:bg-primary-900 border-primary-300 dark:border-primary-700 text-primary-600 dark:text-primary-400'
                             : 'bg-surface-50 dark:bg-surface-800 border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-400 hover:border-primary-300 dark:hover:border-primary-600 hover:text-primary-600 dark:hover:text-primary-400'
                         }
                         ${isVoting ? 'opacity-50 cursor-not-allowed' : ''}
