@@ -142,14 +142,14 @@ export default function AdminBackups() {
                 <div
                     className={`p-4 rounded-lg flex items-center gap-3 ${
                         backupResult.type === 'success'
-                            ? 'bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-400 border border-green-200 dark:border-green-800'
-                            : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-400 border border-red-200 dark:border-red-800'
+                            ? 'bg-success/10 dark:bg-success/15 text-surface-900 dark:text-surface-50 border border-success/40'
+                            : 'bg-error/10 dark:bg-error/20 text-surface-900 dark:text-error-soft border border-error/60'
                     }`}
                 >
                     {backupResult.type === 'success' ? (
-                        <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-surface-900 dark:text-success flex-shrink-0" />
                     ) : (
-                        <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                        <XCircle className="w-5 h-5 text-error-strong dark:text-error-soft flex-shrink-0" />
                     )}
                     <div>
                         <p className="font-medium">{backupResult.message}</p>
@@ -166,8 +166,8 @@ export default function AdminBackups() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
                     <div className="flex items-center gap-3">
-                        <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                            <Database className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                        <div className="p-3 bg-primary-100 dark:bg-primary-900 rounded-lg">
+                            <Database className="w-6 h-6 text-primary-600 dark:text-primary-300" />
                         </div>
                         <div>
                             <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{backups.length}</p>
@@ -178,8 +178,8 @@ export default function AdminBackups() {
 
                 <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
                     <div className="flex items-center gap-3">
-                        <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                            <HardDrive className="w-6 h-6 text-green-600 dark:text-green-400" />
+                        <div className="p-3 bg-success/15 dark:bg-success/20 rounded-lg">
+                            <HardDrive className="w-6 h-6 text-surface-900 dark:text-success" />
                         </div>
                         <div>
                             <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">
@@ -192,8 +192,8 @@ export default function AdminBackups() {
 
                 <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
                     <div className="flex items-center gap-3">
-                        <div className="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
-                            <Clock className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+                        <div className="p-3 bg-warning/20 dark:bg-warning/20 rounded-lg">
+                            <Clock className="w-6 h-6 text-surface-900 dark:text-warning" />
                         </div>
                         <div>
                             <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">
@@ -212,7 +212,7 @@ export default function AdminBackups() {
                     <button
                         onClick={handleTriggerBackup}
                         disabled={isBackingUp}
-                        className="flex min-w-[300px] items-center justify-center gap-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg disabled:opacity-50 transition-colors font-medium"
+                        className="flex min-w-[300px] items-center justify-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg disabled:opacity-50 transition-colors font-medium"
                     >
                         {isBackingUp ? (
                             <>
@@ -233,10 +233,10 @@ export default function AdminBackups() {
                 </div>
 
                 {/* Auto-backup info */}
-                <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                <div className="mt-4 p-4 bg-info/10 dark:bg-info/15 rounded-lg border border-info/40">
                     <div className="flex items-start gap-3">
-                        <AlertTriangle className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-                        <div className="text-sm text-blue-800 dark:text-blue-300">
+                        <AlertTriangle className="w-5 h-5 text-info flex-shrink-0 mt-0.5" />
+                        <div className="text-sm text-surface-900 dark:text-surface-50">
                             <p className="font-medium">Automatiska säkerhetskopior</p>
                             <p className="mt-1 opacity-80">
                                 Säkerhetskopior skapas automatiskt före varje driftsättning. Systemet behåller de 30 senaste säkerhetskopiorna.
@@ -285,7 +285,7 @@ export default function AdminBackups() {
                                     <tr
                                         key={backup.filename}
                                         className={`border-b border-surface-100 dark:border-surface-800 ${
-                                            index === 0 ? 'bg-green-50/50 dark:bg-green-900/10' : ''
+                                            index === 0 ? 'bg-success/5 dark:bg-success/10' : ''
                                         }`}
                                     >
                                         <td className="py-3 px-4">
@@ -295,7 +295,7 @@ export default function AdminBackups() {
                                                     {backup.filename}
                                                 </code>
                                                 {index === 0 && (
-                                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-success/15 text-surface-900 dark:bg-success/20 dark:text-success">
                                                         Senaste
                                                     </span>
                                                 )}
@@ -320,7 +320,7 @@ export default function AdminBackups() {
                                             <button
                                                 onClick={() => handleDownload(backup.filename)}
                                                 disabled={downloadingFile === backup.filename}
-                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-lg transition-colors disabled:opacity-50"
+                                                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-primary-600 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900 rounded-lg transition-colors disabled:opacity-50"
                                                 title="Ladda ner säkerhetskopia"
                                             >
                                                 {downloadingFile === backup.filename ? (

@@ -18,17 +18,17 @@ import {
 } from 'lucide-react';
 import type { FeatureAccess } from '@/contexts/SiteSettingsContext';
 
+// Förval ur Aktiespararnas grafiska profil 2023 (se docs/redesign/designsystem.md)
 const COLOR_PRESETS = [
-    { name: 'Himmelsblå', value: '#0ea5e9' },
-    { name: 'Indigo', value: '#6366f1' },
-    { name: 'Smaragdgrön', value: '#10b981' },
-    { name: 'Rosenröd', value: '#f43f5e' },
-    { name: 'Bärnsten', value: '#f59e0b' },
-    { name: 'Lila', value: '#8b5cf6' },
-    { name: 'Blågrön', value: '#14b8a6' },
-    { name: 'Orange', value: '#f97316' },
-    { name: 'Cyan', value: '#06b6d4' },
-    { name: 'Skiffergrå', value: '#64748b' },
+    { name: 'Blå', value: '#185DA9' },
+    { name: 'Himmelsblå', value: '#159EDA' },
+    { name: 'Blågrön', value: '#32D7CD' },
+    { name: 'Lila', value: '#652FA0' },
+    { name: 'Plommonlila', value: '#973B8E' },
+    { name: 'Rosa', value: '#EE0181' },
+    { name: 'Röd', value: '#EC5345' },
+    { name: 'Orange', value: '#F5A118' },
+    { name: 'Gul', value: '#FBC231' },
 ];
 
 export default function AdminSiteSettings() {
@@ -100,7 +100,7 @@ export default function AdminSiteSettings() {
                 <button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
                 >
                     {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                     Spara ändringar
@@ -111,8 +111,8 @@ export default function AdminSiteSettings() {
             {message && (
                 <div className={`flex items-center gap-2 p-3 rounded-lg text-sm ${
                     message.type === 'success'
-                        ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800'
-                        : 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800'
+                        ? 'bg-success/10 dark:bg-success/15 text-surface-900 dark:text-surface-50 border border-success/40'
+                        : 'bg-error/10 dark:bg-error/20 text-surface-900 dark:text-error-soft border border-error/60'
                 }`}>
                     {message.type === 'success' ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
                     {message.text}
@@ -280,7 +280,7 @@ export default function AdminSiteSettings() {
                                     title={preset.name}
                                 >
                                     <span
-                                        className="w-4 h-4 rounded-full border border-black/10"
+                                        className="w-4 h-4 rounded-full border border-surface-900/10"
                                         style={{ backgroundColor: preset.value }}
                                     />
                                     {preset.name}
@@ -310,7 +310,7 @@ export default function AdminSiteSettings() {
                                 }
                             }}
                             className="w-28 px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-sm font-mono"
-                            placeholder="#0ea5e9"
+                            placeholder="#185DA9"
                         />
                         {/* Preview */}
                         <div className="flex items-center gap-2 ml-4">

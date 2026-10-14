@@ -39,10 +39,10 @@ import type { ActivationProduct, ActivationRequestStatus } from '@/types/databas
 // Status badge helper
 function StatusBadge({ status }: { status: ActivationRequestStatus }) {
     const config = {
-        pending: { label: 'Väntar', color: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400', icon: Clock },
-        in_progress: { label: 'Pågår', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400', icon: Loader2 },
-        completed: { label: 'Slutförd', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400', icon: CheckCircle },
-        rejected: { label: 'Avslagen', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400', icon: XCircle },
+        pending: { label: 'Väntar', color: 'bg-warning/20 text-surface-900 dark:bg-warning/20 dark:text-warning', icon: Clock },
+        in_progress: { label: 'Pågår', color: 'bg-info/15 text-surface-900 dark:bg-info/20 dark:text-info', icon: Loader2 },
+        completed: { label: 'Slutförd', color: 'bg-success/15 text-surface-900 dark:bg-success/20 dark:text-success', icon: CheckCircle },
+        rejected: { label: 'Avslagen', color: 'bg-error/15 text-surface-900 dark:bg-error/20 dark:text-error-soft', icon: XCircle },
     };
     const { label, color, icon: Icon } = config[status] || config.pending;
 
@@ -333,8 +333,8 @@ export default function AdminActivations() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                            <Package className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <div className="p-2 bg-primary-100 dark:bg-primary-900 rounded-lg">
+                            <Package className="w-5 h-5 text-primary-600 dark:text-primary-300" />
                         </div>
                         <div>
                             <p className="text-xl font-bold text-surface-900 dark:text-surface-100">{stats?.total_products || 0}</p>
@@ -345,8 +345,8 @@ export default function AdminActivations() {
 
                 <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
-                            <Clock className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+                        <div className="p-2 bg-warning/20 dark:bg-warning/20 rounded-lg">
+                            <Clock className="w-5 h-5 text-surface-900 dark:text-warning" />
                         </div>
                         <div>
                             <p className="text-xl font-bold text-surface-900 dark:text-surface-100">{stats?.pending_requests || 0}</p>
@@ -357,8 +357,8 @@ export default function AdminActivations() {
 
                 <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                            <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                        <div className="p-2 bg-success/15 dark:bg-success/20 rounded-lg">
+                            <CheckCircle className="w-5 h-5 text-surface-900 dark:text-success" />
                         </div>
                         <div>
                             <p className="text-xl font-bold text-surface-900 dark:text-surface-100">{stats?.completed_this_month || 0}</p>
@@ -369,8 +369,8 @@ export default function AdminActivations() {
 
                 <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                            <Key className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                        <div className="p-2 bg-brand-purple rounded-lg">
+                            <Key className="w-5 h-5 text-white" />
                         </div>
                         <div>
                             <p className="text-xl font-bold text-surface-900 dark:text-surface-100">{stats?.total_requests || 0}</p>
@@ -387,13 +387,13 @@ export default function AdminActivations() {
                         onClick={() => setActiveTab('requests')}
                         className={`pb-3 px-1 border-b-2 transition-colors ${
                             activeTab === 'requests'
-                                ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                                ? 'border-primary-500 text-primary-600 dark:text-primary-300'
                                 : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'
                         }`}
                     >
                         Förfrågningar
                         {(stats?.pending_requests || 0) > 0 && (
-                            <span className="ml-2 px-2 py-0.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-full text-xs">
+                            <span className="ml-2 px-2 py-0.5 bg-warning/20 text-surface-900 dark:bg-warning/20 dark:text-warning rounded-full text-xs">
                                 {stats?.pending_requests}
                             </span>
                         )}
@@ -402,7 +402,7 @@ export default function AdminActivations() {
                         onClick={() => setActiveTab('products')}
                         className={`pb-3 px-1 border-b-2 transition-colors ${
                             activeTab === 'products'
-                                ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                                ? 'border-primary-500 text-primary-600 dark:text-primary-300'
                                 : 'border-transparent text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'
                         }`}
                     >
@@ -470,7 +470,7 @@ export default function AdminActivations() {
                                                         {request.user?.avatar_url ? (
                                                             <img src={request.user.avatar_url} alt="" className="w-8 h-8 rounded-full" />
                                                         ) : (
-                                                            <div className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 text-sm font-medium">
+                                                            <div className="w-8 h-8 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-300 text-sm font-medium">
                                                                 {request.user?.display_name?.[0] || '?'}
                                                             </div>
                                                         )}
@@ -488,7 +488,7 @@ export default function AdminActivations() {
                                                         href={request.website_url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="text-primary-600 dark:text-primary-400 hover:underline text-sm flex items-center gap-1"
+                                                        className="text-primary-600 dark:text-primary-300 hover:underline text-sm flex items-center gap-1"
                                                     >
                                                         {new URL(request.website_url).hostname}
                                                         <ExternalLink className="w-3 h-3" />
@@ -509,7 +509,7 @@ export default function AdminActivations() {
                                                                 admin_notes: request.admin_notes || '',
                                                             });
                                                         }}
-                                                        className="px-3 py-1.5 bg-primary-500 hover:bg-primary-600 text-white text-sm rounded-lg transition-colors"
+                                                        className="px-3 py-1.5 bg-primary-600 hover:bg-primary-700 text-white text-sm rounded-lg transition-colors"
                                                     >
                                                         {request.status === 'completed' || request.status === 'rejected' ? 'Visa' : 'Behandla'}
                                                     </button>
@@ -556,7 +556,7 @@ export default function AdminActivations() {
                     {!showProductForm && !editingProduct && (
                         <button
                             onClick={() => setShowProductForm(true)}
-                            className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors"
+                            className="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors"
                         >
                             <Plus className="w-4 h-4" />
                             Lägg till produkt
@@ -637,9 +637,9 @@ export default function AdminActivations() {
                                         Plugin-/temafil
                                     </label>
                                     {(productForm.file_url || productFile) ? (
-                                        <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                                            <FileDown className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-                                            <span className="text-sm text-green-800 dark:text-green-300 truncate flex-1">
+                                        <div className="flex items-center gap-3 p-3 bg-success/10 dark:bg-success/15 border border-success/40 rounded-lg">
+                                            <FileDown className="w-5 h-5 text-surface-900 dark:text-success flex-shrink-0" />
+                                            <span className="text-sm text-surface-900 dark:text-surface-50 truncate flex-1">
                                                 {productFile?.name || productForm.file_name || 'Uppladdad fil'}
                                             </span>
                                             <button
@@ -648,7 +648,7 @@ export default function AdminActivations() {
                                                     setProductFile(null);
                                                     setProductForm({ ...productForm, file_url: '', file_name: '' });
                                                 }}
-                                                className="p-1 hover:bg-green-200 dark:hover:bg-green-800 rounded transition-colors text-green-600 dark:text-green-400"
+                                                className="p-1 hover:bg-success/20 dark:hover:bg-success/30 rounded transition-colors text-surface-900 dark:text-success"
                                                 title="Ta bort fil"
                                             >
                                                 <X className="w-4 h-4" />
@@ -680,7 +680,7 @@ export default function AdminActivations() {
                                 <button
                                     onClick={editingProduct ? handleUpdateProduct : handleCreateProduct}
                                     disabled={saving || !productForm.name.trim()}
-                                    className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg disabled:opacity-50 transition-colors"
+                                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg disabled:opacity-50 transition-colors"
                                 >
                                     {saving && <Loader2 className="w-4 h-4 animate-spin" />}
                                     {!saving && <Check className="w-4 h-4" />}
@@ -717,12 +717,12 @@ export default function AdminActivations() {
                                             <div className="flex items-center gap-4">
                                                 <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                                                     product.is_active
-                                                        ? 'bg-primary-100 dark:bg-primary-900/30'
+                                                        ? 'bg-primary-100 dark:bg-primary-900'
                                                         : 'bg-surface-100 dark:bg-surface-800'
                                                 }`}>
                                                     <Package className={`w-5 h-5 ${
                                                         product.is_active
-                                                            ? 'text-primary-600 dark:text-primary-400'
+                                                            ? 'text-primary-600 dark:text-primary-300'
                                                             : 'text-surface-400'
                                                     }`} />
                                                 </div>
@@ -747,7 +747,7 @@ export default function AdminActivations() {
                                                     onClick={() => handleToggleProductActive(product)}
                                                     className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
                                                         product.is_active
-                                                            ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 hover:bg-green-200'
+                                                            ? 'bg-success/15 text-surface-900 dark:bg-success/20 dark:text-success hover:bg-success/25'
                                                             : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200'
                                                     }`}
                                                 >
@@ -762,10 +762,10 @@ export default function AdminActivations() {
                                                 </button>
                                                 <button
                                                     onClick={() => handleDeleteProduct(product.id)}
-                                                    className="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                                    className="p-2 hover:bg-error/10 dark:hover:bg-error/20 rounded-lg transition-colors"
                                                     title="Ta bort"
                                                 >
-                                                    <Trash2 className="w-4 h-4 text-red-500 dark:text-red-400" />
+                                                    <Trash2 className="w-4 h-4 text-error-strong dark:text-error-soft" />
                                                 </button>
                                             </div>
                                         </div>
@@ -779,8 +779,8 @@ export default function AdminActivations() {
 
             {/* Process Request Modal */}
             {selectedRequest && (
-                <div className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white dark:bg-surface-900 rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+                <div className="fixed inset-0 bg-surface-950/60 dark:bg-surface-950/80 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 shadow-elevated dark:shadow-elevated-dark w-full max-w-lg max-h-[90vh] overflow-y-auto">
                         <div className="p-6 border-b border-surface-200 dark:border-surface-700">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
@@ -804,7 +804,7 @@ export default function AdminActivations() {
                                 {selectedRequest.user?.avatar_url ? (
                                     <img src={selectedRequest.user.avatar_url} alt="" className="w-10 h-10 rounded-full" />
                                 ) : (
-                                    <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 font-medium">
+                                    <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900 flex items-center justify-center text-primary-600 dark:text-primary-300 font-medium">
                                         {selectedRequest.user?.display_name?.[0] || '?'}
                                     </div>
                                 )}
@@ -822,9 +822,9 @@ export default function AdminActivations() {
 
                             {/* License Key */}
                             {selectedRequest.product?.license_key && (
-                                <div className="p-3 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
+                                <div className="p-3 bg-accent-think/10 dark:bg-accent-think/20 border border-accent-think/40 rounded-lg">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium text-purple-800 dark:text-purple-400 flex items-center gap-2">
+                                        <span className="text-sm font-medium text-surface-900 dark:text-surface-50 flex items-center gap-2">
                                             <Key className="w-4 h-4" />
                                             Licensnyckel
                                         </span>
@@ -834,10 +834,10 @@ export default function AdminActivations() {
                                                 setCopiedField('license');
                                                 setTimeout(() => setCopiedField(null), 2000);
                                             }}
-                                            className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-100 dark:bg-purple-900/30 hover:bg-purple-200 dark:hover:bg-purple-800 text-purple-700 dark:text-purple-300 rounded-lg text-sm font-medium transition-colors"
+                                            className="flex items-center gap-1.5 px-3 py-1.5 bg-accent-think/15 dark:bg-accent-think/25 hover:bg-accent-think/25 dark:hover:bg-accent-think/35 text-brand-plum dark:text-surface-50 rounded-lg text-sm font-medium transition-colors"
                                             title="Kopiera licensnyckel"
                                         >
-                                            {copiedField === 'license' ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
+                                            {copiedField === 'license' ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
                                             {copiedField === 'license' ? 'Kopierad!' : 'Kopiera'}
                                         </button>
                                     </div>
@@ -851,7 +851,7 @@ export default function AdminActivations() {
                                     href={selectedRequest.website_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-primary-600 dark:text-primary-400 hover:underline flex items-center gap-1"
+                                    className="text-primary-600 dark:text-primary-300 hover:underline flex items-center gap-1"
                                 >
                                     {selectedRequest.website_url}
                                     <ExternalLink className="w-4 h-4" />
@@ -859,16 +859,16 @@ export default function AdminActivations() {
                             </div>
 
                             {/* Credentials */}
-                            <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-                                <p className="text-sm font-medium text-yellow-800 dark:text-yellow-400 mb-3 flex items-center gap-2">
+                            <div className="p-4 bg-warning/10 dark:bg-warning/15 border border-warning/50 rounded-lg">
+                                <p className="text-sm font-medium text-surface-900 dark:text-warning mb-3 flex items-center gap-2">
                                     <AlertCircle className="w-4 h-4" />
                                     WordPress-inloggningsuppgifter
                                 </p>
                                 <div className="space-y-2">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-yellow-700 dark:text-yellow-500">Användarnamn:</span>
+                                        <span className="text-sm text-surface-700 dark:text-warning">Användarnamn:</span>
                                         <div className="flex items-center gap-2">
-                                            <code className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-900 dark:text-yellow-300 rounded text-sm">
+                                            <code className="px-2 py-1 bg-warning/20 dark:bg-warning/20 text-surface-900 dark:text-warning rounded text-sm">
                                                 {selectedRequest.wp_username}
                                             </code>
                                             <button
@@ -877,17 +877,17 @@ export default function AdminActivations() {
                                                     setCopiedField('username');
                                                     setTimeout(() => setCopiedField(null), 2000);
                                                 }}
-                                                className="p-1 hover:bg-yellow-200 dark:hover:bg-yellow-800 rounded transition-colors"
+                                                className="p-1 hover:bg-warning/30 dark:hover:bg-warning/30 rounded transition-colors"
                                                 title="Kopiera användarnamn"
                                             >
-                                                {copiedField === 'username' ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
+                                                {copiedField === 'username' ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
                                             </button>
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-yellow-700 dark:text-yellow-500">Lösenord:</span>
+                                        <span className="text-sm text-surface-700 dark:text-warning">Lösenord:</span>
                                         <div className="flex items-center gap-2">
-                                            <code className="px-2 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-900 dark:text-yellow-300 rounded text-sm">
+                                            <code className="px-2 py-1 bg-warning/20 dark:bg-warning/20 text-surface-900 dark:text-warning rounded text-sm">
                                                 {showPassword ? selectedRequest.wp_password : '••••••••'}
                                             </code>
                                             <button
@@ -896,14 +896,14 @@ export default function AdminActivations() {
                                                     setCopiedField('password');
                                                     setTimeout(() => setCopiedField(null), 2000);
                                                 }}
-                                                className="p-1 hover:bg-yellow-200 dark:hover:bg-yellow-800 rounded transition-colors"
+                                                className="p-1 hover:bg-warning/30 dark:hover:bg-warning/30 rounded transition-colors"
                                                 title="Kopiera lösenord"
                                             >
-                                                {copiedField === 'password' ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
+                                                {copiedField === 'password' ? <Check className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
                                             </button>
                                             <button
                                                 onClick={() => setShowPassword(!showPassword)}
-                                                className="p-1 hover:bg-yellow-200 dark:hover:bg-yellow-800 rounded transition-colors"
+                                                className="p-1 hover:bg-warning/30 dark:hover:bg-warning/30 rounded transition-colors"
                                                 title={showPassword ? 'Dölj lösenord' : 'Visa lösenord'}
                                             >
                                                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -980,7 +980,7 @@ export default function AdminActivations() {
                                 <button
                                     onClick={handleProcessRequest}
                                     disabled={processing}
-                                    className="flex items-center gap-2 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg disabled:opacity-50 transition-colors"
+                                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg disabled:opacity-50 transition-colors"
                                 >
                                     {processing ? (
                                         <Loader2 className="w-4 h-4 animate-spin" />

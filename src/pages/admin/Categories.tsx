@@ -16,15 +16,16 @@ import {
 } from '../../services';
 import type { Category } from '../../types/database';
 
+// Kategorifärger ur Aktiespararnas grafiska profil 2023 (se docs/redesign/designsystem.md)
 const PRESET_COLORS = [
-    '#3B82F6', // Blue
-    '#10B981', // Green
-    '#8B5CF6', // Purple
-    '#F59E0B', // Orange
-    '#EF4444', // Red
-    '#EC4899', // Pink
-    '#14B8A6', // Teal
-    '#6366F1', // Indigo
+    '#185DA9', // Blå (brand-blue)
+    '#32D7CD', // Blågrön (brand-teal)
+    '#652FA0', // Lila (brand-purple)
+    '#F5A118', // Orange (brand-orange)
+    '#EC5345', // Röd (brand-red)
+    '#EE0181', // Rosa (brand-pink)
+    '#159EDA', // Himmelsblå (brand-sky)
+    '#973B8E', // Plommonlila (brand-plum)
 ];
 
 export default function AdminCategories() {
@@ -33,7 +34,7 @@ export default function AdminCategories() {
     const [editingId, setEditingId] = useState<string | null>(null);
     const [editForm, setEditForm] = useState({ name: '', color: '', icon: '' });
     const [isCreating, setIsCreating] = useState(false);
-    const [newCategory, setNewCategory] = useState({ name: '', color: '#3B82F6', icon: '' });
+    const [newCategory, setNewCategory] = useState({ name: '', color: '#185DA9', icon: '' });
     const [saving, setSaving] = useState(false);
 
     const loadCategories = async () => {
@@ -69,7 +70,7 @@ export default function AdminCategories() {
                 color: newCategory.color,
                 icon: newCategory.icon || undefined,
             });
-            setNewCategory({ name: '', color: '#3B82F6', icon: '' });
+            setNewCategory({ name: '', color: '#185DA9', icon: '' });
             setIsCreating(false);
             loadCategories();
         } catch (err) {
@@ -84,7 +85,7 @@ export default function AdminCategories() {
         setEditingId(category.id);
         setEditForm({
             name: category.name,
-            color: category.color || '#3B82F6',
+            color: category.color || '#185DA9',
             icon: category.icon || '',
         });
     };
@@ -127,13 +128,13 @@ export default function AdminCategories() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Kategorihantering</h1>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">Hantera kategorier för inlägg</p>
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Kategorihantering</h1>
+                    <p className="text-surface-500 dark:text-surface-400 mt-1">Hantera kategorier för inlägg</p>
                 </div>
                 {!isCreating && (
                     <button
                         onClick={() => setIsCreating(true)}
-                        className="flex items-center gap-2 px-4 py-2.5 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                     >
                         <Plus className="w-5 h-5" />
                         Lägg till kategori
@@ -143,27 +144,27 @@ export default function AdminCategories() {
 
             {/* Create Form */}
             {isCreating && (
-                <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Ny kategori</h3>
+                <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
+                    <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">Ny kategori</h3>
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Namn</label>
+                            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">Namn</label>
                             <input
                                 type="text"
                                 value={newCategory.name}
                                 onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
                                 placeholder="Kategorinamn"
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder:text-surface-400 dark:placeholder:text-surface-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Färg</label>
+                            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">Färg</label>
                             <div className="flex gap-2">
                                 {PRESET_COLORS.map((color) => (
                                     <button
                                         key={color}
                                         onClick={() => setNewCategory({ ...newCategory, color })}
-                                        className={`w-8 h-8 rounded-full border-2 transition-all ${newCategory.color === color ? 'border-gray-900 dark:border-gray-100 scale-110' : 'border-transparent'
+                                        className={`w-8 h-8 rounded-full border-2 transition-all ${newCategory.color === color ? 'border-surface-900 dark:border-surface-100 scale-110' : 'border-transparent'
                                             }`}
                                         style={{ backgroundColor: color }}
                                     />
@@ -177,20 +178,20 @@ export default function AdminCategories() {
                             </div>
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ikon (valfritt)</label>
+                            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">Ikon (valfritt)</label>
                             <input
                                 type="text"
                                 value={newCategory.icon}
                                 onChange={(e) => setNewCategory({ ...newCategory, icon: e.target.value })}
                                 placeholder="t.ex. 📚 eller ikonnamn"
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder:text-surface-400 dark:placeholder:text-surface-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                             />
                         </div>
                         <div className="flex gap-3">
                             <button
                                 onClick={handleCreate}
                                 disabled={saving || !newCategory.name.trim()}
-                                className="flex items-center gap-2 px-4 py-2 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors disabled:opacity-50"
+                                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50"
                             >
                                 <Check className="w-4 h-4" />
                                 {saving ? 'Skapar...' : 'Skapa'}
@@ -198,9 +199,9 @@ export default function AdminCategories() {
                             <button
                                 onClick={() => {
                                     setIsCreating(false);
-                                    setNewCategory({ name: '', color: '#3B82F6', icon: '' });
+                                    setNewCategory({ name: '', color: '#185DA9', icon: '' });
                                 }}
-                                className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-surface-800 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-surface-700 transition-colors"
+                                className="flex items-center gap-2 px-4 py-2 bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 rounded-lg font-medium hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
                             >
                                 <X className="w-4 h-4" />
                                 Avbryt
@@ -211,19 +212,19 @@ export default function AdminCategories() {
             )}
 
             {/* Categories List */}
-            <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 overflow-hidden">
+            <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 overflow-hidden">
                 {loading ? (
-                    <div className="p-8 text-center text-gray-500 dark:text-gray-400">Laddar...</div>
+                    <div className="p-8 text-center text-surface-500 dark:text-surface-400">Laddar...</div>
                 ) : categories.length === 0 ? (
-                    <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-                        <Tag className="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-3" />
+                    <div className="p-8 text-center text-surface-500 dark:text-surface-400">
+                        <Tag className="w-12 h-12 mx-auto text-surface-300 dark:text-surface-600 mb-3" />
                         <p>Inga kategorier ännu</p>
                         <p className="text-sm mt-1">Skapa din första kategori för att organisera inlägg</p>
                     </div>
                 ) : (
-                    <ul className="divide-y divide-gray-100 dark:divide-surface-700">
+                    <ul className="divide-y divide-surface-100 dark:divide-surface-700">
                         {categories.map((category) => (
-                            <li key={category.id} className="p-4 hover:bg-gray-50 dark:hover:bg-surface-800">
+                            <li key={category.id} className="p-4 hover:bg-surface-50 dark:hover:bg-surface-800">
                                 {editingId === category.id ? (
                                     <div className="space-y-3">
                                         <div className="flex gap-4">
@@ -231,7 +232,7 @@ export default function AdminCategories() {
                                                 type="text"
                                                 value={editForm.name}
                                                 onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                                                className="flex-1 px-3 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500"
+                                                className="flex-1 px-3 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 focus:ring-2 focus:ring-primary-500"
                                             />
                                             <input
                                                 type="color"
@@ -244,13 +245,13 @@ export default function AdminCategories() {
                                             <button
                                                 onClick={() => handleSaveEdit(category.id)}
                                                 disabled={saving}
-                                                className="px-3 py-1.5 bg-primary-500 text-white text-sm rounded-lg hover:bg-primary-600"
+                                                className="px-3 py-1.5 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700"
                                             >
                                                 Spara
                                             </button>
                                             <button
                                                 onClick={() => setEditingId(null)}
-                                                className="px-3 py-1.5 bg-gray-100 dark:bg-surface-800 text-gray-700 dark:text-gray-300 text-sm rounded-lg hover:bg-gray-200 dark:hover:bg-surface-700"
+                                                className="px-3 py-1.5 bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 text-sm rounded-lg hover:bg-surface-200 dark:hover:bg-surface-700"
                                             >
                                                 Avbryt
                                             </button>
@@ -258,32 +259,32 @@ export default function AdminCategories() {
                                     </div>
                                 ) : (
                                     <div className="flex items-center gap-4">
-                                        <GripVertical className="w-5 h-5 text-gray-300 dark:text-gray-600 cursor-move" />
+                                        <GripVertical className="w-5 h-5 text-surface-300 dark:text-surface-600 cursor-move" />
                                         <div
                                             className="w-4 h-4 rounded-full"
-                                            style={{ backgroundColor: category.color || '#666' }}
+                                            style={{ backgroundColor: category.color || 'var(--color-primary-600, #185DA9)' }}
                                         />
                                         <div className="flex-1">
-                                            <p className="font-medium text-gray-900 dark:text-gray-100">
+                                            <p className="font-medium text-surface-900 dark:text-surface-100">
                                                 {category.icon && <span className="mr-2">{category.icon}</span>}
                                                 {category.name}
                                             </p>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">/{category.slug}</p>
+                                            <p className="text-sm text-surface-500 dark:text-surface-400">/{category.slug}</p>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <button
                                                 onClick={() => handleEdit(category)}
-                                                className="p-2 hover:bg-gray-100 dark:hover:bg-surface-700 rounded-lg transition-colors"
+                                                className="p-2 hover:bg-surface-100 dark:hover:bg-surface-700 rounded-lg transition-colors"
                                                 title="Redigera"
                                             >
-                                                <Edit2 className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                                                <Edit2 className="w-4 h-4 text-surface-500 dark:text-surface-400" />
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(category.id)}
-                                                className="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                                className="p-2 hover:bg-error/10 dark:hover:bg-error/20 rounded-lg transition-colors"
                                                 title="Ta bort"
                                             >
-                                                <Trash2 className="w-4 h-4 text-red-500 dark:text-red-400" />
+                                                <Trash2 className="w-4 h-4 text-error-strong dark:text-error-soft" />
                                             </button>
                                         </div>
                                     </div>

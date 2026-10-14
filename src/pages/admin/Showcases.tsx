@@ -157,20 +157,20 @@ export default function AdminShowcases() {
                         <p className="text-2xl font-bold text-surface-900 dark:text-surface-50">{stats.total}</p>
                     </div>
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-yellow-600">Väntande</p>
-                        <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
+                        <p className="text-sm text-surface-500 dark:text-surface-400">Väntande</p>
+                        <p className="text-2xl font-bold text-surface-900 dark:text-warning">{stats.pending}</p>
                     </div>
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-green-600">Godkända</p>
-                        <p className="text-2xl font-bold text-green-600">{stats.approved}</p>
+                        <p className="text-sm text-surface-500 dark:text-surface-400">Godkända</p>
+                        <p className="text-2xl font-bold text-surface-900 dark:text-success">{stats.approved}</p>
                     </div>
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-purple-600">Utvalda</p>
-                        <p className="text-2xl font-bold text-purple-600">{stats.featured}</p>
+                        <p className="text-sm text-surface-500 dark:text-surface-400">Utvalda</p>
+                        <p className="text-2xl font-bold text-brand-purple dark:text-accent-think">{stats.featured}</p>
                     </div>
                     <div className="card shadow-none p-4">
-                        <p className="text-sm text-red-600">Avvisade</p>
-                        <p className="text-2xl font-bold text-red-600">{stats.rejected}</p>
+                        <p className="text-sm text-surface-500 dark:text-surface-400">Avvisade</p>
+                        <p className="text-2xl font-bold text-error-strong dark:text-error-soft">{stats.rejected}</p>
                     </div>
                     <div className="card shadow-none p-4">
                         <p className="text-sm text-surface-500 dark:text-surface-400">Denna månad</p>
@@ -320,7 +320,7 @@ export default function AdminShowcases() {
                                                         {showcase.review_count}
                                                     </span>
                                                     {(showcase.average_rating ?? 0) > 0 && (
-                                                        <span className="flex items-center gap-1 text-amber-500">
+                                                        <span className="flex items-center gap-1 text-warning">
                                                             <Star className="w-4 h-4 fill-current" />
                                                             {(showcase.average_rating ?? 0).toFixed(1)}
                                                         </span>
@@ -354,7 +354,7 @@ export default function AdminShowcases() {
                                                             <button
                                                                 onClick={() => handleApprove(showcase.id)}
                                                                 disabled={isActionLoading}
-                                                                className="p-2 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg disabled:opacity-50"
+                                                                className="p-2 text-surface-900 dark:text-success hover:bg-success/15 dark:hover:bg-success/20 rounded-lg disabled:opacity-50"
                                                                 title="Godkänn"
                                                             >
                                                                 {isActionLoading ? (
@@ -366,7 +366,7 @@ export default function AdminShowcases() {
                                                             <button
                                                                 onClick={() => openRejectModal(showcase.id)}
                                                                 disabled={isActionLoading}
-                                                                className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg disabled:opacity-50"
+                                                                className="p-2 text-error-strong dark:text-error-soft hover:bg-error/10 dark:hover:bg-error/20 rounded-lg disabled:opacity-50"
                                                                 title="Avvisa"
                                                             >
                                                                 <XCircle className="w-4 h-4" />
@@ -378,7 +378,7 @@ export default function AdminShowcases() {
                                                         <button
                                                             onClick={() => handleFeature(showcase.id)}
                                                             disabled={isActionLoading}
-                                                            className="p-2 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg disabled:opacity-50"
+                                                            className="p-2 text-brand-purple dark:text-accent-think hover:bg-accent-think/10 dark:hover:bg-accent-think/20 rounded-lg disabled:opacity-50"
                                                             title="Markera som utvalt"
                                                         >
                                                             {isActionLoading ? (
@@ -416,8 +416,8 @@ export default function AdminShowcases() {
 
             {/* Reject Modal */}
             {rejectModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-                    <div className="bg-white dark:bg-surface-900 rounded-xl shadow-xl max-w-md w-full p-6">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-950/60">
+                    <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 shadow-elevated dark:shadow-elevated-dark max-w-md w-full p-6">
                         <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">
                             Avvisa projekt
                         </h3>
@@ -445,7 +445,7 @@ export default function AdminShowcases() {
                             <button
                                 onClick={handleReject}
                                 disabled={!rejectReason.trim() || actionLoading !== null}
-                                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 flex items-center gap-2"
+                                className="px-4 py-2 bg-error-strong text-white rounded-lg hover:bg-error-strong/90 disabled:opacity-50 flex items-center gap-2"
                             >
                                 {actionLoading && <Loader2 className="w-4 h-4 animate-spin" />}
                                 Avvisa

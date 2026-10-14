@@ -97,8 +97,8 @@ siteSettingsRouter.get('/manifest.webmanifest', async (_req: Request, res: Respo
         { src: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
         { src: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
       ],
-      theme_color: settings.primary_color || '#0ea5e9',
-      background_color: '#ffffff',
+      theme_color: settings.primary_color || '#185DA9',
+      background_color: '#F3F7FC',
       display: 'standalone',
       start_url: '/',
     };

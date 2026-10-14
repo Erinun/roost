@@ -40,38 +40,38 @@ export default function BanUserModal({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/50 dark:bg-black/70"
+                className="absolute inset-0 bg-surface-950/60 dark:bg-surface-950/80"
                 onClick={onClose}
             />
 
             {/* Modal */}
-            <div className="relative bg-white dark:bg-surface-900 rounded-xl shadow-xl max-w-md w-full p-6">
+            <div className="relative bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 shadow-elevated dark:shadow-elevated-dark max-w-md w-full p-6">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                            <AlertTriangle className="w-5 h-5 text-red-600 dark:text-red-400" />
+                        <div className="p-2 bg-error/15 dark:bg-error/20 rounded-lg">
+                            <AlertTriangle className="w-5 h-5 text-error-strong dark:text-error-soft" />
                         </div>
-                        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Stäng av användare</h2>
+                        <h2 className="text-xl font-semibold text-surface-900 dark:text-surface-100">Stäng av användare</h2>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
+                        className="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-lg transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                        <X className="w-5 h-5 text-surface-500 dark:text-surface-400" />
                     </button>
                 </div>
 
                 {/* User info */}
-                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-surface-800 rounded-lg mb-6">
+                <div className="flex items-center gap-3 p-3 bg-surface-50 dark:bg-surface-800 rounded-lg mb-6">
                     <img
                         src={user.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.display_name)}`}
                         alt={user.display_name}
                         className="w-10 h-10 rounded-full object-cover"
                     />
                     <div>
-                        <p className="font-medium text-gray-900 dark:text-gray-100">{user.display_name}</p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">@{user.username}</p>
+                        <p className="font-medium text-surface-900 dark:text-surface-100">{user.display_name}</p>
+                        <p className="text-sm text-surface-500 dark:text-surface-400">@{user.username}</p>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@ export default function BanUserModal({
                 <div className="space-y-4">
                     {/* Duration */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
                             Avstängningens längd
                         </label>
                         <div className="grid grid-cols-2 gap-2">
@@ -89,8 +89,8 @@ export default function BanUserModal({
                                     type="button"
                                     onClick={() => setDuration(value)}
                                     className={`px-4 py-2 text-sm font-medium rounded-lg border transition-colors ${duration === value
-                                            ? 'bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-700 text-red-700 dark:text-red-400'
-                                            : 'bg-white dark:bg-surface-800 border-gray-200 dark:border-surface-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-surface-700'
+                                            ? 'bg-error/10 dark:bg-error/20 border-error text-error-strong dark:text-error-soft'
+                                            : 'bg-white dark:bg-surface-800 border-surface-200 dark:border-surface-700 text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700'
                                         }`}
                                 >
                                     {label}
@@ -101,7 +101,7 @@ export default function BanUserModal({
 
                     {/* Reason */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">
                             Anledning (valfritt)
                         </label>
                         <textarea
@@ -109,19 +109,19 @@ export default function BanUserModal({
                             onChange={(e) => setReason(e.target.value)}
                             placeholder="Ange en anledning till avstängningen..."
                             rows={3}
-                            className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+                            className="input resize-none"
                         />
                     </div>
 
                     {/* Error */}
                     {error && (
-                        <div className="p-3 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 text-sm rounded-lg">
+                        <div className="p-3 bg-error/10 dark:bg-error/20 text-surface-900 dark:text-error-soft border border-error/60 text-sm rounded-lg">
                             {error}
                         </div>
                     )}
 
                     {/* Warning */}
-                    <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400 text-sm rounded-lg">
+                    <div className="p-3 bg-warning/10 dark:bg-warning/15 text-surface-900 dark:text-surface-50 border border-warning/50 text-sm rounded-lg">
                         <strong>Varning:</strong> Detta hindrar användaren från att komma åt plattformen
                         {duration ? ` i ${BAN_DURATIONS.find(d => d.value === duration)?.label.toLowerCase()}` : ' permanent'}.
                     </div>
@@ -132,7 +132,7 @@ export default function BanUserModal({
                     <button
                         type="button"
                         onClick={onClose}
-                        className="flex-1 px-4 py-2.5 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-surface-800 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-surface-700 transition-colors"
+                        className="flex-1 px-4 py-2.5 text-surface-700 dark:text-surface-300 bg-surface-100 dark:bg-surface-800 rounded-lg font-medium hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
                     >
                         Avbryt
                     </button>
@@ -140,7 +140,7 @@ export default function BanUserModal({
                         type="button"
                         onClick={handleBan}
                         disabled={loading}
-                        className="flex-1 px-4 py-2.5 text-white bg-red-600 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:opacity-50"
+                        className="flex-1 px-4 py-2.5 text-white bg-error-strong rounded-lg font-medium hover:bg-error-strong/90 transition-colors disabled:opacity-50"
                     >
                         {loading ? 'Stänger av...' : 'Stäng av användare'}
                     </button>
