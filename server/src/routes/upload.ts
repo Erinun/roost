@@ -49,8 +49,8 @@ const ALL_ALLOWED_TYPES = [...ALLOWED_IMAGE_TYPES, ...ALLOWED_VIDEO_TYPES, ...AL
 // Allowed folder patterns for presigned URL generation
 // Must match exactly the folders used by frontend code:
 //   images, videos, documents, uploads, activations/products,
-//   avatars/{uuid}, groups/{uuid}/documents
-const ALLOWED_FOLDER_PATTERN = /^(images|videos|documents|uploads|activations\/products|avatars\/[a-f0-9-]{36}|groups\/[a-f0-9-]{36}\/documents)$/;
+//   avatars/{uuid}, groups/{uuid}/documents, association-docs/{uuid}
+const ALLOWED_FOLDER_PATTERN = /^(images|videos|documents|uploads|activations\/products|avatars\/[a-f0-9-]{36}|groups\/[a-f0-9-]{36}\/documents|association-docs\/[a-f0-9-]{36})$/;
 
 // Allowed key prefixes for delete operations
 const ALLOWED_DELETE_PREFIXES = [
