@@ -251,3 +251,15 @@ export {
     getUserCompletionsForGroup,
     getRecordingById,
 } from './module';
+
+// Föreningsarbetsyta: möten, beslut och uppgifter
+export * from './association-meetings';
+export * from './association-tasks';
+
+// Föreningsarbetsyta: dokument & kommunikation
+// OBS: uploadDocument krockar med exporten från './s3' — därför heter
+// funktionen uploadAssociationDocument i association-docs.ts.
+export * from './association-docs';
+
+// Medlemsportal: aktiviteter, nyheter & medlemsfrågor
+export * from './association-portal';
