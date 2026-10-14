@@ -113,7 +113,7 @@ export class SupabaseAuthAdapter implements AuthAdapter {
       password,
       options: {
         ...(metadata ? { data: metadata } : {}),
-        emailRedirectTo: `${window.location.origin}/login`,
+        emailRedirectTo: `${window.location.origin}/`,
       },
     });
     return {

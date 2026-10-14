@@ -78,6 +78,35 @@ export type UserWithBanInfo = Profile;
 // USER MANAGEMENT
 // =============================================================================
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
+/**
+ * Invite a new user by email (admin only).
+ * The backend sends a Supabase invite email; the recipient lands on /invite
+ * to complete their account.
+ */
+export async function inviteUser(email: string): Promise<void> {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.access_token) {
+        throw new Error('Du är inte inloggad');
+    }
+
+    const response = await fetch(`${API_URL}/api/admin/invites`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ email }),
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(data.error || 'Det gick inte att skicka inbjudan');
+    }
+}
+
 /**
  * Get paginated list of users with optional search and role filter
  */

@@ -16,6 +16,8 @@ const s3Bucket = process.env.AWS_S3_BUCKET || '';
 const s3AccessKey = process.env.AWS_ACCESS_KEY_ID || '';
 const s3SecretKey = process.env.AWS_SECRET_ACCESS_KEY || '';
 const s3Endpoint = process.env.S3_ENDPOINT?.trim().replace(/\/+$/, '') || undefined;
+// Public base URL for reads (R2 r2.dev or custom domain) — see upload.ts
+const s3PublicUrl = process.env.S3_PUBLIC_URL?.trim().replace(/\/+$/, '') || undefined;
 
 const hasS3 = !!(s3Bucket && s3AccessKey && s3SecretKey);
 
@@ -199,7 +201,9 @@ siteSettingsRouter.post('/upload', requireSuperadmin, upload.single('file'), asy
       }));
 
       const normalizedFilename = filename.replace(/^\/+/, '');
-      if (s3Endpoint) {
+      if (s3PublicUrl) {
+        fileUrl = `${s3PublicUrl}/${normalizedFilename}`;
+      } else if (s3Endpoint) {
         fileUrl = `${s3Endpoint}/${s3Bucket}/${normalizedFilename}`;
       } else {
         fileUrl = `https://${s3Bucket}.s3.${s3Region}.amazonaws.com/${normalizedFilename}`;

@@ -6,6 +6,7 @@ interface ImportMetaEnv {
     readonly VITE_AWS_REGION: string;
     readonly VITE_AWS_S3_BUCKET: string;
     readonly VITE_S3_ENDPOINT?: string;
+    readonly VITE_S3_PUBLIC_URL?: string;
     readonly VITE_APP_NAME: string;
     readonly VITE_APP_URL: string;
     readonly VITE_ENABLE_MOCK_DATA: string;

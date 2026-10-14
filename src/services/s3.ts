@@ -55,10 +55,14 @@ async function uploadViaPresignedUrl(file: File, folder: string): Promise<Upload
     const { presignedUrl, key, publicUrl } = await response.json();
 
     // Step 2: Upload file directly to S3 using the pre-signed URL
+    // Cache-Control must match what the backend signs into the presigned URL
+    // (upload.ts PutObjectCommand) — otherwise strict providers like R2
+    // reject the request with SignatureDoesNotMatch.
     const uploadResponse = await fetch(presignedUrl, {
         method: 'PUT',
         headers: {
             'Content-Type': file.type,
+            'Cache-Control': 'max-age=31536000',
         },
         body: file,
     });
@@ -153,8 +157,14 @@ export async function deleteFile(key: string): Promise<void> {
 // Get public URL for a file (no credentials needed - public bucket read)
 export function getPublicUrl(key: string): string {
     const bucketName = import.meta.env.VITE_AWS_S3_BUCKET;
+    // Separate public base URL (R2 r2.dev or custom domain) — keys are appended
+    // without the bucket name, mirroring the backend's S3_PUBLIC_URL handling.
+    const publicUrl = import.meta.env.VITE_S3_PUBLIC_URL?.trim().replace(/\/+$/, '');
     const endpoint = import.meta.env.VITE_S3_ENDPOINT?.trim().replace(/\/+$/, '');
     const normalizedKey = key.replace(/^\/+/, '');
+    if (publicUrl) {
+        return `${publicUrl}/${normalizedKey}`;
+    }
     if (endpoint) {
         return `${endpoint}/${bucketName}/${normalizedKey}`;
     }

@@ -49,6 +49,9 @@ export const auth = {
             password,
             options: {
                 data: metadata,
+                // Bekräftelselänken landar på startsidan; detectSessionInUrl
+                // plockar upp sessionen och loggar in användaren direkt.
+                emailRedirectTo: `${window.location.origin}/`,
             },
         });
         if (error) throw error;

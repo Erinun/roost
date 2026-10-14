@@ -11,8 +11,9 @@ import {
     ChevronLeft,
     ChevronRight,
     Star,
+    UserPlus,
 } from 'lucide-react';
-import { BanUserModal } from '../../components/admin';
+import { BanUserModal, InviteUserModal } from '../../components/admin';
 import {
     getUsers,
     unbanUser,
@@ -56,6 +57,7 @@ export default function AdminUsers() {
     const [isSuperadmin, setIsSuperadmin] = useState(false);
     const [selectedUser, setSelectedUser] = useState<UserWithBanInfo | null>(null);
     const [showBanModal, setShowBanModal] = useState(false);
+    const [showInviteModal, setShowInviteModal] = useState(false);
     const [actionMenuUser, setActionMenuUser] = useState<string | null>(null);
     const pageSize = 20;
 
@@ -132,9 +134,18 @@ export default function AdminUsers() {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div>
-                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Användarhantering</h1>
-                <p className="text-surface-500 dark:text-surface-400 mt-1">Hantera användare, roller och avstängningar</p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Användarhantering</h1>
+                    <p className="text-surface-500 dark:text-surface-400 mt-1">Hantera användare, roller och avstängningar</p>
+                </div>
+                <button
+                    onClick={() => setShowInviteModal(true)}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-primary-600 rounded-lg font-medium hover:bg-primary-700 transition-colors whitespace-nowrap"
+                >
+                    <UserPlus className="w-4 h-4" />
+                    Bjud in användare
+                </button>
             </div>
 
             {/* Filters */}
@@ -377,6 +388,14 @@ export default function AdminUsers() {
                     </div>
                 )}
             </div>
+
+            {/* Invite Modal */}
+            {showInviteModal && (
+                <InviteUserModal
+                    onClose={() => setShowInviteModal(false)}
+                    onInvited={loadUsers}
+                />
+            )}
 
             {/* Ban Modal */}
             {showBanModal && selectedUser && currentUser && (

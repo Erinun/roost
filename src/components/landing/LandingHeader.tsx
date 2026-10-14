@@ -10,7 +10,7 @@ export default function LandingHeader() {
             <div className="mx-auto flex max-w-[1160px] flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-4">
                 <Link to="/" className="flex items-center gap-3 text-surface-900 no-underline">
                     <LogoPlaceholder tone="blue" />
-                    <span className="font-heading text-[26px] font-bold leading-none">Roost</span>
+                    <span className="font-heading text-[26px] font-bold leading-none">Medlemsportalen</span>
                 </Link>
                 <nav aria-label="Huvudmeny" className="flex flex-wrap items-center gap-x-7 gap-y-1">
                     <a href="#fordelar" className={navLinkClass}>

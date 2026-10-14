@@ -41,6 +41,7 @@ const Signup = lazy(() => import('./pages/auth/Signup'));
 const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('./pages/auth/ResetPassword'));
 const ConfirmEmail = lazy(() => import('./pages/auth/ConfirmEmail'));
+const AcceptInvite = lazy(() => import('./pages/auth/AcceptInvite'));
 const Banned = lazy(() => import('./pages/auth/Banned'));
 const SubscriptionRequired = lazy(() => import('./pages/auth/SubscriptionRequired'));
 
@@ -87,6 +88,7 @@ function App() {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/invite" element={<AcceptInvite />} />
                 </Route>
 
                 {/* Email confirmation pending route */}

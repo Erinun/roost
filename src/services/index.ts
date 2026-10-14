@@ -120,6 +120,7 @@ export type { EventWithDetails, CalendarEvent } from '../types';
 export {
     // User Management
     getUsers,
+    inviteUser,
     banUser,
     unbanUser,
     updateUserRole,
