@@ -15,11 +15,23 @@ Roost is a full-featured, open-source community platform that you can deploy on 
 - **Events & Calendar** — Event management with RSVP tracking
 - **Leaderboard** — Points system for engagement tracking
 - **Member Directory** — Searchable member profiles with online status
-- **Showcase Gallery** — ProductHunt-style project showcase with voting & reviews
+- **Association Workspace** — Internal workspace for associations: meetings, decisions, tasks, documents, news
+- **Member Portal** — Separate mobile-first app for association members (news, activities, contact)
 - **Admin Dashboard** — User management, content moderation, analytics
 - **Live Room** — Live streaming with real-time chat
 - **Notifications** — In-app + email notifications
 - **Feature Requests** — Community-driven roadmap voting
+
+## Association Workspace & Member Portal (Föreningsarbetsyta & Medlemsportal)
+
+Roost includes an internal **Association Workspace** (`/associations`) for boards and staff — meetings with decisions that convert to tasks, documents, activities, news, internal communication, and member questions. Roles per association: `admin`, `internal`, `member` — where `member` only has access to the separate **Member Portal**, a standalone mobile-first Vite app in `member-portal/` (port 5100) that shares the same Supabase project and auth; permissions are enforced entirely by RLS.
+
+```bash
+npm run dev:portal     # Run the member portal locally (port 5100)
+npm run build:portal   # Build it (member-portal/dist)
+```
+
+See [docs/member-portal.md](docs/member-portal.md) for architecture, local setup, and deployment (recommended: separate static site, e.g. `medlem.<domain>`).
 
 ## Tech Stack
 
@@ -101,7 +113,6 @@ Toggle features via environment variables:
 |----------|---------|-------------|
 | `VITE_ENABLE_SIGNUP` | `true` | Allow new user registration |
 | `VITE_GUMROAD_ENABLED` | `false` | Enable Gumroad paid memberships |
-| `VITE_ENABLE_SHOWCASE` | `true` | Enable project showcase gallery |
 | `VITE_ENABLE_LIVE_ROOM` | `true` | Enable live streaming room |
 | `VITE_ENABLE_LEADERBOARD` | `true` | Enable points & leaderboard |
 | `VITE_ENABLE_ACTIVATIONS` | `false` | Enable product activations |
@@ -130,6 +141,7 @@ roost/
 │       ├── routes/         # API routes
 │       ├── services/       # Backend services
 │       └── lib/            # Shared utilities
+├── member-portal/          # Member portal (separate Vite app, port 5100)
 ├── prisma/                 # Prisma schema (MongoDB)
 ├── migrations/             # SQL migrations (Supabase)
 ├── guides/                 # Step-by-step setup & deployment guides
