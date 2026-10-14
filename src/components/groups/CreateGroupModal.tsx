@@ -376,13 +376,13 @@ export default function CreateGroupModal({
                                 type="button"
                                 onClick={() => setIsPremiumGroup(true)}
                                 className={`flex-1 flex items-center gap-3 p-4 rounded-lg border-2 transition-colors ${isPremiumGroup
-                                    ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/20'
+                                    ? 'border-warning bg-warning/10 dark:bg-warning/15'
                                     : 'border-surface-200 dark:border-surface-700 hover:border-surface-300 dark:hover:border-surface-600'
                                     }`}
                             >
-                                <Crown className={`w-5 h-5 ${isPremiumGroup ? 'text-amber-600 dark:text-amber-400' : 'text-surface-400 dark:text-surface-500'}`} />
+                                <Crown className={`w-5 h-5 ${isPremiumGroup ? 'text-surface-900 dark:text-warning' : 'text-surface-400 dark:text-surface-500'}`} />
                                 <div className="text-left">
-                                    <p className={`font-medium ${isPremiumGroup ? 'text-amber-900 dark:text-amber-100' : 'text-surface-700 dark:text-surface-300'}`}>
+                                    <p className={`font-medium ${isPremiumGroup ? 'text-surface-900 dark:text-surface-100' : 'text-surface-700 dark:text-surface-300'}`}>
                                         Endast Premium
                                     </p>
                                     <p className="text-xs text-surface-500 dark:text-surface-400">Endast för premiummedlemmar</p>

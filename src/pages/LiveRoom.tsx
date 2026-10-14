@@ -333,7 +333,7 @@ export default function LiveRoom() {
                                                         <button
                                                             onClick={() => handleCancelRsvp(session.id)}
                                                             disabled={rsvpLoading === session.id}
-                                                            className="flex items-center gap-1.5 px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-700 dark:hover:text-red-400 transition-colors disabled:opacity-50 group"
+                                                            className="flex items-center gap-1.5 px-3 py-1.5 bg-success/15 dark:bg-success/20 text-surface-900 dark:text-success rounded-lg text-sm font-medium hover:bg-error/15 dark:hover:bg-error/20 hover:text-error-strong dark:hover:text-error-soft transition-colors disabled:opacity-50 group"
                                                         >
                                                             <CalendarCheck className="w-4 h-4 group-hover:hidden" />
                                                             <CalendarX className="w-4 h-4 hidden group-hover:block" />
@@ -392,7 +392,7 @@ export default function LiveRoom() {
                             </div>
                             {activeRecording.visibility === 'private' ? (
                                 <div className="p-8 text-center">
-                                    <Lock className="w-10 h-10 mx-auto text-amber-400 dark:text-amber-500 mb-3" />
+                                    <Lock className="w-10 h-10 mx-auto text-warning mb-3" />
                                     <p className="text-surface-500 dark:text-surface-400 mb-4">
                                         Den här inspelningen är privat. Titta på den på YouTube med e-postadressen du anmälde dig med.
                                     </p>
@@ -400,7 +400,7 @@ export default function LiveRoom() {
                                         href={`https://www.youtube.com/watch?v=${extractVideoId(activeRecording.playerUrl)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition-colors"
+                                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-error-strong hover:bg-error-strong/90 text-white rounded-lg text-sm font-medium transition-colors"
                                     >
                                         <ExternalLink className="w-4 h-4" />
                                         Titta på YouTube
@@ -437,7 +437,7 @@ export default function LiveRoom() {
                                         <div className="flex items-start gap-3">
                                             <div className="p-2 rounded-lg bg-surface-100 dark:bg-surface-800 mt-0.5">
                                                 {recording.visibility === 'private' ? (
-                                                    <Lock className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                                                    <Lock className="w-4 h-4 text-warning" />
                                                 ) : (
                                                     <Play className="w-4 h-4 text-surface-500 dark:text-surface-400" />
                                                 )}

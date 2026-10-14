@@ -153,7 +153,7 @@ export default function GroupMembers({
             case 'admin':
                 return <Crown className="w-3.5 h-3.5 text-primary-500" />;
             case 'moderator':
-                return <Shield className="w-3.5 h-3.5 text-amber-500" />;
+                return <Shield className="w-3.5 h-3.5 text-warning" />;
             default:
                 return null;
         }
@@ -275,8 +275,8 @@ export default function GroupMembers({
                         {/* Role badge */}
                         <span className={`
                             text-xs px-2 py-1 rounded-full font-medium
-                            ${member.role === 'admin' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400' :
-                                member.role === 'moderator' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' :
+                            ${member.role === 'admin' ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-400' :
+                                member.role === 'moderator' ? 'bg-warning/20 dark:bg-warning/20 text-surface-900 dark:text-warning' :
                                     'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400'}
                         `}>
                             {member.role && (roleLabels[member.role] ?? member.role)}
@@ -323,7 +323,7 @@ export default function GroupMembers({
                                         )}
                                         <button
                                             onClick={() => handleRemoveMember(member.user_id)}
-                                            className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                                            className="w-full flex items-center gap-2 px-4 py-2 text-sm text-error-strong dark:text-error-soft hover:bg-error/10 dark:hover:bg-error/20"
                                         >
                                             <UserMinus className="w-4 h-4" />
                                             Ta bort från klassrummet
