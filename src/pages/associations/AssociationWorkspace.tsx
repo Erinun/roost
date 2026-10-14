@@ -10,6 +10,8 @@ export interface WorkspaceContext {
     association: Association;
     role: AssociationRole;
     userId: string;
+    /** Anropas efter att en flik uppdaterat föreningen så att sidhuvudet hålls aktuellt. */
+    onAssociationUpdated: (association: Association) => void;
 }
 
 interface WorkspaceTab {
@@ -152,7 +154,14 @@ export default function AssociationWorkspace() {
             </nav>
 
             {/* Aktiv flik */}
-            <Outlet context={{ association, role, userId: user!.id } satisfies WorkspaceContext} />
+            <Outlet
+                context={{
+                    association,
+                    role,
+                    userId: user!.id,
+                    onAssociationUpdated: setAssociation,
+                } satisfies WorkspaceContext}
+            />
         </div>
     );
 }
