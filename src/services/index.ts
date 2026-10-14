@@ -177,50 +177,6 @@ export {
     getFollowing,
 } from './follow';
 
-// Showcase
-export {
-    // CRUD
-    createShowcase,
-    updateShowcase,
-    deleteShowcase,
-    getShowcaseById,
-    getApprovedShowcases,
-    getFeaturedShowcases,
-    getUserShowcases,
-    // Images
-    addShowcaseImage,
-    removeShowcaseImage,
-    reorderShowcaseImages,
-    // Tags
-    getAllTags,
-    addTagToShowcase,
-    removeTagFromShowcase,
-    setShowcaseTags,
-    // Voting
-    voteForShowcase,
-    removeVote,
-    toggleVote,
-    hasUserVoted,
-    getUserVotesForShowcases,
-    // Reviews
-    getShowcaseReviews,
-    createReview,
-    updateReview,
-    deleteReview,
-    addMakerReply,
-    // Admin
-    getShowcasesForModeration,
-    approveShowcase,
-    rejectShowcase,
-    featureShowcase,
-    unfeatureShowcase,
-    getShowcaseStats,
-    // Admin Tags
-    createTag,
-    updateTag,
-    deleteTag,
-} from './showcase';
-
 // Comment Votes
 export {
     toggleCommentVote,

@@ -475,7 +475,7 @@ export default function LiveRoom() {
                 </div>
             </div>
 
-            {/* Chat Sidebar (Showcase filter pattern) */}
+            {/* Chat Sidebar */}
             {status?.isLive && status.session && (
                 <>
                     {/* Mobile overlay backdrop */}

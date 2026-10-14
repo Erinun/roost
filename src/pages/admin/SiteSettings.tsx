@@ -14,7 +14,6 @@ import {
     Radio,
     Key,
     Lightbulb,
-    Rocket,
 } from 'lucide-react';
 import type { FeatureAccess } from '@/contexts/SiteSettingsContext';
 
@@ -56,7 +55,6 @@ export default function AdminSiteSettings() {
                 feature_live_room: form.feature_live_room,
                 feature_activations: form.feature_activations,
                 feature_roadmap: form.feature_roadmap,
-                feature_showcase: form.feature_showcase,
             });
             setMessage({ type: 'success', text: 'Inställningarna har sparats!' });
         } catch (err) {
@@ -383,7 +381,6 @@ export default function AdminSiteSettings() {
                         { key: 'feature_live_room' as const, name: 'Live-rum', description: 'Livesändningar med chatt', icon: Radio },
                         { key: 'feature_activations' as const, name: 'Aktiveringar', description: 'Produktaktivering och licenshantering', icon: Key },
                         { key: 'feature_roadmap' as const, name: 'Roadmap & ärenden', description: 'Funktionsönskemål och buggrapporter från användare', icon: Lightbulb },
-                        { key: 'feature_showcase' as const, name: 'Projekt', description: 'Medlemmarnas projektgalleri med recensioner och röstning', icon: Rocket },
                     ]).map(feature => {
                         const Icon = feature.icon;
                         const value = (form[feature.key] || 'all') as FeatureAccess;

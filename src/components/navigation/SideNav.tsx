@@ -16,7 +16,7 @@ import {
     LogOut,
     ChevronLeft,
     ChevronRight,
-    Rocket,
+    Briefcase,
     Key,
     Crown,
     Lightbulb,
@@ -31,7 +31,7 @@ interface NavItem {
     href: string;
     icon: LucideIcon;
     premiumOnly?: boolean;
-    featureKey?: 'live_room' | 'activations' | 'roadmap' | 'showcase';
+    featureKey?: 'live_room' | 'activations' | 'roadmap';
 }
 
 // Main navigation items (featureKey items are filtered by admin settings)
@@ -39,7 +39,7 @@ const allNavItems: NavItem[] = [
     { name: 'Hem', href: '/', icon: Home },
     { name: 'Utforska', href: '/explore', icon: Compass },
     { name: 'Klassrum', href: '/classrooms', icon: BookOpen },
-    { name: 'Projekt', href: '/showcase', icon: Rocket, featureKey: 'showcase' },
+    { name: 'Föreningar', href: '/associations', icon: Briefcase },
     { name: 'Kalender', href: '/calendar', icon: Calendar, premiumOnly: true },
     { name: 'Medlemmar', href: '/members', icon: Users },
     { name: 'Topplista', href: '/leaderboard', icon: Trophy },

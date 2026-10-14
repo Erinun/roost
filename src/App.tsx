@@ -23,9 +23,6 @@ const Leaderboard = lazy(() => import('./pages/Leaderboard'));
 const Calendar = lazy(() => import('./pages/Calendar'));
 const Members = lazy(() => import('./pages/Members'));
 const Guide = lazy(() => import('./pages/Guide'));
-const Showcase = lazy(() => import('./pages/Showcase'));
-const ShowcaseDetail = lazy(() => import('./pages/ShowcaseDetail'));
-const ShowcaseSubmit = lazy(() => import('./pages/ShowcaseSubmit'));
 const PostDetail = lazy(() => import('./pages/PostDetail'));
 const FeatureRequests = lazy(() => import('./pages/FeatureRequests'));
 const FeatureRequestList = lazy(() => import('./pages/FeatureRequestList'));
@@ -52,7 +49,6 @@ const AdminContent = lazy(() => import('./pages/admin/Content'));
 const AdminCategories = lazy(() => import('./pages/admin/Categories'));
 const AdminAnnouncements = lazy(() => import('./pages/admin/Announcements'));
 const AdminSubscriptions = lazy(() => import('./pages/admin/Subscriptions'));
-const AdminShowcases = lazy(() => import('./pages/admin/Showcases'));
 const AdminBackups = lazy(() => import('./pages/admin/Backups'));
 const AdminActivations = lazy(() => import('./pages/admin/Activations'));
 const AdminLiveRoom = lazy(() => import('./pages/admin/LiveRoom'));
@@ -121,7 +117,6 @@ function App() {
                     <Route path="categories" element={<AdminCategories />} />
                     <Route path="announcements" element={<AdminAnnouncements />} />
                     <Route path="subscriptions" element={<AdminSubscriptions />} />
-                    <Route path="showcases" element={<AdminShowcases />} />
                     <Route path="backups" element={<AdminBackups />} />
                     <Route path="activations" element={<AdminActivations />} />
                     <Route path="live-room" element={<AdminLiveRoom />} />
@@ -150,9 +145,6 @@ function App() {
                         <Route path="/profile/:username" element={<Profile />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/guide" element={<Guide />} />
-                        <Route path="/showcase" element={<Showcase />} />
-                        <Route path="/showcase/submit" element={<ShowcaseSubmit />} />
-                        <Route path="/showcase/:id" element={<ShowcaseDetail />} />
                         <Route path="/post/:postId" element={<PostDetail />} />
                         <Route path="/roadmap" element={<FeatureRequests />} />
                         <Route path="/roadmap/all" element={<FeatureRequestList />} />

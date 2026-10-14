@@ -18,7 +18,6 @@ export const APP_CONFIG = {
   features: {
     signup: import.meta.env.VITE_ENABLE_SIGNUP !== 'false',
     stripe: !!import.meta.env.VITE_STRIPE_ENABLED,
-    showcase: import.meta.env.VITE_ENABLE_SHOWCASE !== 'false',
     liveRoom: import.meta.env.VITE_ENABLE_LIVE_ROOM !== 'false',
     activations: !!import.meta.env.VITE_ENABLE_ACTIVATIONS,
     leaderboard: import.meta.env.VITE_ENABLE_LEADERBOARD !== 'false',
