@@ -5,7 +5,10 @@ import type {
     MeetingDecision,
 } from '@/types/association';
 
-const ASSIGNEE_JOIN = 'assignee:profiles(id, username, display_name, avatar_url)';
+// FK-hint krävs: association_tasks har två FK:er till profiles (assignee_id och created_by),
+// utan hint svarar PostgREST med PGRST201 (tvetydig relation).
+const ASSIGNEE_JOIN =
+    'assignee:profiles!association_tasks_assignee_id_fkey(id, username, display_name, avatar_url)';
 
 // ============================================
 // Uppgifter

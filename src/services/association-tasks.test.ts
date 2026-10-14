@@ -19,7 +19,8 @@ vi.mock('./supabase', () => ({
   },
 }));
 
-const ASSIGNEE_JOIN = 'assignee:profiles(id, username, display_name, avatar_url)';
+const ASSIGNEE_JOIN =
+  'assignee:profiles!association_tasks_assignee_id_fkey(id, username, display_name, avatar_url)';
 
 describe('Association Tasks Service', () => {
   beforeEach(() => {
