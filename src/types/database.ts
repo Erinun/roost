@@ -186,6 +186,42 @@ export type Database = {
           },
         ]
       }
+      activity_signups: {
+        Row: {
+          activity_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          activity_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          activity_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_signups_activity_id_fkey"
+            columns: ["activity_id"]
+            isOneToOne: false
+            referencedRelation: "association_activities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "activity_signups_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       announcement_dismissals: {
         Row: {
           announcement_id: string
@@ -350,6 +386,458 @@ export type Database = {
           {
             foreignKeyName: "assets_uploaded_by_fkey"
             columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      association_activities: {
+        Row: {
+          association_id: string
+          created_at: string
+          created_by: string
+          description: string | null
+          ends_at: string | null
+          id: string
+          is_published: boolean
+          location: string | null
+          published_at: string | null
+          starts_at: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          association_id: string
+          created_at?: string
+          created_by: string
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          is_published?: boolean
+          location?: string | null
+          published_at?: string | null
+          starts_at: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          association_id?: string
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          is_published?: boolean
+          location?: string | null
+          published_at?: string | null
+          starts_at?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "association_activities_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_activities_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      association_documents: {
+        Row: {
+          association_id: string
+          created_at: string
+          description: string | null
+          file_name: string
+          file_size: number | null
+          file_url: string
+          id: string
+          title: string
+          uploaded_by: string
+          workgroup_id: string | null
+        }
+        Insert: {
+          association_id: string
+          created_at?: string
+          description?: string | null
+          file_name: string
+          file_size?: number | null
+          file_url: string
+          id?: string
+          title: string
+          uploaded_by: string
+          workgroup_id?: string | null
+        }
+        Update: {
+          association_id?: string
+          created_at?: string
+          description?: string | null
+          file_name?: string
+          file_size?: number | null
+          file_url?: string
+          id?: string
+          title?: string
+          uploaded_by?: string
+          workgroup_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "association_documents_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_documents_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_documents_workgroup_id_fkey"
+            columns: ["workgroup_id"]
+            isOneToOne: false
+            referencedRelation: "association_workgroups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      association_meetings: {
+        Row: {
+          agenda: string | null
+          association_id: string
+          created_at: string
+          created_by: string
+          id: string
+          location: string | null
+          meeting_date: string
+          minutes: string | null
+          status: Database["public"]["Enums"]["meeting_status"]
+          title: string
+          updated_at: string
+          workgroup_id: string | null
+        }
+        Insert: {
+          agenda?: string | null
+          association_id: string
+          created_at?: string
+          created_by: string
+          id?: string
+          location?: string | null
+          meeting_date: string
+          minutes?: string | null
+          status?: Database["public"]["Enums"]["meeting_status"]
+          title: string
+          updated_at?: string
+          workgroup_id?: string | null
+        }
+        Update: {
+          agenda?: string | null
+          association_id?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          location?: string | null
+          meeting_date?: string
+          minutes?: string | null
+          status?: Database["public"]["Enums"]["meeting_status"]
+          title?: string
+          updated_at?: string
+          workgroup_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "association_meetings_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_meetings_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_meetings_workgroup_id_fkey"
+            columns: ["workgroup_id"]
+            isOneToOne: false
+            referencedRelation: "association_workgroups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      association_members: {
+        Row: {
+          association_id: string
+          id: string
+          joined_at: string
+          role: Database["public"]["Enums"]["association_role"]
+          user_id: string
+        }
+        Insert: {
+          association_id: string
+          id?: string
+          joined_at?: string
+          role?: Database["public"]["Enums"]["association_role"]
+          user_id: string
+        }
+        Update: {
+          association_id?: string
+          id?: string
+          joined_at?: string
+          role?: Database["public"]["Enums"]["association_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "association_members_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      association_posts: {
+        Row: {
+          association_id: string
+          author_id: string
+          content: string
+          created_at: string
+          id: string
+          is_edited: boolean
+          parent_post_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          association_id: string
+          author_id: string
+          content: string
+          created_at?: string
+          id?: string
+          is_edited?: boolean
+          parent_post_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          association_id?: string
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          is_edited?: boolean
+          parent_post_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "association_posts_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_posts_parent_post_id_fkey"
+            columns: ["parent_post_id"]
+            isOneToOne: false
+            referencedRelation: "association_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      association_tasks: {
+        Row: {
+          assignee_id: string | null
+          association_id: string
+          completed_at: string | null
+          created_at: string
+          created_by: string
+          decision_id: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          status: Database["public"]["Enums"]["association_task_status"]
+          title: string
+          updated_at: string
+          workgroup_id: string | null
+        }
+        Insert: {
+          assignee_id?: string | null
+          association_id: string
+          completed_at?: string | null
+          created_at?: string
+          created_by: string
+          decision_id?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          status?: Database["public"]["Enums"]["association_task_status"]
+          title: string
+          updated_at?: string
+          workgroup_id?: string | null
+        }
+        Update: {
+          assignee_id?: string | null
+          association_id?: string
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string
+          decision_id?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          status?: Database["public"]["Enums"]["association_task_status"]
+          title?: string
+          updated_at?: string
+          workgroup_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "association_tasks_assignee_id_fkey"
+            columns: ["assignee_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_tasks_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_tasks_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_tasks_decision_id_fkey"
+            columns: ["decision_id"]
+            isOneToOne: false
+            referencedRelation: "meeting_decisions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_tasks_workgroup_id_fkey"
+            columns: ["workgroup_id"]
+            isOneToOne: false
+            referencedRelation: "association_workgroups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      association_workgroups: {
+        Row: {
+          association_id: string
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          association_id: string
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          association_id?: string
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "association_workgroups_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "association_workgroups_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      associations: {
+        Row: {
+          avatar_url: string | null
+          contact_info: string | null
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          contact_info?: string | null
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          contact_info?: string | null
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "associations_created_by_fkey"
+            columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -1126,6 +1614,183 @@ export type Database = {
           {
             foreignKeyName: "live_sessions_created_by_fkey"
             columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meeting_decisions: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string
+          id: string
+          meeting_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description: string
+          id?: string
+          meeting_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string
+          id?: string
+          meeting_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meeting_decisions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meeting_decisions_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "association_meetings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      member_news: {
+        Row: {
+          association_id: string
+          content: string
+          created_at: string
+          created_by: string
+          id: string
+          published_at: string | null
+          status: Database["public"]["Enums"]["member_news_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          association_id: string
+          content: string
+          created_at?: string
+          created_by: string
+          id?: string
+          published_at?: string | null
+          status?: Database["public"]["Enums"]["member_news_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          association_id?: string
+          content?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          published_at?: string | null
+          status?: Database["public"]["Enums"]["member_news_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_news_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_news_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      member_question_replies: {
+        Row: {
+          author_id: string
+          content: string
+          created_at: string
+          id: string
+          question_id: string
+        }
+        Insert: {
+          author_id: string
+          content: string
+          created_at?: string
+          id?: string
+          question_id: string
+        }
+        Update: {
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          question_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_question_replies_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_question_replies_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "member_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      member_questions: {
+        Row: {
+          association_id: string
+          author_id: string
+          content: string
+          created_at: string
+          id: string
+          status: Database["public"]["Enums"]["member_question_status"]
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          association_id: string
+          author_id: string
+          content: string
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["member_question_status"]
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          association_id?: string
+          author_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["member_question_status"]
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_questions_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_questions_author_id_fkey"
+            columns: ["author_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
@@ -2076,6 +2741,42 @@ export type Database = {
           },
         ]
       }
+      workgroup_members: {
+        Row: {
+          added_at: string
+          id: string
+          user_id: string
+          workgroup_id: string
+        }
+        Insert: {
+          added_at?: string
+          id?: string
+          user_id: string
+          workgroup_id: string
+        }
+        Update: {
+          added_at?: string
+          id?: string
+          user_id?: string
+          workgroup_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workgroup_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workgroup_members_workgroup_id_fkey"
+            columns: ["workgroup_id"]
+            isOneToOne: false
+            referencedRelation: "association_workgroups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -2243,6 +2944,18 @@ export type Database = {
       }
       has_active_subscription: { Args: { p_user_id: string }; Returns: boolean }
       has_premium_access: { Args: { p_user_id: string }; Returns: boolean }
+      is_association_admin: {
+        Args: { assoc_id: string; user_uuid: string }
+        Returns: boolean
+      }
+      is_association_internal: {
+        Args: { assoc_id: string; user_uuid: string }
+        Returns: boolean
+      }
+      is_association_member: {
+        Args: { assoc_id: string; user_uuid: string }
+        Returns: boolean
+      }
       is_group_admin_or_mod: {
         Args: { group_id: string; user_id: string }
         Returns: boolean
@@ -2340,6 +3053,8 @@ export type Database = {
       announcement_scope: "global" | "group"
       announcement_type: "info" | "warning" | "success" | "error"
       asset_type: "image" | "video" | "document" | "other"
+      association_role: "admin" | "internal" | "member"
+      association_task_status: "todo" | "in_progress" | "done"
       feature_request_status:
         | "under_review"
         | "planned"
@@ -2349,6 +3064,9 @@ export type Database = {
         | "duplicate"
       feature_request_type: "feature_request" | "bug_report" | "improvement"
       group_role: "admin" | "moderator" | "member"
+      meeting_status: "planned" | "held" | "cancelled"
+      member_news_status: "draft" | "published"
+      member_question_status: "open" | "answered" | "closed"
       notification_type:
         | "new_comment"
         | "new_reaction"
@@ -2520,6 +3238,8 @@ export const Constants = {
       announcement_scope: ["global", "group"],
       announcement_type: ["info", "warning", "success", "error"],
       asset_type: ["image", "video", "document", "other"],
+      association_role: ["admin", "internal", "member"],
+      association_task_status: ["todo", "in_progress", "done"],
       feature_request_status: [
         "under_review",
         "planned",
@@ -2530,6 +3250,9 @@ export const Constants = {
       ],
       feature_request_type: ["feature_request", "bug_report", "improvement"],
       group_role: ["admin", "moderator", "member"],
+      meeting_status: ["planned", "held", "cancelled"],
+      member_news_status: ["draft", "published"],
+      member_question_status: ["open", "answered", "closed"],
       notification_type: [
         "new_comment",
         "new_reaction",
