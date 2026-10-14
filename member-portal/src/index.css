@@ -1,0 +1,144 @@
+/* =============================================================================
+   TYPSNITT (lokala via @fontsource – ingen extern typsnittstjänst)
+   PT Sans = hela gränssnittet, Barlow = rubriker (ersätter Ciutadella)
+   ============================================================================= */
+@import '@fontsource/pt-sans/400.css';
+@import '@fontsource/pt-sans/700.css';
+@import '@fontsource/barlow/600.css';
+@import '@fontsource/barlow/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================================
+   DESIGNTOKENS (CSS-variabler) – kopierade från Roost
+   (Aktiespararnas grafiska profil 2023). Tailwind-klasserna i
+   tailwind.config.js refererar till dessa variabler.
+   ============================================================================= */
+
+:root {
+  /* Rubriktypsnitt: Ciutadella är licensierad och finns inte i repot.
+     Barlow används som ersättare tills licensen är på plats. */
+  --font-heading: Ciutadella, Barlow, 'PT Sans', sans-serif;
+
+  /* Profilens nio färger */
+  --brand-blue: #185DA9;
+  --brand-sky: #159EDA;
+  --brand-teal: #32D7CD;
+  --brand-purple: #652FA0;
+  --brand-plum: #973B8E;
+  --brand-pink: #EE0181;
+  --brand-red: #EC5345;
+  --brand-orange: #F5A118;
+  --brand-yellow: #FBC231;
+
+  /* Profilens tre övertoningar (bakgrundstokens) */
+  --gradient-blue: linear-gradient(135deg, #185DA9 0%, #159EDA 55%, #32D7CD 100%);
+  --gradient-purple: linear-gradient(135deg, #652FA0 0%, #973B8E 50%, #EE0181 100%);
+  --gradient-warm: linear-gradient(135deg, #EC5345 0%, #F5A118 50%, #FBC231 100%);
+}
+
+/* =============================================================================
+   BASSTILAR
+   ============================================================================= */
+
+@layer base {
+  /* Standardkantfärg = profilens linjefärg */
+  * {
+    @apply border-surface-200 dark:border-surface-700;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-surface-50 dark:bg-surface-950 text-surface-900 dark:text-surface-50 font-sans antialiased;
+  }
+
+  /* Rubriker i rubriktypsnittet (Ciutadella → Barlow), fet vikt */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold;
+  }
+
+  /* Synlig fokusring i primärblått */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-600 ring-offset-2 dark:ring-offset-surface-900;
+  }
+
+  ::selection {
+    @apply bg-primary-100 dark:bg-primary-900 text-primary-900 dark:text-primary-100;
+  }
+}
+
+/* =============================================================================
+   KOMPONENTSTILAR (kopierade från Roost)
+   ============================================================================= */
+
+@layer components {
+  /* --- Knappar: klickytor minst 44 px höga ---------------------------------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 min-h-11 text-sm font-semibold font-sans transition-all duration-150;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-900;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white dark:bg-surface-800 text-primary-600 dark:text-primary-300 border border-surface-300 dark:border-surface-600;
+    @apply hover:bg-primary-50 dark:hover:bg-surface-700 active:bg-primary-100 dark:active:bg-surface-600;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-surface-600 dark:text-surface-300;
+    @apply hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-50;
+  }
+
+  /* --- Länk ------------------------------------------------------------------ */
+  .link {
+    @apply text-primary-600 dark:text-primary-300 font-semibold underline-offset-2 hover:underline;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-600 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-900 rounded-sm;
+  }
+
+  /* --- Kort: ALDRIG skugga, endast border ------------------------------------- */
+  .card {
+    @apply bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700;
+    word-wrap: break-word;
+  }
+
+  .card-hover {
+    @apply card transition-colors duration-200 hover:border-primary-300 dark:hover:border-primary-700;
+  }
+
+  /* --- Formulärfält ------------------------------------------------------------ */
+  .input {
+    @apply w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-white dark:bg-surface-800 px-4 py-2 min-h-11 text-sm;
+    @apply text-surface-900 dark:text-surface-100;
+    @apply placeholder:text-surface-500 dark:placeholder:text-surface-400;
+    @apply focus:outline-none focus:border-primary-600 focus:ring-1 focus:ring-primary-600;
+    @apply disabled:bg-surface-50 dark:disabled:bg-surface-900 disabled:text-surface-500 dark:disabled:text-surface-400 disabled:cursor-not-allowed;
+  }
+
+  /* --- Etikett (formulär) ------------------------------------------------------ */
+  .label {
+    @apply block text-sm font-semibold text-surface-700 dark:text-surface-200 mb-1;
+  }
+
+  /* --- Avisering (statusfärger är ytor, inte textfärger) ----------------------- */
+  .alert {
+    @apply flex items-start gap-3 rounded-lg border p-3 text-sm;
+  }
+
+  .alert-error {
+    @apply alert bg-error/10 border-error/60 text-surface-900 dark:bg-error/20 dark:text-error-soft;
+  }
+
+  /* --- Skelettladdare ----------------------------------------------------------- */
+  .skeleton {
+    @apply animate-pulse rounded bg-surface-200 dark:bg-surface-700;
+  }
+}
