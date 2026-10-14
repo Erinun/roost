@@ -1,5 +1,6 @@
 // Re-export all types
 export * from './database';
+export * from './association';
 
 // Extended types with related data
 import type { Recording as BaseRecording, Module as BaseModule, Profile, Group } from './database';

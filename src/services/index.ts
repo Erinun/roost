@@ -229,6 +229,12 @@ export {
 } from './commentVote';
 export type { VoteType, VoteCounts } from './commentVote';
 
+// Föreningar (associations)
+// OBS: updateMemberRole krockar med exporten från './group' och
+// re-exporteras därför explicit som updateAssociationMemberRole.
+export * from './association';
+export { updateMemberRole as updateAssociationMemberRole } from './association';
+
 // Modules (Learn Mode)
 export {
     getModulesWithProgress,
