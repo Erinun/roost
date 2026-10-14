@@ -139,17 +139,17 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/50 dark:bg-black/70"
+                className="absolute inset-0 bg-surface-950/60 dark:bg-surface-950/80"
                 onClick={handleClose}
             />
 
-            {/* Modal */}
-            <div className="relative w-full max-w-lg mx-4 bg-white dark:bg-surface-900 rounded-xl shadow-xl max-h-[90vh] overflow-y-auto">
+            {/* Modal (flytande lager får ha skugga) */}
+            <div className="relative w-full max-w-lg mx-4 modal-content max-h-[90vh] overflow-y-auto">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-surface-200 dark:border-surface-700">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                            <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
+                        <div className="p-2 bg-success/15 dark:bg-success/20 rounded-lg">
+                            <Shield className="w-5 h-5 text-surface-900 dark:text-success" />
                         </div>
                         <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
                             Konfigurera tvåfaktorsautentisering
@@ -170,7 +170,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                 <div className="p-6">
                     {/* Error message */}
                     {error && (
-                        <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg flex items-center gap-3">
+                        <div className="alert-error mb-6 items-center">
                             <AlertCircle className="w-5 h-5 flex-shrink-0" />
                             <span>{error}</span>
                         </div>
@@ -180,8 +180,8 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                     {step === 'intro' && (
                         <div className="space-y-6">
                             <div className="text-center">
-                                <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <Shield className="w-8 h-8 text-green-600 dark:text-green-400" />
+                                <div className="w-16 h-16 bg-success/15 dark:bg-success/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Shield className="w-8 h-8 text-surface-900 dark:text-success" />
                                 </div>
                                 <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">
                                     Lägg till ett extra säkerhetslager
@@ -198,11 +198,11 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                 </h4>
                                 <ul className="space-y-2 text-sm text-surface-600 dark:text-surface-400">
                                     <li className="flex items-center gap-2">
-                                        <Check className="w-4 h-4 text-green-500" />
+                                        <Check className="w-4 h-4 text-success" />
                                         En autentiseringsapp (Google Authenticator, Authy m.fl.)
                                     </li>
                                     <li className="flex items-center gap-2">
-                                        <Check className="w-4 h-4 text-green-500" />
+                                        <Check className="w-4 h-4 text-success" />
                                         Din telefon till hands för att skanna en QR-kod
                                     </li>
                                 </ul>
@@ -211,7 +211,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                             <button
                                 onClick={startSetup}
                                 disabled={isLoading}
-                                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors disabled:opacity-50"
+                                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors disabled:opacity-50"
                             >
                                 {isLoading ? (
                                     <>
@@ -323,8 +323,8 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                     {step === 'backup' && (
                         <div className="space-y-6">
                             <div className="text-center">
-                                <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <Key className="w-8 h-8 text-yellow-600 dark:text-yellow-400" />
+                                <div className="w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Key className="w-8 h-8 text-surface-900" />
                                 </div>
                                 <h3 className="text-lg font-medium text-surface-900 dark:text-surface-100 mb-2">
                                     Spara dina reservkoder
@@ -354,7 +354,7 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                             >
                                 {copiedBackupCodes ? (
                                     <>
-                                        <CheckCircle className="w-4 h-4 text-green-500" />
+                                        <CheckCircle className="w-4 h-4 text-success" />
                                         <span>Kopierat!</span>
                                     </>
                                 ) : (
@@ -365,15 +365,15 @@ export default function TwoFactorSetupModal({ isOpen, onClose, onSuccess }: TwoF
                                 )}
                             </button>
 
-                            <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-                                <p className="text-sm text-yellow-700 dark:text-yellow-400">
+                            <div className="alert-warning">
+                                <p>
                                     <strong>Viktigt:</strong> Förvara dessa koder på ett säkert ställe. Du kommer inte att kunna se dem igen.
                                 </p>
                             </div>
 
                             <button
                                 onClick={completeSetup}
-                                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+                                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                             >
                                 <Check className="w-5 h-5" />
                                 <span>Jag har sparat mina koder</span>

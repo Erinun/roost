@@ -195,7 +195,7 @@ const guideSections: GuideSection[] = [
 function FeatureCard({ icon: Icon, title, description }: { icon: typeof Home; title: string; description: string }) {
     return (
         <div className="bg-white dark:bg-surface-800 rounded-xl p-6 border border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-700 transition-colors">
-            <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center mb-4">
+            <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-xl flex items-center justify-center mb-4">
                 <Icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
             </div>
             <h3 className="font-semibold text-surface-900 dark:text-surface-100 mb-2">{title}</h3>
@@ -221,7 +221,7 @@ function InlineScreenshot({
     return (
         <button
             onClick={() => onZoom(screenshot.src)}
-            className="group relative w-full mt-4 rounded-xl overflow-hidden border border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all hover:shadow-lg"
+            className="group relative w-full mt-4 rounded-xl overflow-hidden border border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-600 transition-colors"
         >
             <img
                 src={screenshot.src}
@@ -229,12 +229,12 @@ function InlineScreenshot({
                 className="w-full h-auto"
                 loading="lazy"
             />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-surface-800 rounded-full p-3 shadow-lg">
+            <div className="absolute inset-0 bg-surface-950/0 group-hover:bg-surface-950/30 transition-colors flex items-center justify-center">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-surface-800 rounded-full p-3 shadow-elevated dark:shadow-elevated-dark">
                     <ZoomIn className="w-5 h-5 text-surface-700 dark:text-surface-300" />
                 </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-surface-950/60 to-transparent p-3">
                 <p className="text-white text-sm font-medium">{screenshot.alt}</p>
             </div>
         </button>
@@ -254,7 +254,7 @@ function StepCard({
     return (
         <div className="bg-surface-50 dark:bg-surface-800/50 rounded-xl p-6 border border-surface-200 dark:border-surface-700">
             <div className="flex items-start gap-4">
-                <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-white font-semibold text-sm">{index + 1}</span>
                 </div>
                 <div className="flex-1">
@@ -263,7 +263,7 @@ function StepCard({
                     <div className="space-y-2">
                         {step.tips.map((tip, tipIndex) => (
                             <div key={tipIndex} className="flex items-start gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                                <CheckCircle className="w-4 h-4 text-success flex-shrink-0 mt-0.5" />
                                 <span className="text-sm text-surface-600 dark:text-surface-400">{tip}</span>
                             </div>
                         ))}
@@ -291,7 +291,7 @@ function Lightbox({
 
     return (
         <div
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-surface-950/90 flex items-center justify-center p-4"
             onClick={onClose}
         >
             <button
@@ -303,7 +303,7 @@ function Lightbox({
             <img
                 src={selectedImage}
                 alt="Förhandsvisning av skärmbild"
-                className="max-w-full max-h-[90vh] rounded-lg shadow-2xl"
+                className="max-w-full max-h-[90vh] rounded-lg shadow-elevated"
                 onClick={(e) => e.stopPropagation()}
             />
         </div>
@@ -331,7 +331,7 @@ function GuideSidebar({
                         onClick={() => onSectionClick(section.id)}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
                             isActive
-                                ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400'
+                                ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-400'
                                 : 'hover:bg-surface-100 dark:hover:bg-surface-800 text-surface-700 dark:text-surface-300'
                         }`}
                     >
@@ -362,7 +362,7 @@ export default function Guide() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {/* Header */}
             <div className="text-center mb-12">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-2xl mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-2xl mb-4">
                     <BookOpen className="w-8 h-8 text-primary-600 dark:text-primary-400" />
                 </div>
                 <h1 className="text-3xl font-bold text-surface-900 dark:text-surface-100 mb-3">

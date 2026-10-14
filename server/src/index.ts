@@ -13,6 +13,8 @@ import { notificationsRouter } from './routes/notifications.js';
 import { backupRouter } from './routes/backup.js';
 import { activationApiRouter } from './routes/activation-api.js';
 import { uploadRouter } from './routes/upload.js';
+import { adminInvitesRouter } from './routes/admin-invites.js';
+import { associationApplicationsRouter } from './routes/association-applications.js';
 import { liveRoomRouter } from './routes/live-room.js';
 import { siteSettingsRouter } from './routes/site-settings.js';
 import path from 'path';
@@ -133,6 +135,8 @@ app.use('/api/email-preview', emailPreviewRouter); // Dev only - disabled in pro
 app.use('/api/backup', backupRouter);
 app.use('/api/activations', adminLimiter, activationApiRouter);
 app.use('/api/upload', uploadRouter);
+app.use('/api/admin/invites', adminLimiter, adminInvitesRouter);
+app.use('/api/associations/applications', adminLimiter, associationApplicationsRouter);
 app.use('/api/site-settings', siteSettingsRouter);
 
 // Serve local uploads (fallback when S3 is not configured)

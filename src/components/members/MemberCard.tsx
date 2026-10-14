@@ -12,7 +12,7 @@ export function MemberCard({ member }: MemberCardProps) {
     const isPremium = member.membership_type === 'premium';
 
     return (
-        <div className="bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-700 rounded-xl p-6 flex flex-col items-center text-center transition-all hover:border-primary-500/50 dark:hover:border-primary-400/50 hover:shadow-md dark:hover:shadow-none relative">
+        <div className="card-hover p-6 flex flex-col items-center text-center relative">
             {/* Header Section */}
             <div className="w-full flex flex-col items-center pb-4 border-b border-surface-200 dark:border-surface-700 mb-4">
                 <div className="relative mb-3">
@@ -30,7 +30,7 @@ export function MemberCard({ member }: MemberCardProps) {
                         )}
                     </div>
                     {isOnline && (
-                        <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white dark:border-surface-900 rounded-full" title="Online" />
+                        <div className="absolute bottom-0 right-0 w-4 h-4 bg-success border-2 border-white dark:border-surface-900 rounded-full" title="Online" />
                     )}
                 </div>
 
@@ -71,7 +71,7 @@ export function MemberCard({ member }: MemberCardProps) {
                 </Link>
                 <Link
                     to={`/messages/${member.id}`}
-                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors text-xs font-medium dark:bg-black dark:hover:bg-black"
+                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 transition-colors text-xs font-medium"
                 >
                     <MessageCircle className="w-3.5 h-3.5" />
                     Meddelande

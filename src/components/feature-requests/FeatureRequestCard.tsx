@@ -31,12 +31,12 @@ export default function FeatureRequestCard({
 
     return (
         <div
-            className="card p-3 shadow-none hover:shadow-sm transition-all cursor-pointer group relative"
+            className="card-hover p-3 cursor-pointer group relative"
             onClick={() => onClick(request.id)}
         >
             {/* Pinned indicator */}
             {request.is_pinned && (
-                <Star className="absolute top-2 right-2 w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
+                <Star className="absolute top-2 right-2 w-3.5 h-3.5 text-brand-orange fill-brand-orange" />
             )}
 
             <div className="flex gap-3">
@@ -49,7 +49,7 @@ export default function FeatureRequestCard({
                     disabled={isVoting}
                     className={`flex flex-col items-center justify-center px-2 py-1.5 rounded-lg border transition-colors flex-shrink-0 min-w-[48px] ${
                         request.user_has_voted
-                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-400'
                             : 'border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-700 text-surface-500 dark:text-surface-400'
                     }`}
                 >

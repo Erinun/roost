@@ -25,10 +25,10 @@ import type { Group } from '../../types/database';
 import { useAuth } from '../../contexts/AuthContext';
 
 const TYPE_OPTIONS: { value: AnnouncementType; label: string; icon: typeof Info; color: string }[] = [
-    { value: 'info', label: 'Info', icon: Info, color: 'text-blue-500' },
-    { value: 'success', label: 'Lyckat', icon: CheckCircle, color: 'text-green-500' },
-    { value: 'warning', label: 'Varning', icon: AlertTriangle, color: 'text-yellow-500' },
-    { value: 'error', label: 'Fel', icon: AlertCircle, color: 'text-red-500' },
+    { value: 'info', label: 'Info', icon: Info, color: 'text-info' },
+    { value: 'success', label: 'Lyckat', icon: CheckCircle, color: 'text-success' },
+    { value: 'warning', label: 'Varning', icon: AlertTriangle, color: 'text-warning' },
+    { value: 'error', label: 'Fel', icon: AlertCircle, color: 'text-error' },
 ];
 
 interface AnnouncementFormData {
@@ -171,13 +171,13 @@ export default function AdminAnnouncements() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Tillkännagivanden</h1>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">Hantera tillkännagivanden för hela webbplatsen och klassrum</p>
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Tillkännagivanden</h1>
+                    <p className="text-surface-500 dark:text-surface-400 mt-1">Hantera tillkännagivanden för hela webbplatsen och klassrum</p>
                 </div>
                 {!showForm && (
                     <button
                         onClick={handleCreate}
-                        className="flex items-center gap-2 px-4 py-2.5 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors"
                     >
                         <Plus className="w-5 h-5" />
                         Nytt tillkännagivande
@@ -187,34 +187,34 @@ export default function AdminAnnouncements() {
 
             {/* Form */}
             {showForm && (
-                <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+                <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
+                    <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">
                         {editingId ? 'Redigera tillkännagivande' : 'Nytt tillkännagivande'}
                     </h3>
                     <div className="space-y-4">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Rubrik</label>
+                            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">Rubrik</label>
                             <input
                                 type="text"
                                 value={form.title}
                                 onChange={(e) => setForm({ ...form, title: e.target.value })}
                                 placeholder="Tillkännagivandets rubrik"
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-primary-500"
+                                className="w-full px-4 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder:text-surface-400 dark:placeholder:text-surface-500 focus:ring-2 focus:ring-primary-500"
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Innehåll</label>
+                            <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">Innehåll</label>
                             <textarea
                                 value={form.content}
                                 onChange={(e) => setForm({ ...form, content: e.target.value })}
                                 placeholder="Tillkännagivandets innehåll"
                                 rows={3}
-                                className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-primary-500 resize-none"
+                                className="w-full px-4 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder:text-surface-400 dark:placeholder:text-surface-500 focus:ring-2 focus:ring-primary-500 resize-none"
                             />
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Typ</label>
+                                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">Typ</label>
                                 <div className="flex gap-2">
                                     {TYPE_OPTIONS.map(({ value, label, icon: Icon, color }) => (
                                         <button
@@ -222,51 +222,51 @@ export default function AdminAnnouncements() {
                                             type="button"
                                             onClick={() => setForm({ ...form, type: value })}
                                             className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border transition-colors ${form.type === value
-                                                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30'
-                                                : 'border-gray-200 dark:border-surface-700 hover:bg-gray-50 dark:hover:bg-surface-800'
+                                                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900'
+                                                : 'border-surface-200 dark:border-surface-700 hover:bg-surface-50 dark:hover:bg-surface-800'
                                                 }`}
                                         >
                                             <Icon className={`w-4 h-4 ${color}`} />
-                                            <span className="text-sm text-gray-700 dark:text-gray-300">{label}</span>
+                                            <span className="text-sm text-surface-700 dark:text-surface-300">{label}</span>
                                         </button>
                                     ))}
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Omfattning</label>
+                                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">Omfattning</label>
                                 <div className="flex gap-2">
                                     <button
                                         type="button"
                                         onClick={() => setForm({ ...form, scope: 'global', group_id: '' })}
                                         className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border transition-colors ${form.scope === 'global'
-                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30'
-                                            : 'border-gray-200 dark:border-surface-700 hover:bg-gray-50 dark:hover:bg-surface-800'
+                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900'
+                                            : 'border-surface-200 dark:border-surface-700 hover:bg-surface-50 dark:hover:bg-surface-800'
                                             }`}
                                     >
-                                        <Globe className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-                                        <span className="text-sm text-gray-700 dark:text-gray-300">Globalt</span>
+                                        <Globe className="w-4 h-4 text-surface-700 dark:text-surface-300" />
+                                        <span className="text-sm text-surface-700 dark:text-surface-300">Globalt</span>
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => setForm({ ...form, scope: 'group' })}
                                         className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border transition-colors ${form.scope === 'group'
-                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30'
-                                            : 'border-gray-200 dark:border-surface-700 hover:bg-gray-50 dark:hover:bg-surface-800'
+                                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900'
+                                            : 'border-surface-200 dark:border-surface-700 hover:bg-surface-50 dark:hover:bg-surface-800'
                                             }`}
                                     >
-                                        <Users className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-                                        <span className="text-sm text-gray-700 dark:text-gray-300">Klassrum</span>
+                                        <Users className="w-4 h-4 text-surface-700 dark:text-surface-300" />
+                                        <span className="text-sm text-surface-700 dark:text-surface-300">Klassrum</span>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         {form.scope === 'group' && (
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Välj klassrum</label>
+                                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">Välj klassrum</label>
                                 <select
                                     value={form.group_id}
                                     onChange={(e) => setForm({ ...form, group_id: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500"
+                                    className="w-full px-4 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 focus:ring-2 focus:ring-primary-500"
                                 >
                                     <option value="">Välj ett klassrum...</option>
                                     {groups.map((group) => (
@@ -279,21 +279,21 @@ export default function AdminAnnouncements() {
                         )}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Startdatum (valfritt)</label>
+                                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">Startdatum (valfritt)</label>
                                 <input
                                     type="datetime-local"
                                     value={form.starts_at}
                                     onChange={(e) => setForm({ ...form, starts_at: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500"
+                                    className="w-full px-4 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 focus:ring-2 focus:ring-primary-500"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Slutdatum (valfritt)</label>
+                                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">Slutdatum (valfritt)</label>
                                 <input
                                     type="datetime-local"
                                     value={form.expires_at}
                                     onChange={(e) => setForm({ ...form, expires_at: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500"
+                                    className="w-full px-4 py-2 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 focus:ring-2 focus:ring-primary-500"
                                 />
                             </div>
                         </div>
@@ -304,13 +304,13 @@ export default function AdminAnnouncements() {
                                 onChange={(e) => setForm({ ...form, is_dismissible: e.target.checked })}
                                 className="w-4 h-4 text-primary-500 rounded focus:ring-primary-500"
                             />
-                            <span className="text-sm text-gray-700 dark:text-gray-300">Tillåt användare att stänga</span>
+                            <span className="text-sm text-surface-700 dark:text-surface-300">Tillåt användare att stänga</span>
                         </label>
                         <div className="flex gap-3 pt-2">
                             <button
                                 onClick={handleSave}
                                 disabled={saving || !form.title.trim() || !form.content.trim()}
-                                className="flex items-center gap-2 px-4 py-2 bg-primary-500 text-white rounded-lg font-medium hover:bg-primary-600 disabled:opacity-50"
+                                className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 disabled:opacity-50"
                             >
                                 <Check className="w-4 h-4" />
                                 {saving ? 'Sparar...' : editingId ? 'Spara ändringar' : 'Skapa'}
@@ -321,7 +321,7 @@ export default function AdminAnnouncements() {
                                     setEditingId(null);
                                     setForm(defaultForm);
                                 }}
-                                className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-surface-800 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-surface-700"
+                                className="flex items-center gap-2 px-4 py-2 bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300 rounded-lg font-medium hover:bg-surface-200 dark:hover:bg-surface-700"
                             >
                                 <X className="w-4 h-4" />
                                 Avbryt
@@ -332,48 +332,48 @@ export default function AdminAnnouncements() {
             )}
 
             {/* Announcements List */}
-            <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 overflow-hidden">
+            <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 overflow-hidden">
                 {loading ? (
-                    <div className="p-8 text-center text-gray-500 dark:text-gray-400">Laddar...</div>
+                    <div className="p-8 text-center text-surface-500 dark:text-surface-400">Laddar...</div>
                 ) : announcements.length === 0 ? (
-                    <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-                        <Megaphone className="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600 mb-3" />
+                    <div className="p-8 text-center text-surface-500 dark:text-surface-400">
+                        <Megaphone className="w-12 h-12 mx-auto text-surface-300 dark:text-surface-600 mb-3" />
                         <p>Inga tillkännagivanden ännu</p>
                     </div>
                 ) : (
-                    <ul className="divide-y divide-gray-100 dark:divide-surface-700">
+                    <ul className="divide-y divide-surface-100 dark:divide-surface-700">
                         {announcements.map((announcement) => {
                             const typeInfo = TYPE_OPTIONS.find((t) => t.value === announcement.type);
                             const Icon = typeInfo?.icon || Info;
                             const isExpired = announcement.expires_at && new Date(announcement.expires_at) < new Date();
 
                             return (
-                                <li key={announcement.id} className="p-4 hover:bg-gray-50 dark:hover:bg-surface-800">
+                                <li key={announcement.id} className="p-4 hover:bg-surface-50 dark:hover:bg-surface-800">
                                     <div className="flex items-start gap-4">
                                         <div className={`mt-1 ${typeInfo?.color}`}>
                                             <Icon className="w-5 h-5" />
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2">
-                                                <h4 className="font-medium text-gray-900 dark:text-gray-100">{announcement.title}</h4>
+                                                <h4 className="font-medium text-surface-900 dark:text-surface-100">{announcement.title}</h4>
                                                 {announcement.scope === 'group' && (
-                                                    <span className="px-2 py-0.5 text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded">
+                                                    <span className="px-2 py-0.5 text-xs bg-brand-purple text-white rounded">
                                                         Klassrum
                                                     </span>
                                                 )}
                                                 {!announcement.is_active && (
-                                                    <span className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">
+                                                    <span className="px-2 py-0.5 text-xs bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 rounded">
                                                         Inaktivt
                                                     </span>
                                                 )}
                                                 {isExpired && (
-                                                    <span className="px-2 py-0.5 text-xs bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded">
+                                                    <span className="px-2 py-0.5 text-xs bg-error/15 text-surface-900 dark:bg-error/20 dark:text-error-soft rounded">
                                                         Utgånget
                                                     </span>
                                                 )}
                                             </div>
-                                            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">{announcement.content}</p>
-                                            <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                                            <p className="text-sm text-surface-600 dark:text-surface-400 mt-1 line-clamp-2">{announcement.content}</p>
+                                            <p className="text-xs text-surface-400 dark:text-surface-500 mt-2">
                                                 Skapat {new Date(announcement.created_at).toLocaleDateString('sv-SE')}
                                                 {announcement.expires_at && ` • Upphör ${new Date(announcement.expires_at).toLocaleDateString('sv-SE')}`}
                                             </p>
@@ -382,23 +382,23 @@ export default function AdminAnnouncements() {
                                             <button
                                                 onClick={() => handleToggleActive(announcement)}
                                                 className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${announcement.is_active
-                                                    ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 hover:bg-green-200 dark:hover:bg-green-900/50'
-                                                    : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                                                    ? 'bg-success/15 text-surface-900 dark:bg-success/20 dark:text-success hover:bg-success/25 dark:hover:bg-success/30'
+                                                    : 'bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-400 hover:bg-surface-200 dark:hover:bg-surface-700'
                                                     }`}
                                             >
                                                 {announcement.is_active ? 'Aktivt' : 'Inaktivt'}
                                             </button>
                                             <button
                                                 onClick={() => handleEdit(announcement)}
-                                                className="p-2 hover:bg-gray-100 dark:hover:bg-surface-700 rounded-lg"
+                                                className="p-2 hover:bg-surface-100 dark:hover:bg-surface-700 rounded-lg"
                                             >
-                                                <Edit2 className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                                                <Edit2 className="w-4 h-4 text-surface-500 dark:text-surface-400" />
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(announcement.id)}
-                                                className="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"
+                                                className="p-2 hover:bg-error/10 dark:hover:bg-error/20 rounded-lg"
                                             >
-                                                <Trash2 className="w-4 h-4 text-red-500 dark:text-red-400" />
+                                                <Trash2 className="w-4 h-4 text-error-strong dark:text-error-soft" />
                                             </button>
                                         </div>
                                     </div>

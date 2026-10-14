@@ -4,10 +4,9 @@ interface BenefitCardProps {
     icon: ReactNode;
     title: string;
     text: string;
-    premium?: boolean;
 }
 
-function BenefitCard({ icon, title, text, premium = false }: BenefitCardProps) {
+function BenefitCard({ icon, title, text }: BenefitCardProps) {
     return (
         <div className="flex flex-col items-start gap-3.5 rounded-2xl border border-surface-200 bg-white p-7">
             <div
@@ -18,7 +17,6 @@ function BenefitCard({ icon, title, text, premium = false }: BenefitCardProps) {
             </div>
             <h3 className="text-2xl font-bold leading-[1.2] text-surface-900">{title}</h3>
             <p className="text-surface-600">{text}</p>
-            {premium && <span className="badge-premium px-3 py-1 text-sm">Premium</span>}
         </div>
     );
 }
@@ -39,7 +37,7 @@ export default function LandingBenefits() {
         <section id="fordelar" className="bg-white">
             <div className="mx-auto flex max-w-[1160px] flex-col gap-10 px-6 pb-[88px] pt-[72px]">
                 <h2 className="text-[clamp(30px,3.4vw,44px)] font-bold leading-[1.1] text-surface-900">
-                    Det här får du som medlem
+                    Det här får ni
                 </h2>
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-6">
                     <BenefitCard
@@ -51,8 +49,8 @@ export default function LandingBenefits() {
                                 <path d="M17 14.2c2.6.3 4.5 2.3 4.5 5.3"></path>
                             </svg>
                         }
-                        title="Grupper för det du är nyfiken på"
-                        text="Gå med i grupper och diskutera med andra medlemmar. Med premium öppnas även premiumgrupperna."
+                        title="Hitta varandra"
+                        text="Se vilka lokalavdelningar som finns, var de finns och vilka som sitter i ledningen."
                     />
                     <BenefitCard
                         icon={
@@ -61,9 +59,8 @@ export default function LandingBenefits() {
                                 <path d="M8 9.5h8M8 12.5h5"></path>
                             </svg>
                         }
-                        title="Direktkontakt med andra medlemmar"
-                        text="Skicka direktmeddelanden till medlemmar du vill prata vidare med."
-                        premium
+                        title="Dela det som fungerar"
+                        text="Lägg upp material, mallar, beslut och evenemangsidéer som andra avdelningar kan använda direkt."
                     />
                     <BenefitCard
                         icon={
@@ -72,9 +69,8 @@ export default function LandingBenefits() {
                                 <path d="M3.5 10h17M8 3v4M16 3v4"></path>
                             </svg>
                         }
-                        title="Innehåll och evenemang bara för medlemmar"
-                        text="Som premiummedlem får du exklusivt innehåll och evenemang, och prioriterad support när du behöver hjälp."
-                        premium
+                        title="Samordna arbetet"
+                        text="Diskutera i gemensamma grupper, per region eller per roll, och skicka direktmeddelanden till andra ledningsgrupper."
                     />
                 </div>
             </div>

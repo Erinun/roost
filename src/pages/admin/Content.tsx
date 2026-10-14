@@ -137,21 +137,21 @@ export default function AdminContent() {
         <div className="space-y-6">
             {/* Header */}
             <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Innehållsmoderering</h1>
-                <p className="text-gray-500 dark:text-gray-400 mt-1">Granska och moderera inlägg och kommentarer</p>
+                <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Innehållsmoderering</h1>
+                <p className="text-surface-500 dark:text-surface-400 mt-1">Granska och moderera inlägg och kommentarer</p>
             </div>
 
             {/* Tabs and Search */}
             <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex bg-gray-100 dark:bg-surface-800 rounded-lg p-1">
+                <div className="flex bg-surface-100 dark:bg-surface-800 rounded-lg p-1">
                     <button
                         onClick={() => {
                             setContentType('posts');
                             setPage(1);
                         }}
                         className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${contentType === 'posts'
-                                ? 'bg-white dark:bg-surface-700 text-gray-900 dark:text-gray-100 shadow-sm'
-                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                                ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 border border-surface-200 dark:border-surface-600'
+                                : 'text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100'
                             }`}
                     >
                         <FileText className="w-4 h-4" />
@@ -163,8 +163,8 @@ export default function AdminContent() {
                             setPage(1);
                         }}
                         className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${contentType === 'comments'
-                                ? 'bg-white dark:bg-surface-700 text-gray-900 dark:text-gray-100 shadow-sm'
-                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                                ? 'bg-white dark:bg-surface-700 text-surface-900 dark:text-surface-100 border border-surface-200 dark:border-surface-600'
+                                : 'text-surface-600 dark:text-surface-400 hover:text-surface-900 dark:hover:text-surface-100'
                             }`}
                     >
                         <MessageSquare className="w-4 h-4" />
@@ -172,7 +172,7 @@ export default function AdminContent() {
                     </button>
                 </div>
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-surface-400 dark:text-surface-500" />
                     <input
                         type="text"
                         value={search}
@@ -181,61 +181,61 @@ export default function AdminContent() {
                             setPage(1);
                         }}
                         placeholder={contentType === 'posts' ? 'Sök inlägg...' : 'Sök kommentarer...'}
-                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-2.5 border border-surface-200 dark:border-surface-700 rounded-lg bg-white dark:bg-surface-800 text-surface-900 dark:text-surface-100 placeholder:text-surface-400 dark:placeholder:text-surface-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     />
                 </div>
             </div>
 
             {/* Content Table */}
-            <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 overflow-hidden">
+            <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-50 dark:bg-surface-800 border-b border-gray-100 dark:border-surface-700">
+                        <thead className="bg-surface-50 dark:bg-surface-800 border-b border-surface-100 dark:border-surface-700">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider">
                                     {contentType === 'posts' ? 'Inlägg' : 'Kommentar'}
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider">
                                     Författare
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider">
                                     {contentType === 'posts' ? 'Kategori' : 'På inlägg'}
                                 </th>
-                                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-left text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider">
                                     Datum
                                 </th>
-                                <th className="px-6 py-3 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                <th className="px-6 py-3 text-right text-xs font-semibold text-surface-500 dark:text-surface-400 uppercase tracking-wider">
                                     Åtgärder
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100 dark:divide-surface-700">
+                        <tbody className="divide-y divide-surface-100 dark:divide-surface-700">
                             {loading ? (
                                 <tr>
-                                    <td colSpan={5} className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                                    <td colSpan={5} className="px-6 py-8 text-center text-surface-500 dark:text-surface-400">
                                         Laddar...
                                     </td>
                                 </tr>
                             ) : contentType === 'posts' && posts.length === 0 ? (
                                 <tr>
-                                    <td colSpan={5} className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                                    <td colSpan={5} className="px-6 py-8 text-center text-surface-500 dark:text-surface-400">
                                         Inga inlägg hittades
                                     </td>
                                 </tr>
                             ) : contentType === 'comments' && comments.length === 0 ? (
                                 <tr>
-                                    <td colSpan={5} className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                                    <td colSpan={5} className="px-6 py-8 text-center text-surface-500 dark:text-surface-400">
                                         Inga kommentarer hittades
                                     </td>
                                 </tr>
                             ) : contentType === 'posts' ? (
                                 posts.map((post) => (
-                                    <tr key={post.id} className="hover:bg-gray-50 dark:hover:bg-surface-800">
+                                    <tr key={post.id} className="hover:bg-surface-50 dark:hover:bg-surface-800">
                                         <td className="px-6 py-4 max-w-md">
-                                            <p className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                                            <p className="font-medium text-surface-900 dark:text-surface-100 truncate">
                                                 {post.title || 'Utan rubrik'}
                                             </p>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
+                                            <p className="text-sm text-surface-500 dark:text-surface-400 mt-1 line-clamp-2">
                                                 {truncateHtml(post.content)}
                                             </p>
                                         </td>
@@ -247,8 +247,8 @@ export default function AdminContent() {
                                                     className="w-8 h-8 rounded-full"
                                                 />
                                                 <div>
-                                                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{post.author.display_name}</p>
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400">@{post.author.username}</p>
+                                                    <p className="text-sm font-medium text-surface-900 dark:text-surface-100">{post.author.display_name}</p>
+                                                    <p className="text-xs text-surface-500 dark:text-surface-400">@{post.author.username}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -258,16 +258,16 @@ export default function AdminContent() {
                                                     className="inline-flex px-2 py-1 rounded-full text-xs font-medium"
                                                     style={{
                                                         backgroundColor: `${post.category.color}20`,
-                                                        color: post.category.color || '#666',
+                                                        color: post.category.color || 'var(--color-primary-600, #185DA9)',
                                                     }}
                                                 >
                                                     {post.category.name}
                                                 </span>
                                             ) : (
-                                                <span className="text-gray-400 dark:text-gray-500 text-sm">Ingen</span>
+                                                <span className="text-surface-400 dark:text-surface-500 text-sm">Ingen</span>
                                             )}
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                        <td className="px-6 py-4 text-sm text-surface-500 dark:text-surface-400">
                                             {new Date(post.created_at).toLocaleDateString('sv-SE')}
                                         </td>
                                         <td className="px-6 py-4 text-right">
@@ -276,15 +276,15 @@ export default function AdminContent() {
                                                     href={`/post/${post.id}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="p-2 hover:bg-gray-100 dark:hover:bg-surface-700 rounded-lg transition-colors"
+                                                    className="p-2 hover:bg-surface-100 dark:hover:bg-surface-700 rounded-lg transition-colors"
                                                     title="Visa inlägg"
                                                 >
-                                                    <Eye className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                                                    <Eye className="w-4 h-4 text-surface-500 dark:text-surface-400" />
                                                 </a>
                                                 <button
                                                     onClick={() => handleDeletePost(post.id)}
                                                     disabled={deleting === post.id}
-                                                    className="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-red-500 dark:text-red-400"
+                                                    className="p-2 hover:bg-error/10 dark:hover:bg-error/20 rounded-lg transition-colors text-error-strong dark:text-error-soft"
                                                     title="Ta bort inlägg"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
@@ -295,9 +295,9 @@ export default function AdminContent() {
                                 ))
                             ) : (
                                 comments.map((comment) => (
-                                    <tr key={comment.id} className="hover:bg-gray-50 dark:hover:bg-surface-800">
+                                    <tr key={comment.id} className="hover:bg-surface-50 dark:hover:bg-surface-800">
                                         <td className="px-6 py-4 max-w-md">
-                                            <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-3">
+                                            <p className="text-sm text-surface-700 dark:text-surface-300 line-clamp-3">
                                                 {truncateHtml(comment.content)}
                                             </p>
                                         </td>
@@ -309,8 +309,8 @@ export default function AdminContent() {
                                                     className="w-8 h-8 rounded-full"
                                                 />
                                                 <div>
-                                                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{comment.author.display_name}</p>
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400">@{comment.author.username}</p>
+                                                    <p className="text-sm font-medium text-surface-900 dark:text-surface-100">{comment.author.display_name}</p>
+                                                    <p className="text-xs text-surface-500 dark:text-surface-400">@{comment.author.username}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -319,20 +319,20 @@ export default function AdminContent() {
                                                 href={`/post/${comment.post.id}`}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-sm text-primary-600 dark:text-primary-400 hover:underline flex items-center gap-1"
+                                                className="text-sm text-primary-600 dark:text-primary-300 hover:underline flex items-center gap-1"
                                             >
                                                 {comment.post.title || 'Visa inlägg'}
                                                 <ExternalLink className="w-3 h-3" />
                                             </a>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                        <td className="px-6 py-4 text-sm text-surface-500 dark:text-surface-400">
                                             {new Date(comment.created_at).toLocaleDateString('sv-SE')}
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button
                                                 onClick={() => handleDeleteComment(comment.id)}
                                                 disabled={deleting === comment.id}
-                                                className="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors text-red-500 dark:text-red-400"
+                                                className="p-2 hover:bg-error/10 dark:hover:bg-error/20 rounded-lg transition-colors text-error-strong dark:text-error-soft"
                                                 title="Ta bort kommentar"
                                             >
                                                 <Trash2 className="w-4 h-4" />
@@ -347,27 +347,27 @@ export default function AdminContent() {
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                    <div className="px-6 py-4 border-t border-gray-100 dark:border-surface-700 flex items-center justify-between">
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <div className="px-6 py-4 border-t border-surface-100 dark:border-surface-700 flex items-center justify-between">
+                        <p className="text-sm text-surface-500 dark:text-surface-400">
                             Visar {(page - 1) * pageSize + 1} till {Math.min(page * pageSize, total)} av {total}
                         </p>
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                                 disabled={page === 1}
-                                className="p-2 border border-gray-200 dark:border-surface-700 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-800 disabled:opacity-50"
+                                className="p-2 border border-surface-200 dark:border-surface-700 rounded-lg hover:bg-surface-50 dark:hover:bg-surface-800 disabled:opacity-50"
                             >
-                                <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                                <ChevronLeft className="w-5 h-5 text-surface-700 dark:text-surface-300" />
                             </button>
-                            <span className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300">
+                            <span className="px-4 py-2 text-sm text-surface-700 dark:text-surface-300">
                                 Sida {page} av {totalPages}
                             </span>
                             <button
                                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                                 disabled={page === totalPages}
-                                className="p-2 border border-gray-200 dark:border-surface-700 rounded-lg hover:bg-gray-50 dark:hover:bg-surface-800 disabled:opacity-50"
+                                className="p-2 border border-surface-200 dark:border-surface-700 rounded-lg hover:bg-surface-50 dark:hover:bg-surface-800 disabled:opacity-50"
                             >
-                                <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                                <ChevronRight className="w-5 h-5 text-surface-700 dark:text-surface-300" />
                             </button>
                         </div>
                     </div>

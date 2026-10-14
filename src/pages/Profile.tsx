@@ -531,7 +531,7 @@ export default function ProfilePage() {
             {/* Profile Header Card */}
             <div className="card overflow-hidden">
                 {/* Cover Photo */}
-                <div className="relative h-48 md:h-[400px] bg-gradient-to-br from-primary-400 to-primary-600">
+                <div className="relative h-48 md:h-[400px] bg-gradient-blue">
                     {displayProfile.cover_url && (
                         <img
                             src={displayProfile.cover_url}
@@ -670,7 +670,7 @@ export default function ProfilePage() {
                                 <div className="flex items-center justify-center gap-2 mb-2">
                                     {userRank && <UserRankBadge rank={userRank.rank} size="sm" />}
                                 </div>
-                                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                                <div className="text-2xl font-bold text-brand-purple dark:text-primary-300">
                                     {userRank ? userRank.points.toLocaleString() : '0'}
                                 </div>
                                 <div className="text-sm text-surface-500 dark:text-surface-400">Poäng</div>

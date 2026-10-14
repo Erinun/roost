@@ -273,21 +273,21 @@ export async function createMentionNotifications(
 export function getNotificationIconInfo(type: string): { icon: string; color: string } {
   switch (type) {
     case 'new_comment':
-      return { icon: 'MessageSquare', color: 'text-blue-600' };
+      return { icon: 'MessageSquare', color: 'text-primary-600' };
     case 'comment_reply':
-      return { icon: 'Reply', color: 'text-cyan-600' };
+      return { icon: 'Reply', color: 'text-info' };
     case 'new_reaction':
-      return { icon: 'Heart', color: 'text-red-600' };
+      return { icon: 'Heart', color: 'text-error-strong' };
     case 'new_message':
       return { icon: 'Mail', color: 'text-primary-600' };
     case 'new_follower':
-      return { icon: 'UserPlus', color: 'text-green-600' };
+      return { icon: 'UserPlus', color: 'text-success' };
     case 'group_invite':
-      return { icon: 'Users', color: 'text-purple-600' };
+      return { icon: 'Users', color: 'text-brand-purple' };
     case 'mention':
-      return { icon: 'AtSign', color: 'text-orange-600' };
+      return { icon: 'AtSign', color: 'text-brand-orange' };
     case 'group_join_request':
-      return { icon: 'UserCheck', color: 'text-indigo-600' };
+      return { icon: 'UserCheck', color: 'text-info' };
     case 'system':
       return { icon: 'Bell', color: 'text-surface-600' };
     default:

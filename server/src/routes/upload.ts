@@ -13,6 +13,10 @@ const bucketName = process.env.AWS_S3_BUCKET || '';
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID || '';
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY || '';
 const s3Endpoint = process.env.S3_ENDPOINT?.trim().replace(/\/+$/, '') || undefined;
+// Public base URL for reads (R2 r2.dev subdomain or custom domain) — the S3 API
+// endpoint on R2 is not publicly readable, so reads need a separate base URL.
+// Keys are appended directly without the bucket name.
+const s3PublicUrl = process.env.S3_PUBLIC_URL?.trim().replace(/\/+$/, '') || undefined;
 
 const s3Client = new S3Client({
   region,
@@ -45,8 +49,8 @@ const ALL_ALLOWED_TYPES = [...ALLOWED_IMAGE_TYPES, ...ALLOWED_VIDEO_TYPES, ...AL
 // Allowed folder patterns for presigned URL generation
 // Must match exactly the folders used by frontend code:
 //   images, videos, documents, uploads, activations/products,
-//   avatars/{uuid}, groups/{uuid}/documents
-const ALLOWED_FOLDER_PATTERN = /^(images|videos|documents|uploads|activations\/products|avatars\/[a-f0-9-]{36}|groups\/[a-f0-9-]{36}\/documents)$/;
+//   avatars/{uuid}, groups/{uuid}/documents, association-docs/{uuid}
+const ALLOWED_FOLDER_PATTERN = /^(images|videos|documents|uploads|activations\/products|avatars\/[a-f0-9-]{36}|groups\/[a-f0-9-]{36}\/documents|association-docs\/[a-f0-9-]{36})$/;
 
 // Allowed key prefixes for delete operations
 const ALLOWED_DELETE_PREFIXES = [
@@ -102,6 +106,9 @@ function generateFileKey(folder: string, fileName: string): string {
 // Get public URL for a file
 function getPublicUrl(key: string): string {
   const normalizedKey = key.replace(/^\/+/, '');
+  if (s3PublicUrl) {
+    return `${s3PublicUrl}/${normalizedKey}`;
+  }
   if (s3Endpoint) {
     return `${s3Endpoint}/${bucketName}/${normalizedKey}`;
   }

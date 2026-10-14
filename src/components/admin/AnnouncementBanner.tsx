@@ -9,24 +9,24 @@ interface AnnouncementBannerProps {
 }
 
 const typeStyles: Record<AnnouncementType, { bg: string; border: string; icon: typeof Info }> = {
-    info: { bg: 'bg-blue-50 dark:bg-blue-900/30', border: 'border-blue-200 dark:border-blue-800', icon: Info },
-    warning: { bg: 'bg-yellow-50 dark:bg-yellow-900/30', border: 'border-yellow-200 dark:border-yellow-800', icon: AlertTriangle },
-    success: { bg: 'bg-green-50 dark:bg-green-900/30', border: 'border-green-200 dark:border-green-800', icon: CheckCircle },
-    error: { bg: 'bg-red-50 dark:bg-red-900/30', border: 'border-red-200 dark:border-red-800', icon: AlertCircle },
+    info: { bg: 'bg-info/10 dark:bg-info/15', border: 'border-info/40', icon: Info },
+    warning: { bg: 'bg-warning/10 dark:bg-warning/15', border: 'border-warning/50', icon: AlertTriangle },
+    success: { bg: 'bg-success/10 dark:bg-success/15', border: 'border-success/40', icon: CheckCircle },
+    error: { bg: 'bg-error/10 dark:bg-error/20', border: 'border-error/60', icon: AlertCircle },
 };
 
 const typeTextColors: Record<AnnouncementType, string> = {
-    info: 'text-blue-800 dark:text-blue-300',
-    warning: 'text-yellow-800 dark:text-yellow-300',
-    success: 'text-green-800 dark:text-green-300',
-    error: 'text-red-800 dark:text-red-300',
+    info: 'text-surface-900 dark:text-surface-50',
+    warning: 'text-surface-900 dark:text-surface-50',
+    success: 'text-surface-900 dark:text-surface-50',
+    error: 'text-surface-900 dark:text-error-soft',
 };
 
 const typeIconColors: Record<AnnouncementType, string> = {
-    info: 'text-blue-500 dark:text-blue-400',
-    warning: 'text-yellow-500 dark:text-yellow-400',
-    success: 'text-green-500 dark:text-green-400',
-    error: 'text-red-500 dark:text-red-400',
+    info: 'text-info',
+    warning: 'text-surface-700 dark:text-warning',
+    success: 'text-surface-900 dark:text-success',
+    error: 'text-error-strong dark:text-error-soft',
 };
 
 export default function AnnouncementBanner({ groupId }: AnnouncementBannerProps) {
@@ -98,7 +98,7 @@ export default function AnnouncementBanner({ groupId }: AnnouncementBannerProps)
                         {announcement.is_dismissible && (
                             <button
                                 onClick={() => handleDismiss(announcement.id)}
-                                className={`p-1 rounded hover:bg-black/10 dark:hover:bg-white/10 transition-colors ${typeTextColors[announcement.type]}`}
+                                className={`p-1 rounded hover:bg-surface-900/10 dark:hover:bg-white/10 transition-colors ${typeTextColors[announcement.type]}`}
                                 title="Avfärda"
                             >
                                 <X className="w-4 h-4" />

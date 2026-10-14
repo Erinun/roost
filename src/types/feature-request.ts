@@ -59,33 +59,33 @@ export const FEATURE_REQUEST_STATUS_INFO: Record<FeatureRequestStatus, {
 }> = {
     under_review: {
         label: 'Under granskning',
-        color: 'text-yellow-700 dark:text-yellow-400',
-        bgColor: 'bg-yellow-100 dark:bg-yellow-900/30',
-        dotColor: 'bg-yellow-500',
+        color: 'text-surface-900 dark:text-warning',
+        bgColor: 'bg-warning/20 dark:bg-warning/20',
+        dotColor: 'bg-warning',
     },
     planned: {
         label: 'Planerad',
-        color: 'text-blue-700 dark:text-blue-400',
-        bgColor: 'bg-blue-100 dark:bg-blue-900/30',
-        dotColor: 'bg-blue-500',
+        color: 'text-primary-700 dark:text-primary-200',
+        bgColor: 'bg-primary-100 dark:bg-primary-900',
+        dotColor: 'bg-primary-500',
     },
     in_progress: {
         label: 'Pågår',
-        color: 'text-orange-700 dark:text-orange-400',
-        bgColor: 'bg-orange-100 dark:bg-orange-900/30',
-        dotColor: 'bg-orange-500',
+        color: 'text-surface-900 dark:text-info',
+        bgColor: 'bg-info/15 dark:bg-info/20',
+        dotColor: 'bg-info',
     },
     released: {
         label: 'Släppt',
-        color: 'text-green-700 dark:text-green-400',
-        bgColor: 'bg-green-100 dark:bg-green-900/30',
-        dotColor: 'bg-green-500',
+        color: 'text-surface-900 dark:text-success',
+        bgColor: 'bg-success/15 dark:bg-success/20',
+        dotColor: 'bg-success',
     },
     declined: {
         label: 'Avböjd',
-        color: 'text-red-700 dark:text-red-400',
-        bgColor: 'bg-red-100 dark:bg-red-900/30',
-        dotColor: 'bg-red-500',
+        color: 'text-surface-900 dark:text-error-soft',
+        bgColor: 'bg-error/15 dark:bg-error/20',
+        dotColor: 'bg-error',
     },
     duplicate: {
         label: 'Dubblett',
@@ -103,18 +103,18 @@ export const FEATURE_REQUEST_TYPE_INFO: Record<FeatureRequestType, {
 }> = {
     feature_request: {
         label: 'Funktion',
-        color: 'text-purple-700 dark:text-purple-400',
-        bgColor: 'bg-purple-100 dark:bg-purple-900/30',
+        color: 'text-white',
+        bgColor: 'bg-brand-purple',
     },
     bug_report: {
         label: 'Bugg',
-        color: 'text-red-700 dark:text-red-400',
-        bgColor: 'bg-red-100 dark:bg-red-900/30',
+        color: 'text-surface-900 dark:text-error-soft',
+        bgColor: 'bg-error/15 dark:bg-error/20',
     },
     improvement: {
         label: 'Förbättring',
-        color: 'text-blue-700 dark:text-blue-400',
-        bgColor: 'bg-blue-100 dark:bg-blue-900/30',
+        color: 'text-surface-900 dark:text-info',
+        bgColor: 'bg-info/15 dark:bg-info/20',
     },
 };
 

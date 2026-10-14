@@ -14,29 +14,28 @@ import EventForm, { type EventFormData } from '../events/EventForm';
 // Tokentabell för react-big-calendar (tredjepartsbibliotek som kräver
 // färgsträngar i CSS-överlagringar och inline-stilar). Detta är filens ENDA
 // ställe med färgvärden och de speglar designsystemets tokens exakt
-// (docs/redesign/designsystem.md). Tokens som har CSS-variabler läses via
-// var(--token) med profilens hex som fallback; surface-skalan saknar
-// CSS-variabler och anges därför med sina tokenhex.
+// (docs/redesign/designsystem.md). Alla tokens läses via var(--token) med
+// profilens hex som fallback.
 // =============================================================================
 const RBC = {
     /** surface-50 – ljus brödtext i mörkt läge */
-    surface50: '#F3F7FC',
+    surface50: 'var(--surface-50, #F3F7FC)',
     /** surface-300 – dämpad text i mörkt läge */
-    surface300: '#B9C9DE',
+    surface300: 'var(--surface-300, #B9C9DE)',
     /** surface-400 – datumtext/dekor i mörkt läge */
-    surface400: '#8CA0BC',
+    surface400: 'var(--surface-400, #8CA0BC)',
     /** surface-500 – förflutna evenemang (vit text 5,0:1) */
-    surface500: '#5C7190',
+    surface500: 'var(--surface-500, #5C7190)',
     /** surface-600 – nedtonad text (utanför perioden) i mörkt läge */
-    surface600: '#4A5B73',
+    surface600: 'var(--surface-600, #4A5B73)',
     /** surface-700 – linjer i mörkt läge */
-    surface700: '#334862',
+    surface700: 'var(--surface-700, #334862)',
     /** surface-800 – upphöjda ytor/hover i mörkt läge */
-    surface800: '#1D3754',
+    surface800: 'var(--surface-800, #1D3754)',
     /** surface-900 – kortbakgrund i mörkt läge; mörk text på teal/orange */
-    surface900: '#0E2A4D',
+    surface900: 'var(--surface-900, #0E2A4D)',
     /** surface-950 – dagar utanför perioden i mörkt läge */
-    surface950: '#081E3A',
+    surface950: 'var(--surface-950, #081E3A)',
     /** brand-purple – evenemang/kampanj (standardfärg, vit text 8,5:1) */
     brandPurple: 'var(--brand-purple, #652FA0)',
     /** success = brand-teal – "deltar", alltid mörk text */

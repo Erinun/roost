@@ -97,6 +97,7 @@ backups/
 *.pid
 *.seed
 *.pid.lock
-# Docs (utom redesign-underlaget som ska versioneras)
+# Docs (utom redesign-underlaget och medlemsportal-dokumentationen som ska versioneras)
 docs/*
+!docs/member-portal.md
 !docs/redesign/

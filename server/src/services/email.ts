@@ -115,17 +115,17 @@ class EmailService {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Välkommen till ${this.fromName}</title>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: #667eea; padding: 40px 20px; text-align: center; border-radius: 12px 12px 0 0;">
+<body style="font-family: 'PT Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #0E2A4D; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: #185DA9; padding: 40px 20px; text-align: center; border-radius: 12px 12px 0 0;">
     <h1 style="color: white; margin: 0; font-size: 28px;">Välkommen till ${this.fromName}!</h1>
   </div>
 
-  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
+  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #D5E1EE; border-top: none; border-radius: 0 0 12px 12px;">
     <p style="font-size: 18px; margin-top: 0;">Hej ${safeName},</p>
 
     <p>Tack för ditt köp av <strong>${safeProductName}</strong> (${planType})! Ditt konto har skapats och du är redo att bli en del av vår community.</p>
 
-    <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 24px 0;">
+    <div style="background: #F3F7FC; padding: 20px; border-radius: 8px; margin: 24px 0;">
       <p style="margin: 0 0 8px 0; font-weight: 600;">Dina kontouppgifter:</p>
       <p style="margin: 0;">E-post: <strong>${safeEmail}</strong></p>
     </div>
@@ -133,12 +133,12 @@ class EmailService {
     <p>För att komma igång, välj ditt lösenord genom att klicka på knappen nedan:</p>
 
     <div style="text-align: center; margin: 32px 0;">
-      <a href="${resetPasswordUrl}" style="display: inline-block; background: #667eea; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">Välj ditt lösenord</a>
+      <a href="${resetPasswordUrl}" style="display: inline-block; background: #185DA9; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">Välj ditt lösenord</a>
     </div>
 
-    <p style="color: #6b7280; font-size: 14px;">Länken är giltig i 24 timmar. Om du inte gjorde det här köpet kan du ignorera det här mejlet.</p>
+    <p style="color: #4A5B73; font-size: 14px;">Länken är giltig i 24 timmar. Om du inte gjorde det här köpet kan du ignorera det här mejlet.</p>
 
-    <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;">
+    <hr style="border: none; border-top: 1px solid #D5E1EE; margin: 32px 0;">
 
     <p style="margin-bottom: 0;">När du har valt ditt lösenord kan du:</p>
     <ul style="margin-top: 8px;">
@@ -152,10 +152,10 @@ class EmailService {
     <p style="margin-bottom: 0;">Vänliga hälsningar,<br><strong>${this.fromName}-teamet</strong></p>
   </div>
 
-  <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+  <div style="text-align: center; padding: 20px; color: #5C7190; font-size: 12px;">
     <p style="margin: 0;">&copy; ${new Date().getFullYear()} ${this.fromName}. Alla rättigheter förbehållna.</p>
     <p style="margin: 8px 0 0 0;">
-      <a href="${frontendUrl}" style="color: #6b7280;">Besök vår plattform</a>
+      <a href="${frontendUrl}" style="color: #4A5B73;">Besök vår plattform</a>
     </p>
   </div>
 </body>
@@ -220,17 +220,17 @@ ${this.fromName}-teamet
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: #f59e0b; padding: 30px 20px; text-align: center; border-radius: 12px 12px 0 0;">
-    <h1 style="color: white; margin: 0; font-size: 24px;">Prenumeration uppsagd</h1>
+<body style="font-family: 'PT Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #0E2A4D; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: #F5A118; padding: 30px 20px; text-align: center; border-radius: 12px 12px 0 0;">
+    <h1 style="color: #0E2A4D; margin: 0; font-size: 24px;">Prenumeration uppsagd</h1>
   </div>
 
-  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
+  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #D5E1EE; border-top: none; border-radius: 0 0 12px 12px;">
     <p style="font-size: 18px; margin-top: 0;">Hej ${safeName},</p>
 
     <p>Vi är ledsna att se dig lämna oss! Din prenumeration på <strong>${safeProductName}</strong> har sagts upp.</p>
 
-    <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin: 24px 0; border-left: 4px solid #f59e0b;">
+    <div style="background: #FBC231; padding: 20px; border-radius: 8px; margin: 24px 0; border-left: 4px solid #F5A118;">
       <p style="margin: 0; font-weight: 600;">Goda nyheter: du har fortfarande åtkomst!</p>
       <p style="margin: 8px 0 0 0;">Din åtkomst gäller till och med <strong>${formattedDate}</strong> (7 dagars respitperiod).</p>
     </div>
@@ -268,12 +268,12 @@ ${this.fromName}-teamet
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: #10b981; padding: 30px 20px; text-align: center; border-radius: 12px 12px 0 0;">
-    <h1 style="color: white; margin: 0; font-size: 24px;">Välkommen tillbaka!</h1>
+<body style="font-family: 'PT Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #0E2A4D; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: #32D7CD; padding: 30px 20px; text-align: center; border-radius: 12px 12px 0 0;">
+    <h1 style="color: #0E2A4D; margin: 0; font-size: 24px;">Välkommen tillbaka!</h1>
   </div>
 
-  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
+  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #D5E1EE; border-top: none; border-radius: 0 0 12px 12px;">
     <p style="font-size: 18px; margin-top: 0;">Hej ${safeName},</p>
 
     <p>Goda nyheter! Din prenumeration på <strong>${safeProductName}</strong> har återaktiverats.</p>
@@ -281,7 +281,7 @@ ${this.fromName}-teamet
     <p>Du har nu full tillgång till alla communityfunktioner igen. Vi är glada att ha dig tillbaka!</p>
 
     <div style="text-align: center; margin: 32px 0;">
-      <a href="${frontendUrl}" style="display: inline-block; background: #10b981; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">Gå till communityn</a>
+      <a href="${frontendUrl}" style="display: inline-block; background: #185DA9; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">Gå till communityn</a>
     </div>
 
     <p style="margin-bottom: 0;">Vänliga hälsningar,<br><strong>${this.fromName}-teamet</strong></p>
@@ -316,12 +316,12 @@ ${this.fromName}-teamet
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Återställ ditt lösenord</title>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: #667eea; padding: 40px 20px; text-align: center; border-radius: 12px 12px 0 0;">
+<body style="font-family: 'PT Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #0E2A4D; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: #185DA9; padding: 40px 20px; text-align: center; border-radius: 12px 12px 0 0;">
     <h1 style="color: white; margin: 0; font-size: 28px;">Återställ ditt lösenord</h1>
   </div>
 
-  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
+  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #D5E1EE; border-top: none; border-radius: 0 0 12px 12px;">
     <p style="font-size: 18px; margin-top: 0;">Hej ${safeName},</p>
 
     <p>Vi har tagit emot en begäran om att återställa lösenordet för ditt ${this.fromName}-konto kopplat till <strong>${safeEmail}</strong>.</p>
@@ -329,23 +329,23 @@ ${this.fromName}-teamet
     <p>Klicka på knappen nedan för att återställa ditt lösenord:</p>
 
     <div style="text-align: center; margin: 32px 0;">
-      <a href="${resetUrl}" style="display: inline-block; background: #667eea; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">Återställ lösenord</a>
+      <a href="${resetUrl}" style="display: inline-block; background: #185DA9; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">Återställ lösenord</a>
     </div>
 
-    <p style="color: #6b7280; font-size: 14px;">Länken är giltig i <strong>1 timme</strong>. Om du inte begärde en lösenordsåterställning kan du ignorera det här mejlet – ditt lösenord förblir oförändrat.</p>
+    <p style="color: #4A5B73; font-size: 14px;">Länken är giltig i <strong>1 timme</strong>. Om du inte begärde en lösenordsåterställning kan du ignorera det här mejlet – ditt lösenord förblir oförändrat.</p>
 
-    <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 32px 0;">
+    <hr style="border: none; border-top: 1px solid #D5E1EE; margin: 32px 0;">
 
-    <p style="color: #9ca3af; font-size: 13px; margin-bottom: 0;">
+    <p style="color: #5C7190; font-size: 13px; margin-bottom: 0;">
       Om knappen inte fungerar, kopiera och klistra in den här länken i din webbläsare:<br>
-      <a href="${resetUrl}" style="color: #667eea; word-break: break-all;">${resetUrl}</a>
+      <a href="${resetUrl}" style="color: #185DA9; word-break: break-all;">${resetUrl}</a>
     </p>
   </div>
 
-  <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+  <div style="text-align: center; padding: 20px; color: #5C7190; font-size: 12px;">
     <p style="margin: 0;">&copy; ${new Date().getFullYear()} ${this.fromName}. Alla rättigheter förbehållna.</p>
     <p style="margin: 8px 0 0 0;">
-      <a href="${frontendUrl}" style="color: #6b7280;">Besök vår plattform</a>
+      <a href="${frontendUrl}" style="color: #4A5B73;">Besök vår plattform</a>
     </p>
   </div>
 </body>
@@ -391,7 +391,7 @@ ${this.fromName}-teamet
     const frontendUrl = FRONTEND_URL;
 
     // Get notification type specific styling
-    const { color, icon, subject } = this.getNotificationTypeStyles(notificationType, title);
+    const { color, headerText, icon, subject } = this.getNotificationTypeStyles(notificationType, title);
 
     const html = `
 <!DOCTYPE html>
@@ -401,36 +401,36 @@ ${this.fromName}-teamet
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${subject}</title>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+<body style="font-family: 'PT Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #0E2A4D; max-width: 600px; margin: 0 auto; padding: 20px;">
   <div style="background: ${color}; padding: 30px 20px; text-align: center; border-radius: 12px 12px 0 0;">
     <div style="font-size: 32px; margin-bottom: 8px;">${icon}</div>
-    <h1 style="color: white; margin: 0; font-size: 22px;">${safeTitle}</h1>
+    <h1 style="color: ${headerText}; margin: 0; font-size: 22px;">${safeTitle}</h1>
   </div>
 
-  <div style="background: #ffffff; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
+  <div style="background: #ffffff; padding: 30px; border: 1px solid #D5E1EE; border-top: none; border-radius: 0 0 12px 12px;">
     <p style="font-size: 16px; margin-top: 0;">Hej ${safeName},</p>
 
     ${safeMessage ? `
-    <div style="background: #f9fafb; padding: 16px; border-radius: 8px; margin: 20px 0; border-left: 4px solid ${color};">
-      <p style="margin: 0; color: #4b5563; font-style: italic;">"${safeMessage}${safeMessage.length >= 100 ? '...' : ''}"</p>
+    <div style="background: #F3F7FC; padding: 16px; border-radius: 8px; margin: 20px 0; border-left: 4px solid ${color};">
+      <p style="margin: 0; color: #334862; font-style: italic;">"${safeMessage}${safeMessage.length >= 100 ? '...' : ''}"</p>
     </div>
     ` : ''}
 
     ${link ? `
     <div style="text-align: center; margin: 24px 0;">
-      <a href="${link}" style="display: inline-block; background: ${color}; color: white; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 14px;">Visa på plattformen</a>
+      <a href="${link}" style="display: inline-block; background: #185DA9; color: white; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 14px;">Visa på plattformen</a>
     </div>
     ` : ''}
 
-    <p style="color: #6b7280; font-size: 14px; margin-bottom: 0;">
-      Du kan hantera dina notisinställningar i dina <a href="${frontendUrl}/settings" style="color: ${color};">kontoinställningar</a>.
+    <p style="color: #4A5B73; font-size: 14px; margin-bottom: 0;">
+      Du kan hantera dina notisinställningar i dina <a href="${frontendUrl}/settings" style="color: #185DA9;">kontoinställningar</a>.
     </p>
   </div>
 
-  <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+  <div style="text-align: center; padding: 20px; color: #5C7190; font-size: 12px;">
     <p style="margin: 0;">&copy; ${new Date().getFullYear()} ${this.fromName}. Alla rättigheter förbehållna.</p>
     <p style="margin: 8px 0 0 0;">
-      <a href="${frontendUrl}" style="color: #6b7280;">Besök vår plattform</a>
+      <a href="${frontendUrl}" style="color: #4A5B73;">Besök vår plattform</a>
     </p>
   </div>
 </body>
@@ -475,28 +475,39 @@ ${this.fromName}
     const safeAdminNotes = adminNotes ? escapeHtml(adminNotes) : '';
     const frontendUrl = FRONTEND_URL;
 
-    // Status-specific configuration
+    // Status-specific configuration.
+    // Färger ur profilens palett (designsystem.md): headerText = mörk text på
+    // orange/teal/röd, vit endast på blått; textColor = statusfärg som är
+    // läsbar som text på ljus botten (blå, mörkblå eller error-strong).
     const statusConfig = {
       pending: {
-        color: '#f59e0b',
+        color: '#F5A118', // brand-orange
+        headerText: '#0E2A4D',
+        textColor: '#0E2A4D',
         icon: '⏳',
         title: 'Aktiveringsförfrågan mottagen',
         message: `Din aktiveringsförfrågan för <strong>${safeProductName}</strong> har tagits emot och väntar på granskning.`,
       },
       in_progress: {
-        color: '#3b82f6',
+        color: '#185DA9', // brand-blue
+        headerText: '#ffffff',
+        textColor: '#185DA9',
         icon: '⚙️',
         title: 'Aktivering pågår',
         message: `Goda nyheter! Din aktivering av <strong>${safeProductName}</strong> behandlas nu.`,
       },
       completed: {
-        color: '#10b981',
+        color: '#32D7CD', // brand-teal
+        headerText: '#0E2A4D',
+        textColor: '#0E2A4D',
         icon: '✅',
         title: 'Aktivering slutförd',
         message: `Goda nyheter! <strong>${safeProductName}</strong> har aktiverats på din webbplats.`,
       },
       rejected: {
-        color: '#ef4444',
+        color: '#EC5345', // brand-red
+        headerText: '#0E2A4D',
+        textColor: '#B23327',
         icon: '❌',
         title: 'Uppdatering om din aktiveringsförfrågan',
         message: `Din aktiveringsförfrågan för <strong>${safeProductName}</strong> har granskats.`,
@@ -513,44 +524,44 @@ ${this.fromName}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${config.title}</title>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+<body style="font-family: 'PT Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #0E2A4D; max-width: 600px; margin: 0 auto; padding: 20px;">
   <div style="background: ${config.color}; padding: 30px 20px; text-align: center; border-radius: 12px 12px 0 0;">
     <div style="font-size: 40px; margin-bottom: 8px;">${config.icon}</div>
-    <h1 style="color: white; margin: 0; font-size: 24px;">${config.title}</h1>
+    <h1 style="color: ${config.headerText}; margin: 0; font-size: 24px;">${config.title}</h1>
   </div>
 
-  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
+  <div style="background: #ffffff; padding: 40px 30px; border: 1px solid #D5E1EE; border-top: none; border-radius: 0 0 12px 12px;">
     <p style="font-size: 18px; margin-top: 0;">Hej ${safeName},</p>
 
     <p>${config.message}</p>
 
-    <div style="background: #f3f4f6; padding: 16px; border-radius: 8px; margin: 24px 0;">
-      <p style="margin: 0 0 8px 0; font-weight: 600; color: #4b5563;">Uppgifter om förfrågan:</p>
-      <p style="margin: 0; color: #6b7280;">
+    <div style="background: #F3F7FC; padding: 16px; border-radius: 8px; margin: 24px 0;">
+      <p style="margin: 0 0 8px 0; font-weight: 600; color: #334862;">Uppgifter om förfrågan:</p>
+      <p style="margin: 0; color: #4A5B73;">
         <strong>Produkt:</strong> ${safeProductName}<br>
         <strong>Webbplats:</strong> ${safeWebsiteUrl}<br>
-        <strong>Status:</strong> <span style="color: ${config.color}; font-weight: 600;">${status.replace('_', ' ').toUpperCase()}</span>
+        <strong>Status:</strong> <span style="color: ${config.textColor}; font-weight: 600;">${status.replace('_', ' ').toUpperCase()}</span>
       </p>
     </div>
 
     ${safeAdminNotes ? `
-    <div style="background: #fef3c7; padding: 16px; border-radius: 8px; margin: 24px 0; border-left: 4px solid #f59e0b;">
-      <p style="margin: 0 0 8px 0; font-weight: 600; color: #92400e;">Meddelande från vårt team:</p>
-      <p style="margin: 0; color: #78350f;">${safeAdminNotes}</p>
+    <div style="background: #FBC231; padding: 16px; border-radius: 8px; margin: 24px 0; border-left: 4px solid #F5A118;">
+      <p style="margin: 0 0 8px 0; font-weight: 600; color: #0E2A4D;">Meddelande från vårt team:</p>
+      <p style="margin: 0; color: #0E2A4D;">${safeAdminNotes}</p>
     </div>
     ` : ''}
 
     <div style="text-align: center; margin: 32px 0;">
-      <a href="${frontendUrl}/activations" style="display: inline-block; background: ${config.color}; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">Visa mina aktiveringar</a>
+      <a href="${frontendUrl}/activations" style="display: inline-block; background: #185DA9; color: white; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">Visa mina aktiveringar</a>
     </div>
 
     <p style="margin-bottom: 0;">Vänliga hälsningar,<br><strong>${this.fromName}-teamet</strong></p>
   </div>
 
-  <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+  <div style="text-align: center; padding: 20px; color: #5C7190; font-size: 12px;">
     <p style="margin: 0;">&copy; ${new Date().getFullYear()} ${this.fromName}. Alla rättigheter förbehållna.</p>
     <p style="margin: 8px 0 0 0;">
-      <a href="${frontendUrl}" style="color: #6b7280;">Besök vår plattform</a>
+      <a href="${frontendUrl}" style="color: #4A5B73;">Besök vår plattform</a>
     </p>
   </div>
 </body>
@@ -585,59 +596,71 @@ ${this.fromName}-teamet
     });
   }
 
-  private getNotificationTypeStyles(type: string, title: string): { color: string; icon: string; subject: string } {
+  // Profilens palett (se docs/redesign/designsystem.md). headerText följer
+  // kontrastreglerna: mörk text (#0E2A4D) på teal/orange/gul/röd, vit text
+  // endast på blått/lila.
+  private getNotificationTypeStyles(type: string, title: string): { color: string; headerText: string; icon: string; subject: string } {
     switch (type) {
       case 'new_comment':
         return {
-          color: '#3b82f6', // blue
+          color: '#185DA9', // brand-blue
+          headerText: '#ffffff',
           icon: '💬',
           subject: `Ny kommentar: ${title}`,
         };
       case 'comment_reply':
         return {
-          color: '#06b6d4', // cyan
+          color: '#159EDA', // brand-sky
+          headerText: '#0E2A4D',
           icon: '↩️',
           subject: `Nytt svar: ${title}`,
         };
       case 'new_reaction':
         return {
-          color: '#ef4444', // red
+          color: '#EC5345', // brand-red
+          headerText: '#0E2A4D',
           icon: '❤️',
           subject: `Ny reaktion: ${title}`,
         };
       case 'new_message':
         return {
-          color: '#667eea', // primary
+          color: '#185DA9', // brand-blue
+          headerText: '#ffffff',
           icon: '✉️',
           subject: title,
         };
       case 'mention':
         return {
-          color: '#f97316', // orange
+          color: '#F5A118', // brand-orange
+          headerText: '#0E2A4D',
           icon: '@',
           subject: `Du blev omnämnd: ${title}`,
         };
       case 'group_invite':
         return {
-          color: '#8b5cf6', // purple
+          color: '#652FA0', // brand-purple
+          headerText: '#ffffff',
           icon: '👥',
           subject: `Inbjudan till klassrum: ${title}`,
         };
       case 'new_follower':
         return {
-          color: '#22c55e', // green
+          color: '#32D7CD', // brand-teal
+          headerText: '#0E2A4D',
           icon: '👤',
           subject: `Ny följare: ${title}`,
         };
       case 'event_reminder':
         return {
-          color: '#eab308', // yellow
+          color: '#FBC231', // brand-yellow
+          headerText: '#0E2A4D',
           icon: '📅',
           subject: `Påminnelse om evenemang: ${title}`,
         };
       default:
         return {
-          color: '#667eea', // primary
+          color: '#185DA9', // brand-blue
+          headerText: '#ffffff',
           icon: '🔔',
           subject: title,
         };

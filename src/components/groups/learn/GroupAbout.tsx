@@ -198,12 +198,12 @@ export default function GroupAbout({ group, onStartModules }: GroupAboutProps) {
         .group-about .about-content ul { list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0; }
         .group-about .about-content ol { list-style: decimal; padding-left: 1.5rem; margin: 0.5rem 0; }
         .group-about .about-content li { margin: 0.25rem 0; }
-        .group-about .about-content a { color: var(--color-primary-600, #0284c7); text-decoration: underline; }
-        .dark .group-about .about-content a { color: var(--color-primary-400, #38bdf8); }
-        .group-about .about-content blockquote { border-left: 3px solid #d4d4d4; padding-left: 1rem; margin: 0.75rem 0; font-style: italic; }
-        .dark .group-about .about-content blockquote { border-color: #525252; }
-        .group-about .about-content pre { background: #f5f5f5; border-radius: 0.5rem; padding: 0.75rem; overflow-x: auto; margin: 0.75rem 0; }
-        .dark .group-about .about-content pre { background: #262626; }
+        .group-about .about-content a { color: var(--color-primary-600, #185DA9); text-decoration: underline; }
+        .dark .group-about .about-content a { color: var(--color-primary-300, #8EBBEB); }
+        .group-about .about-content blockquote { border-left: 3px solid var(--surface-200, #D5E1EE); padding-left: 1rem; margin: 0.75rem 0; font-style: italic; }
+        .dark .group-about .about-content blockquote { border-color: var(--surface-700, #334862); }
+        .group-about .about-content pre { background: var(--surface-50, #F3F7FC); border-radius: 0.5rem; padding: 0.75rem; overflow-x: auto; margin: 0.75rem 0; }
+        .dark .group-about .about-content pre { background: var(--surface-800, #1D3754); }
       `}</style>
         </div>
     );

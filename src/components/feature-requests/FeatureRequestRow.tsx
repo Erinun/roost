@@ -43,7 +43,7 @@ export default function FeatureRequestRow({
                 disabled={isVoting}
                 className={`flex flex-col items-center justify-center px-2 py-1.5 rounded-lg border transition-colors flex-shrink-0 min-w-[48px] ${
                     request.user_has_voted
-                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-400'
                         : 'border-surface-200 dark:border-surface-700 hover:border-primary-300 dark:hover:border-primary-700 text-surface-500 dark:text-surface-400'
                 }`}
             >
@@ -57,7 +57,7 @@ export default function FeatureRequestRow({
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                             {request.is_pinned && (
-                                <Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500 flex-shrink-0" />
+                                <Star className="w-3.5 h-3.5 text-brand-orange fill-brand-orange flex-shrink-0" />
                             )}
                             <h4 className="text-sm font-semibold text-surface-900 dark:text-surface-100 line-clamp-1">
                                 {request.title}

@@ -89,9 +89,9 @@ export default function AvatarUpload({
             ${sizeClasses[size]} rounded-full overflow-hidden
             bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 font-semibold
             flex items-center justify-center
-            border-4 border-white dark:border-surface-800 shadow-lg dark:shadow-none
+            border-4 border-white dark:border-surface-800
             transition-all duration-200
-            hover:ring-4 hover:ring-primary-100 dark:hover:ring-primary-900/50
+            hover:ring-4 hover:ring-primary-100 dark:hover:ring-primary-800
             disabled:cursor-not-allowed
             relative
           `}
@@ -107,7 +107,7 @@ export default function AvatarUpload({
                     )}
 
                     {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="absolute inset-0 bg-surface-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         {isUploading ? (
                             <Loader2 className="w-6 h-6 text-white animate-spin" />
                         ) : (
@@ -128,7 +128,7 @@ export default function AvatarUpload({
 
             {/* Error message */}
             {error && (
-                <div className="flex items-center gap-1 text-sm text-error">
+                <div className="flex items-center gap-1 text-sm text-error-strong dark:text-error-soft">
                     <X className="w-4 h-4" />
                     <span>{error}</span>
                 </div>

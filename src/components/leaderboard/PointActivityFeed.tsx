@@ -10,16 +10,16 @@ interface PointActivityFeedProps {
 
 const ITEMS_PER_PAGE = 15;
 
-// Map action types to icons and labels
+// Map action types to icons and labels (ikonfärger = dekor ur profilens palett)
 const ACTION_CONFIG = {
-    post_created: { icon: FileText, label: 'Skapade ett inlägg', color: 'text-blue-500' },
-    comment_created: { icon: MessageCircle, label: 'Skrev en kommentar', color: 'text-green-500' },
-    reaction_given: { icon: ThumbsUp, label: 'Reagerade på innehåll', color: 'text-purple-500' },
-    reaction_received: { icon: Award, label: 'Fick en reaktion', color: 'text-yellow-500' },
-    event_attended: { icon: Calendar, label: 'Deltog i ett evenemang', color: 'text-pink-500' },
-    daily_login: { icon: Award, label: 'Daglig inloggning', color: 'text-indigo-500' },
-    profile_completed: { icon: Award, label: 'Slutförde profilen', color: 'text-teal-500' },
-    manual_adjustment: { icon: Award, label: 'Manuell justering', color: 'text-gray-500' },
+    post_created: { icon: FileText, label: 'Skapade ett inlägg', color: 'text-primary-600 dark:text-primary-300' },
+    comment_created: { icon: MessageCircle, label: 'Skrev en kommentar', color: 'text-success' },
+    reaction_given: { icon: ThumbsUp, label: 'Reagerade på innehåll', color: 'text-brand-purple dark:text-primary-300' },
+    reaction_received: { icon: Award, label: 'Fick en reaktion', color: 'text-brand-orange' },
+    event_attended: { icon: Calendar, label: 'Deltog i ett evenemang', color: 'text-brand-pink' },
+    daily_login: { icon: Award, label: 'Daglig inloggning', color: 'text-brand-sky' },
+    profile_completed: { icon: Award, label: 'Slutförde profilen', color: 'text-brand-teal' },
+    manual_adjustment: { icon: Award, label: 'Manuell justering', color: 'text-surface-500' },
 } as const;
 
 export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: PointActivityFeedProps) {
@@ -121,11 +121,11 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
         return (
             <div className="space-y-3">
                 {[...Array(5)].map((_, i) => (
-                    <div key={i} className="flex items-start gap-3 animate-pulse">
-                        <div className="w-10 h-10 bg-gray-200 dark:bg-surface-700 rounded-full" />
+                    <div key={i} className="flex items-start gap-3">
+                        <div className="skeleton w-10 h-10 rounded-full" />
                         <div className="flex-1">
-                            <div className="h-4 bg-gray-200 dark:bg-surface-700 rounded w-3/4 mb-2" />
-                            <div className="h-3 bg-gray-200 dark:bg-surface-700 rounded w-1/2" />
+                            <div className="skeleton h-4 w-3/4 mb-2" />
+                            <div className="skeleton h-3 w-1/2" />
                         </div>
                     </div>
                 ))}
@@ -135,7 +135,7 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
 
     if (error) {
         return (
-            <div className="text-center py-8 text-red-600 dark:text-red-400">
+            <div className="text-center py-8 text-error-strong dark:text-error-soft">
                 <p>{error}</p>
             </div>
         );
@@ -143,7 +143,7 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
 
     if (activities.length === 0) {
         return (
-            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+            <div className="text-center py-8 text-surface-500 dark:text-surface-400">
                 <Award size={48} className="mx-auto mb-2 opacity-20" />
                 <p>Inga poängaktiviteter ännu</p>
                 <p className="text-sm mt-1">Börja tjäna poäng genom att skapa inlägg och engagera dig!</p>
@@ -152,7 +152,7 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
     }
 
     // Default config for unknown action types
-    const DEFAULT_CONFIG = { icon: Award, label: 'Aktivitet', color: 'text-gray-500' };
+    const DEFAULT_CONFIG = { icon: Award, label: 'Aktivitet', color: 'text-surface-500' };
 
     return (
         <div className="space-y-3">
@@ -161,23 +161,23 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
                 const Icon = config.icon;
 
                 return (
-                    <div key={activity.id} className="flex items-start gap-3 group hover:bg-gray-50 dark:hover:bg-surface-800 -mx-2 px-2 py-2 rounded-lg transition-colors">
+                    <div key={activity.id} className="flex items-start gap-3 group hover:bg-surface-50 dark:hover:bg-surface-800 -mx-2 px-2 py-2 rounded-lg transition-colors">
                         {/* Icon */}
-                        <div className={`w-10 h-10 rounded-full bg-gray-100 dark:bg-surface-800 flex items-center justify-center ${config.color}`}>
+                        <div className={`w-10 h-10 rounded-full bg-surface-100 dark:bg-surface-800 flex items-center justify-center ${config.color}`}>
                             <Icon size={20} />
                         </div>
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
                             <div className="flex items-baseline gap-2">
-                                <p className="text-sm text-gray-700 dark:text-gray-300">
+                                <p className="text-sm text-surface-700 dark:text-surface-300">
                                     {activity.description || config.label}
                                 </p>
-                                <span className={`text-sm font-semibold ${activity.points > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                <span className={`text-sm font-semibold ${activity.points > 0 ? 'text-surface-900 dark:text-success' : 'text-error-strong dark:text-error-soft'}`}>
                                     {activity.points > 0 ? '+' : ''}{activity.points}
                                 </span>
                             </div>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                            <p className="text-xs text-surface-500 dark:text-surface-400 mt-0.5">
                                 {formatTimestamp(activity.created_at || new Date().toISOString())}
                             </p>
                         </div>
@@ -189,12 +189,12 @@ export default function PointActivityFeed({ userId, limit = ITEMS_PER_PAGE }: Po
             {hasMore && (
                 <div ref={observerTarget} className="py-3 text-center">
                     {loadingMore ? (
-                        <div className="flex items-center justify-center gap-2 text-gray-500 dark:text-gray-400">
+                        <div className="flex items-center justify-center gap-2 text-surface-500 dark:text-surface-400">
                             <Loader2 className="w-4 h-4 animate-spin" />
                             <span className="text-xs">Laddar fler...</span>
                         </div>
                     ) : (
-                        <span className="text-xs text-gray-400 dark:text-gray-500">Skrolla för fler</span>
+                        <span className="text-xs text-surface-400 dark:text-surface-500">Skrolla för fler</span>
                     )}
                 </div>
             )}

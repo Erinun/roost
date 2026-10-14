@@ -71,7 +71,7 @@ export default function AdminDashboard() {
 
     if (error) {
         return (
-            <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 p-4 rounded-lg">
+            <div className="bg-error/10 dark:bg-error/20 text-surface-900 dark:text-error-soft border border-error/60 p-4 rounded-lg">
                 <p className="font-medium">Det gick inte att ladda översikten</p>
                 <p className="text-sm mt-1">{error}</p>
                 <button
@@ -89,12 +89,12 @@ export default function AdminDashboard() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Översikt</h1>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">Överblick över din community</p>
+                    <h1 className="text-2xl font-bold text-surface-900 dark:text-surface-100">Översikt</h1>
+                    <p className="text-surface-500 dark:text-surface-400 mt-1">Överblick över din community</p>
                 </div>
                 <button
                     onClick={loadData}
-                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-surface-800 border border-gray-200 dark:border-surface-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-surface-700 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg text-surface-700 dark:text-surface-300 hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors"
                 >
                     <RefreshCw className="w-4 h-4" />
                     Uppdatera
@@ -169,12 +169,12 @@ export default function AdminDashboard() {
             {/* Charts and Details */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Activity Chart Placeholder */}
-                <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 p-6">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Aktivitet (senaste 30 dagarna)</h3>
+                <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
+                    <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">Aktivitet (senaste 30 dagarna)</h3>
                     <div className="space-y-3">
                         {activityStats.slice(-7).map((day) => (
                             <div key={day.date} className="flex items-center gap-4">
-                                <span className="text-sm text-gray-500 dark:text-gray-400 w-24">
+                                <span className="text-sm text-surface-500 dark:text-surface-400 w-24">
                                     {new Date(day.date).toLocaleDateString('sv-SE', { weekday: 'short', month: 'short', day: 'numeric' })}
                                 </span>
                                 <div className="flex-1 flex gap-2">
@@ -184,7 +184,7 @@ export default function AdminDashboard() {
                                         title={`${day.posts} inlägg`}
                                     />
                                     <div
-                                        className="h-6 bg-green-500 rounded"
+                                        className="h-6 bg-success rounded"
                                         style={{ width: `${Math.min(day.comments * 5, 100)}%` }}
                                         title={`${day.comments} kommentarer`}
                                     />
@@ -194,26 +194,26 @@ export default function AdminDashboard() {
                         <div className="flex gap-4 text-sm mt-4">
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 bg-primary-500 rounded" />
-                                <span className="text-gray-600 dark:text-gray-400">Inlägg</span>
+                                <span className="text-surface-600 dark:text-surface-400">Inlägg</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className="w-3 h-3 bg-green-500 rounded" />
-                                <span className="text-gray-600 dark:text-gray-400">Kommentarer</span>
+                                <div className="w-3 h-3 bg-success rounded" />
+                                <span className="text-surface-600 dark:text-surface-400">Kommentarer</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 {/* Top Contributors */}
-                <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 p-6">
+                <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
                     <div className="flex items-center gap-2 mb-4">
-                        <Award className="w-5 h-5 text-yellow-500" />
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Främsta bidragsgivare</h3>
+                        <Award className="w-5 h-5 text-warning" />
+                        <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100">Främsta bidragsgivare</h3>
                     </div>
                     <div className="space-y-4">
                         {topContributors.map((contributor, index) => (
                             <div key={`${contributor.user.id}-${index}`} className="flex items-center gap-3">
-                                <span className="text-lg font-bold text-gray-400 dark:text-gray-500 w-6">
+                                <span className="text-lg font-bold text-surface-400 dark:text-surface-500 w-6">
                                     {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`}
                                 </span>
                                 <img
@@ -222,27 +222,27 @@ export default function AdminDashboard() {
                                     className="w-10 h-10 rounded-full object-cover"
                                 />
                                 <div className="flex-1 min-w-0">
-                                    <p className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                                    <p className="font-medium text-surface-900 dark:text-surface-100 truncate">
                                         {contributor.user.display_name}
                                     </p>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">@{contributor.user.username}</p>
+                                    <p className="text-sm text-surface-500 dark:text-surface-400">@{contributor.user.username}</p>
                                 </div>
                                 <div className="text-right">
-                                    <p className="font-semibold text-primary-600 dark:text-primary-400">{contributor.points}</p>
-                                    <p className="text-xs text-gray-500 dark:text-gray-400">poäng</p>
+                                    <p className="font-semibold text-primary-600 dark:text-primary-300">{contributor.points}</p>
+                                    <p className="text-xs text-surface-500 dark:text-surface-400">poäng</p>
                                 </div>
                             </div>
                         ))}
                         {topContributors.length === 0 && (
-                            <p className="text-gray-500 dark:text-gray-400 text-center py-4">Inga bidragsgivare ännu</p>
+                            <p className="text-surface-500 dark:text-surface-400 text-center py-4">Inga bidragsgivare ännu</p>
                         )}
                     </div>
                 </div>
             </div>
 
             {/* User Growth */}
-            <div className="bg-white dark:bg-surface-900 rounded-xl shadow-sm border border-gray-100 dark:border-surface-700 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Nya medlemmar (senaste 30 dagarna)</h3>
+            <div className="bg-white dark:bg-surface-900 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
+                <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-100 mb-4">Nya medlemmar (senaste 30 dagarna)</h3>
                 <div className="flex items-end gap-1 h-32">
                     {userGrowth.map((day) => {
                         const maxCount = Math.max(...userGrowth.map((d) => d.count), 1);
@@ -257,7 +257,7 @@ export default function AdminDashboard() {
                         );
                     })}
                 </div>
-                <div className="flex justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
+                <div className="flex justify-between mt-2 text-xs text-surface-500 dark:text-surface-400">
                     <span>30 dagar sedan</span>
                     <span>Idag</span>
                 </div>

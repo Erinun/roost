@@ -150,12 +150,12 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             {/* Backdrop */}
             <div
-                className="absolute inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm"
+                className="absolute inset-0 bg-surface-950/60 dark:bg-surface-950/80 backdrop-blur-sm"
                 onClick={onClose}
             />
 
-            {/* Modal */}
-            <div className="relative bg-white dark:bg-surface-900 rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+            {/* Modal (flytande lager får ha skugga) */}
+            <div className="relative modal-content rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-surface-200 dark:border-surface-700">
                     <h2 className="text-lg font-semibold text-surface-900 dark:text-surface-100">
@@ -188,7 +188,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                                         onClick={() => setType(rt.value)}
                                         className={`flex flex-col items-center gap-1.5 p-3 rounded-lg border-2 transition-colors text-center ${
                                             type === rt.value
-                                                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                                                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900'
                                                 : 'border-surface-200 dark:border-surface-700 hover:border-surface-300 dark:hover:border-surface-600'
                                         }`}
                                     >
@@ -246,7 +246,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                                 border-2 border-dashed rounded-xl p-4 text-center cursor-pointer
                                 transition-all duration-200
                                 ${isDragActive
-                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900'
                                     : 'border-surface-300 dark:border-surface-600 hover:border-primary-400 hover:bg-surface-50 dark:hover:bg-surface-800'
                                 }
                             `}
@@ -289,7 +289,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
                                             e.stopPropagation();
                                             handleRemoveAsset(asset);
                                         }}
-                                        className="absolute top-1 right-1 p-1.5 bg-black/50 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
+                                        className="absolute top-1 right-1 p-1.5 bg-surface-950/60 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-surface-950/80"
                                     >
                                         <Trash2 className="w-4 h-4" />
                                     </button>
@@ -300,7 +300,7 @@ export default function SubmitRequestModal({ isOpen, onClose, onSuccess }: Submi
 
                     {/* Error message */}
                     {error && (
-                        <div className="p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 text-sm">
+                        <div className="alert-error">
                             {error}
                         </div>
                     )}

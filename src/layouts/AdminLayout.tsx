@@ -8,7 +8,6 @@ import {
     ChevronLeft,
     Shield,
     CreditCard,
-    Rocket,
     Database,
     Key,
     Radio,
@@ -33,7 +32,6 @@ const navItems: NavItem[] = [
     { path: '/admin/announcements', label: 'Tillkännagivanden', icon: Megaphone },
     { path: '/admin/subscriptions', label: 'Prenumerationer', icon: CreditCard },
     { path: '/admin/activations', label: 'Aktiveringar', icon: Key, moderatorAccess: true },
-    { path: '/admin/showcases', label: 'Projekt', icon: Rocket, moderatorAccess: true },
     { path: '/admin/live-room', label: 'Live-rum', icon: Radio },
     { path: '/admin/backups', label: 'Säkerhetskopior', icon: Database },
     { path: '/admin/site-settings', label: 'Webbplatsinställningar', icon: Settings },
@@ -55,14 +53,14 @@ export default function AdminLayout() {
     }
 
     return (
-        <div className="h-screen bg-gray-50 dark:bg-surface-950 flex overflow-hidden">
+        <div className="h-screen bg-surface-50 dark:bg-surface-950 flex overflow-hidden">
             {/* Sidebar - Fixed height with sticky positioning */}
             <aside
-                className={`bg-gray-900 dark:bg-surface-900 text-white transition-all duration-300 ${collapsed ? 'w-16' : 'w-64'
+                className={`bg-surface-900 dark:bg-surface-900 text-white transition-all duration-300 ${collapsed ? 'w-16' : 'w-64'
                     } flex flex-col h-screen sticky top-0 flex-shrink-0`}
             >
                 {/* Header */}
-                <div className="h-16 flex items-center justify-between px-4 border-b border-gray-700 dark:border-surface-700 flex-shrink-0">
+                <div className="h-16 flex items-center justify-between px-4 border-b border-surface-700 dark:border-surface-700 flex-shrink-0">
                     {!collapsed && (
                         <div className="flex items-center gap-2">
                             <Shield className="w-6 h-6 text-primary-400" />
@@ -71,7 +69,7 @@ export default function AdminLayout() {
                     )}
                     <button
                         onClick={() => setCollapsed(!collapsed)}
-                        className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+                        className="p-2 hover:bg-surface-700 rounded-lg transition-colors"
                         title={collapsed ? 'Expandera sidofältet' : 'Fäll ihop sidofältet'}
                     >
                         <ChevronLeft
@@ -90,8 +88,8 @@ export default function AdminLayout() {
                                     end={end}
                                     className={({ isActive }) =>
                                         `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${isActive
-                                            ? 'bg-primary-500 text-white'
-                                            : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                                            ? 'bg-primary-600 text-white'
+                                            : 'text-surface-300 hover:bg-surface-700 hover:text-white'
                                         }`
                                     }
                                     title={collapsed ? label : undefined}
@@ -105,10 +103,10 @@ export default function AdminLayout() {
                 </nav>
 
                 {/* Back to site - Always visible at bottom */}
-                <div className="p-2 border-t border-gray-700 dark:border-surface-700 flex-shrink-0">
+                <div className="p-2 border-t border-surface-700 dark:border-surface-700 flex-shrink-0">
                     <NavLink
                         to="/"
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition-colors"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-surface-300 hover:bg-surface-700 hover:text-white transition-colors"
                         title={collapsed ? 'Tillbaka till webbplatsen' : undefined}
                     >
                         <ChevronLeft className="w-5 h-5" />

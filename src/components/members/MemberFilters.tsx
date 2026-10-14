@@ -18,7 +18,7 @@ export function MemberFilters({
     onSortChange
 }: MemberFiltersProps) {
     return (
-        <div className="bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-700 rounded-xl p-4 mb-6 sticky top-[73px] z-10 shadow-sm dark:shadow-none">
+        <div className="card p-4 mb-6 sticky top-[73px] z-10">
             <div className="flex flex-col md:flex-row gap-4">
                 <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400 dark:text-surface-500" />
@@ -27,7 +27,7 @@ export function MemberFilters({
                         placeholder="Sök medlemmar..."
                         value={searchQuery}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        className="w-full pl-9 pr-4 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                        className="w-full pl-9 pr-4 py-2 min-h-11 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
                     />
                 </div>
 
@@ -35,7 +35,7 @@ export function MemberFilters({
                     <select
                         value={statusFilter}
                         onChange={(e) => onStatusChange(e.target.value as 'all' | 'online')}
-                        className="px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                        className="px-3 py-2 min-h-11 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-600"
                     >
                         <option value="all">Alla statusar</option>
                         <option value="online">Online nu</option>
@@ -44,7 +44,7 @@ export function MemberFilters({
                     <select
                         value={sortBy}
                         onChange={(e) => onSortChange(e.target.value as any)}
-                        className="px-3 py-2 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                        className="px-3 py-2 min-h-11 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-600"
                     >
                         <option value="newest">Nyaste medlemmar</option>
                         <option value="last_active">Nyligen aktiva</option>

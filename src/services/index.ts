@@ -120,6 +120,7 @@ export type { EventWithDetails, CalendarEvent } from '../types';
 export {
     // User Management
     getUsers,
+    inviteUser,
     banUser,
     unbanUser,
     updateUserRole,
@@ -176,50 +177,6 @@ export {
     getFollowing,
 } from './follow';
 
-// Showcase
-export {
-    // CRUD
-    createShowcase,
-    updateShowcase,
-    deleteShowcase,
-    getShowcaseById,
-    getApprovedShowcases,
-    getFeaturedShowcases,
-    getUserShowcases,
-    // Images
-    addShowcaseImage,
-    removeShowcaseImage,
-    reorderShowcaseImages,
-    // Tags
-    getAllTags,
-    addTagToShowcase,
-    removeTagFromShowcase,
-    setShowcaseTags,
-    // Voting
-    voteForShowcase,
-    removeVote,
-    toggleVote,
-    hasUserVoted,
-    getUserVotesForShowcases,
-    // Reviews
-    getShowcaseReviews,
-    createReview,
-    updateReview,
-    deleteReview,
-    addMakerReply,
-    // Admin
-    getShowcasesForModeration,
-    approveShowcase,
-    rejectShowcase,
-    featureShowcase,
-    unfeatureShowcase,
-    getShowcaseStats,
-    // Admin Tags
-    createTag,
-    updateTag,
-    deleteTag,
-} from './showcase';
-
 // Comment Votes
 export {
     toggleCommentVote,
@@ -227,6 +184,12 @@ export {
     getUserVotesForComments,
 } from './commentVote';
 export type { VoteType, VoteCounts } from './commentVote';
+
+// Föreningar (associations)
+// OBS: updateMemberRole krockar med exporten från './group' och
+// re-exporteras därför explicit som updateAssociationMemberRole.
+export * from './association';
+export { updateMemberRole as updateAssociationMemberRole } from './association';
 
 // Modules (Learn Mode)
 export {
@@ -244,3 +207,15 @@ export {
     getUserCompletionsForGroup,
     getRecordingById,
 } from './module';
+
+// Föreningsarbetsyta: möten, beslut och uppgifter
+export * from './association-meetings';
+export * from './association-tasks';
+
+// Föreningsarbetsyta: dokument & kommunikation
+// OBS: uploadDocument krockar med exporten från './s3' — därför heter
+// funktionen uploadAssociationDocument i association-docs.ts.
+export * from './association-docs';
+
+// Medlemsportal: aktiviteter, nyheter & medlemsfrågor
+export * from './association-portal';

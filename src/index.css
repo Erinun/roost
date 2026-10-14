@@ -41,6 +41,20 @@
   --brand-orange: #F5A118; /* orange-400 – premium, alltid mörk text */
   --brand-yellow: #FBC231; /* yellow-500 – premium/etiketter, alltid mörk text */
 
+  /* Neutraler (surface-skalan) – blåtonade, härledda ur profilens mörkblå
+     #0E2A4D. Värdena speglar surface-skalan i tailwind.config.js exakt. */
+  --surface-50: #F3F7FC;
+  --surface-100: #E8EFF7;
+  --surface-200: #D5E1EE;
+  --surface-300: #B9C9DE;
+  --surface-400: #8CA0BC;
+  --surface-500: #5C7190;
+  --surface-600: #4A5B73;
+  --surface-700: #334862;
+  --surface-800: #1D3754;
+  --surface-900: #0E2A4D;
+  --surface-950: #081E3A;
+
   /* Profilens tre övertoningar (bakgrundstokens) */
   --gradient-blue: linear-gradient(135deg, #185DA9 0%, #159EDA 55%, #32D7CD 100%);
   --gradient-purple: linear-gradient(135deg, #652FA0 0%, #973B8E 50%, #EE0181 100%);

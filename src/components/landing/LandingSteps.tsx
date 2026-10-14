@@ -27,23 +27,23 @@ export default function LandingSteps() {
         <section className="bg-surface-50">
             <div className="mx-auto flex max-w-[1160px] flex-col gap-10 px-6 py-[72px]">
                 <h2 className="text-[clamp(30px,3.4vw,44px)] font-bold leading-[1.1] text-surface-900">
-                    Kom igång i tre steg
+                    Så kommer ni igång
                 </h2>
                 <ol className="grid list-none grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-8 p-0">
                     <StepItem
                         number="1"
-                        title="Skapa ett gratiskonto"
-                        text="Det kostar ingenting att komma igång."
+                        title="Ansök om åtkomst"
+                        text="Fyll i formuläret med ditt namn, din lokalavdelning och din roll."
                     />
                     <StepItem
                         number="2"
-                        title="Hitta dina grupper"
-                        text="Gå med i de grupper som passar dig och börja följa samtalen."
+                        title="Vi godkänner"
+                        text="Vi kontrollerar uppgifterna och skickar dina inloggningsuppgifter."
                     />
                     <StepItem
                         number="3"
-                        title="Uppgradera när du vill"
-                        text="Vill du ha direktmeddelanden, premiumgrupper och exklusiva evenemang byter du till premium."
+                        title="Börja dela"
+                        text="Gå med i grupperna och presentera er lokalavdelning."
                     />
                 </ol>
             </div>

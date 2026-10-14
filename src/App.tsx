@@ -23,9 +23,6 @@ const Leaderboard = lazy(() => import('./pages/Leaderboard'));
 const Calendar = lazy(() => import('./pages/Calendar'));
 const Members = lazy(() => import('./pages/Members'));
 const Guide = lazy(() => import('./pages/Guide'));
-const Showcase = lazy(() => import('./pages/Showcase'));
-const ShowcaseDetail = lazy(() => import('./pages/ShowcaseDetail'));
-const ShowcaseSubmit = lazy(() => import('./pages/ShowcaseSubmit'));
 const PostDetail = lazy(() => import('./pages/PostDetail'));
 const FeatureRequests = lazy(() => import('./pages/FeatureRequests'));
 const FeatureRequestList = lazy(() => import('./pages/FeatureRequestList'));
@@ -35,12 +32,28 @@ const LiveRoom = lazy(() => import('./pages/LiveRoom'));
 const Upgrade = lazy(() => import('./pages/Upgrade'));
 const Styleguide = lazy(() => import('./pages/Styleguide'));
 
+// Lazy-loaded Association Pages (föreningsarbetsyta)
+const AssociationList = lazy(() => import('./pages/associations/AssociationList'));
+const AssociationWorkspace = lazy(() => import('./pages/associations/AssociationWorkspace'));
+const WorkspaceOverview = lazy(() => import('./pages/associations/tabs/WorkspaceOverview'));
+const WorkspaceMeetings = lazy(() => import('./pages/associations/tabs/WorkspaceMeetings'));
+const WorkspaceMeetingDetail = lazy(() => import('./pages/associations/tabs/WorkspaceMeetingDetail'));
+const WorkspaceTasks = lazy(() => import('./pages/associations/tabs/WorkspaceTasks'));
+const WorkspaceDocuments = lazy(() => import('./pages/associations/tabs/WorkspaceDocuments'));
+const WorkspaceActivities = lazy(() => import('./pages/associations/tabs/WorkspaceActivities'));
+const WorkspaceNews = lazy(() => import('./pages/associations/tabs/WorkspaceNews'));
+const WorkspacePosts = lazy(() => import('./pages/associations/tabs/WorkspacePosts'));
+const WorkspaceQuestions = lazy(() => import('./pages/associations/tabs/WorkspaceQuestions'));
+const WorkspaceApplications = lazy(() => import('./pages/associations/tabs/WorkspaceApplications'));
+const WorkspaceSettings = lazy(() => import('./pages/associations/tabs/WorkspaceSettings'));
+
 // Lazy-loaded Auth Pages
 const Login = lazy(() => import('./pages/auth/Login'));
 const Signup = lazy(() => import('./pages/auth/Signup'));
 const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
 const ResetPassword = lazy(() => import('./pages/auth/ResetPassword'));
 const ConfirmEmail = lazy(() => import('./pages/auth/ConfirmEmail'));
+const AcceptInvite = lazy(() => import('./pages/auth/AcceptInvite'));
 const Banned = lazy(() => import('./pages/auth/Banned'));
 const SubscriptionRequired = lazy(() => import('./pages/auth/SubscriptionRequired'));
 
@@ -51,7 +64,6 @@ const AdminContent = lazy(() => import('./pages/admin/Content'));
 const AdminCategories = lazy(() => import('./pages/admin/Categories'));
 const AdminAnnouncements = lazy(() => import('./pages/admin/Announcements'));
 const AdminSubscriptions = lazy(() => import('./pages/admin/Subscriptions'));
-const AdminShowcases = lazy(() => import('./pages/admin/Showcases'));
 const AdminBackups = lazy(() => import('./pages/admin/Backups'));
 const AdminActivations = lazy(() => import('./pages/admin/Activations'));
 const AdminLiveRoom = lazy(() => import('./pages/admin/LiveRoom'));
@@ -87,6 +99,7 @@ function App() {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/invite" element={<AcceptInvite />} />
                 </Route>
 
                 {/* Email confirmation pending route */}
@@ -119,7 +132,6 @@ function App() {
                     <Route path="categories" element={<AdminCategories />} />
                     <Route path="announcements" element={<AdminAnnouncements />} />
                     <Route path="subscriptions" element={<AdminSubscriptions />} />
-                    <Route path="showcases" element={<AdminShowcases />} />
                     <Route path="backups" element={<AdminBackups />} />
                     <Route path="activations" element={<AdminActivations />} />
                     <Route path="live-room" element={<AdminLiveRoom />} />
@@ -148,9 +160,20 @@ function App() {
                         <Route path="/profile/:username" element={<Profile />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/guide" element={<Guide />} />
-                        <Route path="/showcase" element={<Showcase />} />
-                        <Route path="/showcase/submit" element={<ShowcaseSubmit />} />
-                        <Route path="/showcase/:id" element={<ShowcaseDetail />} />
+                        <Route path="/associations" element={<AssociationList />} />
+                        <Route path="/associations/:slug" element={<AssociationWorkspace />}>
+                            <Route index element={<WorkspaceOverview />} />
+                            <Route path="meetings" element={<WorkspaceMeetings />} />
+                            <Route path="meetings/:meetingId" element={<WorkspaceMeetingDetail />} />
+                            <Route path="tasks" element={<WorkspaceTasks />} />
+                            <Route path="documents" element={<WorkspaceDocuments />} />
+                            <Route path="activities" element={<WorkspaceActivities />} />
+                            <Route path="news" element={<WorkspaceNews />} />
+                            <Route path="posts" element={<WorkspacePosts />} />
+                            <Route path="questions" element={<WorkspaceQuestions />} />
+                            <Route path="applications" element={<WorkspaceApplications />} />
+                            <Route path="settings" element={<WorkspaceSettings />} />
+                        </Route>
                         <Route path="/post/:postId" element={<PostDetail />} />
                         <Route path="/roadmap" element={<FeatureRequests />} />
                         <Route path="/roadmap/all" element={<FeatureRequestList />} />

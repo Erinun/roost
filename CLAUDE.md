@@ -79,7 +79,6 @@ src/components/          # 115+ components across 20 subdirectories
 ├── admin/               # Admin UI (3 components)
 ├── navigation/          # TopNav, SideNav
 ├── events/              # Calendar, events (5 components)
-├── showcase/            # Project showcase (6 components)
 ├── leaderboard/         # Points, rankings (4 components)
 ├── members/             # Directory (4 components)
 ├── notifications/       # Notification center (3 components)
@@ -91,8 +90,16 @@ src/components/          # 115+ components across 20 subdirectories
 src/pages/               # 31 page components
 ├── auth/                # Login, Signup, ForgotPassword, etc. (7 routes)
 ├── admin/               # Dashboard, Users, Content, etc. (8 routes)
+├── associations/        # Association workspace (/associations, /associations/:slug + tabs/)
 └── ...                  # Home, Groups, Messages, Calendar, etc. (22 routes)
 ```
+
+### Association Workspace & Member Portal
+The former Showcase feature has been replaced by the **Association Workspace** (Föreningsarbetsyta): tables `associations`/`association_*`/`member_*` (migration `migrations/062_association_workspace.sql`), services in `src/services/association*.ts`, pages in `src/pages/associations/` (AssociationList at `/associations`, AssociationWorkspace at `/associations/:slug` with tabs: Overview, Meetings incl. meeting detail with decision→task, Tasks, Documents, Activities, News, Communication, Questions, Settings).
+
+Role model in `association_members.role`: `admin` (full access + member management/settings), `internal` (full workspace access), `member` (**member portal only** — RLS blocks internal content). Platform admins can create associations and act as admin everywhere.
+
+The **Member Portal** is a separate mobile-first Vite app in `member-portal/` (React 19, TS, Tailwind, port 5100) sharing the same Supabase project and auth; permissions are enforced entirely by RLS. Pages: Home, News (+detail), Activities (signup via `activity_signups`), Contact (ask question + reply threads). Types in `member-portal/src/types.ts` are intentionally duplicated from `src/types/association.ts` (separate codebase). No signup in the portal — accounts are created in the main platform. See `docs/member-portal.md`.
 
 ### Server (Express Backend)
 ```
@@ -151,6 +158,12 @@ cd server && npm start       # Production
 npm run dev:all          # Frontend + backend concurrently
 npm run build:all        # Build both
 npm run install:all      # Install deps for both
+```
+
+### Member Portal
+```bash
+npm run dev:portal       # Member portal dev server (Vite, port 5100)
+npm run build:portal     # Build member portal (member-portal/dist)
 ```
 
 ### Docker

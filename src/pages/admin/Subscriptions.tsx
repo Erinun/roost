@@ -14,15 +14,15 @@ import {
 // Helper to format event type for display
 function formatEventType(eventType: string): { label: string; color: string } {
     const map: Record<string, { label: string; color: string }> = {
-        'checkout.session.completed': { label: 'Kassa', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
-        'customer.subscription.created': { label: 'Ny prenumeration', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
-        'customer.subscription.updated': { label: 'Uppdaterad', color: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' },
-        'customer.subscription.deleted': { label: 'Uppsagd', color: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400' },
-        'invoice.payment_succeeded': { label: 'Betalning OK', color: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' },
-        'invoice.payment_failed': { label: 'Betalning misslyckades', color: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400' },
+        'checkout.session.completed': { label: 'Kassa', color: 'bg-success/15 text-surface-900 dark:bg-success/20 dark:text-success' },
+        'customer.subscription.created': { label: 'Ny prenumeration', color: 'bg-success/15 text-surface-900 dark:bg-success/20 dark:text-success' },
+        'customer.subscription.updated': { label: 'Uppdaterad', color: 'bg-info/15 text-surface-900 dark:bg-info/20 dark:text-info' },
+        'customer.subscription.deleted': { label: 'Uppsagd', color: 'bg-warning/20 text-surface-900 dark:bg-warning/20 dark:text-warning' },
+        'invoice.payment_succeeded': { label: 'Betalning OK', color: 'bg-success/15 text-surface-900 dark:bg-success/20 dark:text-success' },
+        'invoice.payment_failed': { label: 'Betalning misslyckades', color: 'bg-error/15 text-surface-900 dark:bg-error/20 dark:text-error-soft' },
     };
 
-    return map[eventType] || { label: eventType, color: 'bg-gray-100 dark:bg-gray-900/30 text-gray-700 dark:text-gray-400' };
+    return map[eventType] || { label: eventType, color: 'bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-300' };
 }
 
 // Webhook log item component
@@ -33,16 +33,16 @@ function WebhookLogItem({ webhook }: { webhook: WebhookLog }) {
         <div
             className={`p-4 rounded-lg border ${
                 webhook.processed
-                    ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800'
-                    : 'bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-800'
+                    ? 'bg-success/10 dark:bg-success/15 border-success/40'
+                    : 'bg-error/10 dark:bg-error/20 border-error/60'
             }`}
         >
             <div className="flex items-start justify-between gap-4">
                 <div className="flex items-start gap-3 min-w-0 flex-1">
                     {webhook.processed ? (
-                        <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <CheckCircle className="w-5 h-5 text-surface-900 dark:text-success flex-shrink-0 mt-0.5" />
                     ) : (
-                        <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                        <XCircle className="w-5 h-5 text-error-strong dark:text-error-soft flex-shrink-0 mt-0.5" />
                     )}
                     <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 flex-wrap">
@@ -56,7 +56,7 @@ function WebhookLogItem({ webhook }: { webhook: WebhookLog }) {
                             )}
                         </div>
                         {webhook.error_message && (
-                            <p className="text-xs text-red-600 dark:text-red-400 mt-1 truncate">
+                            <p className="text-xs text-error-strong dark:text-error-soft mt-1 truncate">
                                 {webhook.error_message}
                             </p>
                         )}
@@ -154,7 +154,7 @@ export default function AdminSubscriptions() {
                     <button
                         onClick={handleRefresh}
                         disabled={isRefreshing}
-                        className="inline-flex items-center gap-2 px-3 py-2 text-sm bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors disabled:opacity-50"
+                        className="inline-flex items-center gap-2 px-3 py-2 text-sm bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors disabled:opacity-50"
                     >
                         <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                         Uppdatera
@@ -164,9 +164,9 @@ export default function AdminSubscriptions() {
 
             {/* Error */}
             {error && (
-                <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg p-4 flex items-start gap-3">
-                    <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-red-700 dark:text-red-400">{error}</p>
+                <div className="bg-error/10 dark:bg-error/20 border border-error/60 rounded-lg p-4 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-error-strong dark:text-error-soft flex-shrink-0 mt-0.5" />
+                    <p className="text-sm text-surface-900 dark:text-error-soft">{error}</p>
                 </div>
             )}
 
@@ -175,8 +175,8 @@ export default function AdminSubscriptions() {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="card p-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-                                <Users className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                            <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center">
+                                <Users className="w-5 h-5 text-primary-600 dark:text-primary-300" />
                             </div>
                             <div>
                                 <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{stats.customers}</p>
@@ -186,8 +186,8 @@ export default function AdminSubscriptions() {
                     </div>
                     <div className="card p-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
-                                <CreditCard className="w-5 h-5 text-green-600 dark:text-green-400" />
+                            <div className="w-10 h-10 bg-success/15 dark:bg-success/20 rounded-lg flex items-center justify-center">
+                                <CreditCard className="w-5 h-5 text-surface-900 dark:text-success" />
                             </div>
                             <div>
                                 <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{stats.subscriptions.active}</p>
@@ -197,8 +197,8 @@ export default function AdminSubscriptions() {
                     </div>
                     <div className="card p-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center">
-                                <CreditCard className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                            <div className="w-10 h-10 bg-warning/20 dark:bg-warning/20 rounded-lg flex items-center justify-center">
+                                <CreditCard className="w-5 h-5 text-surface-900 dark:text-warning" />
                             </div>
                             <div>
                                 <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{stats.subscriptions.cancelled}</p>
@@ -208,8 +208,8 @@ export default function AdminSubscriptions() {
                     </div>
                     <div className="card p-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
-                                <AlertCircle className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                            <div className="w-10 h-10 bg-brand-purple rounded-lg flex items-center justify-center">
+                                <AlertCircle className="w-5 h-5 text-white" />
                             </div>
                             <div>
                                 <p className="text-2xl font-bold text-surface-900 dark:text-surface-100">{stats.webhooks.total}</p>
@@ -227,14 +227,14 @@ export default function AdminSubscriptions() {
                     <button
                         onClick={handleCleanup}
                         disabled={isCleaningUp}
-                        className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-amber-100 dark:bg-amber-900/30 hover:bg-amber-200 dark:hover:bg-amber-900/50 text-amber-700 dark:text-amber-400 rounded-lg transition-colors disabled:opacity-50"
+                        className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-warning/20 dark:bg-warning/20 hover:bg-warning/30 dark:hover:bg-warning/30 text-surface-900 dark:text-warning rounded-lg transition-colors disabled:opacity-50"
                     >
                         <Trash2 className={`w-4 h-4 ${isCleaningUp ? 'animate-spin' : ''}`} />
                         {isCleaningUp ? 'Kör...' : 'Rensa utgångna'}
                     </button>
                 </div>
                 {cleanupMessage && (
-                    <p className="text-sm text-green-600 dark:text-green-400 mt-2">{cleanupMessage}</p>
+                    <p className="text-sm text-surface-900 dark:text-success mt-2">{cleanupMessage}</p>
                 )}
                 <p className="text-xs text-surface-500 dark:text-surface-400 mt-2">
                     Produkter och priser hanteras i{' '}
@@ -242,7 +242,7 @@ export default function AdminSubscriptions() {
                         href="https://dashboard.stripe.com/products"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary-500 hover:text-primary-600 underline"
+                        className="text-primary-600 hover:text-primary-700 dark:text-primary-300 underline"
                     >
                         Stripe Dashboard
                     </a>.

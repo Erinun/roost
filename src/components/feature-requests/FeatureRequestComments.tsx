@@ -102,7 +102,7 @@ function CommentItem({
                         {comment.author.display_name || comment.author.username}
                     </span>
                     {comment.author.role && comment.author.role !== 'user' && (
-                        <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-400">
                             {comment.author.role}
                         </span>
                     )}
@@ -125,7 +125,7 @@ function CommentItem({
                             {showMenu && (
                                 <>
                                     <div className="fixed inset-0 z-10" onClick={() => setShowMenu(false)} />
-                                    <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg shadow-lg py-1 min-w-[120px]">
+                                    <div className="absolute right-0 top-full mt-1 z-20 bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-lg shadow-elevated dark:shadow-elevated-dark py-1 min-w-[120px]">
                                         {canEdit && (
                                             <button
                                                 onClick={() => { setIsEditing(true); setShowMenu(false); }}
@@ -138,7 +138,7 @@ function CommentItem({
                                         {canDelete && (
                                             <button
                                                 onClick={() => { handleDelete(); setShowMenu(false); }}
-                                                className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                                                className="w-full flex items-center gap-2 px-3 py-1.5 text-sm text-error-strong dark:text-error-soft hover:bg-error/10 dark:hover:bg-error/20"
                                             >
                                                 <Trash2 className="w-3.5 h-3.5" />
                                                 Ta bort
