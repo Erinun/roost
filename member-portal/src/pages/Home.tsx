@@ -74,9 +74,9 @@ export default function Home() {
         profile?.display_name?.trim().split(/\s+/)[0] || profile?.username || '';
 
     return (
-        <div className="space-y-6 animate-fade-in">
+        <div className="grid gap-6 lg:grid-cols-2 animate-fade-in">
             {/* Hälsning */}
-            <div>
+            <div className="lg:col-span-2">
                 <h1 className="text-2xl text-surface-900 dark:text-surface-50">
                     {firstName ? `Hej ${firstName}!` : 'Hej!'} 👋
                 </h1>
@@ -192,7 +192,7 @@ export default function Home() {
             </section>
 
             {/* Snabbknappar */}
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:col-span-2">
                 <Link to="/news" className="btn-secondary w-full justify-start">
                     <Newspaper className="w-4 h-4" aria-hidden="true" />
                     Nyheter

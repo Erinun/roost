@@ -6,6 +6,8 @@ export const APP_CONFIG = {
   url: import.meta.env.VITE_APP_URL || (import.meta.env.DEV ? 'http://localhost:5000' : window.location.origin),
   // Empty string in production = same-origin requests; Traefik routes /api to the backend
   apiUrl: import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3000' : ''),
+  // Empty string in production = the member portal quick link is hidden until the portal is deployed
+  memberPortalUrl: import.meta.env.VITE_MEMBER_PORTAL_URL || (import.meta.env.DEV ? 'http://localhost:5100' : ''),
   logo: {
     square: '/logo-square-sm.png',
     wide: '/logo-wide.png',

@@ -155,7 +155,7 @@ export default function Activities() {
             )}
 
             {loading ? (
-                <div className="space-y-3">
+                <div className="grid gap-3 md:grid-cols-2">
                     {[0, 1].map((i) => (
                         <div key={i} className="card p-4 flex gap-3">
                             <div className="skeleton w-16 h-16 rounded-lg" />
@@ -186,13 +186,13 @@ export default function Activities() {
                                 </p>
                             </div>
                         ) : (
-                            <ul className="space-y-3">
+                            <ul className="grid gap-3 md:grid-cols-2">
                                 {upcoming.map((activity) => {
                                     const isSignedUp = signedUpIds.has(activity.id);
                                     const isPending = pendingIds.has(activity.id);
 
                                     return (
-                                        <li key={activity.id} className="card p-4">
+                                        <li key={activity.id} className="card p-4 flex flex-col">
                                             <div className="flex gap-4">
                                                 {/* Datum-badge */}
                                                 <div className="w-16 h-16 shrink-0 rounded-lg bg-primary-50 dark:bg-surface-800 border border-primary-100 dark:border-surface-700 flex flex-col items-center justify-center text-primary-700 dark:text-primary-300">
@@ -227,8 +227,8 @@ export default function Activities() {
                                                 </p>
                                             )}
 
-                                            {/* Anmälan */}
-                                            <div className="mt-4">
+                                            {/* Anmälan (mt-auto fäster knappen i kortets botten i rutnätet) */}
+                                            <div className="mt-auto pt-4">
                                                 {isSignedUp ? (
                                                     <div className="flex items-center justify-between gap-3">
                                                         <p className="text-sm font-semibold text-primary-700 dark:text-primary-300">

@@ -68,7 +68,7 @@ export default function News() {
             </div>
 
             {loading ? (
-                <div className="space-y-3">
+                <div className="grid gap-3 md:grid-cols-2">
                     {[0, 1, 2].map((i) => (
                         <div key={i} className="card p-4 space-y-2">
                             <div className="skeleton h-5 w-2/3" />
@@ -88,10 +88,10 @@ export default function News() {
                     </p>
                 </div>
             ) : (
-                <ul className="space-y-3">
+                <ul className="grid gap-3 md:grid-cols-2">
                     {news.map((item) => (
                         <li key={item.id}>
-                            <Link to={`/news/${item.id}`} className="card-hover block p-4 group">
+                            <Link to={`/news/${item.id}`} className="card-hover block h-full p-4 group">
                                 <div className="flex items-start justify-between gap-3">
                                     <div className="min-w-0">
                                         <h2 className="text-base text-surface-900 dark:text-surface-50 group-hover:text-primary-600 dark:group-hover:text-primary-300 transition-colors">

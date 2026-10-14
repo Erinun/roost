@@ -22,6 +22,8 @@ import {
     Lightbulb,
     Compass,
     Radio,
+    Smartphone,
+    ExternalLink,
     LucideIcon,
 } from 'lucide-react';
 
@@ -204,6 +206,27 @@ export default function SideNav() {
                             <Shield className="w-5 h-5 flex-shrink-0" />
                             {!isCollapsed && <span>Adminpanel</span>}
                         </Link>
+                        {APP_CONFIG.memberPortalUrl && (
+                            <a
+                                href={APP_CONFIG.memberPortalUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title={isCollapsed ? 'Medlemsportalen (ny flik)' : undefined}
+                                className={`
+                                    flex items-center min-h-11 rounded-lg text-sm font-medium transition-all
+                                    ${isCollapsed ? 'justify-center p-2.5' : 'gap-3 px-3 py-2.5'}
+                                    text-surface-600 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-800 hover:text-surface-900 dark:hover:text-surface-50
+                                `}
+                            >
+                                <Smartphone className="w-5 h-5 flex-shrink-0" />
+                                {!isCollapsed && (
+                                    <>
+                                        <span className="flex-1">Medlemsportalen</span>
+                                        <ExternalLink className="w-4 h-4 text-surface-400" />
+                                    </>
+                                )}
+                            </a>
+                        )}
                     </div>
                 )}
             </nav>

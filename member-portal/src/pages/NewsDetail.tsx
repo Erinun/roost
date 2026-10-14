@@ -51,7 +51,7 @@ export default function NewsDetail() {
     }, [id]);
 
     return (
-        <div className="space-y-4 animate-fade-in">
+        <div className="mx-auto max-w-2xl space-y-4 animate-fade-in">
             <Link to="/news" className="link text-sm inline-flex items-center gap-1">
                 <ArrowLeft className="w-4 h-4" aria-hidden="true" />
                 Tillbaka till nyheter

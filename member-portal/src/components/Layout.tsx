@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <div className="min-h-screen bg-surface-50 dark:bg-surface-950">
             {/* Topbar */}
             <header className="sticky top-0 z-40 bg-white dark:bg-surface-900 border-b border-surface-200 dark:border-surface-700">
-                <div className="max-w-lg mx-auto px-4 h-14 flex items-center justify-between gap-3">
+                <div className="max-w-lg md:max-w-3xl xl:max-w-5xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between gap-3">
                     {/* Föreningens namn / väljare vid fler än en förening */}
                     <div className="min-w-0 flex-1">
                         {associations.length > 1 ? (
@@ -83,8 +83,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                 </div>
             </header>
 
-            {/* Innehåll (mobilkänsla med smal kolumn) */}
-            <main className="max-w-lg mx-auto px-4 py-6 pb-24 md:pb-10">{children}</main>
+            {/* Innehåll: smal kolumn på mobil, bredare yta på surfplatta/desktop */}
+            <main className="max-w-lg md:max-w-3xl xl:max-w-5xl mx-auto px-4 md:px-6 py-6 pb-24 md:pb-10">{children}</main>
 
             {/* Fast bottennavigation på mobil */}
             <nav

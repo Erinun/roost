@@ -178,7 +178,7 @@ export default function Contact() {
     };
 
     return (
-        <div className="space-y-6 animate-fade-in">
+        <div className="mx-auto max-w-2xl space-y-6 animate-fade-in">
             <div>
                 <h1 className="text-2xl text-surface-900 dark:text-surface-50">Kontakt & frågor</h1>
                 <p className="text-surface-600 dark:text-surface-300 mt-1">
