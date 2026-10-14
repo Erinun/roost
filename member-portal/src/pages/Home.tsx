@@ -19,12 +19,14 @@ export default function Home() {
     const [news, setNews] = useState<MemberNews[]>([]);
     const [nextActivity, setNextActivity] = useState<AssociationActivity | null>(null);
     const [loadingData, setLoadingData] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (!current) return;
 
         let active = true;
         setLoadingData(true);
+        setError(null);
 
         const load = async () => {
             const [newsRes, activityRes] = await Promise.all([
@@ -46,6 +48,14 @@ export default function Home() {
             ]);
 
             if (!active) return;
+
+            if (newsRes.error || activityRes.error) {
+                setError('Innehållet kunde inte hämtas. Försök igen senare.');
+                setNews([]);
+                setNextActivity(null);
+                setLoadingData(false);
+                return;
+            }
 
             setNews((newsRes.data as MemberNews[] | null) ?? []);
             const activities = (activityRes.data as AssociationActivity[] | null) ?? [];
@@ -93,6 +103,10 @@ export default function Home() {
                         <div className="skeleton h-5 w-2/3" />
                         <div className="skeleton h-5 w-1/2" />
                     </div>
+                ) : error ? (
+                    <div className="alert-error" role="alert">
+                        {error}
+                    </div>
                 ) : news.length === 0 ? (
                     <p className="text-sm text-surface-600 dark:text-surface-300">
                         Inga nyheter har publicerats ännu.
@@ -137,6 +151,10 @@ export default function Home() {
                             <div className="skeleton h-5 w-2/3" />
                             <div className="skeleton h-4 w-1/2" />
                         </div>
+                    </div>
+                ) : error ? (
+                    <div className="alert-error" role="alert">
+                        {error}
                     </div>
                 ) : nextActivity ? (
                     <Link to="/activities" className="flex items-center gap-4 group">
