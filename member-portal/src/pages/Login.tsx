@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Users, Loader2, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -117,7 +118,11 @@ export default function Login() {
 
                 {/* Hjälptext */}
                 <p className="text-xs text-surface-500 dark:text-surface-400 mt-6 text-center">
-                    Saknar du inloggningsuppgifter? Kontakta din förening.
+                    Saknar du inloggningsuppgifter?{' '}
+                    <Link to="/apply" className="link">
+                        Ansök om åtkomst här
+                    </Link>
+                    .
                 </p>
             </div>
         </div>

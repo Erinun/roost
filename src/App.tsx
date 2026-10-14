@@ -44,6 +44,7 @@ const WorkspaceActivities = lazy(() => import('./pages/associations/tabs/Workspa
 const WorkspaceNews = lazy(() => import('./pages/associations/tabs/WorkspaceNews'));
 const WorkspacePosts = lazy(() => import('./pages/associations/tabs/WorkspacePosts'));
 const WorkspaceQuestions = lazy(() => import('./pages/associations/tabs/WorkspaceQuestions'));
+const WorkspaceApplications = lazy(() => import('./pages/associations/tabs/WorkspaceApplications'));
 const WorkspaceSettings = lazy(() => import('./pages/associations/tabs/WorkspaceSettings'));
 
 // Lazy-loaded Auth Pages
@@ -170,6 +171,7 @@ function App() {
                             <Route path="news" element={<WorkspaceNews />} />
                             <Route path="posts" element={<WorkspacePosts />} />
                             <Route path="questions" element={<WorkspaceQuestions />} />
+                            <Route path="applications" element={<WorkspaceApplications />} />
                             <Route path="settings" element={<WorkspaceSettings />} />
                         </Route>
                         <Route path="/post/:postId" element={<PostDetail />} />

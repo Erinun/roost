@@ -30,6 +30,7 @@ const TABS: WorkspaceTab[] = [
     { label: 'Nyheter', path: 'news' },
     { label: 'Kommunikation', path: 'posts' },
     { label: 'Frågor', path: 'questions' },
+    { label: 'Ansökningar', path: 'applications', adminOnly: true },
     { label: 'Inställningar', path: 'settings', adminOnly: true },
 ];
 

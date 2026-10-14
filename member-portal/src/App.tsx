@@ -4,6 +4,7 @@ import { useAssociation } from '@/contexts/AssociationContext';
 import Layout from '@/components/Layout';
 import LoadingScreen from '@/components/LoadingScreen';
 import Login from '@/pages/Login';
+import Apply from '@/pages/Apply';
 import Home from '@/pages/Home';
 import News from '@/pages/News';
 import NewsDetail from '@/pages/NewsDetail';
@@ -18,6 +19,16 @@ function LoginGate() {
     if (user) return <Navigate to="/" replace />;
 
     return <Login />;
+}
+
+/** /apply: ansökan om åtkomst — inloggad användare skickas till startsidan. */
+function ApplyGate() {
+    const { user, loading } = useAuth();
+
+    if (loading) return <LoadingScreen />;
+    if (user) return <Navigate to="/" replace />;
+
+    return <Apply />;
 }
 
 /** Skyddat skal: kräver inloggning och minst ett föreningsmedlemskap. */
@@ -62,6 +73,7 @@ export default function App() {
     return (
         <Routes>
             <Route path="/login" element={<LoginGate />} />
+            <Route path="/apply" element={<ApplyGate />} />
             <Route element={<ProtectedShell />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/news" element={<News />} />

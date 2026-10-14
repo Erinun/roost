@@ -74,3 +74,18 @@ export interface MemberQuestionReply {
     created_at: string;
     author?: ProfileSummary;
 }
+
+/** Rad från RPC:n list_associations_public (publik dropdown i ansökan). */
+export interface PublicAssociation {
+    id: string;
+    name: string;
+}
+
+/** Payload för insert i member_applications (ansökan om åtkomst). */
+export interface MemberApplicationInsert {
+    association_id: string;
+    name: string;
+    email: string;
+    phone: string | null;
+    message: string | null;
+}

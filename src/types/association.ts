@@ -160,3 +160,18 @@ export interface MemberQuestionReply {
     created_at: string;
     author?: ProfileSummary;
 }
+
+export type MemberApplicationStatus = 'pending' | 'approved' | 'rejected';
+
+export interface MemberApplication {
+    id: string;
+    association_id: string;
+    name: string;
+    email: string;
+    phone: string | null;
+    message: string | null;
+    status: MemberApplicationStatus;
+    created_at: string;
+    handled_at: string | null;
+    handled_by: string | null;
+}

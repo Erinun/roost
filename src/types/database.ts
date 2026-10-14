@@ -1659,6 +1659,60 @@ export type Database = {
           },
         ]
       }
+      member_applications: {
+        Row: {
+          association_id: string
+          created_at: string
+          email: string
+          handled_at: string | null
+          handled_by: string | null
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          status: string
+        }
+        Insert: {
+          association_id: string
+          created_at?: string
+          email: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          status?: string
+        }
+        Update: {
+          association_id?: string
+          created_at?: string
+          email?: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_applications_association_id_fkey"
+            columns: ["association_id"]
+            isOneToOne: false
+            referencedRelation: "associations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "member_applications_handled_by_fkey"
+            columns: ["handled_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       member_news: {
         Row: {
           association_id: string
@@ -2969,6 +3023,13 @@ export type Database = {
       is_platform_moderator: { Args: { user_uuid: string }; Returns: boolean }
       is_superadmin: { Args: { user_uuid: string }; Returns: boolean }
       is_user_banned: { Args: { user_uuid: string }; Returns: boolean }
+      list_associations_public: {
+        Args: never
+        Returns: {
+          id: string
+          name: string
+        }[]
+      }
       mark_all_notifications_read: { Args: never; Returns: undefined }
       mark_message_read: { Args: { p_message_id: string }; Returns: undefined }
       mark_notification_email_sent: {
@@ -3077,6 +3138,7 @@ export type Database = {
         | "group_join"
         | "event_reminder"
         | "comment_reply"
+        | "member_application"
       point_action_type:
         | "post_created"
         | "comment_created"
@@ -3263,6 +3325,7 @@ export const Constants = {
         "group_join",
         "event_reminder",
         "comment_reply",
+        "member_application",
       ],
       point_action_type: [
         "post_created",
@@ -3294,114 +3357,3 @@ export const Constants = {
     },
   },
 } as const
-
-// Helper type exports for convenient access to table types
-export type Profile = Tables<'profiles'>;
-export type Group = Tables<'groups'>;
-export type GroupMember = Tables<'group_members'>;
-export type Post = Tables<'posts'>;
-export type Comment = Tables<'comments'>;
-export type Follow = Tables<'follows'>;
-export type Reaction = Tables<'reactions'>;
-export type Message = Tables<'messages'>;
-export type Notification = Tables<'notifications'>;
-export type Asset = Tables<'assets'>;
-export type Recording = Tables<'recordings'>;
-export type Module = Tables<'modules'>;
-export type LessonCompletion = Tables<'lesson_completions'>;
-export type Event = Tables<'events'>;
-export type EventAttendee = Tables<'event_attendees'>;
-export type LeaderboardEntry = Tables<'leaderboard_entries'>;
-export type PointActivity = Tables<'point_activities'>;
-export type Category = Tables<'categories'>;
-export type Showcase = Tables<'showcases'>;
-export type ShowcaseImage = Tables<'showcase_images'>;
-export type ShowcaseTag = Tables<'showcase_tags'>;
-export type ShowcaseTagRelation = Tables<'showcase_tag_relations'>;
-export type ShowcaseReview = Tables<'showcase_reviews'>;
-export type FeatureRequest = Tables<'feature_requests'>;
-export type FeatureRequestComment = Tables<'feature_request_comments'>;
-export type ActivationProduct = Tables<'activation_products'>;
-export type ActivationRequest = Tables<'activation_requests'>;
-export type ActivationUsage = Tables<'activation_usage'>;
-export type SiteSetting = Tables<'site_settings'>;
-export type StripeSubscription = Tables<'stripe_subscriptions'>;
-
-// Insert type helpers
-export type ProfileInsert = TablesInsert<'profiles'>;
-export type GroupInsert = TablesInsert<'groups'>;
-export type GroupMemberInsert = TablesInsert<'group_members'>;
-export type PostInsert = TablesInsert<'posts'>;
-export type CommentInsert = TablesInsert<'comments'>;
-export type FollowInsert = TablesInsert<'follows'>;
-export type ReactionInsert = TablesInsert<'reactions'>;
-export type MessageInsert = TablesInsert<'messages'>;
-export type NotificationInsert = TablesInsert<'notifications'>;
-export type AssetInsert = TablesInsert<'assets'>;
-export type RecordingInsert = TablesInsert<'recordings'>;
-export type ModuleInsert = TablesInsert<'modules'>;
-export type LessonCompletionInsert = TablesInsert<'lesson_completions'>;
-export type EventInsert = TablesInsert<'events'>;
-export type EventAttendeeInsert = TablesInsert<'event_attendees'>;
-export type LeaderboardEntryInsert = TablesInsert<'leaderboard_entries'>;
-export type PointActivityInsert = TablesInsert<'point_activities'>;
-export type CategoryInsert = TablesInsert<'categories'>;
-export type ShowcaseInsert = TablesInsert<'showcases'>;
-export type ShowcaseImageInsert = TablesInsert<'showcase_images'>;
-export type ShowcaseTagInsert = TablesInsert<'showcase_tags'>;
-export type ShowcaseTagRelationInsert = TablesInsert<'showcase_tag_relations'>;
-export type ShowcaseReviewInsert = TablesInsert<'showcase_reviews'>;
-export type FeatureRequestInsert = TablesInsert<'feature_requests'>;
-export type FeatureRequestCommentInsert = TablesInsert<'feature_request_comments'>;
-export type ActivationProductInsert = TablesInsert<'activation_products'>;
-export type ActivationRequestInsert = TablesInsert<'activation_requests'>;
-export type ActivationUsageInsert = TablesInsert<'activation_usage'>;
-
-// Update type helpers
-export type ProfileUpdate = TablesUpdate<'profiles'>;
-export type GroupUpdate = TablesUpdate<'groups'>;
-export type GroupMemberUpdate = TablesUpdate<'group_members'>;
-export type PostUpdate = TablesUpdate<'posts'>;
-export type CommentUpdate = TablesUpdate<'comments'>;
-export type FollowUpdate = TablesUpdate<'follows'>;
-export type ReactionUpdate = TablesUpdate<'reactions'>;
-export type MessageUpdate = TablesUpdate<'messages'>;
-export type NotificationUpdate = TablesUpdate<'notifications'>;
-export type AssetUpdate = TablesUpdate<'assets'>;
-export type RecordingUpdate = TablesUpdate<'recordings'>;
-export type ModuleUpdate = TablesUpdate<'modules'>;
-export type EventUpdate = TablesUpdate<'events'>;
-export type EventAttendeeUpdate = TablesUpdate<'event_attendees'>;
-export type LeaderboardEntryUpdate = TablesUpdate<'leaderboard_entries'>;
-export type PointActivityUpdate = TablesUpdate<'point_activities'>;
-export type CategoryUpdate = TablesUpdate<'categories'>;
-export type ShowcaseUpdate = TablesUpdate<'showcases'>;
-export type ShowcaseImageUpdate = TablesUpdate<'showcase_images'>;
-export type ShowcaseTagUpdate = TablesUpdate<'showcase_tags'>;
-export type ShowcaseTagRelationUpdate = TablesUpdate<'showcase_tag_relations'>;
-export type ShowcaseReviewUpdate = TablesUpdate<'showcase_reviews'>;
-export type FeatureRequestUpdate = TablesUpdate<'feature_requests'>;
-export type FeatureRequestCommentUpdate = TablesUpdate<'feature_request_comments'>;
-export type ActivationProductUpdate = TablesUpdate<'activation_products'>;
-export type ActivationRequestUpdate = TablesUpdate<'activation_requests'>;
-export type ActivationUsageUpdate = TablesUpdate<'activation_usage'>;
-
-// Enum type helpers
-export type UserRole = Enums<'user_role'>;
-export type GroupRole = Enums<'group_role'>;
-export type ReactionType = Enums<'reaction_type'>;
-export type RSVPStatus = Enums<'rsvp_status'>;
-export type PointActionType = Enums<'point_action_type'>;
-export type AssetType = Enums<'asset_type'>;
-export type NotificationType = Enums<'notification_type'>;
-export type ReactableType = Enums<'reactable_type'>;
-export type ShowcaseStatus = Enums<'showcase_status'>;
-export type ShowcaseCategory = Enums<'showcase_category'>;
-export type ActivationRequestStatus = Enums<'activation_request_status'>;
-export type FeatureRequestStatus = Enums<'feature_request_status'>;
-export type FeatureRequestType = Enums<'feature_request_type'>;
-
-// TEXT columns constrained via CHECK in the database (see schema.sql), not Postgres enums
-export type SubscriptionStatus = 'active' | 'cancelled' | 'expired' | 'failed_payment' | 'refunded' | 'past_due' | 'trialing';
-export type WebhookEventType = 'sale' | 'refund' | 'dispute' | 'dispute_won' | 'subscription_updated' | 'subscription_ended' | 'subscription_restarted' | 'cancellation' | 'unknown';
-export type MembershipType = 'free' | 'premium';
