@@ -24,20 +24,20 @@ export default function LandingFaq() {
                 </h2>
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(min(420px,100%),1fr))] gap-5">
                     <FaqItem
-                        question="Kostar det något att gå med?"
-                        answer="Nej. Du skapar ett gratiskonto och kan uppgradera till premium när du vill."
+                        question="Vem kan få åtkomst?"
+                        answer="I första hand ledamöter i lokalavdelningarnas ledningsgrupper. Medlemmar kan också ansöka om åtkomst till medlemsportalen."
                     />
                     <FaqItem
-                        question="Vad ingår i premium?"
-                        answer="Allt i gratisversionen, plus direktmeddelanden med medlemmar, åtkomst till premiumgrupper, prioriterad support och exklusivt innehåll och evenemang."
+                        question="Hur får jag inloggningsuppgifter?"
+                        answer="Du fyller i ansökningsformuläret. När vi har godkänt ansökan får du dina uppgifter via mejl."
                     />
                     <FaqItem
-                        question="Vad kostar premium?"
-                        answer="[PRIS OCH BETALNINGSPERIOD]"
+                        question="Vad ser medlemmarna?"
+                        answer="Medlemmarna ser sin egen lokalavdelning och det som delas med dem. Ledningsgruppernas gemensamma utrymme är bara för ledningsgrupperna."
                     />
                     <FaqItem
-                        question="Kan jag säga upp premium när jag vill?"
-                        answer="[UPPSÄGNINGSVILLKOR]"
+                        question="Kostar det något?"
+                        answer="[Fyll i enligt ert beslut]"
                     />
                 </div>
             </div>

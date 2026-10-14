@@ -14,14 +14,14 @@ export default function LandingCta() {
         >
             <div className="mx-auto flex max-w-[880px] flex-col items-center gap-5 px-6 pb-[88px] pt-[152px] text-center">
                 <h2 className="text-[clamp(34px,4.4vw,56px)] font-extrabold uppercase leading-[1.05] tracking-[0.01em] text-white [text-wrap:balance]">
-                    Gå med i communityt i dag
+                    Samla ledningsgrupperna på en plats
                 </h2>
-                <p className="text-xl">Skapa ett gratiskonto och uppgradera när du vill.</p>
+                <p className="text-xl">Ansök om åtkomst i dag.</p>
                 <Link
                     to="/signup"
                     className="mt-2 inline-flex min-h-[52px] items-center rounded-[10px] bg-white px-8 text-lg font-bold text-primary-600 no-underline hover:bg-primary-50"
                 >
-                    Skapa konto gratis
+                    Ansök om åtkomst
                 </Link>
                 <p>
                     Har du redan ett konto?{' '}

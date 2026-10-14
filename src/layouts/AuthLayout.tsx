@@ -1,13 +1,12 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { Crown, CheckCircle } from 'lucide-react';
+import { Users, CheckCircle } from 'lucide-react';
 import { APP_CONFIG } from '@/config/app';
 
-const premiumBenefits = [
-    { text: 'Allt i gratisversionen, plus:', bold: true },
-    { text: 'Direktmeddelanden med medlemmar', bold: false },
-    { text: 'Åtkomst till premiumgrupper', bold: false },
-    { text: 'Prioriterad support', bold: false },
-    { text: 'Exklusivt innehåll och evenemang', bold: false },
+const platformBenefits = [
+    'Hitta andra lokalavdelningar och deras ledningsgrupper',
+    'Dela material, mallar, beslut och evenemangsidéer',
+    'Samordna arbetet i gemensamma grupper',
+    'Skicka direktmeddelanden till andra ledningsgrupper',
 ];
 
 export default function AuthLayout() {
@@ -32,7 +31,7 @@ export default function AuthLayout() {
     // Delad layout för inloggning och registrering
     return (
         <div className="min-h-screen flex flex-col lg:flex-row">
-            {/* Vänsterpanel – hero på blå övertoning med premiumkort */}
+            {/* Vänsterpanel – hero på blå övertoning med plattformskort */}
             <div className="hidden lg:flex lg:w-[48%] xl:w-[45%] bg-gradient-blue p-8 xl:p-12 flex-col relative overflow-hidden">
                 <div className="relative z-10 max-w-md mx-auto w-full flex flex-col flex-1">
                     {/* Logotyp och namn – överst, på gradientens mörkblå del */}
@@ -40,47 +39,41 @@ export default function AuthLayout() {
                         <img src="/logo-square-sm.png" alt={APP_CONFIG.name} className="w-12 h-12 rounded-xl" />
                         <div className="text-center">
                             <h2 className="text-xl text-white uppercase tracking-wide leading-tight">{APP_CONFIG.name}</h2>
-                            <p className="text-sm font-semibold text-white">Community-plattform</p>
+                            <p className="text-sm font-semibold text-white">För Aktiespararnas lokalavdelningar</p>
                         </div>
                     </div>
 
-                    {/* Premiumkort – solid yta ovanpå övertoningen */}
+                    {/* Plattformskort – solid yta ovanpå övertoningen */}
                     <div className="card bg-white dark:bg-surface-900 rounded-2xl p-6 xl:p-8 my-auto">
                         <div className="text-center mb-5">
-                            <div className="w-14 h-14 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4">
-                                <Crown className="w-7 h-7 text-surface-900" />
+                            <div className="w-14 h-14 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Users className="w-7 h-7 text-primary-600 dark:text-primary-300" />
                             </div>
-                            <h3 className="text-2xl text-surface-900 dark:text-surface-50">Skaffa Premium</h3>
+                            <h3 className="text-2xl text-surface-900 dark:text-surface-50">
+                                En gemensam plats för alla ledningsgrupper
+                            </h3>
                             <p className="text-surface-600 dark:text-surface-300 text-sm mt-1">
-                                Lås upp alla funktioner och exklusivt innehåll
+                                Dela information, hitta varandra och samordna arbetet
                             </p>
                         </div>
 
                         {/* Fördelar */}
                         <div className="mb-6">
                             <ul className="space-y-3">
-                                {premiumBenefits.map((benefit, index) => (
+                                {platformBenefits.map((benefit, index) => (
                                     <li key={index} className="flex items-center gap-2.5 text-sm text-surface-700 dark:text-surface-200">
                                         <CheckCircle className="w-5 h-5 text-primary-600 dark:text-primary-300 flex-shrink-0" />
-                                        <span className={benefit.bold ? 'font-bold' : ''}>{benefit.text}</span>
+                                        <span>{benefit}</span>
                                     </li>
                                 ))}
                             </ul>
                         </div>
 
-                        {/* Uppmaning – premiumgult med mörk text */}
-                        <div className="w-full min-h-11 py-3 text-sm flex items-center justify-center gap-2 bg-brand-yellow text-surface-900 font-bold rounded-xl">
-                            <span>Skaffa premiummedlemskap</span>
-                        </div>
-
-                        <p className="text-xs text-surface-600 dark:text-surface-300 text-center mt-3">
-                            Skapa ett konto för att komma igång. Uppgradera till premium när du vill.
-                        </p>
-
                         {/* Notis */}
-                        <div className="mt-4 p-3 bg-surface-50 dark:bg-surface-800 rounded-lg">
+                        <div className="p-3 bg-surface-50 dark:bg-surface-800 rounded-lg">
                             <p className="text-xs text-surface-600 dark:text-surface-300 text-center">
-                                Inte säker än? Börja med ett gratiskonto och uppgradera när du vill!
+                                Har du ingen inloggning? Ansök om åtkomst så får du dina
+                                inloggningsuppgifter via mejl när ansökan är godkänd.
                             </p>
                         </div>
                     </div>

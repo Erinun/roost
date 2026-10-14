@@ -15,22 +15,23 @@ export default function LandingHero() {
             <div className="mx-auto flex max-w-[1160px] flex-wrap items-center gap-x-16 gap-y-12 px-6 pb-[136px] pt-[88px]">
                 <div className="flex min-w-0 flex-[1_1_440px] flex-col items-start gap-6">
                     <div className="text-sm font-bold uppercase tracking-[0.12em] text-primary-100">
-                        Community-plattform
+                        För Aktiespararnas lokalavdelningar
                     </div>
                     <h1 className="text-[clamp(40px,5.6vw,76px)] font-extrabold uppercase leading-[1.02] tracking-[0.01em] text-white [text-wrap:balance]">
-                        Där sparare blir klokare tillsammans
+                        En gemensam plats för alla ledningsgrupper
                     </h1>
                     <p className="max-w-[520px] text-xl leading-[1.5]">
-                        I Roost diskuterar du aktier och sparande med andra medlemmar, går med i
-                        grupper som matchar dina intressen och hänger med på evenemang. Kom igång
-                        med ett gratiskonto och uppgradera när du vill.
+                        I Föreningsnavet delar ledningsgrupperna i Aktiespararnas lokalavdelningar
+                        information, hittar varandra och samordnar arbetet, oavsett var i landet ni
+                        finns. Här tar ni del av varandras erfarenheter i stället för att börja om
+                        från början.
                     </p>
                     <div className="flex flex-wrap gap-3 pt-2">
                         <Link
                             to="/signup"
                             className="inline-flex min-h-[52px] items-center rounded-[10px] bg-white px-7 text-lg font-bold text-primary-600 no-underline hover:bg-primary-50"
                         >
-                            Skapa konto gratis
+                            Ansök om åtkomst
                         </Link>
                         <Link
                             to="/login"
@@ -64,7 +65,7 @@ export default function LandingHero() {
                                 [SKÄRMBILD FRÅN PLATTFORMEN]
                             </div>
                             <div className="text-[15px]">
-                                Till exempel flödet eller en grupp i inloggat läge
+                                Så ser flödet ut för ledningsgrupperna.
                             </div>
                         </div>
                     </div>
